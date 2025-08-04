@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gems of Nature</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background-color: #fffaf5;
+      color: #333;
+    }
+    header {
+      background-color: #2d2a32;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5em;
+      margin: 0;
+    }
+    nav {
+      margin-top: 10px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+    section {
+      padding: 50px 20px;
+      text-align: center;
+    }
+    .about, .shop, .contact {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    footer {
+      background-color: #2d2a32;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Gems of Nature</h1>
+    <nav>
+      <a href="#about">About Us</a>
+      <a href="#shop">Shop</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section id="about" class="about">
+    <h2>About Us</h2>
+    <p>
+      Welcome to Gems of Nature – your trusted source for authentic, handpicked gemstones and crystals. We believe in the natural power of the earth to bring beauty, healing, and energy into your life. Whether you're a collector, healer, or simply drawn to the elegance of nature, we have something special for you.
+    </p>
+  </section>
+
+  <section id="shop" class="shop">
+    <h2>Our Collection</h2>
+    <p>
+      Discover our wide range of natural gemstones, healing crystals, and rare minerals sourced ethically from around the world. Shop coming soon!
+    </p>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Contact Us</h2>
+    <p>Email: paramjeet19@gmail.com</p>
+    <p>Instagram: @gemsofnature</p>
+    <p>Phone/WhatsApp: +91-XXXXXXXXXX</p>
+  </section>
+
+  <footer>
+    &copy; 2025 Gems of Nature. All rights reserved.
+  </footer>
+</body>
+</html>
