@@ -8,91 +8,59 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white text-gray-800 font-sans">
+
   <!-- Navbar -->
-  <header>
-  <nav class="navbar">
-    <div class="logo">Gems of Nature</div>
-    <ul class="nav-links">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#gemstones">Gemstones</a></li>
-      <li><a href="#bracelets">Bracelets</a></li>
-      <li><a href="#healing-crystals">Healing Crystals</a></li>
-      <li><a href="#raw-stones">Raw Stones</a></li>
-      <li><a href="#about">About Us</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <div class="cart-icon">🛒</div>
-  </nav>
-</header>
+  <header class="bg-emerald-900 text-white shadow-md">
+    <nav class="container mx-auto flex justify-between items-center py-4 px-6">
+      <div class="text-2xl font-bold">Gems of Nature</div>
+      <ul class="hidden md:flex gap-6 text-lg">
+        <li><a href="#home" class="hover:text-emerald-300 transition">Home</a></li>
+        <li><a href="#collections" class="hover:text-emerald-300 transition">Collections</a></li>
+        <li><a href="#about" class="hover:text-emerald-300 transition">About Us</a></li>
+        <li><a href="#contact" class="hover:text-emerald-300 transition">Contact</a></li>
+      </ul>
+      <div class="text-2xl cursor-pointer md:hidden">☰</div>
+      <div class="text-2xl cursor-pointer ml-4">🛒</div>
+    </nav>
+  </header>
 
   <!-- Hero Section -->
-  <section class="relative bg-cover bg-center h-[80vh]" style="background-image: url('https://images.unsplash.com/photo-1603052875695-0a6777b2b5cf?auto=format&fit=crop&w=1600&q=80');">
+  <section id="home" class="relative bg-cover bg-center h-[80vh]" style="background-image: url('https://images.unsplash.com/photo-1603052875695-0a6777b2b5cf?auto=format&fit=crop&w=1600&q=80');">
     <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white px-6">
-      <h2 class="text-4xl md:text-5xl font-bold mb-4">Discover the Healing Power of Nature</h2>
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Discover the Healing Power of Nature</h1>
       <p class="text-lg md:text-xl mb-6 max-w-2xl">Pure gemstones and crystals that balance your energy, attract prosperity, and enhance your inner glow.</p>
-      <a href="shop.html" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition">Explore Shop</a>
+      <a href="#collections" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition">Explore Collections</a>
     </div>
   </section>
 
-  <!-- Categories -->
-  <section class="py-16 bg-gray-50">
-    <div class="container mx-auto text-center px-6">
-      <h3 class="text-3xl font-bold text-gray-800 mb-8">Our Collections</h3>
-      <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-6">
-        <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1599647144343-9f1f6f2cfcd0?auto=format&fit=crop&w=600&q=80" alt="Healing Stones" class="w-full h-48 object-cover" />
-          <h4 class="py-4 text-xl font-semibold text-emerald-700">Healing Stones</h4>
-        </div>
-        <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1620912189861-3052f5dcded0?auto=format&fit=crop&w=600&q=80" alt="Zodiac Gems" class="w-full h-48 object-cover" />
-          <h4 class="py-4 text-xl font-semibold text-emerald-700">Zodiac Gems</h4>
-        </div>
-        <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1617033248577-32a52e8f58cb?auto=format&fit=crop&w=600&q=80" alt="Bracelets" class="w-full h-48 object-cover" />
-          <h4 class="py-4 text-xl font-semibold text-emerald-700">Bracelets</h4>
-        </div>
-        <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden">
-          <img src="https://images.unsplash.com/photo
-<main>
-  <!-- Hero section -->
-  <section class="relative bg-gradient-to-b from-emerald-900 to-black text-white text-center py-24">
-    <h1 class="text-5xl font-bold mb-4">Gems of Nature</h1>
-    <p class="text-lg mb-8">Pure, Powerful, and Blessed Stones for Health, Wealth & Harmony</p>
-    <a href="#collections" class="bg-emerald-500 hover:bg-emerald-400 text-black px-6 py-3 rounded-lg font-semibold">
-      Explore Collections
-    </a>
-  </section>
-          
-<!-- Footer -->
-<footer class="bg-emerald-900 text-white py-12">
-  <div class="container mx-auto px-6 grid md:grid-cols-3 gap-8">
-    <div>
-      <h3 class="text-xl font-bold mb-4">Gems of Nature</h3>
-      <p>Authentic gemstones, bracelets, and healing crystals sourced ethically from sacred lands.</p>
-    </div>
-    <div>
-      <h3 class="text-xl font-bold mb-4">Quick Links</h3>
-      <ul>
-        <li><a href="#collections" class="hover:text-emerald-300">Collections</a></li>
-        <li><a href="#about" class="hover:text-emerald-300">About Us</a></li>
-        <li><a href="#contact" class="hover:text-emerald-300">Contact</a></li>
-      </ul>
-    </div>
-    <div>
-      <h3 class="text-xl font-bold mb-4">Contact</h3>
-      <p>Email: info@gemsofnature.shop</p>
-      <p>Phone: +91 12345 67890</p>
-      <div class="flex gap-4 mt-2">
-        <a href="#" class="hover:text-emerald-300">🌐</a>
-        <a href="#" class="hover:text-emerald-300">📘</a>
-        <a href="#" class="hover:text-emerald-300">📸</a>
+  <!-- Collections / Categories Section -->
+  <section id="collections" class="py-20 bg-gray-50 text-center">
+    <h2 class="text-3xl font-bold mb-10 text-gray-800">Our Collections</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-8">
+      <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition">
+        <img src="https://images.unsplash.com/photo-1599647144343-9f1f6f2cfcd0?auto=format&fit=crop&w=600&q=80" alt="Healing Stones" class="rounded-xl mb-4 mx-auto w-40 h-40 object-cover">
+        <h3 class="text-xl font-semibold mb-2 text-emerald-700">Healing Stones</h3>
+        <p>Crystals like Amethyst & Rose Quartz to cleanse your energy.</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition">
+        <img src="https://images.unsplash.com/photo-1620912189861-3052f5dcded0?auto=format&fit=crop&w=600&q=80" alt="Zodiac Gems" class="rounded-xl mb-4 mx-auto w-40 h-40 object-cover">
+        <h3 class="text-xl font-semibold mb-2 text-emerald-700">Zodiac Gems</h3>
+        <p>Find your birthstone and attract cosmic harmony aligned to your sign.</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition">
+        <img src="https://images.unsplash.com/photo-1617033248577-32a52e8f58cb?auto=format&fit=crop&w=600&q=80" alt="Bracelets" class="rounded-xl mb-4 mx-auto w-40 h-40 object-cover">
+        <h3 class="text-xl font-semibold mb-2 text-emerald-700">Bracelets</h3>
+        <p>Handcrafted gemstone bracelets for energy balance & style.</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition">
+        <img src="https://images.unsplash.com/photo-1583270436884-d0c5c79a15b4?auto=format&fit=crop&w=600&q=80" alt="Raw Stones" class="rounded-xl mb-4 mx-auto w-40 h-40 object-cover">
+        <h3 class="text-xl font-semibold mb-2 text-emerald-700">Raw Stones</h3>
+        <p>Natural, unpolished stones charged with divine vibrations.</p>
       </div>
     </div>
-  </div>
-  <p class="text-center mt-8 text-sm">&copy; 2025 Gems of Nature. All rights reserved.</p>
-</footer>
+  </section>
 
-  <!-- About section -->
+  <!-- About Section -->
   <section id="about" class="py-16 px-6 text-center bg-white text-gray-800">
     <h2 class="text-3xl font-bold mb-6">About Gems of Nature</h2>
     <p class="max-w-2xl mx-auto">
@@ -101,25 +69,34 @@
     </p>
   </section>
 
-  <!-- Collections -->
-  <section id="collections" class="py-20 bg-gray-100 text-center">
-    <h2 class="text-3xl font-bold mb-10">Our Collections</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-8">
-      <div class="bg-white p-6 rounded-2xl shadow-lg">
-        <img src="images/amethyst.jpg" alt="Amethyst" class="rounded-xl mb-4 mx-auto w-40 h-40 object-cover">
-        <h3 class="text-xl font-semibold mb-2">Healing Crystals</h3>
-        <p>Amethyst, Rose Quartz, and more to cleanse your aura and mind.</p>
+  <!-- Footer -->
+  <footer id="contact" class="bg-emerald-900 text-white py-12 mt-12">
+    <div class="container mx-auto px-6 grid md:grid-cols-3 gap-8">
+      <div>
+        <h3 class="text-xl font-bold mb-4">Gems of Nature</h3>
+        <p>Authentic gemstones, bracelets, and healing crystals sourced ethically from sacred lands.</p>
       </div>
-      <div class="bg-white p-6 rounded-2xl shadow-lg">
-        <img src="images/emerald.jpg" alt="Emerald" class="rounded-xl mb-4 mx-auto w-40 h-40 object-cover">
-        <h3 class="text-xl font-semibold mb-2">Zodiac Gemstones</h3>
-        <p>Find your birthstone and attract cosmic harmony aligned to your sign.</p>
+      <div>
+        <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+        <ul>
+          <li><a href="#collections" class="hover:text-emerald-300 transition">Collections</a></li>
+          <li><a href="#about" class="hover:text-emerald-300 transition">About Us</a></li>
+          <li><a href="#contact" class="hover:text-emerald-300 transition">Contact</a></li>
+        </ul>
       </div>
-      <div class="bg-white p-6 rounded-2xl shadow-lg">
-        <img src="images/lapis.jpg" alt="Lapis Lazuli" class="rounded-xl mb-4 mx-auto w-40 h-40 object-cover">
-        <h3 class="text-xl font-semibold mb-2">Spiritual Stones</h3>
-        <p>Sacred gems for meditation, manifestation, and energy rituals.</p>
+      <div>
+        <h3 class="text-xl font-bold mb-4">Contact</h3>
+        <p>Email: info@gemsofnature.shop</p>
+        <p>Phone: +91 12345 67890</p>
+        <div class="flex gap-4 mt-2">
+          <a href="#" class="hover:text-emerald-300 transition">🌐</a>
+          <a href="#" class="hover:text-emerald-300 transition">📘</a>
+          <a href="#" class="hover:text-emerald-300 transition">📸</a>
+        </div>
       </div>
     </div>
-  </section>
-</main>
+    <p class="text-center mt-8 text-sm">&copy; 2025 Gems of Nature. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
