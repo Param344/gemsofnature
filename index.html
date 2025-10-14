@@ -131,4 +131,37 @@
   <!-- Contact Section -->
   <section id="contact" class="py-20 px-6 bg-gray-50 text-gray-800">
     <div class="container mx-auto max-w-3xl text-center">
-      <h2 class="text-4xl
+      <h2 class="text-4xl font-bold mb-8 text-emerald-700">Contact Us</h2>
+      <p class="mb-6 text-gray-700">Have questions or want to place an order? Reach us via the form below or our contact details.</p>
+      
+      <!-- Contact Info -->
+      <div class="mb-12 grid gap-6 md:grid-cols-3 text-left">
+        <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
+          <h3 class="text-xl font-semibold mb-2 text-emerald-700">Address</h3>
+          <p>Maharshi Valmiki Marg,<br>Karkarduma Complex,<br>Anand Vihar, Delhi, 110092</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
+          <h3 class="text-xl font-semibold mb-2 text-emerald-700">Phone</h3>
+          <p>+91 78274 91801</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
+          <h3 class="text-xl font-semibold mb-2 text-emerald-700">Email</h3>
+          <p>Paramjeet.singh@outlook.in</p>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <form class="grid gap-6 text-left bg-white p-8 rounded-2xl shadow-lg">
+        <div>
+          <label class="block mb-2 font-semibold" for="name">Name</label>
+          <input type="text" id="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600" placeholder="Your Name" required>
+        </div>
+        <div>
+          <label class="block mb-2 font-semibold" for="email">Email</label>
+          <input type="email" id="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600" placeholder="Your Email" required>
+        </div>
+        <div>
+          <label class="block mb-2 font-semibold" for="message">Message</label>
+          <textarea id="message" rows="5" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600" placeholder="Your Message" required></textarea>
+        </div>
+        <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white
