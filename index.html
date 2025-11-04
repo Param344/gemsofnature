@@ -25,14 +25,13 @@
 <!-- Navbar -->
 <header class="bg-emerald-900 text-white shadow-md">
   <nav class="container mx-auto flex justify-between items-center py-4 px-6">
-    
     <!-- Logo -->
     <a href="index.html" class="flex items-center">
       <img src="images/logo.png" alt="Gems of Nature Logo" class="h-12 w-auto">
       <span class="ml-2 text-2xl font-bold font-montserrat">Gems of Nature</span>
     </a>
 
-    <!-- Navigation links (desktop) -->
+    <!-- Navigation links (center) -->
     <ul class="hidden md:flex gap-6 text-lg font-montserrat">
       <li><a href="index.html" class="hover:text-emerald-300 transition">Home</a></li>
       <li><a href="about.html" class="hover:text-emerald-300 transition">About Us</a></li>
@@ -40,12 +39,33 @@
       <li><a href="contact.html" class="hover:text-emerald-300 transition">Contact</a></li>
     </ul>
 
-    <!-- Mobile menu & cart -->
-    <div class="flex items-center">
+    <!-- Right side: Buy Online + Cart -->
+    <div class="flex items-center gap-4">
+      <!-- Buy Online button -->
+      <a href="shop-ecom.html" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold hidden md:inline-block">
+        Buy Online
+      </a>
+
+      <!-- Cart icon -->
+      <a href="shop-ecom.html" class="text-2xl cursor-pointer" aria-label="Open Cart">🛒</a>
+
+      <!-- Mobile menu button -->
       <button id="mobile-menu-button" class="text-2xl md:hidden focus:outline-none">☰</button>
-      <div class="text-2xl cursor-pointer ml-4">🛒</div>
     </div>
   </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden bg-emerald-800 md:hidden">
+    <ul class="flex flex-col gap-4 px-6 py-4 font-montserrat">
+      <li><a href="index.html" class="block hover:text-emerald-300 transition">Home</a></li>
+      <li><a href="about.html" class="block hover:text-emerald-300 transition">About Us</a></li>
+      <li><a href="shop.html" class="block hover:text-emerald-300 transition">Collections</a></li>
+      <li><a href="shop-ecom.html" class="block hover:text-emerald-300 transition font-semibold">Buy Online</a></li>
+      <li><a href="contact.html" class="block hover:text-emerald-300 transition">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
 
   <!-- Mobile Menu (hidden by default) -->
   <div id="mobile-menu" class="hidden bg-emerald-800 md:hidden">
@@ -53,10 +73,12 @@
       <li><a href="index.html" class="block hover:text-emerald-300 transition">Home</a></li>
       <li><a href="about.html" class="block hover:text-emerald-300 transition">About Us</a></li>
       <li><a href="shop.html" class="block hover:text-emerald-300 transition">Collections</a></li>
+      <li><a href="shop-ecom.html" class="block hover:text-emerald-300 transition font-semibold">Buy Online</a></li>
       <li><a href="contact.html" class="block hover:text-emerald-300 transition">Contact</a></li>
     </ul>
   </div>
 </header>
+
 
 <!-- Mobile menu toggle script -->
 <script>
