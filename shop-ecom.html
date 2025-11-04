@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Shop — Gems of Nature (Ecommerce)</title>
+  <meta name="description" content="Buy natural gemstones & healing crystals — Gems of Nature. Secure checkout, COD & online payment (simulated)." />
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-montserrat">
+
+<!-- NAVBAR (use your existing navbar if desired) -->
+<header class="bg-emerald-900 text-white shadow-md">
+  <nav class="container mx-auto flex justify-between items-center py-4 px-6">
+    <a href="index.html" class="flex items-center">
+      <img src="images/logo.png" alt="Gems of Nature Logo" class="h-12 w-auto">
+      <span class="ml-2 text-2xl font-bold">Gems of Nature</span>
+    </a>
+    <div class="hidden md:flex gap-6 text-lg">
+      <a href="index.html" class="hover:text-emerald-300">Home</a>
+      <a href="about.html" class="hover:text-emerald-300">About</a>
+      <a href="shop.html" class="hover:text-emerald-300 font-semibold text-emerald-300">Shop</a>
+      <a href="contact.html" class="hover:text-emerald-300">Contact</a>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <button id="cart-button" class="relative">
+        <span class="text-2xl">🛒</span>
+        <span id="cart-count" class="absolute -top-2 -right-3 bg-red-500 text-white rounded-full text-xs px-2">0</span>
+      </button>
+      <button id="mobile-menu-button" class="text-2xl md:hidden">☰</button>
+    </div>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="relative bg-cover bg-center h-64" style="background-image:url('images/hero-bg.jpg')">
+  <div class="absolute inset-0 bg-black/45 flex items-center justify-center">
+    <div class="text-center text-white px-6">
+      <h1 class="text-3xl md:text-4xl font-bold">Shop & Buy — Gems of Nature</h1>
+      <p class="mt-2">Authentic gemstones for healing, jewellery & collectors.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="container mx-auto px-6 py-12">
+  <div class="flex flex-col lg:flex-row gap-8">
+
+    <!-- PRODUCTS GRID -->
+    <section class="flex-1">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-semibold text-emerald-800">All Products</h2>
+        <div class="flex items-center gap-3">
+          <label class="text-sm text-gray-600">Currency</label>
+          <select id="currency-select" class="border rounded px-2 py-1 text-sm">
+            <option value="INR">₹ INR</option>
+            <option value="USD">$ USD</option>
+            <option value="EUR">€ EUR</option>
+            <option value="GBP">£ GBP</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="products-grid" class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-6">
+        <!-- JS will populate products here -->
+      </div>
+    </section>
+
+    <!-- CART SIDEBAR -->
+    <aside id="cart-sidebar" class="w-full lg:w-96 bg-white rounded-2xl shadow-md p-6">
+      <h3 class="text-xl font-semibold text-emerald-700">Your Cart</h3>
+      <div id="cart-items" class="mt-4 space-y-4 max-h-72 overflow-auto">
+        <!-- cart items injected here -->
+      </div>
+
+      <div class="mt-4 border-t pt-4">
+        <div class="flex justify-between text-gray-700">
+          <span class="font-medium">Subtotal</span>
+          <span id="cart-subtotal">₹0</span>
+        </div>
+        <div class="flex justify-between text-gray-700 mt-2">
+          <span class="font-medium">Shipping</span>
+          <span id="cart-shipping">₹50</span>
+        </div>
+        <div class="flex justify-between text-lg font-semibold text-emerald-800 mt-3">
+          <span>Total</span>
+          <span id="cart-total">₹0</span>
+        </div>
+
+        <button id="checkout-button" class="mt-4 w-full bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg">Checkout</button>
+        <button id="clear-cart" class="mt-3 w-full border border-gray-200 text-gray-700 px-4 py-2 rounded-lg">Clear Cart</button>
+      </div>
+    </aside>
+
+  </div>
+</main>
+
+<!-- CHECKOUT MODAL -->
+<div id="checkout-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50">
+  <div class="bg-white rounded-xl w-full max-w-2xl overflow-auto max-h-[90vh]">
+    <div class="p-6">
+      <div class="flex justify-between items-center">
+        <h3 class="text-xl font-semibold">Checkout</h3>
+        <button id="close-checkout" class="text-gray-500 hover:text-gray-700">✕</button>
+      </div>
+
+      <form id="checkout-form" class="mt-4 grid grid-cols-1 gap-4">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <input name="name" required placeholder="Full name" class="border rounded px-3 py-2" />
+          <input name="email" type="email" required placeholder="Email address" class="border rounded px-3 py-2" />
+        </div>
+        <input name="phone" placeholder="Phone number" class="border rounded px-3 py-2" />
+        <textarea name="address" placeholder="Shipping address" class="border rounded px-3 py-2" rows="3"></textarea>
+
+        <div>
+          <label class="block mb-2 font-medium">Payment method</label>
+          <div class="flex gap-3">
+            <label class="flex items-center gap-2">
+              <input type="radio" name="payment_method" value="cod" checked />
+              Cash on Delivery
+            </label>
+            <label class="flex items-center gap-2">
+              <input type="radio" name="payment_method" value="online" />
+              Pay Online (simulated)
+            </label>
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <h4 class="font-medium">Order Summary</h4>
+          <div id="checkout-summary" class="mt-2 text-sm text-gray-700"></div>
+        </div>
+
+        <div class="flex gap-3 mt-4">
+          <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg">Place Order</button>
+          <button type="button" id="cancel-checkout" class="border px-4 py-2 rounded-lg">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ORDER CONFIRMATION (simulated) -->
+<div id="order-confirm" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50">
+  <div class="bg-white rounded-xl p-6 max-w-lg text-center">
+    <h3 class="text-2xl font-semibold text-emerald-700">Thank you!</h3>
+    <p id="order-message" class="mt-3 text-gray-700">Your order has been placed.</p>
+    <button id="close-order" class="mt-6 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg">Close</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-emerald-900 text-white py-6 mt-12">
+  <div class="container mx-auto flex flex-col md:flex-row justify-between items-center px-6">
+    <p class="text-sm md:text-left">&copy; 2025 All rights reserved | Gems of Nature</p>
+    <div class="flex gap-4 mt-4 md:mt-0">
+      <a href="#" class="hover:text-emerald-300">Facebook</a>
+      <a href="#" class="hover:text-emerald-300">Instagram</a>
+      <a href="#" class="hover:text-emerald-300">Twitter</a>
+    </div>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script>
+/*
+  PRODUCTS DATA
+  - price in INR. Set price: null to hide price and disable Add to Cart (show "Contact for price").
+  - image: place image files into /images/ folder or change the path here.
+  - You can edit prices here or fetch products from server later.
+*/
+const products = [
+  { id: 'p1', name: 'Amethyst Flower', image:'images/amethyst-flower.jpg', price: Math.round(20.5 * 83) },
+  { id: 'p2', name: 'Citrine Bud', image:'images/citrine-bud.jpg', price: Math.round(13 * 83) },
+  { id: 'p3', name: 'Blue Fluorite', image:'images/blue-fluorite.jpg', price: Math.round(18 * 83) },
+  { id: 'p4', name: 'Green Aventurine', image:'images/green-aventurine.jpg', price: Math.round(6 * 83) },
+  { id: 'p5', name: 'Dream Amethyst', image:'images/dream-amethyst.jpg', price: Math.round(4.5 * 83) },
+  { id: 'p6', name: 'Green Fluorite', image:'images/green-fluorite.jpg', price: Math.round(2.5 * 83) },
+  { id: 'p7', name: 'Purple Fluorite', image:'images/purple-fluorite.jpg', price: Math.round(3 * 83) },
+  { id: 'p8', name: 'Tiger Eye', image:'images/tiger-eye.jpg', price: Math.round(8 * 83) },
+  { id: 'p9', name: 'Epidote Quartz', image:'images/epidote-quartz.jpg', price: Math.round(6.5 * 83) },
+  { id: 'p10', name: 'Black Tourmaline', image:'images/black-tourmaline.jpg', price: Math.round(9.5 * 83) },
+  { id: 'p11', name: 'Red Jasper', image:'images/red-jasper.jpg', price: Math.round(6.5 * 83) },
+  { id: 'p12', name: 'Rose Quartz', image:'images/rose-quartz.jpg', price: Math.round(6 * 83) },
+  { id: 'p13', name: 'Obsidian', image:'images/obsidian.jpg', price: Math.round(3.5 * 83) },
+  { id: 'p14', name: 'Sun Stone', image:'images/sun-stone.jpg', price: Math.round(5.5 * 83) },
+  { id: 'p15', name: 'Labradorite', image:'images/labradorite.jpg', price: Math.round(13 * 83) },
+  { id: 'p16', name: 'Moon Stone', image:'images/moon-stone.jpg', price: Math.round(9 * 83) },
+  { id: 'p17', name: 'Clear Quartz', image:'images/clear-quartz.jpg', price: Math.round(4 * 83) },
+  { id: 'p18', name: 'Egg Yolk Stones', image:'images/egg-yolk-stones.jpg', price: Math.round(8 * 83) },
+  { id: 'p19', name: 'Brazilian Topaz', image:'images/brazilian-topaz.jpg', price: Math.round(11.5 * 83) },
+  { id: 'p20', name: 'Citrine', image:'images/citrine.jpg', price: Math.round(9 * 83) },
+  { id: 'p21', name: 'Amethyst', image:'images/amethyst.jpg', price: Math.round(7.5 * 83) },
+  { id: 'p22', name: 'Opal', image:'images/opal.jpg', price: Math.round(7 * 83) },
+  { id: 'p23', name: 'Red Opal', image:'images/red-opal.jpg', price: Math.round(7 * 83) },
+  { id: 'p24', name: 'Black', image:'images/black.jpg', price: Math.round(4 * 83) }
+];
+
+// Simple cart structure: { productId: qty }
+let cart = JSON.parse(localStorage.getItem('gon_cart') || '{}');
+const SHIPPING = 50; // flat shipping in INR (editable)
+const currencyRates = { INR: 1, USD: 1/83 };
+
+/* --- helpers --- */
+function formatCurrency(value, currency='INR') {
+  if (value == null) return '';
+  if (currency === 'INR') return '₹' + Number(value).toLocaleString('en-IN');
+  return '$' + (value * currencyRates['USD']).toFixed(2);
+}
+
+function saveCart() {
+  localStorage.setItem('gon_cart', JSON.stringify(cart));
+  renderCart();
+}
+
+/* --- render products --- */
+const productsGrid = document.getElementById('products-grid');
+const currencySelect = document.getElementById('currency-select');
+let currentCurrency = currencySelect.value;
+
+function renderProducts() {
+  productsGrid.innerHTML = '';
+  products.forEach(p => {
+    const hasPrice = (typeof p.price === 'number' && !isNaN(p.price));
+    const priceText = hasPrice ? formatCurrency(p.price, currentCurrency) : '<span class="text-sm text-gray-500">Contact for price</span>';
+    const disabled = hasPrice ? '' : 'opacity-60 pointer-events-none';
+    const card = document.createElement('div');
+    card.className = `bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden ${disabled}`;
+    card.innerHTML = `
+      <img src="${p.image}" onerror="this.src='images/placeholder.jpg'" alt="${p.name}" class="w-full h-56 object-cover" />
+      <div class="p-6">
+        <h3 class="text-lg font-semibold text-emerald-700">${p.name}</h3>
+        <p class="text-gray-600 mt-2 text-sm">Hand-selected natural gemstone.</p>
+        <div class="mt-4 flex items-center justify-between gap-3">
+          <div class="font-semibold text-gray-800">${priceText}</div>
+          <button class="add-to-cart bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg" data-id="${p.id}" ${hasPrice ? '' : 'disabled'}>
+            Add
+          </button>
+        </div>
+      </div>
+    `;
+    productsGrid.appendChild(card);
+  });
+}
+
+/* --- cart rendering --- */
+const cartItemsEl = document.getElementById('cart-items');
+const cartCountEl = document.getElementById('cart-count');
+const cartSubtotalEl = document.getElementById('cart-subtotal');
+const cartShippingEl = document.getElementById('cart-shipping');
+const cartTotalEl = document.getElementById('cart-total');
+
+function renderCart() {
+  // items
+  cartItemsEl.innerHTML = '';
+  const entries = Object.entries(cart);
+  let subtotal = 0;
+  if (entries.length === 0) {
+    cartItemsEl.innerHTML = '<p class="text-gray-600">Your cart is empty.</p>';
+    cartCountEl.textContent = '0';
+  } else {
+    entries.forEach(([pid, qty]) => {
+      const prod = products.find(p => p.id === pid);
+      const price = prod.price || 0;
+      subtotal += price * qty;
+      const item = document.createElement('div');
+      item.className = 'flex items-center gap-3';
+      item.innerHTML = `
+        <img src="${prod.image}" onerror="this.src='images/placeholder.jpg'" alt="${prod.name}" class="h-14 w-14 object-cover rounded" />
+        <div class="flex-1">
+          <div class="text-sm font-medium">${prod.name}</div>
+          <div class="text-xs text-gray-500">${formatCurrency(prod.price, currentCurrency)} × ${qty}</div>
+          <div class="mt-1 flex items-center gap-2">
+            <button class="decrease text-sm px-2 py-1 border rounded" data-id="${pid}">-</button>
+            <span class="text-sm">${qty}</span>
+            <button class="increase text-sm px-2 py-1 border rounded" data-id="${pid}">+</button>
+            <button class="remove ml-3 text-xs text-red-600" data-id="${pid}">Remove</button>
+          </div>
+        </div>
+        <div class="text-sm font-semibold">${formatCurrency(prod.price * qty, currentCurrency)}</div>
+      `;
+      cartItemsEl.appendChild(item);
+    });
+    const totalQty = entries.reduce((s,[,q])=>s+q,0);
+    cartCountEl.textContent = totalQty;
+  }
+
+  cartSubtotalEl.textContent = formatCurrency(subtotal, currentCurrency);
+  cartShippingEl.textContent = entries.length ? formatCurrency(SHIPPING, currentCurrency) : formatCurrency(0, currentCurrency);
+  cartTotalEl.textContent = formatCurrency(entries.length ? subtotal + SHIPPING : 0, currentCurrency);
+
+  // attach event listeners
+  document.querySelectorAll('.increase').forEach(btn => {
+    btn.onclick = () => {
+      const id = btn.dataset.id;
+      cart[id] = (cart[id] || 0) + 1;
+      saveCart();
+    };
+  });
+  document.querySelectorAll('.decrease').forEach(btn => {
+    btn.onclick = () => {
+      const id = btn.dataset.id;
+      cart[id] = Math.max(0, (cart[id] || 0) - 1);
+      if (cart[id] === 0) delete cart[id];
+      saveCart();
+    };
+  });
+  document.querySelectorAll('.remove').forEach(btn => {
+    btn.onclick = () => {
+      const id = btn.dataset.id;
+      delete cart[id];
+      saveCart();
+    };
+  });
+}
+
+/* --- add to cart actions --- */
+productsGrid.addEventListener('click', (e) => {
+  if (e.target.matches('.add-to-cart')) {
+    const id = e.target.dataset.id;
+    cart[id] = (cart[id] || 0) + 1;
+    saveCart();
+    // small animation
+    e.target.textContent = 'Added';
+    setTimeout(()=> e.target.textContent = 'Add', 900);
+  }
+});
+
+/* --- checkout logic --- */
+const cartButton = document.getElementById('cart-button');
+const checkoutButton = document.getElementById('checkout-button');
+const checkoutModal = document.getElementById('checkout-modal');
+const checkoutForm = document.getElementById('checkout-form');
+const checkoutSummary = document.getElementById('checkout-summary');
+const closeCheckout = document.getElementById('close-checkout');
+const cancelCheckout = document.getElementById('cancel-checkout');
+const orderConfirm = document.getElementById('order-confirm');
+const orderMessage = document.getElementById('order-message');
+
+cartButton.addEventListener('click', () => {
+  // scroll to cart or toggle cart visibility — we highlight cart
+  document.getElementById('cart-sidebar').scrollIntoView({ behavior: 'smooth' });
+});
+
+checkoutButton.addEventListener('click', () => {
+  if (Object.keys(cart).length === 0) {
+    alert('Your cart is empty.');
+    return;
+  }
+  // populate summary
+  renderCheckoutSummary();
+  checkoutModal.classList.remove('hidden');
+  checkoutModal.classList.add('flex');
+});
+
+closeCheckout.addEventListener('click', () => {
+  checkoutModal.classList.add('hidden');
+  checkoutModal.classList.remove('flex');
+});
+cancelCheckout.addEventListener('click', () => {
+  checkoutModal.classList.add('hidden');
+  checkoutModal.classList.remove('flex');
+});
+
+function renderCheckoutSummary() {
+  if (Object.keys(cart).length === 0) {
+    checkoutSummary.innerHTML = '<div class="text-gray-600">No items.</div>';
+    return;
+  }
+  let html = '<ul class="divide-y text-sm">';
+  let subtotal = 0;
+  for (const [pid, qty] of Object.entries(cart)) {
+    const prod = products.find(p => p.id === pid);
+    const line = prod.price * qty;
+    subtotal += line;
+    html += `<li class="py-2 flex justify-between"><span>${prod.name} × ${qty}</span><span>${formatCurrency(line, currentCurrency)}</span></li>`;
+  }
+  html += `</ul><div class="mt-3 flex justify-between"><strong>Subtotal</strong><strong>${formatCurrency(subtotal, currentCurrency)}</strong></div>`;
+  html += `<div class="flex justify-between mt-1"><span>Shipping</span><span>${formatCurrency(SHIPPING, currentCurrency)}</span></div>`;
+  html += `<div class="flex justify-between mt-2 text-lg font-semibold text-emerald-800"><span>Total</span><span>${formatCurrency(subtotal + SHIPPING, currentCurrency)}</span></div>`;
+  checkoutSummary.innerHTML = html;
+}
+
+/* Submit checkout (simulated) */
+checkoutForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const formData = new FormData(checkoutForm);
+  const name = formData.get('name') || 'Customer';
+  const email = formData.get('email') || '';
+  const phone = formData.get('phone') || '';
+  const address = formData.get('address') || '';
+  const payment = formData.get('payment_method') || 'cod';
+  // Build order data
+  const order = {
+    orderId: 'GON' + Date.now(),
+    name, email, phone, address, payment,
+    items: Object.entries(cart).map(([pid, qty]) => {
+      const prod = products.find(p => p.id === pid);
+      return { id: pid, name: prod.name, qty, unitPrice: prod.price, lineTotal: prod.price * qty };
+    }),
+    subtotal: Object.entries(cart).reduce((s,[pid,qty]) => s + (products.find(p=>p.id===pid).price * qty), 0),
+    shipping: Object.keys(cart).length ? SHIPPING : 0,
+    total: 0
+  };
+  order.total = order.subtotal + order.shipping;
+
+  // Simulate payment processing if online
+  if (payment === 'online') {
+    // Simulated delay & result — replace this with real payment integration
+    checkoutForm.querySelector('button[type="submit"]').disabled = true;
+    checkoutForm.querySelector('button[type="submit"]').textContent = 'Processing...';
+    setTimeout(() => {
+      finalizeOrder(order);
+    }, 1200);
+  } else {
+    finalizeOrder(order);
+  }
+});
+
+function finalizeOrder(order) {
+  // Here you would send `order` to your server / email / database.
+  // For demo, we simply show confirmation and clear cart.
+  orderMessage.innerHTML = `
+    <div>Order <strong>${order.orderId}</strong> received.</div>
+    <div class="mt-2 text-sm text-gray-600">Name: ${order.name}<br/>Total: ${formatCurrency(order.total, currentCurrency)}</div>
+  `;
+  orderConfirm.classList.remove('hidden');
+  orderConfirm.classList.add('flex');
+  checkoutModal.classList.add('hidden');
+  checkoutModal.classList.remove('flex');
+
+  // reset
+  cart = {};
+  saveCart();
+  checkoutForm.reset();
+  checkoutForm.querySelector('button[type="submit"]').disabled = false;
+  checkoutForm.querySelector('button[type="submit"]').textContent = 'Place Order';
+}
+
+/* Order confirm close */
+document.getElementById('close-order').addEventListener('click', () => {
+  orderConfirm.classList.add('hidden');
+  orderConfirm.classList.remove('flex');
+});
+
+/* clear cart */
+document.getElementById('clear-cart').addEventListener('click', () => {
+  if (!confirm('Clear cart?')) return;
+  cart = {};
+  saveCart();
+});
+
+/* currency change */
+currencySelect.addEventListener('change', (e) => {
+  currentCurrency = e.target.value;
+  renderProducts();
+  renderCart();
+});
+
+/* initial render */
+renderProducts();
+renderCart();
+</script>
+</body>
+</html>
