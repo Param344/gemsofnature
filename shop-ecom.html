@@ -5,41 +5,67 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Shop — Gems of Nature (Ecommerce)</title>
   <meta name="description" content="Buy natural gemstones & healing crystals — Gems of Nature. Secure checkout, COD & online payment (simulated)." />
+
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
     .font-montserrat { font-family: 'Montserrat', sans-serif; }
+
+    /* Fade-in animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-montserrat">
 
-<!-- NAVBAR (use your existing navbar if desired) -->
+<!-- NAVBAR -->
 <header class="bg-emerald-900 text-white shadow-md">
   <nav class="container mx-auto flex justify-between items-center py-4 px-6">
     <a href="index.html" class="flex items-center">
-      <img src="images/logo.png" alt="Gems of Nature Logo" class="h-12 w-auto">
+      <img src="images/logo.png" alt="Gems of Nature Logo" class="h-12 w-auto" loading="lazy">
       <span class="ml-2 text-2xl font-bold">Gems of Nature</span>
     </a>
     <div class="hidden md:flex gap-6 text-lg">
       <a href="index.html" class="hover:text-emerald-300">Home</a>
       <a href="about.html" class="hover:text-emerald-300">About</a>
-      <a href="shop.html" class="hover:text-emerald-300 font-semibold text-emerald-300">Shop</a>
+      <a href="shop.html" class="hover:text-emerald-300">Collections</a>
       <a href="contact.html" class="hover:text-emerald-300">Contact</a>
     </div>
 
     <div class="flex items-center gap-4">
+      <a href="shop-ecom.html" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold hidden md:inline-block">Buy Online</a>
+
       <button id="cart-button" class="relative">
         <span class="text-2xl">🛒</span>
         <span id="cart-count" class="absolute -top-2 -right-3 bg-red-500 text-white rounded-full text-xs px-2">0</span>
       </button>
+
       <button id="mobile-menu-button" class="text-2xl md:hidden">☰</button>
     </div>
   </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden bg-emerald-800 md:hidden">
+    <ul class="flex flex-col gap-4 px-6 py-4 font-montserrat">
+      <li><a href="index.html" class="block hover:text-emerald-300 transition">Home</a></li>
+      <li><a href="about.html" class="block hover:text-emerald-300 transition">About</a></li>
+      <li><a href="shop.html" class="block hover:text-emerald-300 transition">Collections</a></li>
+      <li><a href="shop-ecom.html" class="block hover:text-emerald-300 transition font-semibold">Buy Online</a></li>
+      <li><a href="contact.html" class="block hover:text-emerald-300 transition">Contact</a></li>
+    </ul>
+  </div>
 </header>
 
 <!-- HERO -->
-<section class="relative bg-cover bg-center h-64" style="background-image:url('images/hero-bg.jpg')">
+<section class="relative bg-cover bg-center h-64 fade-in" style="background-image:url('images/hero-bg.jpg')">
   <div class="absolute inset-0 bg-black/45 flex items-center justify-center">
     <div class="text-center text-white px-6">
       <h1 class="text-3xl md:text-4xl font-bold">Shop & Buy — Gems of Nature</h1>
@@ -49,7 +75,7 @@
 </section>
 
 <!-- MAIN -->
-<main class="container mx-auto px-6 py-12">
+<main class="container mx-auto px-6 py-12 fade-in">
   <div class="flex flex-col lg:flex-row gap-8">
 
     <!-- PRODUCTS GRID -->
@@ -68,7 +94,7 @@
       </div>
 
       <div id="products-grid" class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-6">
-        <!-- JS will populate products here -->
+        <!-- JS populates products -->
       </div>
     </section>
 
@@ -155,25 +181,50 @@
   </div>
 </div>
 
-<!-- FOOTER -->
-<footer class="bg-emerald-900 text-white py-6 mt-12">
-  <div class="container mx-auto flex flex-col md:flex-row justify-between items-center px-6">
-    <p class="text-sm md:text-left">&copy; 2025 All rights reserved | Gems of Nature</p>
-    <div class="flex gap-4 mt-4 md:mt-0">
-      <a href="#" class="hover:text-emerald-300">Facebook</a>
-      <a href="#" class="hover:text-emerald-300">Instagram</a>
-      <a href="#" class="hover:text-emerald-300">Twitter</a>
+<!-- Newsletter (small, above footer) -->
+<section class="bg-emerald-50 py-8">
+  <div class="container mx-auto px-6 text-center max-w-2xl">
+    <h3 class="text-lg font-semibold text-emerald-800 mb-2">Join our mailing list</h3>
+    <p class="text-sm text-gray-600 mb-4">Receive updates and special offers.</p>
+    <form action="https://formspree.io/f/yourFormID" method="POST" class="flex items-center gap-2 justify-center">
+      <input type="email" name="email" placeholder="Your email" required class="px-3 py-2 border rounded-lg w-64" />
+      <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-emerald-900 text-white py-6">
+  <div class="max-w-7xl mx-auto footer-inner flex flex-col md:flex-row items-center justify-between gap-4 px-6">
+    <div class="text-sm footer-nowrap">&copy; 2025 Gems of Nature. All rights reserved.</div>
+
+    <div class="text-sm text-emerald-100 font-medium text-center">100% natural stones • Secure payments • Fast shipping • 7-day returns</div>
+
+    <div class="inline-flex gap-4 items-center">
+      <a href="https://www.facebook.com" target="_blank" aria-label="Facebook" class="hover:text-emerald-300 transition">
+        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11 9.95V14.89h-2.18v-2.89H11V10.1c0-2.16 1.28-3.36 3.25-3.36.94 0 1.93.17 1.93.17v2.12h-1.09c-1.08 0-1.42.67-1.42 1.36v1.64h2.42l-.39 2.89h-2.03v7.06A10 10 0 0 0 22 12z"/></svg>
+      </a>
+      <a href="https://www.instagram.com" target="_blank" aria-label="Instagram" class="hover:text-emerald-300 transition">
+        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.584.012 4.85.07 1.17.056 1.94.24 2.39.407a4.79 4.79 0 0 1 1.74 1.13 4.79 4.79 0 0 1 1.13 1.74c.167.45.351 1.22.407 2.39.058 1.266.07 1.65.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.94-.407 2.39a4.79 4.79 0 0 1-1.13 1.74 4.79 4.79 0 0 1-1.74 1.13c-.45.167-1.22.351-2.39.407-1.266.058-1.65.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.056-1.94-.24-2.39-.407a4.79 4.79 0 0 1-1.74-1.13 4.79 4.79 0 0 1-1.13-1.74c-.167-.45-.351-1.22-.407-2.39C2.172 15.584 2.16 15.2 2.16 12s.012-3.584.07-4.85c.056-1.17.24-1.94.407-2.39a4.79 4.79 0 0 1 1.13-1.74 4.79 4.79 0 0 1 1.74-1.13c.45-.167 1.22-.351 2.39-.407C8.416 2.172 8.8 2.16 12 2.16zm0-2.16C8.735 0 8.332.014 7.052.072 5.773.13 4.768.312 4.042.556a6.77 6.77 0 0 0-2.45 1.2A6.77 6.77 0 0 0 .393 4.21c-.244.726-.426 1.73-.484 3.008C-.014 8.332 0 8.735 0 12c0 3.265.014 3.668.072 4.948.058 1.278.24 2.282.484 3.008a6.77 6.77 0 0 0 1.2 2.45 6.77 6.77 0 0 0 2.45 1.2c.726.244 1.73.426 3.008.484C8.332 23.986 8.735 24 12 24s3.668-.014 4.948-.072c1.278-.058 2.282-.24 3.008-.484a6.77 6.77 0 0 0 2.45-1.2 6.77 6.77 0 0 0 1.2-2.45c.244-.726.426-1.73.484-3.008.058-1.28.072-1.683.072-4.948s-.014-3.668-.072-4.948c-.058-1.278-.24-2.282-.484-3.008a6.77 6.77 0 0 0-1.2-2.45 6.77 6.77 0 0 0-2.45-1.2c-.726-.244-1.73-.426-3.008-.484C15.668.014 15.265 0 12 0z"/><circle cx="12" cy="12" r="3.6"/></svg>
+      </a>
+      <a href="https://www.twitter.com" target="_blank" aria-label="Twitter" class="hover:text-emerald-300 transition">
+        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M24 4.557a9.94 9.94 0 0 1-2.828.775 4.932 4.932 0 0 0 2.165-2.724 9.864 9.864 0 0 1-3.127 1.195 4.916 4.916 0 0 0-8.384 4.482A13.94 13.94 0 0 1 1.671 3.149 4.916 4.916 0 0 0 3.195 9.723a4.903 4.903 0 0 1-2.229-.616v.062a4.916 4.916 0 0 0 3.946 4.814 4.902 4.902 0 0 1-2.224.084 4.918 4.918 0 0 0 4.588 3.417A9.867 9.867 0 0 1 0 19.54a13.94 13.94 0 0 0 7.548 2.212c9.058 0 14.01-7.514 14.01-14.01 0-.213-.005-.425-.014-.636A10.012 10.012 0 0 0 24 4.557z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com" target="_blank" aria-label="LinkedIn" class="hover:text-emerald-300 transition">
+        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M22.225 0H1.771C.792 0 0 .774 0 1.728v20.543C0 23.226.792 24 1.771 24h20.451C23.208 24 24 23.226 24 22.271V1.728C24 .774 23.208 0 22.225 0zM7.082 20.452H3.539V9h3.543v11.452zM5.31 7.528a2.056 2.056 0 1 1 0-4.112 2.056 2.056 0 0 1 0 4.112zm14.832 12.924h-3.543v-5.555c0-1.324-.026-3.026-1.846-3.026-1.846 0-2.128 1.44-2.128 2.926v5.655h-3.543V9h3.4v1.561h.047c.474-.9 1.63-1.846 3.355-1.846 3.59 0 4.253 2.363 4.253 5.436v6.741z"/></svg>
+      </a>
     </div>
   </div>
 </footer>
+
+</body>
+</html>
+
 
 <!-- SCRIPTS -->
 <script>
 /*
   PRODUCTS DATA
-  - price in INR. Set price: null to hide price and disable Add to Cart (show "Contact for price").
-  - image: place image files into /images/ folder or change the path here.
-  - You can edit prices here or fetch products from server later.
 */
 const products = [
   { id: 'p1', name: 'Amethyst Flower', image:'images/amethyst-flower.jpg', price: Math.round(20.5 * 83) },
@@ -202,16 +253,18 @@ const products = [
   { id: 'p24', name: 'Black', image:'images/black.jpg', price: Math.round(4 * 83) }
 ];
 
-// Simple cart structure: { productId: qty }
 let cart = JSON.parse(localStorage.getItem('gon_cart') || '{}');
-const SHIPPING = 50; // flat shipping in INR (editable)
-const currencyRates = { INR: 1, USD: 1/83 };
+const SHIPPING = 50;
+const currencyRates = { INR: 1, USD: 1/83, EUR: 1/95, GBP: 1/110 };
 
-/* --- helpers --- */
+/* helpers */
 function formatCurrency(value, currency='INR') {
   if (value == null) return '';
   if (currency === 'INR') return '₹' + Number(value).toLocaleString('en-IN');
-  return '$' + (value * currencyRates['USD']).toFixed(2);
+  if (currency === 'USD') return '$' + (value * currencyRates['USD']).toFixed(2);
+  if (currency === 'EUR') return '€' + (value * currencyRates['EUR']).toFixed(2);
+  if (currency === 'GBP') return '£' + (value * currencyRates['GBP']).toFixed(2);
+  return value;
 }
 
 function saveCart() {
@@ -219,7 +272,7 @@ function saveCart() {
   renderCart();
 }
 
-/* --- render products --- */
+/* render products */
 const productsGrid = document.getElementById('products-grid');
 const currencySelect = document.getElementById('currency-select');
 let currentCurrency = currencySelect.value;
@@ -231,9 +284,16 @@ function renderProducts() {
     const priceText = hasPrice ? formatCurrency(p.price, currentCurrency) : '<span class="text-sm text-gray-500">Contact for price</span>';
     const disabled = hasPrice ? '' : 'opacity-60 pointer-events-none';
     const card = document.createElement('div');
-    card.className = `bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden ${disabled}`;
+
+    // --- ADDED: set data-id so this card can be targeted by URL highlight ---
+    card.setAttribute('data-id', p.id);
+
+    card.className = `bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden group ${disabled}`;
     card.innerHTML = `
-      <img src="${p.image}" onerror="this.src='images/placeholder.jpg'" alt="${p.name}" class="w-full h-56 object-cover" />
+      <div class="relative">
+        <img src="${p.image}" onerror="this.src='images/placeholder.jpg'" alt="${p.name}" loading="lazy" class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110" />
+        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300"></div>
+      </div>
       <div class="p-6">
         <h3 class="text-lg font-semibold text-emerald-700">${p.name}</h3>
         <p class="text-gray-600 mt-2 text-sm">Hand-selected natural gemstone.</p>
@@ -249,7 +309,7 @@ function renderProducts() {
   });
 }
 
-/* --- cart rendering --- */
+/* cart rendering */
 const cartItemsEl = document.getElementById('cart-items');
 const cartCountEl = document.getElementById('cart-count');
 const cartSubtotalEl = document.getElementById('cart-subtotal');
@@ -257,7 +317,6 @@ const cartShippingEl = document.getElementById('cart-shipping');
 const cartTotalEl = document.getElementById('cart-total');
 
 function renderCart() {
-  // items
   cartItemsEl.innerHTML = '';
   const entries = Object.entries(cart);
   let subtotal = 0;
@@ -295,7 +354,6 @@ function renderCart() {
   cartShippingEl.textContent = entries.length ? formatCurrency(SHIPPING, currentCurrency) : formatCurrency(0, currentCurrency);
   cartTotalEl.textContent = formatCurrency(entries.length ? subtotal + SHIPPING : 0, currentCurrency);
 
-  // attach event listeners
   document.querySelectorAll('.increase').forEach(btn => {
     btn.onclick = () => {
       const id = btn.dataset.id;
@@ -320,19 +378,18 @@ function renderCart() {
   });
 }
 
-/* --- add to cart actions --- */
+/* add to cart actions */
 productsGrid.addEventListener('click', (e) => {
   if (e.target.matches('.add-to-cart')) {
     const id = e.target.dataset.id;
     cart[id] = (cart[id] || 0) + 1;
     saveCart();
-    // small animation
     e.target.textContent = 'Added';
     setTimeout(()=> e.target.textContent = 'Add', 900);
   }
 });
 
-/* --- checkout logic --- */
+/* checkout logic */
 const cartButton = document.getElementById('cart-button');
 const checkoutButton = document.getElementById('checkout-button');
 const checkoutModal = document.getElementById('checkout-modal');
@@ -344,7 +401,6 @@ const orderConfirm = document.getElementById('order-confirm');
 const orderMessage = document.getElementById('order-message');
 
 cartButton.addEventListener('click', () => {
-  // scroll to cart or toggle cart visibility — we highlight cart
   document.getElementById('cart-sidebar').scrollIntoView({ behavior: 'smooth' });
 });
 
@@ -353,7 +409,6 @@ checkoutButton.addEventListener('click', () => {
     alert('Your cart is empty.');
     return;
   }
-  // populate summary
   renderCheckoutSummary();
   checkoutModal.classList.remove('hidden');
   checkoutModal.classList.add('flex');
@@ -396,7 +451,6 @@ checkoutForm.addEventListener('submit', (e) => {
   const phone = formData.get('phone') || '';
   const address = formData.get('address') || '';
   const payment = formData.get('payment_method') || 'cod';
-  // Build order data
   const order = {
     orderId: 'GON' + Date.now(),
     name, email, phone, address, payment,
@@ -410,9 +464,7 @@ checkoutForm.addEventListener('submit', (e) => {
   };
   order.total = order.subtotal + order.shipping;
 
-  // Simulate payment processing if online
   if (payment === 'online') {
-    // Simulated delay & result — replace this with real payment integration
     checkoutForm.querySelector('button[type="submit"]').disabled = true;
     checkoutForm.querySelector('button[type="submit"]').textContent = 'Processing...';
     setTimeout(() => {
@@ -424,8 +476,6 @@ checkoutForm.addEventListener('submit', (e) => {
 });
 
 function finalizeOrder(order) {
-  // Here you would send `order` to your server / email / database.
-  // For demo, we simply show confirmation and clear cart.
   orderMessage.innerHTML = `
     <div>Order <strong>${order.orderId}</strong> received.</div>
     <div class="mt-2 text-sm text-gray-600">Name: ${order.name}<br/>Total: ${formatCurrency(order.total, currentCurrency)}</div>
@@ -435,7 +485,6 @@ function finalizeOrder(order) {
   checkoutModal.classList.add('hidden');
   checkoutModal.classList.remove('flex');
 
-  // reset
   cart = {};
   saveCart();
   checkoutForm.reset();
@@ -461,11 +510,34 @@ currencySelect.addEventListener('change', (e) => {
   currentCurrency = e.target.value;
   renderProducts();
   renderCart();
+
+  // --- ADDED: re-run highlight if URL had product param (DOM re-rendered) ---
+  const productToOpenAfterCurrency = getQueryParam('product');
+  if (productToOpenAfterCurrency) highlightProduct(productToOpenAfterCurrency);
 });
 
 /* initial render */
 renderProducts();
 renderCart();
+
+/* --- ADDED: URL param / highlight logic --- */
+function getQueryParam(name) {
+  const url = new URL(window.location.href);
+  return url.searchParams.get(name);
+}
+
+function highlightProduct(pid) {
+  const card = document.querySelector(`[data-id="${pid}"]`);
+  if (!card) return;
+  // scroll into view and highlight
+  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  card.classList.add('ring-4', 'ring-emerald-300');
+  setTimeout(()=> card.classList.remove('ring-4','ring-emerald-300'), 3000);
+}
+
+// run on initial load if ?product= is present
+const productToOpen = getQueryParam('product');
+if (productToOpen) highlightProduct(productToOpen);
 </script>
 </body>
 </html>
