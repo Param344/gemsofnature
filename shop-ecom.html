@@ -22,6 +22,10 @@
     @keyframes fadeInUp {
       to { opacity: 1; transform: translateY(0); }
     }
+
+    /* product detail slide-in */
+    .detail-panel { transition: transform .28s ease, opacity .28s ease; transform: translateX(20px); opacity: 0; }
+    .detail-panel.open { transform: translateX(0); opacity: 1; }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-montserrat">
@@ -79,7 +83,7 @@
   <div class="flex flex-col lg:flex-row gap-8">
 
     <!-- PRODUCTS GRID -->
-    <section class="flex-1">
+    <section class="flex-1 relative">
       <div class="flex items-center justify-between mb-6">
         <h2 class="text-2xl font-semibold text-emerald-800">All Products</h2>
         <div class="flex items-center gap-3">
@@ -96,6 +100,31 @@
       <div id="products-grid" class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-6">
         <!-- JS populates products -->
       </div>
+
+      <!-- product detail panel (slides in) -->
+      <aside id="product-detail" class="absolute right-0 top-0 w-full lg:w-1/2 bg-white rounded-2xl shadow-lg p-6 detail-panel z-40 hidden" aria-hidden="true">
+        <div class="flex gap-4">
+          <img id="detail-image" src="images/placeholder.jpg" alt="" class="w-40 h-40 object-cover rounded" />
+          <div class="flex-1">
+            <div class="flex items-start justify-between">
+              <h3 id="detail-title" class="text-xl font-semibold text-emerald-700"></h3>
+              <button id="close-detail" class="text-gray-500">✕</button>
+            </div>
+            <div id="detail-meta" class="text-sm text-gray-600 mt-2"></div>
+            <div id="detail-desc" class="text-sm text-gray-700 mt-3"></div>
+
+            <div id="detail-mukhi" class="mt-3 text-sm text-gray-700"></div>
+            <div id="detail-deity" class="mt-1 text-sm text-gray-700"></div>
+            <div id="detail-mantra" class="mt-1 text-sm text-gray-700"></div>
+
+            <div class="mt-4 flex items-center gap-3">
+              <div id="detail-price" class="text-lg font-semibold text-emerald-800"></div>
+              <button id="detail-add" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+
     </section>
 
     <!-- CART SIDEBAR -->
@@ -153,8 +182,34 @@
             </label>
             <label class="flex items-center gap-2">
               <input type="radio" name="payment_method" value="online" />
-              Pay Online (simulated)
+              Pay Online
             </label>
+          </div>
+        </div>
+
+        <!-- Online payment options area (shown only when Pay Online selected) -->
+        <div id="online-options" class="hidden mt-2 border rounded p-3">
+          <div class="text-sm text-gray-700">Choose an online option:</div>
+          <div class="flex gap-3 mt-2">
+            <label class="flex items-center gap-2">
+              <input type="radio" name="online_option" value="upi" checked /> UPI (gPay / PhonePe / Paytm)
+            </label>
+            <label class="flex items-center gap-2">
+              <input type="radio" name="online_option" value="card" /> Pay by Card (simulated)
+            </label>
+          </div>
+
+          <div id="upi-panel" class="mt-3 hidden">
+            <div class="text-sm text-gray-700">Scan with UPI app or click to open in mobile UPI apps.</div>
+            <div class="mt-2 flex items-center gap-2">
+              <input id="upi-string" class="border rounded px-3 py-2 w-full" readonly />
+              <button id="copy-upi" type="button" class="px-3 py-2 bg-emerald-600 text-white rounded">Copy</button>
+            </div>
+            <div class="mt-2 text-xs text-gray-500">UPI payments require you to complete the transfer in your UPI app. Use the exact amount shown on checkout.</div>
+          </div>
+
+          <div id="card-panel" class="mt-3 hidden">
+            <div class="text-sm text-gray-700">Card payments are simulated — integrate a gateway (Razorpay/PayU) for live card payments.</div>
           </div>
         </div>
 
@@ -201,63 +256,102 @@
     <div class="text-sm text-emerald-100 font-medium text-center">100% natural stones • Secure payments • Fast shipping • 7-day returns</div>
 
     <div class="inline-flex gap-4 items-center">
-      <a href="https://www.facebook.com" target="_blank" aria-label="Facebook" class="hover:text-emerald-300 transition">
-        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11 9.95V14.89h-2.18v-2.89H11V10.1c0-2.16 1.28-3.36 3.25-3.36.94 0 1.93.17 1.93.17v2.12h-1.09c-1.08 0-1.42.67-1.42 1.36v1.64h2.42l-.39 2.89h-2.03v7.06A10 10 0 0 0 22 12z"/></svg>
-      </a>
-      <a href="https://www.instagram.com" target="_blank" aria-label="Instagram" class="hover:text-emerald-300 transition">
-        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.584.012 4.85.07 1.17.056 1.94.24 2.39.407a4.79 4.79 0 0 1 1.74 1.13 4.79 4.79 0 0 1 1.13 1.74c.167.45.351 1.22.407 2.39.058 1.266.07 1.65.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.94-.407 2.39a4.79 4.79 0 0 1-1.13 1.74 4.79 4.79 0 0 1-1.74 1.13c-.45.167-1.22.351-2.39.407-1.266.058-1.65.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.056-1.94-.24-2.39-.407a4.79 4.79 0 0 1-1.74-1.13 4.79 4.79 0 0 1-1.13-1.74c-.167-.45-.351-1.22-.407-2.39C2.172 15.584 2.16 15.2 2.16 12s.012-3.584.07-4.85c.056-1.17.24-1.94.407-2.39a4.79 4.79 0 0 1 1.13-1.74 4.79 4.79 0 0 1 1.74-1.13c.45-.167 1.22-.351 2.39-.407C8.416 2.172 8.8 2.16 12 2.16zm0-2.16C8.735 0 8.332.014 7.052.072 5.773.13 4.768.312 4.042.556a6.77 6.77 0 0 0-2.45 1.2A6.77 6.77 0 0 0 .393 4.21c-.244.726-.426 1.73-.484 3.008C-.014 8.332 0 8.735 0 12c0 3.265.014 3.668.072 4.948.058 1.278.24 2.282.484 3.008a6.77 6.77 0 0 0 1.2 2.45 6.77 6.77 0 0 0 2.45 1.2c.726.244 1.73.426 3.008.484C8.332 23.986 8.735 24 12 24s3.668-.014 4.948-.072c1.278-.058 2.282-.24 3.008-.484a6.77 6.77 0 0 0 2.45-1.2 6.77 6.77 0 0 0 1.2-2.45c.244-.726.426-1.73.484-3.008.058-1.28.072-1.683.072-4.948s-.014-3.668-.072-4.948c-.058-1.278-.24-2.282-.484-3.008a6.77 6.77 0 0 0-1.2-2.45 6.77 6.77 0 0 0-2.45-1.2c-.726-.244-1.73-.426-3.008-.484C15.668.014 15.265 0 12 0z"/><circle cx="12" cy="12" r="3.6"/></svg>
-      </a>
-      <a href="https://www.twitter.com" target="_blank" aria-label="Twitter" class="hover:text-emerald-300 transition">
-        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M24 4.557a9.94 9.94 0 0 1-2.828.775 4.932 4.932 0 0 0 2.165-2.724 9.864 9.864 0 0 1-3.127 1.195 4.916 4.916 0 0 0-8.384 4.482A13.94 13.94 0 0 1 1.671 3.149 4.916 4.916 0 0 0 3.195 9.723a4.903 4.903 0 0 1-2.229-.616v.062a4.916 4.916 0 0 0 3.946 4.814 4.902 4.902 0 0 1-2.224.084 4.918 4.918 0 0 0 4.588 3.417A9.867 9.867 0 0 1 0 19.54a13.94 13.94 0 0 0 7.548 2.212c9.058 0 14.01-7.514 14.01-14.01 0-.213-.005-.425-.014-.636A10.012 10.012 0 0 0 24 4.557z"/></svg>
-      </a>
-      <a href="https://www.linkedin.com" target="_blank" aria-label="LinkedIn" class="hover:text-emerald-300 transition">
-        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M22.225 0H1.771C.792 0 0 .774 0 1.728v20.543C0 23.226.792 24 1.771 24h20.451C23.208 24 24 23.226 24 22.271V1.728C24 .774 23.208 0 22.225 0zM7.082 20.452H3.539V9h3.543v11.452zM5.31 7.528a2.056 2.056 0 1 1 0-4.112 2.056 2.056 0 0 1 0 4.112zm14.832 12.924h-3.543v-5.555c0-1.324-.026-3.026-1.846-3.026-1.846 0-2.128 1.44-2.128 2.926v5.655h-3.543V9h3.4v1.561h.047c.474-.9 1.63-1.846 3.355-1.846 3.59 0 4.253 2.363 4.253 5.436v6.741z"/></svg>
-      </a>
+      <!-- social icons simplified -->
+      <a href="https://www.facebook.com" target="_blank" aria-label="Facebook" class="hover:text-emerald-300 transition">FB</a>
+      <a href="https://www.instagram.com" target="_blank" aria-label="Instagram" class="hover:text-emerald-300 transition">IG</a>
+      <a href="https://www.twitter.com" target="_blank" aria-label="Twitter" class="hover:text-emerald-300 transition">TW</a>
+      <a href="https://www.linkedin.com" target="_blank" aria-label="LinkedIn" class="hover:text-emerald-300 transition">LI</a>
     </div>
   </div>
 </footer>
-
-</body>
-</html>
-
 
 <!-- SCRIPTS -->
 <script>
 /*
   PRODUCTS DATA
+  - includes Rudraksha rd1..rd22 with mukhi, deity, mantra, description.
 */
 const products = [
-  { id: 'p1', name: 'Amethyst Flower', image:'images/amethyst-flower.jpg', price: Math.round(20.5 * 83) },
-  { id: 'p2', name: 'Lapiz Lazuli', image:'images/lapiz-lazuli.jpg', price: Math.round(13 * 83) },
-  { id: 'p3', name: 'Blue Fluorite', image:'images/blue-florite.jpg', price: Math.round(18 * 83) },
-  { id: 'p4', name: 'Green Aventurine', image:'images/green-aventurine.jpg', price: Math.round(6 * 83) },
-  { id: 'p5', name: 'Dream Amethyst', image:'images/dream-amethyst.jpg', price: Math.round(4.5 * 83) },
-  { id: 'p6', name: 'Green Fluorite', image:'images/green-fluorite.jpg', price: Math.round(2.5 * 83) },
-  { id: 'p7', name: 'Purple Fluorite', image:'images/purple-florite.jpg', price: Math.round(3 * 83) },
-  { id: 'p8', name: 'Tiger Eye', image:'images/tiger-eye.jpg', price: Math.round(8 * 83) },
-  { id: 'p9', name: 'Epidote Quartz', image:'images/epidote-quartz.jpg', price: Math.round(6.5 * 83) },
-  { id: 'p10', name: 'Black Tourmaline', image:'images/black-tourmaline.jpg', price: Math.round(9.5 * 83) },
-  { id: 'p11', name: 'Red Jasper', image:'images/red-jasper.jpg', price: Math.round(6.5 * 83) },
-  { id: 'p12', name: 'Rose Quartz', image:'images/rose-quartz.jpg', price: Math.round(6 * 83) },
-  { id: 'p13', name: 'Obsidian', image:'images/obsidian.jpg', price: Math.round(3.5 * 83) },
-  { id: 'p14', name: 'Sun Stone', image:'images/sun-stone.jpg', price: Math.round(5.5 * 83) },
-  { id: 'p15', name: 'Labradorite', image:'images/labradorite.jpg', price: Math.round(13 * 83) },
-  { id: 'p16', name: 'Moon Stone', image:'images/moon-stone.jpg', price: Math.round(9 * 83) },
-  { id: 'p17', name: 'Clear Quartz', image:'images/clear-quartz.jpg', price: Math.round(4 * 83) },
-  { id: 'p18', name: 'Egg Yolk Stones', image:'images/egg-yolk-stones.jpg', price: Math.round(8 * 83) },
-  { id: 'p19', name: 'Brazilian Topaz', image:'images/brazilian-topaz.jpg', price: Math.round(11.5 * 83) },
-  { id: 'p20', name: 'Citrine', image:'images/citrine.jpg', price: Math.round(9 * 83) },
-  { id: 'p21', name: 'Amethyst', image:'images/amethyst.jpg', price: Math.round(7.5 * 83) },
-  { id: 'p22', name: 'Opal', image:'images/opal.jpg', price: Math.round(7 * 83) },
-  { id: 'p23', name: 'Red Opal', image:'images/red-opal.jpg', price: Math.round(7 * 83) },
-  { id: 'p24', name: 'Black', image:'images/black.jpg', price: Math.round(4 * 83) }
+  { id: 'p1', name: 'Amethyst Flower', image:'images/amethyst-flower.jpg', price: Math.round(20.5 * 83), category: 'Quartz' },
+  { id: 'p2', name: 'Lapiz Lazuli', image:'images/lapiz-lazuli.jpg', price: Math.round(13 * 83), category: 'Gemstones' },
+  { id: 'p3', name: 'Blue Fluorite', image:'images/blue-fluorite.jpg', price: Math.round(18 * 83), category: 'Healing Stones' },
+  { id: 'p4', name: 'Green Aventurine', image:'images/green-aventurine.jpg', price: Math.round(6 * 83), category: 'Healing Stones' },
+  { id: 'p5', name: 'Dream Amethyst', image:'images/dream-amethyst.jpg', price: Math.round(4.5 * 83), category: 'Quartz' },
+  { id: 'p6', name: 'Green Fluorite', image:'images/green-fluorite.jpg', price: Math.round(2.5 * 83), category: 'Healing Stones' },
+  { id: 'p7', name: 'Purple Fluorite', image:'images/purple-fluorite.jpg', price: Math.round(3 * 83), category: 'Healing Stones' },
+  { id: 'p8', name: 'Tiger Eye', image:'images/tiger-eye.jpg', price: Math.round(8 * 83), category: 'Gemstones' },
+  { id: 'p9', name: 'Epidote Quartz', image:'images/epidote-quartz.jpg', price: Math.round(6.5 * 83), category: 'Quartz' },
+  { id: 'p10', name: 'Black Tourmaline', image:'images/black-tourmaline.jpg', price: Math.round(9.5 * 83), category: 'Gemstones' },
+  { id: 'p11', name: 'Red Jasper', image:'images/red-jasper.jpg', price: Math.round(6.5 * 83), category: 'Gemstones' },
+  { id: 'p12', name: 'Rose Quartz', image:'images/rose-quartz.jpg', price: Math.round(6 * 83), category: 'Quartz' },
+  { id: 'p13', name: 'Obsidian', image:'images/obsidian.jpg', price: Math.round(3.5 * 83), category: 'Gemstones' },
+  { id: 'p14', name: 'Sun Stone', image:'images/sun-stone.jpg', price: Math.round(5.5 * 83), category: 'Gemstones' },
+  { id: 'p15', name: 'Labradorite', image:'images/labradorite.jpg', price: Math.round(13 * 83), category: 'Gemstones' },
+  { id: 'p16', name: 'Moon Stone', image:'images/moon-stone.jpg', price: Math.round(9 * 83), category: 'Gemstones' },
+  { id: 'p17', name: 'Clear Quartz', image:'images/clear-quartz.jpg', price: Math.round(4 * 83), category: 'Quartz' },
+  { id: 'p18', name: 'Egg Yolk Stones', image:'images/egg-yolk-stones.jpg', price: Math.round(8 * 83), category: 'Raw Stones' },
+  { id: 'p19', name: 'Brazilian Topaz', image:'images/brazilian-topaz.jpg', price: Math.round(11.5 * 83), category: 'Gemstones' },
+  { id: 'p20', name: 'Citrine', image:'images/citrine.jpg', price: Math.round(9 * 83), category: 'Quartz' },
+  { id: 'p21', name: 'Amethyst', image:'images/amethyst.jpg', price: Math.round(7.5 * 83), category: 'Quartz' },
+  { id: 'p22', name: 'Opal', image:'images/opal.jpg', price: Math.round(7 * 83), category: 'Opal' },
+  { id: 'p23', name: 'Red Opal', image:'images/red-opal.jpg', price: Math.round(7 * 83), category: 'Opal' },
+  { id: 'p24', name: 'Black', image:'images/black.jpg', price: Math.round(4 * 83), category: 'Raw Stones' },
+
+  // Rudraksha entries (rd1 - rd22). Prices are placeholders — change as needed.
+  { id:'rd1', name:'1 Mukhi Rudraksha (Ek Mukhi)', image:'images/rudraksha-1.jpg', price: 45000, category:'Rudraksha',
+    mukhi:1, deity:'Shiva (Rudra)', mantra:'Om Hreem Namah', description:'Rare and powerful. Used for highest spiritual attainment, deep meditation and siddhis.' },
+  { id:'rd2', name:'2 Mukhi Rudraksha', image:'images/rudraksha-2.jpg', price: 1499, category:'Rudraksha',
+    mukhi:2, deity:'Ardhanarishvara', mantra:'Om Namah', description:'Symbolises harmony and unity; benefits relationships and partnership energy.' },
+  { id:'rd3', name:'3 Mukhi Rudraksha', image:'images/rudraksha-3.jpg', price: 899, category:'Rudraksha',
+    mukhi:3, deity:'Agni', mantra:'Om Agnaye Namah', description:'Enhances courage, willpower, purification of past karmas.' },
+  { id:'rd4', name:'4 Mukhi Rudraksha', image:'images/rudraksha-4.jpg', price: 799, category:'Rudraksha',
+    mukhi:4, deity:'Brahma', mantra:'Om Brahmane Namah', description:'Supports creativity, learning and intellectual growth.' },
+  { id:'rd5', name:'5 Mukhi Rudraksha', image:'images/rudraksha-5.jpg', price: 899, category:'Rudraksha',
+    mukhi:5, deity:'Shiva', mantra:'Om Namah Shivaya', description:'Most common — promotes health, concentration and general protection.' },
+  { id:'rd6', name:'6 Mukhi Rudraksha', image:'images/rudraksha-6.jpg', price: 1299, category:'Rudraksha',
+    mukhi:6, deity:'Kartikeya/Skanda', mantra:'Om Karthikeyaya Namah', description:'Assists discipline, stability and karmic management.' },
+  { id:'rd7', name:'7 Mukhi Rudraksha', image:'images/rudraksha-7.jpg', price: 1599, category:'Rudraksha',
+    mukhi:7, deity:'Lakshmi', mantra:'Om Shreem Namah', description:'Supports prosperity, confidence and leadership.' },
+  { id:'rd8', name:'8 Mukhi Rudraksha', image:'images/rudraksha-8.jpg', price: 1699, category:'Rudraksha',
+    mukhi:8, deity:'Ganesha', mantra:'Om Gam Ganapataye Namah', description:'Removes obstacles; supports success and new beginnings.' },
+  { id:'rd9', name:'9 Mukhi Rudraksha', image:'images/rudraksha-9.jpg', price: 3999, category:'Rudraksha',
+    mukhi:9, deity:'Surya', mantra:'Om Suryaya Namah', description:'Increases leadership, authority and vitality.' },
+  { id:'rd10', name:'10 Mukhi Rudraksha', image:'images/rudraksha-10.jpg', price: 2499, category:'Rudraksha',
+    mukhi:10, deity:'Vishnu', mantra:'Om Namo Narayanaya', description:'Supports spiritual discipline and inner strength.' },
+  { id:'rd11', name:'11 Mukhi Rudraksha', image:'images/rudraksha-11.jpg', price: 3499, category:'Rudraksha',
+    mukhi:11, deity:'Hanuman', mantra:'Om Hanumate Namah', description:'Supports spiritual insight, wisdom and intuitive faculties.' },
+  { id:'rd12', name:'12 Mukhi Rudraksha', image:'images/rudraksha-12.jpg', price: 3999, category:'Rudraksha',
+    mukhi:12, deity:'Varuna', mantra:'Om Varunaya Namah', description:'Helps with spiritual evolution and deeper meditation.' },
+  { id:'rd13', name:'13 Mukhi Rudraksha', image:'images/rudraksha-13.jpg', price: 4500, category:'Rudraksha',
+    mukhi:13, deity:'Indra', mantra:'Om Indraya Namah', description:'Supports mastery over senses and focused sadhana.' },
+  { id:'rd14', name:'14 Mukhi Rudraksha', image:'images/rudraksha-14.jpg', price: 5500, category:'Rudraksha',
+    mukhi:14, deity:'Shiva (higher aspect)', mantra:'Om Hreem Namah', description:'Connected to higher guidance; stabilizes mind in advanced sadhana.' },
+  { id:'rd15', name:'15 Mukhi Rudraksha', image:'images/rudraksha-15.jpg', price: 4999, category:'Rudraksha',
+    mukhi:15, deity:'Dharma', mantra:'Om Dharmaya Namah', description:'Harmonises energies for family, community and responsibility.' },
+  { id:'rd16', name:'16 Mukhi Rudraksha', image:'images/rudraksha-16.jpg', price: 5200, category:'Rudraksha',
+    mukhi:16, deity:'Kuber', mantra:'Om Kubera Namah', description:'Supports clarity in decisions and steadiness in leadership.' },
+  { id:'rd17', name:'17 Mukhi Rudraksha', image:'images/rudraksha-17.jpg', price: 6000, category:'Rudraksha',
+    mukhi:17, deity:'Durga', mantra:'Om Dum Durgayei Namah', description:'Protection and removal of obstacles on the spiritual path.' },
+  { id:'rd18', name:'18 Mukhi Rudraksha', image:'images/rudraksha-18.jpg', price: 6500, category:'Rudraksha',
+    mukhi:18, deity:'Vishwakarma', mantra:'Om Vishwakarmane Namah', description:'Supports purification and higher will.' },
+  { id:'rd19', name:'19 Mukhi Rudraksha', image:'images/rudraksha-19.jpg', price: 7200, category:'Rudraksha',
+    mukhi:19, deity:'Rare', mantra:'Om Namah', description:'Used for deep sadhana and alignment with higher disciplines.' },
+  { id:'rd20', name:'20 Mukhi Rudraksha', image:'images/rudraksha-20.jpg', price: 8000, category:'Rudraksha',
+    mukhi:20, deity:'Rare', mantra:'Om Namah', description:'Protection and stability in material & spiritual pursuits.' },
+  { id:'rd21', name:'21 Mukhi Rudraksha', image:'images/rudraksha-21.jpg', price: 9000, category:'Rudraksha',
+    mukhi:21, deity:'Yogic', mantra:'Om Namah', description:'Enhanced protection and karmic balance.' },
+  { id:'rd22', name:'22 Mukhi Rudraksha', image:'images/rudraksha-22.jpg', price: 12000, category:'Rudraksha',
+    mukhi:22, deity:'Specific ritual use', mantra:'Varies', description:'Used in specific advanced rituals; consult guide for correct use.' }
 ];
 
 let cart = JSON.parse(localStorage.getItem('gon_cart') || '{}');
 const SHIPPING = 50;
 const currencyRates = { INR: 1, USD: 1/83, EUR: 1/95, GBP: 1/110 };
 
-/* helpers */
+/* UPI payee (set your UPI ID here) */
+const PAYEE_UPI = 'yourupi@bank'; // <-- replace with your actual UPI ID (eg. yourmerchant@oksbi)
+const PAYEE_NAME = 'Gems of Nature';
+
 function formatCurrency(value, currency='INR') {
   if (value == null) return '';
   if (currency === 'INR') return '₹' + Number(value).toLocaleString('en-IN');
@@ -284,10 +378,7 @@ function renderProducts() {
     const priceText = hasPrice ? formatCurrency(p.price, currentCurrency) : '<span class="text-sm text-gray-500">Contact for price</span>';
     const disabled = hasPrice ? '' : 'opacity-60 pointer-events-none';
     const card = document.createElement('div');
-
-    // --- ADDED: set data-id so this card can be targeted by URL highlight ---
     card.setAttribute('data-id', p.id);
-
     card.className = `bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden group ${disabled}`;
     card.innerHTML = `
       <div class="relative">
@@ -296,18 +387,61 @@ function renderProducts() {
       </div>
       <div class="p-6">
         <h3 class="text-lg font-semibold text-emerald-700">${p.name}</h3>
-        <p class="text-gray-600 mt-2 text-sm">Hand-selected natural gemstone.</p>
+        <p class="text-gray-600 mt-2 text-sm">${p.category ? p.category : 'Hand-selected natural gemstone.'}</p>
         <div class="mt-4 flex items-center justify-between gap-3">
           <div class="font-semibold text-gray-800">${priceText}</div>
-          <button class="add-to-cart bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg" data-id="${p.id}" ${hasPrice ? '' : 'disabled'}>
-            Add
-          </button>
+          <div class="flex items-center gap-2">
+            <button class="view-detail bg-white border border-gray-200 text-gray-700 px-3 py-2 rounded-lg" data-id="${p.id}">View</button>
+            <button class="add-to-cart bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg" data-id="${p.id}" ${hasPrice ? '' : 'disabled'}>Add</button>
+          </div>
         </div>
       </div>
     `;
     productsGrid.appendChild(card);
   });
 }
+
+/* product detail logic */
+const detailPanel = document.getElementById('product-detail');
+const detailImage = document.getElementById('detail-image');
+const detailTitle = document.getElementById('detail-title');
+const detailMeta = document.getElementById('detail-meta');
+const detailDesc = document.getElementById('detail-desc');
+const detailMukhi = document.getElementById('detail-mukhi');
+const detailDeity = document.getElementById('detail-deity');
+const detailMantra = document.getElementById('detail-mantra');
+const detailPrice = document.getElementById('detail-price');
+const detailAdd = document.getElementById('detail-add');
+const closeDetail = document.getElementById('close-detail');
+
+function openProductDetail(pid) {
+  const prod = products.find(p => p.id === pid);
+  if(!prod) return;
+  detailImage.src = prod.image || 'images/placeholder.jpg';
+  detailTitle.textContent = prod.name;
+  detailMeta.textContent = prod.category ? prod.category : '';
+  detailDesc.textContent = prod.description || 'Hand-selected natural gemstone.';
+  detailMukhi.textContent = prod.mukhi ? 'Mukhi: ' + prod.mukhi : '';
+  detailDeity.textContent = prod.deity ? 'Deity: ' + prod.deity : '';
+  detailMantra.textContent = prod.mantra ? 'Mantra: ' + prod.mantra : '';
+  detailPrice.textContent = (typeof prod.price === 'number') ? formatCurrency(prod.price, currentCurrency) : 'Contact for price';
+  detailAdd.dataset.id = prod.id;
+
+  // show
+  detailPanel.classList.remove('hidden');
+  setTimeout(()=> detailPanel.classList.add('open'), 20);
+  detailPanel.setAttribute('aria-hidden', 'false');
+}
+
+function closeProductDetail() {
+  detailPanel.classList.remove('open');
+  setTimeout(()=> {
+    detailPanel.classList.add('hidden');
+    detailPanel.setAttribute('aria-hidden', 'true');
+  }, 280);
+}
+
+closeDetail.addEventListener('click', closeProductDetail);
 
 /* cart rendering */
 const cartItemsEl = document.getElementById('cart-items');
@@ -378,7 +512,7 @@ function renderCart() {
   });
 }
 
-/* add to cart actions */
+/* add to cart & view detail actions */
 productsGrid.addEventListener('click', (e) => {
   if (e.target.matches('.add-to-cart')) {
     const id = e.target.dataset.id;
@@ -386,7 +520,33 @@ productsGrid.addEventListener('click', (e) => {
     saveCart();
     e.target.textContent = 'Added';
     setTimeout(()=> e.target.textContent = 'Add', 900);
+  } else if (e.target.matches('.view-detail')) {
+    const id = e.target.dataset.id;
+    openProductDetail(id);
+    // update URL param without reload
+    const url = new URL(window.location.href);
+    url.searchParams.set('product', id);
+    history.replaceState(null, '', url.toString());
+  } else {
+    // allow clicking card area to open detail
+    const card = e.target.closest('[data-id]');
+    if (card && !e.target.matches('button')) {
+      const id = card.getAttribute('data-id');
+      openProductDetail(id);
+      const url = new URL(window.location.href);
+      url.searchParams.set('product', id);
+      history.replaceState(null, '', url.toString());
+    }
   }
+});
+
+/* add from detail */
+detailAdd.addEventListener('click', () => {
+  const id = detailAdd.dataset.id;
+  cart[id] = (cart[id] || 0) + 1;
+  saveCart();
+  detailAdd.textContent = 'Added';
+  setTimeout(()=> detailAdd.textContent = 'Add to Cart', 900);
 });
 
 /* checkout logic */
@@ -440,7 +600,46 @@ function renderCheckoutSummary() {
   html += `<div class="flex justify-between mt-1"><span>Shipping</span><span>${formatCurrency(SHIPPING, currentCurrency)}</span></div>`;
   html += `<div class="flex justify-between mt-2 text-lg font-semibold text-emerald-800"><span>Total</span><span>${formatCurrency(subtotal + SHIPPING, currentCurrency)}</span></div>`;
   checkoutSummary.innerHTML = html;
+
+  // prepare UPI string
+  const total = subtotal + SHIPPING;
+  const upiUri = `upi://pay?pa=${encodeURIComponent(PAYEE_UPI)}&pn=${encodeURIComponent(PAYEE_NAME)}&tn=${encodeURIComponent('Gems of Nature Order')}&am=${encodeURIComponent(total.toFixed(2))}&cu=INR`;
+  document.getElementById('upi-string').value = upiUri;
 }
+
+/* Online payment UI toggles */
+checkoutForm.querySelectorAll('[name="payment_method"]').forEach(el => {
+  el.addEventListener('change', (e) => {
+    const onlinePanel = document.getElementById('online-options');
+    if (e.target.value === 'online') {
+      onlinePanel.classList.remove('hidden');
+    } else {
+      onlinePanel.classList.add('hidden');
+      hideOnlineSubPanels();
+    }
+  });
+});
+
+function hideOnlineSubPanels(){
+  document.getElementById('upi-panel').classList.add('hidden');
+  document.getElementById('card-panel').classList.add('hidden');
+}
+
+checkoutForm.querySelectorAll('[name="online_option"]').forEach(el => {
+  el.addEventListener('change', (e) => {
+    hideOnlineSubPanels();
+    if (e.target.value === 'upi') document.getElementById('upi-panel').classList.remove('hidden');
+    if (e.target.value === 'card') document.getElementById('card-panel').classList.remove('hidden');
+  });
+});
+
+// copy UPI to clipboard
+document.getElementById('copy-upi').addEventListener('click', () => {
+  const upi = document.getElementById('upi-string').value;
+  navigator.clipboard.writeText(upi).then(()=> {
+    alert('UPI payment link copied. Open it in your phone UPI app or scan QR.');
+  }).catch(()=> alert('Copy failed — please copy manually.'));
+});
 
 /* Submit checkout (simulated) */
 checkoutForm.addEventListener('submit', (e) => {
@@ -451,9 +650,10 @@ checkoutForm.addEventListener('submit', (e) => {
   const phone = formData.get('phone') || '';
   const address = formData.get('address') || '';
   const payment = formData.get('payment_method') || 'cod';
+  const onlineOption = formData.get('online_option') || '';
   const order = {
     orderId: 'GON' + Date.now(),
-    name, email, phone, address, payment,
+    name, email, phone, address, payment, onlineOption,
     items: Object.entries(cart).map(([pid, qty]) => {
       const prod = products.find(p => p.id === pid);
       return { id: pid, name: prod.name, qty, unitPrice: prod.price, lineTotal: prod.price * qty };
@@ -464,12 +664,15 @@ checkoutForm.addEventListener('submit', (e) => {
   };
   order.total = order.subtotal + order.shipping;
 
-  if (payment === 'online') {
+  if (payment === 'online' && onlineOption === 'card') {
+    // simulate card processing
     checkoutForm.querySelector('button[type="submit"]').disabled = true;
     checkoutForm.querySelector('button[type="submit"]').textContent = 'Processing...';
-    setTimeout(() => {
-      finalizeOrder(order);
-    }, 1200);
+    setTimeout(() => finalizeOrder(order), 1200);
+  } else if (payment === 'online' && onlineOption === 'upi') {
+    // show instructions and wait (we simulate ABRUPT success)
+    alert('Please open your UPI app and use the copied link/URI to pay the exact amount. After successful transfer, press OK to confirm your order.');
+    finalizeOrder(order);
   } else {
     finalizeOrder(order);
   }
@@ -511,33 +714,66 @@ currencySelect.addEventListener('change', (e) => {
   renderProducts();
   renderCart();
 
-  // --- ADDED: re-run highlight if URL had product param (DOM re-rendered) ---
-  const productToOpenAfterCurrency = getQueryParam('product');
-  if (productToOpenAfterCurrency) highlightProduct(productToOpenAfterCurrency);
+  // re-run detail if open
+  const pid = getQueryParam('product');
+  if (pid) {
+    // update displayed prices
+    const prod = products.find(p => p.id === pid);
+    if (prod) {
+      detailPrice.textContent = (typeof prod.price === 'number') ? formatCurrency(prod.price, currentCurrency) : 'Contact for price';
+    }
+    renderCheckoutSummary();
+    highlightOrOpenProduct(pid);
+  }
 });
 
 /* initial render */
 renderProducts();
 renderCart();
 
-/* --- ADDED: URL param / highlight logic --- */
+/* --- URL param / open detail logic --- */
 function getQueryParam(name) {
   const url = new URL(window.location.href);
   return url.searchParams.get(name);
 }
 
-function highlightProduct(pid) {
-  const card = document.querySelector(`[data-id="${pid}"]`);
-  if (!card) return;
-  // scroll into view and highlight
-  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  card.classList.add('ring-4', 'ring-emerald-300');
-  setTimeout(()=> card.classList.remove('ring-4','ring-emerald-300'), 3000);
+function highlightOrOpenProduct(pid) {
+  // if product exists, open detail
+  const prod = products.find(p => p.id === pid);
+  if (!prod) {
+    // fallback: highlight if not found
+    const card = document.querySelector(`[data-id="${pid}"]`);
+    if (card) {
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      card.classList.add('ring-4', 'ring-emerald-300');
+      setTimeout(()=> card.classList.remove('ring-4','ring-emerald-300'), 3000);
+    }
+    return;
+  }
+  // open detail panel
+  openProductDetail(pid);
 }
 
 // run on initial load if ?product= is present
 const productToOpen = getQueryParam('product');
-if (productToOpen) highlightProduct(productToOpen);
+if (productToOpen) {
+  // make sure DOM rendered
+  setTimeout(()=> highlightOrOpenProduct(productToOpen), 120);
+}
+
+/* mobile menu toggle */
+document.getElementById('mobile-menu-button').addEventListener('click', () => {
+  document.getElementById('mobile-menu').classList.toggle('hidden');
+});
+
+/* helper: close product detail when user presses Escape */
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (!detailPanel.classList.contains('hidden')) closeProductDetail();
+    if (!checkoutModal.classList.contains('hidden')) { checkoutModal.classList.add('hidden'); checkoutModal.classList.remove('flex'); }
+    if (!orderConfirm.classList.contains('hidden')) { orderConfirm.classList.add('hidden'); orderConfirm.classList.remove('flex'); }
+  }
+});
 </script>
 </body>
 </html>
