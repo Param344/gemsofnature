@@ -125,57 +125,56 @@
         </div>
       </div>
 
-      <!-- Contact form (replace FORM_ENDPOINT_CONTACT with your new Formspree URL) -->
-<form id="contact-form" action="https://formspree.io/f/xdkyozjp" method="POST" class="grid gap-6 bg-white p-8 rounded-2xl shadow-lg fade-in" novalidate>
-  <h3 class="text-xl font-semibold mb-1 text-emerald-700">Send us a message</h3>
-  <p class="text-sm text-gray-600">We'll reply within 1 business day.</p>
+      <!-- CONTACT FORM -->
+      <form id="contact-form" action="https://formspree.io/f/xdkyozjp" method="POST" class="grid gap-6 bg-white p-8 rounded-2xl shadow-lg fade-in" novalidate>
+        <h3 class="text-xl font-semibold mb-1 text-emerald-700">Send us a message</h3>
+        <p class="text-sm text-gray-600">We'll reply within 1 business day.</p>
 
-  <div>
-    <label class="block mb-2 font-semibold" for="name">Name</label>
-    <input type="text" id="name" name="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600" placeholder="Your Name" required>
-  </div>
-
-  <div>
-    <label class="block mb-2 font-semibold" for="email">Email</label>
-    <input type="email" id="email" name="_replyto" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600" placeholder="you@example.com" required>
-  </div>
-
-  <div>
-    <label class="block mb-2 font-semibold" for="phone">Phone</label>
-    <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600" placeholder="+91 98765 43210" inputmode="tel">
-  </div>
-
-  <div>
-    <label class="block mb-2 font-semibold" for="message">Message</label>
-    <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600" placeholder="Tell us how we can help..." required></textarea>
-  </div>
-
-  <!-- Honeypot: simple spam protection -->
-  <div style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;" aria-hidden="true">
-    <label for="hp-field">Leave this empty</label>
-    <input id="hp-field" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
-  </div>
-
-  <!-- Optional subject for your inbox -->
-  <input type="hidden" name="_subject" value="New contact from Gems of Nature website">
-
-  <div class="flex gap-3 items-center">
-    <button id="send-btn" type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition">
-      <span id="send-label">Send Message</span>
-    </button>
-    <div id="form-status" class="text-sm text-gray-600" role="status" aria-live="polite"></div>
-  </div>
-</form>
-
-
-        <div class="mt-6 p-4 bg-white rounded-2xl shadow hover:shadow-lg transition">
-          <h4 class="font-semibold text-emerald-700 mb-2">Quick Answers</h4>
-          <ul class="text-sm text-gray-700 space-y-2">
-            <li><strong>Shipping:</strong> We ship pan-India and offer expedited options.</li>
-            <li><strong>Returns:</strong> 7-day returns — see product page for details.</li>
-            <li><strong>Payments:</strong> COD & online payment available (simulated on demo).</li>
-          </ul>
+        <div>
+          <label for="name" class="block mb-2 font-semibold">Name</label>
+          <input id="name" name="name" type="text" class="w-full px-4 py-2 border rounded-lg" placeholder="Your Name" required>
         </div>
+
+        <div>
+          <label for="email" class="block mb-2 font-semibold">Email</label>
+          <input id="email" name="_replyto" type="email" class="w-full px-4 py-2 border rounded-lg" placeholder="you@example.com" required>
+        </div>
+
+        <div>
+          <label for="phone" class="block mb-2 font-semibold">Phone</label>
+          <input id="phone" name="phone" type="tel" class="w-full px-4 py-2 border rounded-lg" placeholder="+91 98765 43210">
+        </div>
+
+        <div>
+          <label for="message" class="block mb-2 font-semibold">Message</label>
+          <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border rounded-lg" placeholder="Tell us how we can help..." required></textarea>
+        </div>
+
+        <!-- Honeypot -->
+        <div style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;" aria-hidden="true">
+          <label for="hp-field">Leave this empty</label>
+          <input id="hp-field" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
+        <input type="hidden" name="_subject" value="Contact form message — Gems of Nature">
+
+        <div class="flex gap-3 items-center">
+          <button id="send-btn" type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full flex items-center gap-3">
+            <!-- spinner (hidden by default) -->
+            <svg id="send-spinner" class="hidden w-5 h-5 animate-spin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" stroke-opacity="0.25"></circle><path d="M22 12a10 10 0 0 1-10 10" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path></svg>
+            <span id="send-label">Send Message</span>
+          </button>
+          <div id="form-status" class="text-sm text-gray-600" role="status" aria-live="polite"></div>
+        </div>
+      </form>
+
+      <div class="mt-6 p-4 bg-white rounded-2xl shadow hover:shadow-lg transition">
+        <h4 class="font-semibold text-emerald-700 mb-2">Quick Answers</h4>
+        <ul class="text-sm text-gray-700 space-y-2">
+          <li><strong>Shipping:</strong> We ship pan-India and offer expedited options.</li>
+          <li><strong>Returns:</strong> 7-day returns — see product page for details.</li>
+          <li><strong>Payments:</strong> COD & online payment available (simulated on demo).</li>
+        </ul>
       </div>
 
     </div>
@@ -191,73 +190,51 @@
   </div>
 
   <!-- FOOTER -->
-<footer class="bg-emerald-900 text-white py-6 mt-12">
-  <div class="max-w-7xl mx-auto footer-inner flex flex-col md:flex-row items-center justify-between gap-4 px-6">
+  <footer class="bg-emerald-900 text-white py-6 mt-12">
+    <div class="max-w-7xl mx-auto footer-inner flex flex-col md:flex-row items-center justify-between gap-4 px-6">
 
-    <!-- Copyright -->
-    <div class="text-sm footer-nowrap">
-      &copy; 2025 <strong>Gems of Nature</strong>. All rights reserved.
+      <!-- Copyright -->
+      <div class="text-sm footer-nowrap">
+        &copy; 2025 <strong>Gems of Nature</strong>. All rights reserved.
+      </div>
+
+      <!-- Tagline -->
+      <div class="text-sm text-emerald-100 font-medium text-center">
+        100% natural stones • Secure payments • Fast shipping • 7-day returns
+      </div>
+
+      <!-- Social Links -->
+      <div class="inline-flex gap-4 items-center">
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/profile.php?id=61581929357076" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="hover:text-emerald-300 transition flex items-center gap-1">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11 9.95V14.89h-2.18v-2.89H11V10.1c0-2.16 1.28-3.36 3.25-3.36.94 0 1.93.17 1.93.17v2.12h-1.09c-1.08 0-1.42.67-1.42 1.36v1.64h2.42l-.39 2.89h-2.03v7.06A10 10 0 0 0 22 12z"/></svg>
+          <span class="text-sm">Facebook</span>
+        </a>
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/gemsofnatureshop" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="hover:text-emerald-300 transition flex items-center gap-1">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.584.012 4.85.07 1.17.056 1.94.24 2.39.407a4.79 4.79 0 0 1 1.74 1.13 4.79 4.79 0 0 1 1.13 1.74c.167.45.351 1.22.407 2.39.058 1.266.07 1.65.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.94-.407 2.39a4.79 4.79 0 0 1-1.13 1.74 4.79 4.79 0 0 1-1.74 1.13c-.45.167-1.22.351-2.39.407-1.266.058-1.65.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.056-1.94-.24-2.39-.407a4.79 4.79 0 0 1-1.74-1.13 4.79 4.79 0 0 1-1.13-1.74c-.167-.45-.351-1.22-.407-2.39C2.172 15.584 2.16 15.2 2.16 12s.012-3.584.07-4.85c.056-1.17.24-1.94.407-2.39a4.79 4.79 0 0 1 1.13-1.74 4.79 4.79 0 0 1 1.74-1.13c.45-.167 1.22-.351 2.39-.407C8.416 2.172 8.8 2.16 12 2.16zm0-2.16C8.735 0 8.332.014 7.052.072 5.773.13 4.768.312 4.042.556a6.77 6.77 0 0 0-2.45 1.2A6.77 6.77 0 0 0 .393 4.21c-.244.726-.426 1.73-.484 3.008C-.014 8.332 0 8.735 0 12c0 3.265.014 3.668.072 4.948.058 1.278.24 2.282.484 3.008a6.77 6.77 0 0 0 1.2 2.45 6.77 6.77 0 0 0 2.45 1.2c.726.244 1.73.426 3.008.484C8.332 23.986 8.735 24 12 24s3.668-.014 4.948-.072c1.278-.058 2.282-.24 3.008-.484a6.77 6.77 0 0 0 2.45-1.2 6.77 6.77 0 0 0 1.2-2.45c.244-.726.426-1.73.484-3.008.058-1.28.072-1.683.072-4.948s-.014-3.668-.072-4.948c-.058-1.278-.24-2.282-.484-3.008a6.77 6.77 0 0 0-1.2-2.45 6.77 6.77 0 0 0-2.45-1.2c-.726-.244-1.73-.426-3.008-.484C15.668.014 15.265 0 12 0z"/><circle cx="12" cy="12" r="3.6"/></svg>
+          <span class="text-sm">Instagram</span>
+        </a>
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/company/gems-of-nature" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="hover:text-emerald-300 transition flex items-center gap-1">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M22.225 0H1.771C.792 0 0 .774 0 1.728v20.543C0 23.226.792 24 1.771 24h20.451C23.208 24 24 23.226 24 22.271V1.728C24 .774 23.208 0 22.225 0zM7.082 20.452H3.539V9h3.543v11.452zM5.31 7.528a2.056 2.056 0 1 1 0-4.112 2.056 2.056 0 0 1 0 4.112zm14.832 12.924h-3.543v-5.555c0-1.324-.026-3.026-1.846-3.026-1.846 0-2.128 1.44-2.128 2.926v5.655h-3.543V9h3.4v1.561h.047c.474-.9 1.63-1.846 3.355-1.846 3.59 0 4.253 2.363 4.253 5.436v6.741z"/></svg>
+          <span class="text-sm">LinkedIn</span>
+        </a>
+
+      </div>
     </div>
-
-    <!-- Tagline -->
-    <div class="text-sm text-emerald-100 font-medium text-center">
-      100% natural stones • Secure payments • Fast shipping • 7-day returns
-    </div>
-
-    <!-- Social Links -->
-    <div class="inline-flex gap-4 items-center">
-
-      <!-- Facebook -->
-      <a href="https://www.facebook.com/profile.php?id=61581929357076"
-         target="_blank"
-         rel="noopener noreferrer"
-         aria-label="Facebook"
-         class="hover:text-emerald-300 transition flex items-center gap-1">
-        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-          <path d="M22 12a10 10 0 1 0-11 9.95V14.89h-2.18v-2.89H11V10.1c0-2.16 1.28-3.36 3.25-3.36.94 0 1.93.17 1.93.17v2.12h-1.09c-1.08 0-1.42.67-1.42 1.36v1.64h2.42l-.39 2.89h-2.03v7.06A10 10 0 0 0 22 12z"/>
-        </svg>
-        <span class="text-sm">Facebook</span>
-      </a>
-
-      <!-- Instagram -->
-      <a href="https://www.instagram.com/gemsofnatureshop"
-         target="_blank"
-         rel="noopener noreferrer"
-         aria-label="Instagram"
-         class="hover:text-emerald-300 transition flex items-center gap-1">
-        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-          <path d="M12 2.16c3.2 0 3.584.012 4.85.07 1.17.056 1.94.24 2.39.407a4.79 4.79 0 0 1 1.74 1.13 4.79 4.79 0 0 1 1.13 1.74c.167.45.351 1.22.407 2.39.058 1.266.07 1.65.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.94-.407 2.39a4.79 4.79 0 0 1-1.13 1.74 4.79 4.79 0 0 1-1.74 1.13c-.45.167-1.22.351-2.39.407-1.266.058-1.65.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.056-1.94-.24-2.39-.407a4.79 4.79 0 0 1-1.74-1.13 4.79 4.79 0 0 1-1.13-1.74c-.167-.45-.351-1.22-.407-2.39C2.172 15.584 2.16 15.2 2.16 12s.012-3.584.07-4.85c.056-1.17.24-1.94.407-2.39a4.79 4.79 0 0 1 1.13-1.74 4.79 4.79 0 0 1 1.74-1.13c.45-.167 1.22-.351 2.39-.407C8.416 2.172 8.8 2.16 12 2.16zm0-2.16C8.735 0 8.332.014 7.052.072 5.773.13 4.768.312 4.042.556a6.77 6.77 0 0 0-2.45 1.2A6.77 6.77 0 0 0 .393 4.21c-.244.726-.426 1.73-.484 3.008C-.014 8.332 0 8.735 0 12c0 3.265.014 3.668.072 4.948.058 1.278.24 2.282.484 3.008a6.77 6.77 0 0 0 1.2 2.45 6.77 6.77 0 0 0 2.45 1.2c.726.244 1.73.426 3.008.484C8.332 23.986 8.735 24 12 24s3.668-.014 4.948-.072c1.278-.058 2.282-.24 3.008-.484a6.77 6.77 0 0 0 2.45-1.2 6.77 6.77 0 0 0 1.2-2.45c.244-.726.426-1.73.484-3.008.058-1.28.072-1.683.072-4.948s-.014-3.668-.072-4.948c-.058-1.278-.24-2.282-.484-3.008a6.77 6.77 0 0 0-1.2-2.45 6.77 6.77 0 0 0-2.45-1.2c-.726-.244-1.73-.426-3.008-.484C15.668.014 15.265 0 12 0z"/>
-          <circle cx="12" cy="12" r="3.6"/>
-        </svg>
-        <span class="text-sm">Instagram</span>
-      </a>
-
-      <!-- LinkedIn -->
-      <a href="https://www.linkedin.com/company/gems-of-nature"
-         target="_blank"
-         rel="noopener noreferrer"
-         aria-label="LinkedIn"
-         class="hover:text-emerald-300 transition flex items-center gap-1">
-        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-          <path d="M22.225 0H1.771C.792 0 0 .774 0 1.728v20.543C0 23.226.792 24 1.771 24h20.451C23.208 24 24 23.226 24 22.271V1.728C24 .774 23.208 0 22.225 0zM7.082 20.452H3.539V9h3.543v11.452zM5.31 7.528a2.056 2.056 0 1 1 0-4.112 2.056 2.056 0 0 1 0 4.112zm14.832 12.924h-3.543v-5.555c0-1.324-.026-3.026-1.846-3.026-1.846 0-2.128 1.44-2.128 2.926v5.655h-3.543V9h3.4v1.561h.047c.474-.9 1.63-1.846 3.355-1.846 3.59 0 4.253 2.363 4.253 5.436v6.741z"/>
-        </svg>
-        <span class="text-sm">LinkedIn</span>
-      </a>
-
-    </div>
-  </div>
-</footer>
+  </footer>
 
 
-
-  <!-- SCRIPTS: map, form handling and optional reCAPTCHA -->
+  <!-- SINGLE SCRIPT: map, accessible form handling, optional recaptcha -->
   <script>
   (function() {
     // ---------- CONFIG ----------
-    // Replace these values before publishing:
+    // If you want to change the map or form action, edit these values.
     const MAP_EMBED_URL = 'https://www.google.com/maps?q=Maharshi+Valmiki+Marg+Karkarduma+Complex+Anand+Vihar+Delhi+110092&output=embed';
-    const FORM_ACTION = ''; // e.g. 'https://formspree.io/f/xdkyozjp' or your own endpoint
-    const RECAPTCHA_SITE_KEY = ''; // optional: 'your-site-key'
+    // Keep default Formspree action here — it will not be removed by JS.
+    const DEFAULT_FORM_ACTION = 'https://formspree.io/f/xdkyozjp';
+    const RECAPTCHA_SITE_KEY = ''; // optional: set your site key if you want recaptcha
 
     // DOM refs
     const wrap = document.getElementById('map-wrap');
@@ -287,11 +264,9 @@
       }
     })();
 
-    // Assign form action if provided
-    if (FORM_ACTION && FORM_ACTION.trim() !== '') {
-      form.action = FORM_ACTION;
-    } else {
-      form.removeAttribute('action'); // we'll POST via fetch in demo mode
+    // Ensure form has an action (fallback to default)
+    if (form && (!form.action || form.action.trim() === '')) {
+      form.action = DEFAULT_FORM_ACTION;
     }
 
     // Optionally inject reCAPTCHA (site key required)
@@ -303,23 +278,29 @@
       const recDiv = document.createElement('div');
       recDiv.className = 'g-recaptcha mt-2';
       recDiv.setAttribute('data-sitekey', RECAPTCHA_SITE_KEY);
-      document.getElementById('recaptcha-container').appendChild(recDiv);
+      // you'll need a <div id="recaptcha-container"></div> in the form if you enable this
+      const formTop = form.querySelector('h3');
+      if (formTop) formTop.insertAdjacentElement('afterend', recDiv);
     }
 
     // Small helper
     function showStatus(msg, timeout=4000) {
-      statusEl.textContent = msg;
-      setTimeout(()=> { if (statusEl) statusEl.textContent = ''; }, timeout);
+      if (statusEl) {
+        statusEl.textContent = msg;
+        if (timeout) setTimeout(()=> { if (statusEl) statusEl.textContent = ''; }, timeout);
+      } else {
+        console.log('[contact] status:', msg);
+      }
     }
 
     // Accessibility: close modal on ESC
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !successModal.classList.contains('hidden')) {
+      if (e.key === 'Escape' && successModal && !successModal.classList.contains('hidden')) {
         closeSuccess.click();
       }
     });
 
-    // Form submit handler
+    // Form submit handler (single, robust)
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -340,9 +321,10 @@
         return;
       }
 
-      sendBtn.disabled = true;
-      spinner.classList.remove('hidden');
-      sendLabel.textContent = 'Sending...';
+      // UI feedback
+      if (sendBtn) sendBtn.disabled = true;
+      if (spinner) spinner.classList.remove('hidden');
+      if (sendLabel) sendLabel.textContent = 'Sending...';
 
       const data = new FormData(form);
 
@@ -351,9 +333,9 @@
         const gres = grecaptcha.getResponse();
         if (!gres) {
           showStatus('Please complete the captcha.');
-          sendBtn.disabled = false;
-          spinner.classList.add('hidden');
-          sendLabel.textContent = 'Send Message';
+          if (sendBtn) sendBtn.disabled = false;
+          if (spinner) spinner.classList.add('hidden');
+          if (sendLabel) sendLabel.textContent = 'Send Message';
           return;
         }
         data.append('g-recaptcha-response', gres);
@@ -361,30 +343,30 @@
 
       try {
         if (form.action) {
-          // Post to configured endpoint (e.g., Formspree)
           const resp = await fetch(form.action, {
             method: form.method || 'POST',
             body: data,
             headers: { 'Accept': 'application/json' }
           });
+
           if (resp.ok) {
             onSendSuccess();
           } else {
             const json = await resp.json().catch(()=>null);
-            showStatus(json?.error || 'There was an error sending the message.');
+            showStatus(json?.error || json?.message || ('There was an error sending the message (' + resp.status + ')'));
+            console.error('Form submission error:', resp.status, json);
           }
         } else {
-          // Demo mode: log the data and show success
           console.log('Form data (demo):', Object.fromEntries(data.entries()));
           onSendSuccess('(demo) message logged to console');
         }
       } catch (err) {
-        console.error(err);
+        console.error('Network/fetch error:', err);
         showStatus('Network error. Please try again later.');
       } finally {
-        sendBtn.disabled = false;
-        spinner.classList.add('hidden');
-        sendLabel.textContent = 'Send Message';
+        if (sendBtn) sendBtn.disabled = false;
+        if (spinner) spinner.classList.add('hidden');
+        if (sendLabel) sendLabel.textContent = 'Send Message';
         if (typeof grecaptcha !== 'undefined') {
           try { grecaptcha.reset(); } catch(e){}
         }
@@ -392,18 +374,23 @@
     });
 
     function onSendSuccess(extra='') {
-      document.getElementById('success-info').textContent = 'Thanks — we received your message and will reply shortly.' + (extra ? ' ' + extra : '');
-      successModal.classList.remove('hidden');
-      successModal.classList.add('flex');
-      successModal.setAttribute('aria-hidden', 'false');
-      form.reset();
+      const successInfo = document.getElementById('success-info');
+      if (successInfo) successInfo.textContent = 'Thanks — we received your message and will reply shortly.' + (extra ? ' ' + extra : '');
+      if (successModal) {
+        successModal.classList.remove('hidden');
+        successModal.classList.add('flex');
+        successModal.setAttribute('aria-hidden', 'false');
+      }
+      if (form) form.reset();
       showStatus('Message sent — thank you!', 3000);
     }
 
     closeSuccess.addEventListener('click', () => {
-      successModal.classList.add('hidden');
-      successModal.classList.remove('flex');
-      successModal.setAttribute('aria-hidden', 'true');
+      if (successModal) {
+        successModal.classList.add('hidden');
+        successModal.classList.remove('flex');
+        successModal.setAttribute('aria-hidden', 'true');
+      }
     });
 
     // mobile menu toggle
@@ -417,93 +404,6 @@
 
   })();
   </script>
-  <script>
-(function () {
-  const form = document.getElementById('contact-form');
-  if (!form) return;
 
-  const sendBtn = document.getElementById('send-btn');
-  const sendLabel = document.getElementById('send-label');
-  const statusEl = document.getElementById('form-status');
-  const successModal = document.getElementById('success-modal');
-  const successInfo = document.getElementById('success-info');
-  const closeSuccess = document.getElementById('close-success');
-  const hp = document.getElementById('hp-field');
-
-  function showStatus(msg, timeout = 4000) {
-    if (statusEl) statusEl.textContent = msg;
-    if (timeout) setTimeout(() => { if (statusEl) statusEl.textContent = ''; }, timeout);
-  }
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    // Honeypot check
-    if (hp && hp.value.trim() !== '') {
-      showStatus('Spam detected. Message not sent.');
-      return;
-    }
-
-    // Basic validation
-    const name = form.querySelector('#name');
-    const email = form.querySelector('#email');
-    const message = form.querySelector('#message');
-
-    if (!name.value.trim() || !email.value.trim() || !message.value.trim()) {
-      showStatus('Please complete the required fields.');
-      return;
-    }
-
-    // UI: disable button
-    sendBtn.disabled = true;
-    sendLabel.textContent = 'Sending...';
-
-    const data = new FormData(form);
-
-    try {
-      // Use fetch to submit (Formspree accepts POST)
-      const resp = await fetch(form.action, {
-        method: form.method || 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      });
-
-      if (resp.ok) {
-        // success
-        successInfo.textContent = 'Thanks — we received your message and will reply shortly.';
-        if (successModal) {
-          successModal.classList.remove('hidden');
-          successModal.classList.add('flex');
-          successModal.setAttribute('aria-hidden', 'false');
-        } else {
-          alert('Thanks — we received your message and will reply shortly.');
-        }
-        form.reset();
-      } else {
-        // Formspree returns JSON errors sometimes
-        const json = await resp.json().catch(()=> null);
-        showStatus(json?.error || 'There was an error sending your message. Please try again later.');
-      }
-    } catch (err) {
-      console.error(err);
-      showStatus('Network error. Please try again later.');
-    } finally {
-      sendBtn.disabled = false;
-      sendLabel.textContent = 'Send Message';
-    }
-  });
-
-  // Close modal handlers (if modal exists)
-  if (closeSuccess) {
-    closeSuccess.addEventListener('click', () => {
-      if (successModal) {
-        successModal.classList.add('hidden');
-        successModal.classList.remove('flex');
-        successModal.setAttribute('aria-hidden', 'true');
-      }
-    });
-  }
-})();
-</script>
 </body>
 </html>
