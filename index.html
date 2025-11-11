@@ -15,10 +15,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* Global fixes */
-    :root { -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
-    html, body { height: 100%; margin: 0; background-color: #ffffff; }
-    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    /* Global layout & accessibility */
+    :root {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      min-height: 100vh;
+      background-color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Make main fill remaining space so footer sits at bottom */
+    main { flex: 1 0 auto; }
+
+    body, button, input, textarea { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
     /* Fade-in animation */
     .fade-in {
@@ -44,10 +60,16 @@
     /* Images: ensure block-level, no background bleed and consistent cover */
     img { background: transparent; display: block; }
 
-    /* Fix thin seam between newsletter and footer */
-    footer { margin-top: -1px; padding-top: 22px; }
+    /* Footer: keep pinned without negative margin hacks */
+    footer {
+      margin-top: 0;
+      padding-top: 22px;
+      flex-shrink: 0;
+      background-color: #065f46; /* emerald-900 */
+      width: 100%;
+    }
 
-    /* Footer padding so icons don't touch the edge */
+    /* Footer inner padding */
     .footer-inner { padding-left: 24px; padding-right: 24px; }
 
     /* Prevent accidental wrap for the copyright on narrow widths */
@@ -72,14 +94,15 @@
     "url": "https://www.gemsofnature.shop",
     "logo": "https://www.gemsofnature.shop/images/logo.png",
     "sameAs": [
-      "https://www.facebook.com/gemsofnature",
-      "https://www.instagram.com/gemsofnature"
+      "https://www.facebook.com/profile.php?id=61581929357076",
+      "https://www.instagram.com/gemsofnatureshop",
+      "https://www.linkedin.com/company/gems-of-nature"
     ]
   }
   </script>
 </head>
 
-<body class="bg-white text-gray-800 font-montserrat antialiased">
+<body class="bg-white text-gray-800 antialiased">
 
 <!-- Navbar -->
 <header class="bg-emerald-900 text-white shadow-md">
@@ -107,12 +130,12 @@
       <a href="shop-ecom.html" class="text-2xl cursor-pointer" aria-label="Open Cart">🛒</a>
 
       <!-- Mobile menu button -->
-      <button id="mobile-menu-button" class="text-2xl md:hidden focus:outline-none">☰</button>
+      <button id="mobile-menu-button" class="text-2xl md:hidden focus:outline-none" aria-expanded="false" aria-controls="mobile-menu">☰</button>
     </div>
   </nav>
 
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden bg-emerald-800 md:hidden">
+  <div id="mobile-menu" class="hidden bg-emerald-800 md:hidden" aria-hidden="true">
     <ul class="flex flex-col gap-4 px-6 py-4">
       <li><a href="index.html" class="block hover:text-emerald-300 transition">Home</a></li>
       <li><a href="about.html" class="block hover:text-emerald-300 transition">About Us</a></li>
@@ -128,223 +151,263 @@
   const mobileMenu = document.getElementById('mobile-menu');
   if (mobileMenuButton) {
     mobileMenuButton.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
+      const hidden = mobileMenu.classList.toggle('hidden');
+      mobileMenuButton.setAttribute('aria-expanded', String(!hidden));
+      mobileMenu.setAttribute('aria-hidden', String(hidden));
     });
   }
 </script>
 
-<!-- Hero Section -->
-<section id="home" class="relative bg-cover bg-center hero-min-h fade-in" style="background-image: url('images/hero-bg.jpg');">
-  <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60 flex flex-col justify-center items-center text-center text-white px-6">
-    <h1 class="text-4xl md:text-5xl font-bold mb-4">Discover the Healing Power of Nature</h1>
-    <p class="text-lg md:text-xl mb-6 max-w-2xl">
-      Pure gemstones and crystals that balance your energy, attract prosperity, and enhance your inner glow.
-    </p>
+<!-- MAIN: page content grows -->
+<main>
 
-    <div class="flex flex-col sm:flex-row gap-3">
-      <a href="shop-ecom.html" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-full transition-colors duration-300">Shop Now</a>
-      <a href="shop.html" class="border border-white/40 text-white font-semibold px-6 py-3 rounded-full hover:bg-white/5 transition duration-300 hidden sm:inline-block">Explore Collections</a>
-    </div>
-  </div>
-</section>
+  <!-- Hero Section -->
+  <section id="home" class="relative bg-cover bg-center hero-min-h fade-in" style="background-image: url('images/hero-bg.jpg');">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60 flex flex-col justify-center items-center text-center text-white px-6">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Discover the Healing Power of Nature</h1>
+      <p class="text-lg md:text-xl mb-6 max-w-2xl">
+        Pure gemstones and crystals that balance your energy, attract prosperity, and enhance your inner glow.
+      </p>
 
-<!-- Collections Section -->
-<section id="collections" class="py-20 bg-gray-50 text-center fade-in">
-  <div class="max-w-7xl mx-auto px-6">
-    <h2 class="text-3xl font-bold mb-10 text-gray-800">Our Collections</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-      <!-- Card 1 -->
-      <div class="bg-white p-6 rounded-2xl card-base group overflow-hidden">
-        <div class="relative mb-4">
-          <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto bg-white/0">
-            <img src="images/amethyst.jpg" alt="Amethyst - Healing Stones" loading="lazy" class="w-full h-full object-cover block">
-          </div>
-          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
-        </div>
-        <h3 class="text-xl font-semibold mb-2 text-emerald-700">Healing Stones</h3>
-        <p class="text-sm text-gray-600">Crystals like Amethyst & Rose Quartz to cleanse your energy.</p>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="bg-white p-6 rounded-2xl card-base group overflow-hidden">
-        <div class="relative mb-4">
-          <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto bg-white/0">
-            <img src="images/emerald.jpg" alt="Zodiac Gems" loading="lazy" class="w-full h-full object-cover block">
-          </div>
-          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
-        </div>
-        <h3 class="text-xl font-semibold mb-2 text-emerald-700">Zodiac Gems</h3>
-        <p class="text-sm text-gray-600">Find your birthstone and attract cosmic harmony aligned to your sign.</p>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="bg-white p-6 rounded-2xl card-base group overflow-hidden">
-        <div class="relative mb-4">
-          <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto bg-white/0">
-            <img src="images/bracelets.jpg" alt="Bracelets" loading="lazy" class="w-full h-full object-cover block">
-          </div>
-          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
-        </div>
-        <h3 class="text-xl font-semibold mb-2 text-emerald-700">Bracelets</h3>
-        <p class="text-sm text-gray-600">Handcrafted gemstone bracelets for energy balance & style.</p>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="bg-white p-6 rounded-2xl card-base group overflow-hidden">
-        <div class="relative mb-4">
-          <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto bg-white/0">
-            <img src="images/raw-stone.jpg" alt="Raw Stones" loading="lazy" class="w-full h-full object-cover block">
-          </div>
-          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
-        </div>
-        <h3 class="text-xl font-semibold mb-2 text-emerald-700">Raw Stones</h3>
-        <p class="text-sm text-gray-600">Natural, unpolished stones charged with divine vibrations.</p>
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a href="shop-ecom.html" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-full transition-colors duration-300">Shop Now</a>
+        <a href="shop.html" class="border border-white/40 text-white font-semibold px-6 py-3 rounded-full hover:bg-white/5 transition duration-300 hidden sm:inline-block">Explore Collections</a>
       </div>
     </div>
-  </div>
+  </section>
 
+  <!-- Collections Section -->
+  <section id="collections" class="py-20 bg-gray-50 text-center fade-in">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-3xl font-bold mb-10 text-gray-800">Our Collections</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Card 1 -->
+        <div class="bg-white p-6 rounded-2xl card-base group overflow-hidden">
+          <div class="relative mb-4">
+            <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto bg-white/0">
+              <img src="images/amethyst.jpg" alt="Amethyst - Healing Stones" loading="lazy" class="w-full h-full object-cover block">
+            </div>
+            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-emerald-700">Healing Stones</h3>
+          <p class="text-sm text-gray-600">Crystals like Amethyst & Rose Quartz to cleanse your energy.</p>
+        </div>
 
-<!-- Rudraksha Products Section -->
-<section id="featured" class="py-20 px-6 bg-gradient-to-b from-white to-emerald-50 text-center fade-in">
-  <div class="max-w-7xl mx-auto">
-    <h2 class="text-3xl font-bold mb-6 text-[#034C3C]">
-      100% Pure & Certified <span class="text-[#D4AF37]">Nepali Rudraksha</span>
-    </h2>
-    <p class="text-gray-700 mb-12">Customized, Energised & Delivered with Divine Intent</p>
+        <!-- Card 2 -->
+        <div class="bg-white p-6 rounded-2xl card-base group overflow-hidden">
+          <div class="relative mb-4">
+            <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto bg-white/0">
+              <img src="images/emerald.jpg" alt="Zodiac Gems" loading="lazy" class="w-full h-full object-cover block">
+            </div>
+            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-emerald-700">Zodiac Gems</h3>
+          <p class="text-sm text-gray-600">Find your birthstone and attract cosmic harmony aligned to your sign.</p>
+        </div>
 
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 px-4">
+        <!-- Card 3 -->
+        <div class="bg-white p-6 rounded-2xl card-base group overflow-hidden">
+          <div class="relative mb-4">
+            <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto bg-white/0">
+              <img src="images/bracelets.jpg" alt="Bracelets" loading="lazy" class="w-full h-full object-cover block">
+            </div>
+            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-emerald-700">Bracelets</h3>
+          <p class="text-sm text-gray-600">Handcrafted gemstone bracelets for energy balance & style.</p>
+        </div>
 
-      <!-- 1 Mukhi -->
-      <div class="bg-white p-6 rounded-2xl shadow-lg group">
-        <img src="images/rudraksha-1.jpg" alt="1 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
-        <h3 class="text-lg font-semibold text-[#034C3C]">1 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600">Represents Lord Shiva, brings moksha and supreme focus.</p>
-      </div>
-
-      <!-- 2 Mukhi -->
-      <div class="bg-white p-6 rounded-2xl shadow-lg group">
-        <img src="images/rudraksha-2.jpg" alt="2 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
-        <h3 class="text-lg font-semibold text-[#034C3C]">2 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600">Symbol of Ardhanarishvara — unity, peace & harmony.</p>
-      </div>
-
-      <!-- 3 Mukhi -->
-      <div class="bg-white p-6 rounded-2xl shadow-lg group">
-        <img src="images/rudraksha-3.jpg" alt="3 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
-        <h3 class="text-lg font-semibold text-[#034C3C]">3 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600">Removes past karma, brings purity and confidence.</p>
-      </div>
-
-      <!-- 4 Mukhi -->
-      <div class="bg-white p-6 rounded-2xl shadow-lg group">
-        <img src="images/rudraksha-4.jpg" alt="4 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
-        <h3 class="text-lg font-semibold text-[#034C3C]">4 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600">Linked to Lord Brahma — enhances creativity & learning.</p>
-      </div>
-
-      <!-- 5 Mukhi -->
-      <div class="bg-white p-6 rounded-2xl shadow-lg group">
-        <img src="images/rudraksha-5.jpg" alt="5 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
-        <h3 class="text-lg font-semibold text-[#034C3C]">5 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600">Most common bead — brings calm, focus & spiritual upliftment.</p>
-      </div>
-
-      <!-- 6 Mukhi -->
-      <div class="bg-white p-6 rounded-2xl shadow-lg group">
-        <img src="images/rudraksha-6.jpg" alt="6 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
-        <h3 class="text-lg font-semibold text-[#034C3C]">6 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600">Blessed by Kartikeya — boosts vitality, charm & self-control.</p>
-      </div>
-
-      <!-- 7 Mukhi -->
-      <div class="bg-white p-6 rounded-2xl shadow-lg group">
-        <img src="images/rudraksha-7.jpg" alt="7 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
-        <h3 class="text-lg font-semibold text-[#034C3C]">7 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600">Symbol of Goddess Lakshmi — attracts wealth & abundance.</p>
-      </div>
-
-      <!-- 8 Mukhi -->
-      <div class="bg-white p-6 rounded-2xl shadow-lg group">
-        <img src="images/rudraksha-8.jpg" alt="8 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
-        <h3 class="text-lg font-semibold text-[#034C3C]">8 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600">Removes obstacles, linked to Lord Ganesha’s blessings.</p>
-      </div>
-
-      <!-- 9 Mukhi -->
-      <div class="bg-white p-6 rounded-2xl shadow-lg group">
-        <img src="images/rudraksha-9.jpg" alt="9 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
-        <h3 class="text-lg font-semibold text-[#034C3C]">9 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600">Goddess Durga’s power — grants courage & victory over fear.</p>
-      </div>
-
-      <!-- 10 Mukhi -->
-      <div class="bg-white p-6 rounded-2xl shadow-lg group">
-        <img src="images/rudraksha-10.jpg" alt="10 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
-        <h3 class="text-lg font-semibold text-[#034C3C]">10 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600">Protects from evil & negative energies, symbol of Vishnu.</p>
+        <!-- Card 4 -->
+        <div class="bg-white p-6 rounded-2xl card-base group overflow-hidden">
+          <div class="relative mb-4">
+            <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto bg-white/0">
+              <img src="images/raw-stone.jpg" alt="Raw Stones" loading="lazy" class="w-full h-full object-cover block">
+            </div>
+            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-emerald-700">Raw Stones</h3>
+          <p class="text-sm text-gray-600">Natural, unpolished stones charged with divine vibrations.</p>
+        </div>
       </div>
     </div>
+  </section>
 
-    <!-- Additional Spiritual Products -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 mt-16 px-4">
+  <!-- Rudraksha Products Section -->
+  <section id="featured" class="py-20 px-6 bg-gradient-to-b from-white to-emerald-50 text-center fade-in">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl font-bold mb-6 text-[#034C3C]">
+        100% Pure & Certified <span class="text-[#D4AF37]">Nepali Rudraksha</span>
+      </h2>
+      <p class="text-gray-700 mb-12">Customized, Energised & Delivered with Divine Intent</p>
 
-      <!-- Rudraksha Mala -->
-      <div class="bg-white p-8 rounded-2xl shadow-lg group">
-        <img src="images/rudraksha-mala.jpg" alt="Rudraksha Mala" loading="lazy" class="mx-auto w-56 h-56 object-contain mb-4">
-        <h3 class="text-xl font-semibold text-[#034C3C]">Rudraksha Beads & Mala</h3>
-        <p class="text-sm text-gray-600">Handcrafted & Energised for Daily Spiritual Practice.</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 px-4">
+        <!-- 1 Mukhi -->
+        <div class="bg-white p-6 rounded-2xl shadow-lg group">
+          <img src="images/rudraksha-1.jpg" alt="1 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
+          <h3 class="text-lg font-semibold text-[#034C3C]">1 Mukhi Rudraksha</h3>
+          <p class="text-sm text-gray-600">Represents Lord Shiva, brings moksha and supreme focus.</p>
+        </div>
+
+        <!-- 2 Mukhi -->
+        <div class="bg-white p-6 rounded-2xl shadow-lg group">
+          <img src="images/rudraksha-2.jpg" alt="2 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
+          <h3 class="text-lg font-semibold text-[#034C3C]">2 Mukhi Rudraksha</h3>
+          <p class="text-sm text-gray-600">Symbol of Ardhanarishvara — unity, peace & harmony.</p>
+        </div>
+
+        <!-- 3 Mukhi -->
+        <div class="bg-white p-6 rounded-2xl shadow-lg group">
+          <img src="images/rudraksha-3.jpg" alt="3 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
+          <h3 class="text-lg font-semibold text-[#034C3C]">3 Mukhi Rudraksha</h3>
+          <p class="text-sm text-gray-600">Removes past karma, brings purity and confidence.</p>
+        </div>
+
+        <!-- 4 Mukhi -->
+        <div class="bg-white p-6 rounded-2xl shadow-lg group">
+          <img src="images/rudraksha-4.jpg" alt="4 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
+          <h3 class="text-lg font-semibold text-[#034C3C]">4 Mukhi Rudraksha</h3>
+          <p class="text-sm text-gray-600">Linked to Lord Brahma — enhances creativity & learning.</p>
+        </div>
+
+        <!-- 5 Mukhi -->
+        <div class="bg-white p-6 rounded-2xl shadow-lg group">
+          <img src="images/rudraksha-5.jpg" alt="5 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
+          <h3 class="text-lg font-semibold text-[#034C3C]">5 Mukhi Rudraksha</h3>
+          <p class="text-sm text-gray-600">Most common bead — brings calm, focus & spiritual upliftment.</p>
+        </div>
+
+        <!-- 6 Mukhi -->
+        <div class="bg-white p-6 rounded-2xl shadow-lg group">
+          <img src="images/rudraksha-6.jpg" alt="6 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
+          <h3 class="text-lg font-semibold text-[#034C3C]">6 Mukhi Rudraksha</h3>
+          <p class="text-sm text-gray-600">Blessed by Kartikeya — boosts vitality, charm & self-control.</p>
+        </div>
+
+        <!-- 7 Mukhi -->
+        <div class="bg-white p-6 rounded-2xl shadow-lg group">
+          <img src="images/rudraksha-7.jpg" alt="7 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
+          <h3 class="text-lg font-semibold text-[#034C3C]">7 Mukhi Rudraksha</h3>
+          <p class="text-sm text-gray-600">Symbol of Goddess Lakshmi — attracts wealth & abundance.</p>
+        </div>
+
+        <!-- 8 Mukhi -->
+        <div class="bg-white p-6 rounded-2xl shadow-lg group">
+          <img src="images/rudraksha-8.jpg" alt="8 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
+          <h3 class="text-lg font-semibold text-[#034C3C]">8 Mukhi Rudraksha</h3>
+          <p class="text-sm text-gray-600">Removes obstacles, linked to Lord Ganesha’s blessings.</p>
+        </div>
+
+        <!-- 9 Mukhi -->
+        <div class="bg-white p-6 rounded-2xl shadow-lg group">
+          <img src="images/rudraksha-9.jpg" alt="9 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
+          <h3 class="text-lg font-semibold text-[#034C3C]">9 Mukhi Rudraksha</h3>
+          <p class="text-sm text-gray-600">Goddess Durga’s power — grants courage & victory over fear.</p>
+        </div>
+
+        <!-- 10 Mukhi -->
+        <div class="bg-white p-6 rounded-2xl shadow-lg group">
+          <img src="images/rudraksha-10.jpg" alt="10 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
+          <h3 class="text-lg font-semibold text-[#034C3C]">10 Mukhi Rudraksha</h3>
+          <p class="text-sm text-gray-600">Protects from evil & negative energies, symbol of Vishnu.</p>
+        </div>
       </div>
 
-      <!-- Rudraksha Locket -->
-      <div class="bg-white p-8 rounded-2xl shadow-lg group">
-        <img src="images/rudraksha-locket.jpg" alt="Rudraksha Locket" loading="lazy" class="mx-auto w-56 h-56 object-contain mb-4">
-        <h3 class="text-xl font-semibold text-[#034C3C]">Rudraksha Locket</h3>
-        <p class="text-sm text-gray-600">Powerful talisman combining Rudraksha with sacred metals.</p>
+      <!-- Additional Spiritual Products -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 mt-16 px-4">
+        <!-- Rudraksha Mala -->
+        <div class="bg-white p-8 rounded-2xl shadow-lg group">
+          <img src="images/rudraksha-mala.jpg" alt="Rudraksha Mala" loading="lazy" class="mx-auto w-56 h-56 object-contain mb-4">
+          <h3 class="text-xl font-semibold text-[#034C3C]">Rudraksha Beads & Mala</h3>
+          <p class="text-sm text-gray-600">Handcrafted & Energised for Daily Spiritual Practice.</p>
+        </div>
+
+        <!-- Rudraksha Locket -->
+        <div class="bg-white p-8 rounded-2xl shadow-lg group">
+          <img src="images/rudraksha-locket.jpg" alt="Rudraksha Locket" loading="lazy" class="mx-auto w-56 h-56 object-contain mb-4">
+          <h3 class="text-xl font-semibold text-[#034C3C]">Rudraksha Locket</h3>
+          <p class="text-sm text-gray-600">Powerful talisman combining Rudraksha with sacred metals.</p>
+        </div>
+
+        <!-- Rudraksha Bracelet -->
+        <div class="bg-white p-8 rounded-2xl shadow-lg group">
+          <img src="images/rudraksha-bracelet.jpg" alt="Rudraksha Bracelet" loading="lazy" class="mx-auto w-56 h-56 object-contain mb-4">
+          <h3 class="text-xl font-semibold text-[#034C3C]">Rudraksha Bracelet</h3>
+          <p class="text-sm text-gray-600">Balances energy, enhances strength & attracts divine grace.</p>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Rudraksha Bracelet -->
-      <div class="bg-white p-8 rounded-2xl shadow-lg group">
-        <img src="images/rudraksha-bracelet.jpg" alt="Rudraksha Bracelet" loading="lazy" class="mx-auto w-56 h-56 object-contain mb-4">
-        <h3 class="text-xl font-semibold text-[#034C3C]">Rudraksha Bracelet</h3>
-        <p class="text-sm text-gray-600">Balances energy, enhances strength & attracts divine grace.</p>
-      </div>
+  <!-- Newsletter (above footer) -->
+  <section class="bg-emerald-50 py-12 fade-in newsletter-section">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-2xl font-semibold text-emerald-800 mb-3">Join the Gems of Nature Circle</h2>
+      <p class="text-gray-600 mb-6">Get 10% off your first order and receive gemstone care tips and exclusive drops.</p>
+      <form action="https://formspree.io/f/mzzybgop" method="POST" class="flex flex-col sm:flex-row gap-3 justify-center">
+        <input type="email" name="email" required placeholder="Enter your email"
+               class="border border-gray-300 rounded-lg px-4 py-2 w-full sm:w-auto flex-1 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+        <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">Subscribe</button>
+      </form>
+      <p class="text-xs text-gray-500 mt-3">We respect your privacy — no spam. Unsubscribe anytime.</p>
+    </div>
+  </section>
 
-</section>
+</main>
 
-<!-- Newsletter (above footer) -->
-<section class="bg-emerald-50 py-12 fade-in newsletter-section">
-  <div class="max-w-3xl mx-auto px-6 text-center">
-    <h2 class="text-2xl font-semibold text-emerald-800 mb-3">Join the Gems of Nature Circle</h2>
-    <p class="text-gray-600 mb-6">Get 10% off your first order and receive gemstone care tips and exclusive drops.</p>
-    <form action="https://formspree.io/f/yourFormID" method="POST" class="flex flex-col sm:flex-row gap-3 justify-center">
-      <input type="email" name="email" required placeholder="Enter your email"
-             class="border border-gray-300 rounded-lg px-4 py-2 w-full sm:w-auto flex-1 focus:outline-none focus:ring-2 focus:ring-emerald-400">
-      <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">Subscribe</button>
-    </form>
-    <p class="text-xs text-gray-500 mt-3">We respect your privacy — no spam. Unsubscribe anytime.</p>
-  </div>
-</section>
-
-<!-- Footer -->
-<footer class="bg-emerald-900 text-white py-6">
+<!-- FOOTER -->
+<footer class="bg-emerald-900 text-white py-6 mt-12">
   <div class="max-w-7xl mx-auto footer-inner flex flex-col md:flex-row items-center justify-between gap-4 px-6">
-    <div class="text-sm footer-nowrap">&copy; 2025 Gems of Nature. All rights reserved.</div>
 
-    <div class="text-sm text-emerald-100 font-medium text-center">100% natural stones • Secure payments • Fast shipping • 7-day returns</div>
+    <!-- Copyright -->
+    <div class="text-sm footer-nowrap">
+      &copy; 2025 <strong>Gems of Nature</strong>. All rights reserved.
+    </div>
 
+    <!-- Tagline -->
+    <div class="text-sm text-emerald-100 font-medium text-center">
+      100% natural stones • Secure payments • Fast shipping • 7-day returns
+    </div>
+
+    <!-- Social Links -->
     <div class="inline-flex gap-4 items-center">
-      <a href="https://www.facebook.com" target="_blank" aria-label="Facebook" class="hover:text-emerald-300 transition">
-        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11 9.95V14.89h-2.18v-2.89H11V10.1c0-2.16 1.28-3.36 3.25-3.36.94 0 1.93.17 1.93.17v2.12h-1.09c-1.08 0-1.42.67-1.42 1.36v1.64h2.42l-.39 2.89h-2.03v7.06A10 10 0 0 0 22 12z"/></svg>
+
+      <!-- Facebook -->
+      <a href="https://www.facebook.com/profile.php?id=61581929357076"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="Facebook"
+         class="hover:text-emerald-300 transition flex items-center gap-1">
+        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M22 12a10 10 0 1 0-11 9.95V14.89h-2.18v-2.89H11V10.1c0-2.16 1.28-3.36 3.25-3.36.94 0 1.93.17 1.93.17v2.12h-1.09c-1.08 0-1.42.67-1.42 1.36v1.64h2.42l-.39 2.89h-2.03v7.06A10 10 0 0 0 22 12z"/>
+        </svg>
+        <span class="text-sm">Facebook</span>
       </a>
-      <a href="https://www.instagram.com" target="_blank" aria-label="Instagram" class="hover:text-emerald-300 transition">
-        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.584.012 4.85.07 1.17.056 1.94.24 2.39.407a4.79 4.79 0 0 1 1.74 1.13 4.79 4.79 0 0 1 1.13 1.74c.167.45.351 1.22.407 2.39.058 1.266.07 1.65.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.94-.407 2.39a4.79 4.79 0 0 1-1.13 1.74 4.79 4.79 0 0 1-1.74 1.13c-.45.167-1.22.351-2.39.407-1.266.058-1.65.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.056-1.94-.24-2.39-.407a4.79 4.79 0 0 1-1.74-1.13 4.79 4.79 0 0 1-1.13-1.74c-.167-.45-.351-1.22-.407-2.39C2.172 15.584 2.16 15.2 2.16 12s.012-3.584.07-4.85c.056-1.17.24-1.94.407-2.39a4.79 4.79 0 0 1 1.13-1.74 4.79 4.79 0 0 1 1.74-1.13c.45-.167 1.22-.351 2.39-.407C8.416 2.172 8.8 2.16 12 2.16zm0-2.16C8.735 0 8.332.014 7.052.072 5.773.13 4.768.312 4.042.556a6.77 6.77 0 0 0-2.45 1.2A6.77 6.77 0 0 0 .393 4.21c-.244.726-.426 1.73-.484 3.008C-.014 8.332 0 8.735 0 12c0 3.265.014 3.668.072 4.948.058 1.278.24 2.282.484 3.008a6.77 6.77 0 0 0 1.2 2.45 6.77 6.77 0 0 0 2.45 1.2c.726.244 1.73.426 3.008.484C8.332 23.986 8.735 24 12 24s3.668-.014 4.948-.072c1.278-.058 2.282-.24 3.008-.484a6.77 6.77 0 0 0 2.45-1.2 6.77 6.77 0 0 0 1.2-2.45c.244-.726.426-1.73.484-3.008.058-1.28.072-1.683.072-4.948s-.014-3.668-.072-4.948c-.058-1.278-.24-2.282-.484-3.008a6.77 6.77 0 0 0-1.2-2.45 6.77 6.77 0 0 0-2.45-1.2c-.726-.244-1.73-.426-3.008-.484C15.668.014 15.265 0 12 0z"/><circle cx="12" cy="12" r="3.6"/></svg>
+
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/gemsofnatureshop"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="Instagram"
+         class="hover:text-emerald-300 transition flex items-center gap-1">
+        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M12 2.16c3.2 0 3.584.012 4.85.07 1.17.056 1.94.24 2.39.407a4.79 4.79 0 0 1 1.74 1.13 4.79 4.79 0 0 1 1.13 1.74c.167.45.351 1.22.407 2.39.058 1.266.07 1.65.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.94-.407 2.39a4.79 4.79 0 0 1-1.13 1.74 4.79 4.79 0 0 1-1.74 1.13c-.45.167-1.22.351-2.39.407-1.266.058-1.65.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.056-1.94-.24-2.39-.407a4.79 4.79 0 0 1-1.74-1.13 4.79 4.79 0 0 1-1.13-1.74c-.167-.45-.351-1.22-.407-2.39C2.172 15.584 2.16 15.2 2.16 12s.012-3.584.07-4.85c.056-1.17.24-1.94.407-2.39a4.79 4.79 0 0 1 1.13-1.74 4.79 4.79 0 0 1 1.74-1.13c.45-.167 1.22-.351 2.39-.407C8.416 2.172 8.8 2.16 12 2.16zm0-2.16C8.735 0 8.332.014 7.052.072 5.773.13 4.768.312 4.042.556a6.77 6.77 0 0 0-2.45 1.2A6.77 6.77 0 0 0 .393 4.21c-.244.726-.426 1.73-.484 3.008C-.014 8.332 0 8.735 0 12c0 3.265.014 3.668.072 4.948.058 1.278.24 2.282.484 3.008a6.77 6.77 0 0 0 1.2 2.45 6.77 6.77 0 0 0 2.45 1.2c.726.244 1.73.426 3.008.484C8.332 23.986 8.735 24 12 24s3.668-.014 4.948-.072c1.278-.058 2.282-.24 3.008-.484a6.77 6.77 0 0 0 2.45-1.2 6.77 6.77 0 0 0 1.2-2.45c.244-.726.426-1.73.484-3.008.058-1.28.072-1.683.072-4.948s-.014-3.668-.072-4.948c-.058-1.278-.24-2.282-.484-3.008a6.77 6.77 0 0 0-1.2-2.45 6.77 6.77 0 0 0-2.45-1.2c-.726-.244-1.73-.426-3.008-.484C15.668.014 15.265 0 12 0z"/>
+          <circle cx="12" cy="12" r="3.6"/>
+        </svg>
+        <span class="text-sm">Instagram</span>
       </a>
-      <a href="https://www.twitter.com" target="_blank" aria-label="Twitter" class="hover:text-emerald-300 transition">
-        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M24 4.557a9.94 9.94 0 0 1-2.828.775 4.932 4.932 0 0 0 2.165-2.724 9.864 9.864 0 0 1-3.127 1.195 4.916 4.916 0 0 0-8.384 4.482A13.94 13.94 0 0 1 1.671 3.149 4.916 4.916 0 0 0 3.195 9.723a4.903 4.903 0 0 1-2.229-.616v.062a4.916 4.916 0 0 0 3.946 4.814 4.902 4.902 0 0 1-2.224.084 4.918 4.918 0 0 0 4.588 3.417A9.867 9.867 0 0 1 0 19.54a13.94 13.94 0 0 0 7.548 2.212c9.058 0 14.01-7.514 14.01-14.01 0-.213-.005-.425-.014-.636A10.012 10.012 0 0 0 24 4.557z"/></svg>
+
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/company/gems-of-nature"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="LinkedIn"
+         class="hover:text-emerald-300 transition flex items-center gap-1">
+        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M22.225 0H1.771C.792 0 0 .774 0 1.728v20.543C0 23.226.792 24 1.771 24h20.451C23.208 24 24 23.226 24 22.271V1.728C24 .774 23.208 0 22.225 0zM7.082 20.452H3.539V9h3.543v11.452zM5.31 7.528a2.056 2.056 0 1 1 0-4.112 2.056 2.056 0 0 1 0 4.112zm14.832 12.924h-3.543v-5.555c0-1.324-.026-3.026-1.846-3.026-1.846 0-2.128 1.44-2.128 2.926v5.655h-3.543V9h3.4v1.561h.047c.474-.9 1.63-1.846 3.355-1.846 3.59 0 4.253 2.363 4.253 5.436v6.741z"/>
+        </svg>
+        <span class="text-sm">LinkedIn</span>
       </a>
-      <a href="https://www.linkedin.com" target="_blank" aria-label="LinkedIn" class="hover:text-emerald-300 transition">
-        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M22.225 0H1.771C.792 0 0 .774 0 1.728v20.543C0 23.226.792 24 1.771 24h20.451C23.208 24 24 23.226 24 22.271V1.728C24 .774 23.208 0 22.225 0zM7.082 20.452H3.539V9h3.543v11.452zM5.31 7.528a2.056 2.056 0 1 1 0-4.112 2.056 2.056 0 0 1 0 4.112zm14.832 12.924h-3.543v-5.555c0-1.324-.026-3.026-1.846-3.026-1.846 0-2.128 1.44-2.128 2.926v5.655h-3.543V9h3.4v1.561h.047c.474-.9 1.63-1.846 3.355-1.846 3.59 0 4.253 2.363 4.253 5.436v6.741z"/></svg>
-      </a>
+
     </div>
   </div>
 </footer>
