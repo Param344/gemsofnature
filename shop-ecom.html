@@ -208,7 +208,9 @@
 
     <!-- RIGHT: Cart -->
     <aside id="cart-sidebar" class="w-full lg:w-96 bg-white rounded-2xl shadow-md p-6 mt-6 lg:mt-0">
-      <h3 class="text-xl font-semibold text-emerald-700">Your Cart</h3>
+      <h3 class="text-xl font-semibold text-emerald-700">
+  Your Cart <span id="cart-count" class="ml-2 inline-block bg-emerald-100 text-emerald-700 text-sm px-2 py-0.5 rounded">0</span>
+</h3>
       <div id="cart-items" class="mt-4 space-y-4 max-h-72 overflow-auto">
         <!-- cart items injected here -->
       </div>
@@ -682,41 +684,118 @@ const cartTotalEl = document.getElementById('cart-total');
 
 function saveCart(){ localStorage.setItem('gon_cart', JSON.stringify(cart)); renderCart(); }
 
-function renderCart(){ cartItemsEl.innerHTML=''; const entries=Object.entries(cart); let subtotal=0; if(entries.length===0){ cartItemsEl.innerHTML='<p class="text-gray-600">Your cart is empty.</p>'; cartCountEl.textContent='0'; } else { entries.forEach(([pid,qty])=>{ const prod=products.find(p=>p.id===pid); const price=prod.price||0; subtotal+=price*qty; const item=document.createElement('div'); item.className='flex items-center gap-3'; item.innerHTML = `
-<div class="h-14 w-14"><img src="${prod.image}" onerror="this.src='images/placeholder.jpg'" class="h-14 w-14 object-cover rounded"/></div>
-<div class="flex-1">
-  <div class="text-sm font-medium">${prod.name}</div>
-  <div class="text-xs text-gray-500">${formatCurrency(prod.price,currentCurrency)} × ${qty}</div>
-  <div class="mt-1 flex items-center gap-2">
-    <button class="decrease text-sm px-2 py-1 border rounded" data-id="${pid}">-</button>
-    <span class="text-sm">${qty}</span>
-    <button class="increase text-sm px-2 py-1 border rounded" data-id="${pid}">+</button>
-    <button class="remove ml-3 text-xs text-red-600" data-id="${pid}">Remove</button>
-  </div>
-</div>
-<div class="text-sm font-semibold">${formatCurrency(prod.price*qty,currentCurrency)}</div>`;
- cartItemsEl.appendChild(item);
- }); cartCountEl.textContent = entries.reduce((s,[,q])=>s+q,0);
- }
- cartSubtotalEl.textContent = formatCurrency(subtotal,currentCurrency);
- cartShippingEl.textContent = entries.length? formatCurrency(SHIPPING,currentCurrency): formatCurrency(0,currentCurrency);
- cartTotalEl.textContent = formatCurrency(entries.length? subtotal+SHIPPING:0,currentCurrency);
+function renderCart(){
+  // defensive: ensure cartItemsEl exists
+  if (typeof cartItemsEl === 'undefined' || !cartItemsEl) {
+    // try to find it by id (in case variable wasn't set earlier)
+    const fallback = document.getElementById('cart-items');
+    if (!fallback) return; // nothing to render into
+    // eslint-disable-next-line no-unused-vars
+    cartItemsEl = fallback; // only works if cartItemsEl is `var` or `let`; if const, the earlier declaration should exist
+  }
 
- document.querySelectorAll('.increase').forEach(btn=> btn.onclick=()=>{ const id=btn.dataset.id; cart[id]=(cart[id]||0)+1; saveCart(); });
- document.querySelectorAll('.decrease').forEach(btn=> btn.onclick=()=>{ const id=btn.dataset.id; cart[id]=Math.max(0,(cart[id]||0)-1); if(cart[id]===0) delete cart[id]; saveCart(); });
- document.querySelectorAll('.remove').forEach(btn=> btn.onclick=()=>{ const id=btn.dataset.id; delete cart[id]; saveCart(); });
+  cartItemsEl.innerHTML = '';
+  const entries = Object.entries(cart || {});
+  let subtotal = 0;
+
+  if (entries.length === 0) {
+    cartItemsEl.innerHTML = '<p class="text-gray-600">Your cart is empty.</p>';
+    if (typeof cartCountEl !== 'undefined' && cartCountEl) cartCountEl.textContent = '0';
+  } else {
+    entries.forEach(([pid, qty]) => {
+      const prod = products.find(p => p.id === pid) || { name: pid, price: 0, image: 'images/placeholder.jpg' };
+      const price = prod.price || 0;
+      subtotal += price * qty;
+
+      const item = document.createElement('div');
+      item.className = 'flex items-center gap-3 py-2';
+      item.innerHTML = `
+        <div class="h-14 w-14 flex-shrink-0">
+          <img src="${prod.image || 'images/placeholder.jpg'}" onerror="this.src='images/placeholder.jpg'" class="h-14 w-14 object-cover rounded"/>
+        </div>
+        <div class="flex-1">
+          <div class="text-sm font-medium">${prod.name || pid}</div>
+          <div class="text-xs text-gray-500">${formatCurrency(price, currentCurrency)} × <span class="qty-num" data-id="${pid}">${qty}</span></div>
+          <div class="mt-1 flex items-center gap-2">
+            <button class="decrease text-sm px-2 py-1 border rounded" data-id="${pid}" aria-label="Decrease quantity">-</button>
+            <button class="increase text-sm px-2 py-1 border rounded" data-id="${pid}" aria-label="Increase quantity">+</button>
+            <button class="remove ml-3 text-xs text-red-600" data-id="${pid}" aria-label="Remove item">Remove</button>
+          </div>
+        </div>
+        <div class="text-sm font-semibold">${formatCurrency(price * qty, currentCurrency)}</div>
+      `;
+      cartItemsEl.appendChild(item);
+    });
+
+    if (typeof cartCountEl !== 'undefined' && cartCountEl) {
+      const count = entries.reduce((s, [, q]) => s + Number(q || 0), 0);
+      cartCountEl.textContent = String(count);
+    }
+  }
+
+  if (typeof cartSubtotalEl !== 'undefined' && cartSubtotalEl) cartSubtotalEl.textContent = formatCurrency(subtotal, currentCurrency);
+  if (typeof cartShippingEl !== 'undefined' && cartShippingEl) cartShippingEl.textContent = entries.length ? formatCurrency(SHIPPING, currentCurrency) : formatCurrency(0, currentCurrency);
+  if (typeof cartTotalEl !== 'undefined' && cartTotalEl) cartTotalEl.textContent = formatCurrency(entries.length ? subtotal + SHIPPING : 0, currentCurrency);
+
+  // attach handlers (re-bind each render to keep listeners consistent)
+  document.querySelectorAll('.increase').forEach(btn => {
+    btn.onclick = () => {
+      const id = btn.dataset.id;
+      cart[id] = (cart[id] || 0) + 1;
+      saveCart();
+    };
+  });
+
+  document.querySelectorAll('.decrease').forEach(btn => {
+    btn.onclick = () => {
+      const id = btn.dataset.id;
+      cart[id] = Math.max(0, (cart[id] || 0) - 1);
+      if (cart[id] === 0) delete cart[id];
+      saveCart();
+    };
+  });
+
+  document.querySelectorAll('.remove').forEach(btn => {
+    btn.onclick = () => {
+      const id = btn.dataset.id;
+      delete cart[id];
+      saveCart();
+    };
+  });
 }
 
-// search / filter events
-['search-input','category-filter','sort-select'].forEach(id=> document.getElementById(id).addEventListener('input', ()=>{ currentPage=1; renderProducts(); }));
+// search / filter events (guarded)
+['search-input','category-filter','sort-select'].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.addEventListener('input', () => { currentPage = 1; renderProducts(); });
+});
 
-document.getElementById('currency-select').addEventListener('change', (e)=>{ currentCurrency=e.target.value; renderProducts(); renderCart(); });
+// currency change (guarded)
+const currencySelectEl = document.getElementById('currency-select');
+if (currencySelectEl) {
+  currencySelectEl.addEventListener('change', (e) => {
+    currentCurrency = e.target.value;
+    renderProducts();
+    // renderCart may rely on globals; call if available
+    try { renderCart(); } catch (err) { console.warn('renderCart failed after currency change', err); }
+  });
+}
 
-// pagination initial
-currentPage=1; renderProducts(); renderCart();
+// pagination initial (guarded startup)
+currentPage = 1;
+try { renderProducts(); } catch (err) { console.warn('renderProducts failed on init', err); }
+try { renderCart(); } catch (err) { console.warn('renderCart failed on init', err); }
+
 
 // misc interactions: cart button
-document.getElementById('cart-button').addEventListener('click', ()=> document.getElementById('cart-sidebar').scrollIntoView({behavior:'smooth'}));
+const cartButton = document.getElementById('cart-button');
+if (cartButton) {
+  cartButton.addEventListener('click', () => {
+    const sidebar = document.getElementById('cart-sidebar');
+    if (sidebar) sidebar.scrollIntoView({ behavior: 'smooth' });
+  });
+}
 
 // mobile menu toggle (kept simple)
 document.getElementById('mobile-menu-button').addEventListener('click', ()=> alert('Open navigation on mobile — implement as needed'));
