@@ -3,90 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Shop natural gemstones and healing crystals at Gems of Nature. Each stone is selected for its unique energy and spiritual benefits." />
+  <meta name="description" content="Shop gemstones, crystals, and Rudraksha — Gems of Nature unified collection." />
   <title>Shop | Gems of Nature</title>
-
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Google Fonts: Montserrat -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-
   <style>
-    .font-montserrat { font-family: 'Montserrat', sans-serif; }
-
-    /* Fade-in animation */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s ease forwards;
-    }
-    @keyframes fadeInUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Tab styles tweaks for accessibility */
-    .tab-btn:focus { outline: 3px solid rgba(16,185,129,0.15); outline-offset: 2px; }
+    .font-montserrat{font-family:'Montserrat',sans-serif}
+    .fade-in{opacity:0;transform:translateY(20px);animation:fadeInUp .8s ease forwards}
+    @keyframes fadeInUp{to{opacity:1;transform:translateY(0)}}
+    .tab-btn:focus{outline:3px solid rgba(16,185,129,.15);outline-offset:2px}
+    .product-tile a{transition:all .25s ease-in-out}
+    .product-tile a:hover{transform:translateY(-1px)}
   </style>
 </head>
+
 <body class="bg-gray-50 text-gray-800 font-montserrat">
 
-<!-- Navbar -->
+<!-- NAVBAR -->
 <header class="bg-emerald-900 text-white shadow-md">
   <nav class="container mx-auto flex justify-between items-center py-4 px-6">
-    <!-- Logo -->
     <a href="index.html" class="flex items-center">
       <img src="images/logo.png" alt="Gems of Nature Logo" class="h-12 w-auto" loading="lazy">
       <span class="ml-2 text-2xl font-bold font-montserrat">Gems of Nature</span>
     </a>
-
-    <!-- Navigation links (center) -->
     <ul class="hidden md:flex gap-6 text-lg font-montserrat">
-      <li><a href="index.html" class="hover:text-emerald-300 transition">Home</a></li>
-      <li><a href="about.html" class="hover:text-emerald-300 transition">About Us</a></li>
-      <li><a href="shop.html" class="hover:text-emerald-300 transition font-semibold text-emerald-300">Collections</a></li>
-      <li><a href="contact.html" class="hover:text-emerald-300 transition">Contact</a></li>
+      <li><a href="index.html" class="hover:text-emerald-300">Home</a></li>
+      <li><a href="about.html" class="hover:text-emerald-300">About</a></li>
+      <li><a href="shop.html" class="text-emerald-300 font-semibold">Collections</a></li>
+      <li><a href="contact.html" class="hover:text-emerald-300">Contact</a></li>
     </ul>
-
-    <!-- Right side: Buy Online + Cart -->
     <div class="flex items-center gap-4">
-      <!-- Buy Online button -->
-      <a href="shop-ecom.html" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold hidden md:inline-block">
-        Buy Online
-      </a>
-
-      <!-- Cart icon -->
-      <a href="shop-ecom.html" class="text-2xl cursor-pointer" aria-label="Open Cart">🛒</a>
-
-      <!-- Mobile menu button -->
-      <button id="mobile-menu-button" class="text-2xl md:hidden focus:outline-none">☰</button>
+      <a href="shop-ecom.html" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold hidden md:inline-block">Buy Online</a>
+      <a href="shop-ecom.html" class="text-2xl cursor-pointer">🛒</a>
+      <button id="mobile-menu-button" class="text-2xl md:hidden">☰</button>
     </div>
   </nav>
-
-  <!-- Mobile Menu -->
   <div id="mobile-menu" class="hidden bg-emerald-800 md:hidden">
-    <ul class="flex flex-col gap-4 px-6 py-4 font-montserrat">
-      <li><a href="index.html" class="block hover:text-emerald-300 transition">Home</a></li>
-      <li><a href="about.html" class="block hover:text-emerald-300 transition">About Us</a></li>
-      <li><a href="shop.html" class="block hover:text-emerald-300 transition font-semibold text-emerald-300">Collections</a></li>
-      <li><a href="shop-ecom.html" class="block hover:text-emerald-300 transition font-semibold">Buy Online</a></li>
-      <li><a href="contact.html" class="block hover:text-emerald-300 transition">Contact</a></li>
+    <ul class="flex flex-col gap-4 px-6 py-4">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="shop.html" class="font-semibold text-emerald-300">Collections</a></li>
+      <li><a href="shop-ecom.html">Buy Online</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
   </div>
 </header>
 
 <script>
-  const mobileMenuButton = document.getElementById('mobile-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
-  if (mobileMenuButton) {
-    mobileMenuButton.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
-  }
+const mobileMenuButton=document.getElementById('mobile-menu-button');
+const mobileMenu=document.getElementById('mobile-menu');
+if(mobileMenuButton){mobileMenuButton.addEventListener('click',()=>mobileMenu.classList.toggle('hidden'));}
 </script>
 
-<!-- Hero Section -->
-<section class="relative bg-cover bg-center h-96 fade-in" style="background-image: url('images/hero-bg.jpg');">
+<!-- HERO -->
+<section class="relative bg-cover bg-center h-[28rem] fade-in" style="background-image:url('images/hero-bg.jpg');">
+  <img src="images/hero-bg.jpg" alt="Healing gemstones and crystals background" loading="lazy" class="hidden">
   <div class="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-center text-white px-6">
     <h1 class="text-4xl md:text-5xl font-bold mb-4">Shop Our Gemstones</h1>
     <p class="text-lg md:text-xl max-w-2xl">Find your perfect stone for healing, prosperity, and inner harmony</p>
@@ -94,411 +65,21 @@
   </div>
 </section>
 
-<!-- Tabs + Search -->
+<!-- FILTERS -->
 <section class="py-8 container mx-auto px-6">
   <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-    <div class="overflow-auto">
-      <div id="categoryTabs" class="inline-flex gap-2"></div>
-    </div>
-
+    <div class="overflow-auto"><div id="categoryTabs" class="inline-flex gap-2"></div></div>
     <div class="flex items-center gap-2">
-      <input id="shopSearch" type="search" placeholder="Search within category..." class="px-4 py-2 rounded-lg border w-64" />
+      <input id="shopSearch" type="search" placeholder="Search within category..." class="px-4 py-2 rounded-lg border w-64">
       <button id="clearFilters" class="px-3 py-2 bg-white border rounded-lg hover:bg-gray-50">Clear</button>
     </div>
   </div>
 </section>
 
-<!-- Product Grid -->
+<!-- PRODUCT GRID -->
 <section class="py-6 container mx-auto px-6 fade-in">
-  <div id="productGrid" class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-8">
-
-    <!-- NOTE: each product tile now includes data-category and optional data-tags -->
-
-    <!-- Quartz category examples -->
-    <a href="shop-ecom.html?product=p1" data-id="p1" data-category="Quartz" data-tags="amethyst,flower,healing" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative">
-        <img src="images/amethyst-flower.jpg" alt="Amethyst Flower" loading="lazy" class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110" />
-        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300 rounded-t-2xl"></div>
-      </div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">Amethyst Flower</h3>
-        <p class="text-sm text-gray-600 mt-2">Calming • Intuition • Spiritual growth</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=p17" data-id="p17" data-category="Quartz" data-tags="clear-quartz,amplification" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative">
-        <img src="images/clear-quartz.jpg" alt="Clear Quartz" loading="lazy" class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110" />
-        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300 rounded-t-2xl"></div>
-      </div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">Clear Quartz</h3>
-        <p class="text-sm text-gray-600 mt-2">Amplification • Clarity • Healing</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=p12" data-id="p12" data-category="Quartz" data-tags="rose-quartz,love" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative">
-        <img src="images/rose-quartz.jpg" alt="Rose Quartz" loading="lazy" class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110" />
-        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300 rounded-t-2xl"></div>
-      </div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">Rose Quartz</h3>
-        <p class="text-sm text-gray-600 mt-2">Love • Harmony • Emotional healing</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=p20" data-id="p20" data-category="Quartz" data-tags="citrine,prosperity" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative">
-        <img src="images/citrine.jpg" alt="Citrine" loading="lazy" class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110" />
-        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300 rounded-t-2xl"></div>
-      </div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">Citrine</h3>
-        <p class="text-sm text-gray-600 mt-2">Wealth • Confidence • Positivity</p>
-      </div>
-    </a>
-
-    <!-- Healing Stones examples -->
-    <a href="shop-ecom.html?product=p3" data-id="p3" data-category="Healing Stones" data-tags="fluorite,blue,clarity" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative">
-        <img src="images/blue-florite.jpg" alt="Blue Fluorite" loading="lazy" class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110" />
-        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300 rounded-t-2xl"></div>
-      </div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">Blue Florite</h3>
-        <p class="text-sm text-gray-600 mt-2">Clarity • Focus • Mental calm</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=p6" data-id="p6" data-category="Healing Stones" data-tags="fluorite,green" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative">
-        <img src="images/green-fluorite.jpg" alt="Green Fluorite" loading="lazy" class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110" />
-        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300 rounded-t-2xl"></div>
-      </div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">Green Fluorite</h3>
-        <p class="text-sm text-gray-600 mt-2">Cleansing • Stabilizing</p>
-      </div>
-    </a>
-
-    <!-- Gemstones examples -->
-    <a href="shop-ecom.html?product=p2" data-id="p2" data-category="Gemstones" data-tags="lapis,lazuli,throat" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative">
-        <img src="images/lapiz-lazuli.jpg" alt="Lapiz Lazuli" loading="lazy" class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110" />
-        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300 rounded-t-2xl"></div>
-      </div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">Lapiz Lazuli</h3>
-        <p class="text-sm text-gray-600 mt-2">Abundance • Confidence • Energizing</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=p8" data-id="p8" data-category="Gemstones" data-tags="tiger-eye,grounding" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative">
-        <img src="images/tiger-eye.jpg" alt="Tiger Eye" loading="lazy" class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110" />
-        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300 rounded-t-2xl"></div>
-      </div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">Tiger Eye</h3>
-        <p class="text-sm text-gray-600 mt-2">Grounding • Courage • Protection</p>
-      </div>
-    </a>
-
-    <!-- Opal category (separate tab) -->
-    <a href="shop-ecom.html?product=p22" data-id="p22" data-category="Opal" data-tags="opal,creativity" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative">
-        <img src="images/opal.jpg" alt="Opal" loading="lazy" class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110" />
-        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300 rounded-t-2xl"></div>
-      </div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">Opal</h3>
-        <p class="text-sm text-gray-600 mt-2">Creativity • Emotional balance • Color play</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=p23" data-id="p23" data-category="Opal" data-tags="red-opal,passion" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative">
-        <img src="images/red-opal.jpg" alt="Red Opal" loading="lazy" class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110" />
-        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300 rounded-t-2xl"></div>
-      </div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">Red Opal</h3>
-        <p class="text-sm text-gray-600 mt-2">Passion • Strength • Collector's variety</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=p24" data-id="p24" data-category="Opal" data-tags="black,grounding" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative">
-        <img src="images/black.jpg" alt="Black Stone" loading="lazy" class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110" />
-        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300 rounded-t-2xl"></div>
-      </div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">Black</h3>
-        <p class="text-sm text-gray-600 mt-2">Deep grounding • Protective variety</p>
-      </div>
-    </a>
-
-    <!-- Raw Stones examples -->
-    <a href="shop-ecom.html?product=p18" data-id="p18" data-category="Raw Stones" data-tags="egg-yolk,collectors" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative">
-        <img src="images/egg-yolk-stones.jpg" alt="Egg Yolk Stones" loading="lazy" class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110" />
-        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300 rounded-t-2xl"></div>
-      </div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">Egg Yolk Stones</h3>
-        <p class="text-sm text-gray-600 mt-2">Warmth • Energy • Unique collectors' pieces</p>
-      </div>
-    </a>
-
-    <!-- Additional Gemstones -->
-    <a href="shop-ecom.html?product=p10" data-id="p10" data-category="Gemstones" data-tags="tourmaline,black,protection" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative">
-        <img src="images/black-tourmaline.jpg" alt="Black Tourmaline" loading="lazy" class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110" />
-        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300 rounded-t-2xl"></div>
-      </div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">Black Tourmaline</h3>
-        <p class="text-sm text-gray-600 mt-2">Protection • Grounding • EMF shielding</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=p11" data-id="p11" data-category="Gemstones" data-tags="red-jasper,grounding" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative">
-        <img src="images/red-jasper.jpg" alt="Red Jasper" loading="lazy" class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110" />
-        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300 rounded-t-2xl"></div>
-      </div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">Red Jasper</h3>
-        <p class="text-sm text-gray-600 mt-2">Stability • Grounding • Strength</p>
-      </div>
-    </a>
-
-    <!-- Rudraksha section: 1 to 22 Mukhi entries -->
-    <!-- We'll include concise description, mukhi count, deity, and suggested use -->
-
-    <a href="shop-ecom.html?product=rd1" data-id="rd1" data-category="Rudraksha" data-tags="rudraksha,1-mukhi,ek-mukhi" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative">
-        <img src="images/rudraksha-1.jpg" alt="1 Mukhi Rudraksha" loading="lazy" class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110" />
-      </div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">1 Mukhi Rudraksha (Ek Mukhi)</h3>
-        <p class="text-sm text-gray-600 mt-2">Represents Lord Shiva — used for highest spiritual attainment, deep meditation and siddhi practices. (Rare)</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=rd2" data-id="rd2" data-category="Rudraksha" data-tags="rudraksha,2-mukhi,dwi-mukhi" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-2.jpg" alt="2 Mukhi Rudraksha" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">2 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600 mt-2">Symbolizes harmony and unity — benefits relationships, emotional balance and partnership energy.</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=rd3" data-id="rd3" data-category="Rudraksha" data-tags="rudraksha,3-mukhi" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-3.jpg" alt="3 Mukhi Rudraksha" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">3 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600 mt-2">Associated with Agni (fire) — enhances courage, willpower, and purification of past karmas.</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=rd4" data-id="rd4" data-category="Rudraksha" data-tags="rudraksha,4-mukhi" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-4.jpg" alt="4 Mukhi Rudraksha" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">4 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600 mt-2">Linked to Brahma — supports creativity, learning, and intellectual growth.</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=rd5" data-id="rd5" data-category="Rudraksha" data-tags="rudraksha,5-mukhi" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-5.jpg" alt="5 Mukhi Rudraksha" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">5 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600 mt-2">Most common — associated with Lord Shiva; promotes health, concentration and general protection.</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=rd6" data-id="rd6" data-category="Rudraksha" data-tags="rudraksha,6-mukhi" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-6.jpg" alt="6 Mukhi Rudraksha" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">6 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600 mt-2">Governs Saturn energies — assists discipline, stability and karmic management.</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=rd7" data-id="rd7" data-category="Rudraksha" data-tags="rudraksha,7-mukhi" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-7.jpg" alt="7 Mukhi Rudraksha" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">7 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600 mt-2">Linked to wealth and prosperity — supports prosperity, self-confidence and leadership.</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=rd8" data-id="rd8" data-category="Rudraksha" data-tags="rudraksha,8-mukhi" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-8.jpg" alt="8 Mukhi Rudraksha" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">8 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600 mt-2">Associated with Lord Ganesha — removes obstacles, supports new beginnings and success.</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=rd9" data-id="rd9" data-category="Rudraksha" data-tags="rudraksha,9-mukhi" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-9.jpg" alt="9 Mukhi Rudraksha" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">9 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600 mt-2">Connected to the Sun — increases leadership, authority and vitality.</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=rd10" data-id="rd10" data-category="Rudraksha" data-tags="rudraksha,10-mukhi" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-10.jpg" alt="10 Mukhi Rudraksha" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">10 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600 mt-2">Linked with planetary energies that support spiritual discipline and inner strength.</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=rd11" data-id="rd11" data-category="Rudraksha" data-tags="rudraksha,11-mukhi" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-11.jpg" alt="11 Mukhi Rudraksha" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">11 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600 mt-2">Supports awakening of spiritual insight, wisdom and intuitive faculties.</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=rd12" data-id="rd12" data-category="Rudraksha" data-tags="rudraksha,12-mukhi" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-12.jpg" alt="12 Mukhi Rudraksha" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">12 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600 mt-2">Helps with spiritual evolution and deeper meditation practice; supports detachment from material anxieties.</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=rd13" data-id="rd13" data-category="Rudraksha" data-tags="rudraksha,13-mukhi" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-13.jpg" alt="13 Mukhi Rudraksha" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">13 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600 mt-2">Supports mastery over senses and helps with focus in ritual and spiritual disciplines.</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=rd14" data-id="rd14" data-category="Rudraksha" data-tags="rudraksha,14-mukhi" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-14.jpg" alt="14 Mukhi Rudraksha" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">14 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600 mt-2">Connected to higher guidance; often used to stabilize mind in advanced sadhana.</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=rd15" data-id="rd15" data-category="Rudraksha" data-tags="rudraksha,15-mukhi" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-15.jpg" alt="15 Mukhi Rudraksha" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">15 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600 mt-2">Helps in harmonizing energies related to family, community and personal responsibility.</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=rd16" data-id="rd16" data-category="Rudraksha" data-tags="rudraksha,16-mukhi" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-16.jpg" alt="16 Mukhi Rudraksha" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">16 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600 mt-2">Supports clarity in decision-making and steadiness in leadership roles.</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=rd17" data-id="rd17" data-category="Rudraksha" data-tags="rudraksha,17-mukhi" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-17.jpg" alt="17 Mukhi Rudraksha" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">17 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600 mt-2">Helps in protection and removal of obstacles on spiritual path; supports resilience.</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=rd18" data-id="rd18" data-category="Rudraksha" data-tags="rudraksha,18-mukhi" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-18.jpg" alt="18 Mukhi Rudraksha" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">18 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600 mt-2">Supports purification and strengthens practices connected to higher will.</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=rd19" data-id="rd19" data-category="Rudraksha" data-tags="rudraksha,19-mukhi" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-19.jpg" alt="19 Mukhi Rudraksha" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">19 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600 mt-2">Used for deep sadhana, helps alignment with higher spiritual disciplines.</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=rd20" data-id="rd20" data-category="Rudraksha" data-tags="rudraksha,20-mukhi" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-20.jpg" alt="20 Mukhi Rudraksha" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">20 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600 mt-2">Supports protection and stability in both material and spiritual pursuits.</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=rd21" data-id="rd21" data-category="Rudraksha" data-tags="rudraksha,21-mukhi" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-21.jpg" alt="21 Mukhi Rudraksha" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">21 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600 mt-2">Often used for enhanced protection and karmic balance in daily life.</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=rd22" data-id="rd22" data-category="Rudraksha" data-tags="rudraksha,22-mukhi" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-22.jpg" alt="22 Mukhi Rudraksha" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">22 Mukhi Rudraksha</h3>
-        <p class="text-sm text-gray-600 mt-2">Used in specific advanced rituals; consult guide for correct use and mantra.</p>
-      </div>
-    </a>
-
-    <a href="shop-ecom.html?product=rd22" data-id="rd22" data-category="Rudraksha" data-tags="Rudraksha Mala" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-mala.jpg" alt="Rudraksha Mala" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">Rudraksha Mala</h3>
-        <p class="text-sm text-gray-600 mt-2">Handcrafted & Energised for Daily Spiritual Practice.</p>
-      </div>
-    </a>
-    <a href="shop-ecom.html?product=rd22" data-id="rd22" data-category="Rudraksha" data-tags="Rudraksha Locket" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-locket.jpg" alt="Rudraksha Locket" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">Rudraksha Locket</h3>
-        <p class="text-sm text-gray-600 mt-2">Powerful talisman combining Rudraksha with sacred metals.</p>
-      </div>
-    </a>
-    <a href="shop-ecom.html?product=rd22" data-id="rd22" data-category="Rudraksha" data-tags="Rudraksha Bracelet" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/rudraksha-bracelet.jpg" alt="Rudraksha Bracelet" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">Rudraksha Bracelet</h3>
-        <p class="text-sm text-gray-600 mt-2">Balances energy, enhances strength & attracts divine grace.</p>
-      </div>
-    </a>
-    <a href="shop-ecom.html?product=rd22" data-id="rd22" data-category="Rudraksha" data-tags="Sphatik Crystal Mala" class="product-tile block bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden">
-      <div class="relative"><img src="images/sphatik-mala.jpg" alt="Sphatik Crystal Mala" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110" /></div>
-      <div class="p-6">
-        <h3 class="text-xl font-semibold text-emerald-700">Sphatik Crystal Mala</h3>
-        <p class="text-sm text-gray-600 mt-2">Pure quartz mala for clarity, meditation & divine healing.</p>
-      </div>
-    </a>
-  </div>
-
-  <!-- Empty / not found message -->
+  <div id="productGrid" class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-8"></div>
   <div id="noResults" class="hidden text-center py-12 text-gray-500">No products found — try clearing filters or select another category.</div>
-</section>
-
-<!-- Newsletter (small, above footer) -->
-<section class="bg-emerald-50 py-8">
-  <div class="container mx-auto px-6 text-center max-w-2xl">
-    <h3 class="text-lg font-semibold text-emerald-800 mb-2">Join our mailing list</h3>
-    <p class="text-sm text-gray-600 mb-4">Receive updates and special offers.</p>
-    <form action="https://formspree.io/f/mzzybgop" method="POST" class="flex items-center gap-2 justify-center">
-      <input type="email" name="email" placeholder="Your email" required class="px-3 py-2 border rounded-lg w-64" />
-      <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg">Subscribe</button>
-    </form>
-  </div>
 </section>
 
 <!-- FOOTER -->
@@ -515,165 +96,212 @@
       100% natural stones • Secure payments • Fast shipping • 7-day returns
     </div>
 
-    <!-- Social Links -->
-    <div class="inline-flex gap-4 items-center">
-
+    <!-- Social Links (PNG icons + labels) -->
+<div class="flex items-center justify-center gap-8 ml-2">
       <!-- Facebook -->
-      <a href="https://www.facebook.com/profile.php?id=61581929357076"
-         target="_blank"
-         rel="noopener noreferrer"
-         aria-label="Facebook"
-         class="hover:text-emerald-300 transition flex items-center gap-1">
-        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-          <path d="M22 12a10 10 0 1 0-11 9.95V14.89h-2.18v-2.89H11V10.1c0-2.16 1.28-3.36 3.25-3.36.94 0 1.93.17 1.93.17v2.12h-1.09c-1.08 0-1.42.67-1.42 1.36v1.64h2.42l-.39 2.89h-2.03v7.06A10 10 0 0 0 22 12z"/>
-        </svg>
-        <span class="text-sm">Facebook</span>
+      <a
+        href="https://www.facebook.com/profile.php?id=61581929357076"
+        target="_blank" rel="noopener noreferrer"
+        class="flex items-center gap-2 hover:opacity-90 transition"
+      >
+        <img src="images/social/facebook.png" alt="Facebook" class="w-6 h-6 rounded-full shadow-md">
+        <span class="text-sm font-medium">Facebook</span>
       </a>
 
       <!-- Instagram -->
-      <a href="https://www.instagram.com/gemsofnatureshop"
-         target="_blank"
-         rel="noopener noreferrer"
-         aria-label="Instagram"
-         class="hover:text-emerald-300 transition flex items-center gap-1">
-        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-          <path d="M12 2.16c3.2 0 3.584.012 4.85.07 1.17.056 1.94.24 2.39.407a4.79 4.79 0 0 1 1.74 1.13 4.79 4.79 0 0 1 1.13 1.74c.167.45.351 1.22.407 2.39.058 1.266.07 1.65.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.94-.407 2.39a4.79 4.79 0 0 1-1.13 1.74 4.79 4.79 0 0 1-1.74 1.13c-.45.167-1.22.351-2.39.407-1.266.058-1.65.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.056-1.94-.24-2.39-.407a4.79 4.79 0 0 1-1.74-1.13 4.79 4.79 0 0 1-1.13-1.74c-.167-.45-.351-1.22-.407-2.39C2.172 15.584 2.16 15.2 2.16 12s.012-3.584.07-4.85c.056-1.17.24-1.94.407-2.39a4.79 4.79 0 0 1 1.13-1.74 4.79 4.79 0 0 1 1.74-1.13c.45-.167 1.22-.351 2.39-.407C8.416 2.172 8.8 2.16 12 2.16zm0-2.16C8.735 0 8.332.014 7.052.072 5.773.13 4.768.312 4.042.556a6.77 6.77 0 0 0-2.45 1.2A6.77 6.77 0 0 0 .393 4.21c-.244.726-.426 1.73-.484 3.008C-.014 8.332 0 8.735 0 12c0 3.265.014 3.668.072 4.948.058 1.278.24 2.282.484 3.008a6.77 6.77 0 0 0 1.2 2.45 6.77 6.77 0 0 0 2.45 1.2c.726.244 1.73.426 3.008.484C8.332 23.986 8.735 24 12 24s3.668-.014 4.948-.072c1.278-.058 2.282-.24 3.008-.484a6.77 6.77 0 0 0 2.45-1.2 6.77 6.77 0 0 0 1.2-2.45c.244-.726.426-1.73.484-3.008.058-1.28.072-1.683.072-4.948s-.014-3.668-.072-4.948c-.058-1.278-.24-2.282-.484-3.008a6.77 6.77 0 0 0-1.2-2.45 6.77 6.77 0 0 0-2.45-1.2c-.726-.244-1.73-.426-3.008-.484C15.668.014 15.265 0 12 0z"/>
-          <circle cx="12" cy="12" r="3.6"/>
-        </svg>
-        <span class="text-sm">Instagram</span>
+      <a
+        href="https://www.instagram.com/gemsofnatureshop"
+        target="_blank" rel="noopener noreferrer"
+        class="flex items-center gap-2 hover:opacity-90 transition"
+      >
+        <img src="images/social/instagram.png" alt="Instagram" class="w-6 h-6 rounded-md shadow-md">
+        <span class="text-sm font-medium">Instagram</span>
       </a>
 
       <!-- LinkedIn -->
-      <a href="https://www.linkedin.com/company/gems-of-nature"
-         target="_blank"
-         rel="noopener noreferrer"
-         aria-label="LinkedIn"
-         class="hover:text-emerald-300 transition flex items-center gap-1">
-        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-          <path d="M22.225 0H1.771C.792 0 0 .774 0 1.728v20.543C0 23.226.792 24 1.771 24h20.451C23.208 24 24 23.226 24 22.271V1.728C24 .774 23.208 0 22.225 0zM7.082 20.452H3.539V9h3.543v11.452zM5.31 7.528a2.056 2.056 0 1 1 0-4.112 2.056 2.056 0 0 1 0 4.112zm14.832 12.924h-3.543v-5.555c0-1.324-.026-3.026-1.846-3.026-1.846 0-2.128 1.44-2.128 2.926v5.655h-3.543V9h3.4v1.561h.047c.474-.9 1.63-1.846 3.355-1.846 3.59 0 4.253 2.363 4.253 5.436v6.741z"/>
-        </svg>
-        <span class="text-sm">LinkedIn</span>
+      <a
+        href="https://www.linkedin.com/company/gems-of-nature"
+        target="_blank" rel="noopener noreferrer"
+        class="flex items-center gap-2 hover:opacity-90 transition"
+      >
+        <img src="images/social/linkedin.png" alt="LinkedIn" class="w-6 h-6 rounded-md shadow-md">
+        <span class="text-sm font-medium">LinkedIn</span>
       </a>
-
     </div>
   </div>
 </footer>
 
 
-<!-- Filtering script -->
+<!-- DYNAMIC PRODUCTS SCRIPT (p1–p60) -->
 <script>
-  (function(){
-    // collect all existing product tiles
-    const tiles = Array.from(document.querySelectorAll('.product-tile'));
-    const grid = document.getElementById('productGrid');
-    const tabsContainer = document.getElementById('categoryTabs');
-    const searchInput = document.getElementById('shopSearch');
-    const clearBtn = document.getElementById('clearFilters');
-    const noResults = document.getElementById('noResults');
+const products = [
+{"id":"p1","name":"Diamond","category":"Precious","description":"Investment-grade brilliant-cut stone; luxury jewellery & heirloom.","image":"images/products/diamond.jpg","price_min":40000,"price_max":200000},
+{"id":"p2","name":"Ruby","category":"Precious","description":"Vitality, leadership, passion; high astrology demand.","image":"images/products/ruby.jpg","price_min":40000,"price_max":600000},
+{"id":"p3","name":"Blue Sapphire","category":"Precious","description":"Powerful gemstone for Saturn; clarity, discipline.","image":"images/products/blue-sapphire.jpg","price_min":5000,"price_max":80000},
+{"id":"p4","name":"Rubellite","category":"Precious","description":"Royal gemstone for strength and vitality.","image":"images/products/rubellite.jpg","price_min":40000,"price_max":600000},
+{"id":"p5","name":"Emerald","category":"Precious","description":"Enhances love, memory and communication.","image":"images/products/emerald.jpg","price_min":8000,"price_max":150000},
+{"id":"p6","name":"Padparadscha Sapphire","category":"Precious","description":"Rare salmon-pink; collector & jewellery value.","image":"images/products/padparadscha.jpg","price_min":25000,"price_max":200000},
+{"id":"p7","name":"Alexandrite","category":"Precious","description":"Colour-change rarity — transformative & luck stone.","image":"images/products/alexandrite.jpg","price_min":30000,"price_max":300000},
+{"id":"p8","name":"Paraiba Tourmaline","category":"Precious","description":"Electric blue-green; high jewellery demand.","image":"images/products/paraiba.jpg","price_min":20000,"price_max":250000},
+{"id":"p9","name":"Spinel","category":"Precious","description":"Durable, good value alternative to ruby/sapphire.","image":"images/products/spinel.jpg","price_min":6000,"price_max":60000},
+{"id":"p10","name":"Natural Pearl","category":"Precious","description":"Classic pearl for astrology & bridal jewellery.","image":"images/products/pearl.jpg","price_min":1500,"price_max":60000},
+{"id":"p11","name":"Black Opal","category":"Precious","description":"Collector gem with striking play-of-color.","image":"images/products/black-opal.jpg","price_min":10000,"price_max":250000},
+{"id":"p12","name":"Jadeite (Imperial)","category":"Precious","description":"High-end jade for collectors & talismans.","image":"images/products/jadeite.jpg","price_min":20000,"price_max":200000},
+{"id":"p13","name":"Golden Beryl","category":"Precious","description":"Investment-grade beryl variety.","image":"images/products/beryl.jpg","price_min":8000,"price_max":200000},
+{"id":"p14","name":"Amethyst","category":"Semi-Precious","description":"Calming stone aiding intuition and spiritual growth.","image":"images/products/amethyst.jpg","price_min":400,"price_max":5000},
+{"id":"p15","name":"Citrine","category":"Semi-Precious","description":"Abundance and manifestation stone.","image":"images/products/citrine.jpg","price_min":300,"price_max":4000},
+{"id":"p16","name":"Garnet","category":"Semi-Precious","description":"Energising stone for vitality and protection.","image":"images/products/garnet.jpg","price_min":200,"price_max":8000},
+{"id":"p17","name":"Topaz","category":"Semi-Precious","description":"Clarity, confidence and luck.","image":"images/products/topaz.jpg","price_min":500,"price_max":15000},
+{"id":"p18","name":"Tourmaline","category":"Semi-Precious","description":"Protection and balancing stone; many colours.","image":"images/products/tourmaline.jpg","price_min":300,"price_max":20000},
+{"id":"p19","name":"Peridot","category":"Semi-Precious","description":"Renewal, vitality and prosperity.","image":"images/products/peridot.jpg","price_min":400,"price_max":6000},
+{"id":"p20","name":"Aquamarine","category":"Semi-Precious","description":"Calming sea-blue; courage and travel protection.","image":"images/products/aquamarine.jpg","price_min":800,"price_max":15000},
+{"id":"p21","name":"Moonstone","category":"Semi-Precious","description":"Intuition, feminine cycles and calm energy.","image":"images/products/moonstone.jpg","price_min":300,"price_max":6000},
+{"id":"p22","name":"Lapis Lazuli","category":"Semi-Precious","description":"Wisdom, throat chakra and psychic awareness.","image":"images/products/lapis.jpg","price_min":300,"price_max":5000},
+{"id":"p23","name":"Turquoise","category":"Semi-Precious","description":"Protector stone; healing & communication.","image":"images/products/turquoise.jpg","price_min":400,"price_max":8000},
+{"id":"p24","name":"Malachite","category":"Semi-Precious","description":"Transformation and emotional healing.","image":"images/products/malachite.jpg","price_min":200,"price_max":6000},
+{"id":"p25","name":"Black Onyx","category":"Semi-Precious","description":"Grounding and stability.","image":"images/products/onyx.jpg","price_min":100,"price_max":2000},
+{"id":"p26","name":"Jasper","category":"Semi-Precious","description":"Grounding and nurture; earth energy.","image":"images/products/jasper.jpg","price_min":150,"price_max":2500},
+{"id":"p27","name":"Carnelian","category":"Semi-Precious","description":"Energy, motivation and creativity.","image":"images/products/carnelian.jpg","price_min":100,"price_max":2500},
+{"id":"p28","name":"Chrysoprase","category":"Semi-Precious","description":"Joy, optimism and heart healing.","image":"images/products/chrysoprase.jpg","price_min":400,"price_max":7000},
+{"id":"p29","name":"Kunzite","category":"Semi-Precious","description":"Heart-opening emotional healer.","image":"images/products/kunzite.jpg","price_min":500,"price_max":20000},
+{"id":"p30","name":"Iolite","category":"Semi-Precious","description":"Vision, inner guidance and meditation aid.","image":"images/products/iolite.jpg","price_min":300,"price_max":4000},
+{"id":"p31","name":"Smoky Quartz","category":"Semi-Precious","description":"Grounding and negativity removal.","image":"images/products/smoky-quartz.jpg","price_min":150,"price_max":3000},
+{"id":"p32","name":"Amazonite","category":"Semi-Precious","description":"Soothing, communication and calming nerves.","image":"images/products/amazonite.jpg","price_min":200,"price_max":3500},
+{"id":"p33","name":"Aventurine","category":"Semi-Precious","description":"Luck, prosperity and heart healing.","image":"images/products/aventurine.jpg","price_min":150,"price_max":3000},
+{"id":"p34","name":"Sodalite","category":"Semi-Precious","description":"Logic, communication and intuition balance.","image":"images/products/sodalite.jpg","price_min":150,"price_max":2500},
+{"id":"p35","name":"Bloodstone","category":"Semi-Precious","description":"Courage and vitality.","image":"images/products/bloodstone.jpg","price_min":150,"price_max":2000},
+{"id":"p36","name":"Tanzanite","category":"Semi-Precious","description":"Spiritual uplift and higher vision.","image":"images/products/zoisite.jpg","price_min":800,"price_max":30000},
+{"id":"p37","name":"Sunstone","category":"Semi-Precious","description":"Joy, leadership and power.","image":"images/products/sunstone.jpg","price_min":200,"price_max":4000},
+{"id":"p38","name":"Chalcedony","category":"Semi-Precious","description":"Soothing, social harmony and calm communication.","image":"images/products/chalcedony.jpg","price_min":150,"price_max":3000},
+{"id":"p39","name":"Blue Lace Agate","category":"Semi-Precious","description":"Gentle communication and throat support.","image":"images/products/blue-lace-agate.jpg","price_min":200,"price_max":3500},
+{"id":"p40","name":"Morganite","category":"Semi-Precious","description":"Divine love, compassion and healing.","image":"images/products/morganite.jpg","price_min":1000,"price_max":25000},
+{"id":"p41","name":"Rhodochrosite","category":"Semi-Precious","description":"Heart-healing and self-love.","image":"images/products/rhodochrosite.jpg","price_min":300,"price_max":6000},
+{"id":"p42","name":"Rhodonite","category":"Semi-Precious","description":"Emotional healing and forgiveness.","image":"images/products/rhodonite.jpg","price_min":200,"price_max":4000},
+{"id":"p43","name":"Larimar","category":"Semi-Precious","description":"Soothing oceanic calm and throat healing.","image":"images/products/larimar.jpg","price_min":1000,"price_max":12000},
+{"id":"p44","name":"Serpentine","category":"Semi-Precious","description":"Kundalini support and cleansing.","image":"images/products/serpentine.jpg","price_min":150,"price_max":2500},
+{"id":"p45","name":"Labradorite","category":"Semi-Precious","description":"Psychic protection and awakening.","image":"images/products/labradorite.jpg","price_min":400,"price_max":8000},
+{"id":"p46","name":"Apatite","category":"Semi-Precious","description":"Focus and clarity.","image":"images/products/apatite.jpg","price_min":200,"price_max":3500},
+{"id":"p47","name":"Chromium Diopside","category":"Semi-Precious","description":"Bright green alternative to emerald.","image":"images/products/diopside.jpg","price_min":800,"price_max":8000},
+{"id":"p48","name":"Hematite","category":"Semi-Precious","description":"Grounding and strength.","image":"images/products/hematite.jpg","price_min":100,"price_max":2000},
+{"id":"p49","name":"Pietersite","category":"Semi-Precious","description":"Spiritual insight and transformation.","image":"images/products/pietersite.jpg","price_min":800,"price_max":12000},
+{"id":"p50","name":"Fire Agate","category":"Semi-Precious","description":"Protective and energizing with inner fire.","image":"images/products/fire-agate.jpg","price_min":400,"price_max":7000},
+{"id":"p51","name":"Chrysocolla","category":"Semi-Precious","description":"Calming communication and creativity.","image":"images/products/chrysocolla.jpg","price_min":150,"price_max":4000},
+{"id":"p52","name":"Brazilian Topaz","category":"Semi-Precious","description":"Clarity and prosperity.","image":"images/products/brazilian-topaz.jpg","price_min":1000,"price_max":15000},
+{"id":"p53","name":"Tsavorite","category":"Semi-Precious","description":"Heart energy with luxury demand.","image":"images/products/tsavorite.jpg","price_min":4000,"price_max":50000},
+{"id":"p54","name":"Spinel Varieties","category":"Semi-Precious","description":"Durable jewellery favourite in many colours.","image":"images/products/spinel-var.jpg","price_min":800,"price_max":25000},
+{"id":"p55","name":"Opal","category":"Semi-Precious","description":"Emotional healing and creativity.","image":"images/products/opal.jpg","price_min":400,"price_max":30000},
+{"id":"p56","name":"Heliodor","category":"Semi-Precious","description":"Vitality, focus and courage.","image":"images/products/heliodor.jpg","price_min":700,"price_max":8000},
+{"id":"p57","name":"Zircon","category":"Semi-Precious","description":"Sparkle similar to diamond.","image":"images/products/zircon.jpg","price_min":300,"price_max":6000},
+{"id":"p58","name":"White Sapphire","category":"Semi-Precious","description":"Durable & affordable diamond alternative.","image":"images/products/white-sapphire.jpg","price_min":800,"price_max":10000},
+{"id":"p59","name":"Blue Chalcedony","category":"Semi-Precious","description":"Soothing communication and creativity.","image":"images/products/blue-chalcedony.jpg","price_min":150,"price_max":4000},
+{"id":"p60","name":"Blue Fluorite","category":"Semi-Precious","description":"Healing and focus stone.","image":"images/products/blue-florite.jpg","price_min":200,"price_max":4000},
+{"id":"p61","name":"Clear Quartz (Sphatik)","category":"Healing","description":"Master healer; amplifies intentions and chakras.","image":"images/products/clear-quartz.jpg","price_min":100,"price_max":5000},
+{"id":"p62","name":"Black Tourmaline","category":"Healing","description":"Strong protection and grounding.","image":"images/products/black-tourmaline.jpg","price_min":150,"price_max":6000},
+{"id":"p63","name":"Shungite","category":"Healing","description":"EMF protection and purification.","image":"images/products/shungite.jpg","price_min":500,"price_max":8000},
+{"id":"p64","name":"Moldavite","category":"Healing","description":"Transformation and spiritual acceleration.","image":"images/products/moldavite.jpg","price_min":5000,"price_max":150000},
+{"id":"p65","name":"Selenite","category":"Healing","description":"Energy clearing and high-frequency wands.","image":"images/products/selenite.jpg","price_min":150,"price_max":6000},
+{"id":"p66","name":"Tektite","category":"Healing","description":"Psychic opening and transformational energy.","image":"images/products/tektite.jpg","price_min":1000,"price_max":20000},
+{"id":"p67","name":"Shiva Lingam","category":"Healing","description":"Kundalini & transformational ritual stone.","image":"images/products/shiva-lingam.jpg","price_min":200,"price_max":8000},
+{"id":"p68","name":"Crystal Spheres","category":"Healing","description":"Meditation aids & energy anchors.","image":"images/products/spheres.jpg","price_min":300,"price_max":6000},
+{"id":"p69","name":"Fuchsite","category":"Healing","description":"Heart healing and gentle uplift.","image":"images/products/fuchsite.jpg","price_min":200,"price_max":4000},
+{"id":"p70","name":"Petrified Wood","category":"Healing","description":"Grounding and Earth wisdom.","image":"images/products/petrified-wood.jpg","price_min":200,"price_max":5000},
+{"id":"p71","name":"Cat’s Eye / Shiva Eye","category":"Healing","description":"Insight, protection and astral clarity.","image":"images/products/cats-eye.jpg","price_min":400,"price_max":10000},
+{"id":"p72","name":"Crystal Clusters","category":"Healing","description":"Energy anchors for rooms & altars.","image":"images/products/clusters.jpg","price_min":500,"price_max":40000},
+{"id":"p73","name":"Aura Quartz","category":"Healing","description":"Treated quartz with intense colour for décor & ritual.","image":"images/products/aura-quartz.jpg","price_min":500,"price_max":6000},
+{"id":"p74","name":"Ocean Jasper","category":"Healing","description":"Emotional balance and grounding.","image":"images/products/ocean-jasper.jpg","price_min":200,"price_max":6000},
+{"id":"p75","name":"Angelite","category":"Healing","description":"Soothing and connection to higher guidance.","image":"images/products/angelite.jpg","price_min":400,"price_max":6000},
+{"id":"p76","name":"Blue Kyanite","category":"Healing","description":"Alignment and clears energy pathways.","image":"images/products/kyanite.jpg","price_min":400,"price_max":8000},
+{"id":"p77","name":"Bronzite","category":"Healing","description":"Protection and focus for action.","image":"images/products/bronzite.jpg","price_min":150,"price_max":3500},
+{"id":"p78","name":"Merlinite","category":"Healing","description":"Shadow work and deep inner transformation.","image":"images/products/merlinite.jpg","price_min":300,"price_max":6000},
+{"id":"p79","name":"Palo Santo Bundles","category":"Healing","description":"Cleansing smoke for rituals.","image":"images/products/palo-santo.jpg","price_min":150,"price_max":800},
+{"id":"p80","name":"Ritual Kits","category":"Healing","description":"Beginner-friendly chakra & protection kits.","image":"images/products/ritual-kit.jpg","price_min":400,"price_max":4000},
+{"id":"p81","name":"1 Mukhi Rudraksha","category":"Rudraksha","description":"Extremely rare; highest spiritual attainment & siddhis.","image":"images/products/rudraksha-1.jpg","price_min":20000,"price_max":500000},
+{"id":"p82","name":"2 Mukhi Rudraksha","category":"Rudraksha","description":"Harmony and relationship balance.","image":"images/products/rudraksha-2.jpg","price_min":500,"price_max":6000},
+{"id":"p83","name":"3 Mukhi Rudraksha","category":"Rudraksha","description":"Courage, willpower and karmic purification.","image":"images/products/rudraksha-3.jpg","price_min":400,"price_max":3000},
+{"id":"p84","name":"4 Mukhi Rudraksha","category":"Rudraksha","description":"Creative energy & learning (Brahma).","image":"images/products/rudraksha-4.jpg","price_min":400,"price_max":3500},
+{"id":"p85","name":"5 Mukhi Rudraksha","category":"Rudraksha","description":"Common & protective; health & concentration.","image":"images/products/rudraksha-5.jpg","price_min":500,"price_max":2000},
+{"id":"p86","name":"6 Mukhi Rudraksha","category":"Rudraksha","description":"Discipline & stability (Kartikey/Skanda).","image":"images/products/rudraksha-6.jpg","price_min":600,"price_max":3000},
+{"id":"p87","name":"7 Mukhi Rudraksha","category":"Rudraksha","description":"Prosperity & leadership (Lakshmi).","image":"images/products/rudraksha-7.jpg","price_min":700,"price_max":4000},
+{"id":"p88","name":"8 Mukhi Rudraksha","category":"Rudraksha","description":"Removes obstacles & supports new beginnings.","image":"images/products/rudraksha-8.jpg","price_min":800,"price_max":4500},
+{"id":"p89","name":"9 Mukhi Rudraksha","category":"Rudraksha","description":"Authority, vitality & leadership (Surya).","image":"images/products/rudraksha-9.jpg","price_min":1200,"price_max":6000},
+{"id":"p90","name":"10 Mukhi Rudraksha","category":"Rudraksha","description":"Strength, protection & discipline (Vishnu).","image":"images/products/rudraksha-10.jpg","price_min":1000,"price_max":5500},
+{"id":"p91","name":"11 Mukhi Rudraksha","category":"Rudraksha","description":"Spiritual insight and increased intuition.","image":"images/products/rudraksha-11.jpg","price_min":1500,"price_max":7000},
+{"id":"p92","name":"12 Mukhi Rudraksha","category":"Rudraksha","description":"Higher meditation & spiritual evolution.","image":"images/products/rudraksha-12.jpg","price_min":1800,"price_max":8000},
+{"id":"p93","name":"13 Mukhi Rudraksha","category":"Rudraksha","description":"Mastery over senses and focused sadhana.","image":"images/products/rudraksha-13.jpg","price_min":2000,"price_max":9000},
+{"id":"p94","name":"14 Mukhi Rudraksha","category":"Rudraksha","description":"Advanced stability in meditation & guidance.","image":"images/products/rudraksha-14.jpg","price_min":2500,"price_max":10000},
+{"id":"p95","name":"15 Mukhi Rudraksha","category":"Rudraksha","description":"Dharma & social harmony (family/community).","image":"images/products/rudraksha-15.jpg","price_min":2500,"price_max":9500},
+{"id":"p96","name":"Gauri Shankar Rudraksha","category":"Rudraksha","description":"Twin bead for family unity and marriage harmony.","image":"images/products/gauri-shankar.jpg","price_min":3000,"price_max":25000},
+{"id":"p97","name":"Ganesh Rudraksha","category":"Rudraksha","description":"Removes obstacles and supports auspicious starts.","image":"images/products/ganesh-rd.jpg","price_min":3000,"price_max":25000},
+{"id":"p98","name":"Trijuti Rudraksha","category":"Rudraksha","description":"Powerful combined effects; rare cluster beads.","image":"images/products/trijuti.jpg","price_min":5000,"price_max":60000},
+{"id":"p99","name":"Rudraksha Mala (108 beads)","category":"Rudraksha","description":"Energised mala for daily japa & ritual.","image":"images/products/rudraksha-mala.jpg","price_min":1200,"price_max":25000},
+{"id":"p100","name":"Rudraksha Accessories","category":"Rudraksha","description":"Bracelets, lockets & malas for daily wear.","image":"images/products/rudraksha-accessories.jpg","price_min":300,"price_max":25000},
+{"id":"p101","name":"Raw Amethyst Cluster","category":"Raw Stones","description":"Uncut amethyst crystal cluster — ideal for meditation or room energy clearing.","image":"images/products/raw-amethyst.jpg","price_min":500,"price_max":6000},
+{"id":"p102","name":"Raw Citrine Point","category":"Raw Stones","description":"Natural citrine point for wealth and manifestation energy.","image":"images/products/raw-citrine.jpg","price_min":400,"price_max":5500},
+{"id":"p103","name":"Raw Rose Quartz Chunk","category":"Raw Stones","description":"Heart chakra raw stone for unconditional love and emotional healing.","image":"images/products/raw-rosequartz.jpg","price_min":300,"price_max":4000},
+{"id":"p104","name":"Raw Clear Quartz","category":"Raw Stones","description":"Amplifies energy and intentions; perfect for grids or altars.","image":"images/products/raw-clearquartz.jpg","price_min":200,"price_max":5000},
+{"id":"p105","name":"Raw Black Tourmaline","category":"Raw Stones","description":"Powerful EMF and negativity protection crystal.","image":"images/products/raw-blacktourmaline.jpg","price_min":250,"price_max":4000},
+{"id":"p106","name":"Raw Green Aventurine","category":"Raw Stones","description":"Prosperity and abundance magnet; keeps environment positive.","image":"images/products/raw-aventurine.jpg","price_min":300,"price_max":3500},
+{"id":"p107","name":"Raw Pyrite","category":"Raw Stones","description":"Known as ‘Fool’s Gold’; enhances luck, wealth, and strength.","image":"images/products/raw-pyrite.jpg","price_min":400,"price_max":7000},
+{"id":"p108","name":"Raw Lapis Lazuli","category":"Raw Stones","description":"Intuition and higher wisdom stone; ideal for altar placement.","image":"images/products/raw-lapis.jpg","price_min":500,"price_max":8000},
+{"id":"p109","name":"Raw Fluorite Octahedron","category":"Raw Stones","description":"Cleanses aura and stabilises energy flow.","image":"images/products/raw-fluorite.jpg","price_min":350,"price_max":6500},
+{"id":"p110","name":"Raw Carnelian","category":"Raw Stones","description":"Boosts energy, creativity and motivation.","image":"images/products/raw-carnelian.jpg","price_min":200,"price_max":3500}
+];
 
-    // build category set from data-category attributes
-    const categoriesSet = new Set();
-    tiles.forEach(t => {
-      const cat = t.getAttribute('data-category') || 'Uncategorized';
-      categoriesSet.add(cat);
-    });
+// ------------------ Dynamic Rendering ------------------
+const productGrid=document.getElementById('productGrid');
+const tabsContainer=document.getElementById('categoryTabs');
+const searchInput=document.getElementById('shopSearch');
+const clearBtn=document.getElementById('clearFilters');
+const noResults=document.getElementById('noResults');
 
-    // add default tabs order with Show All first, then requested categories
-    const desiredOrder = ['Show All', 'Quartz', 'Healing Stones', 'Raw Stones', 'Opal', 'Gemstones', 'Rudraksha', 'Collections', 'By Zodiac'];
-    // merge categoriesSet into final categories preserving desiredOrder then others
-    const existingCats = Array.from(categoriesSet);
-    const finalTabs = [];
-    desiredOrder.forEach(d => {
-      if (d === 'Show All') { finalTabs.push('Show All'); return; }
-      if (existingCats.includes(d)) finalTabs.push(d);
-    });
-    // add any remaining categories not in desiredOrder
-    existingCats.forEach(cat => { if (!finalTabs.includes(cat)) finalTabs.push(cat); });
+const categories=[...new Set(products.map(p=>p.category))];
+let activeTab='All';
 
-    // render tabs
-    let activeTab = 'Show All';
-    function renderTabs(){
-      tabsContainer.innerHTML = '';
-      finalTabs.forEach(tabName => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'tab-btn px-4 py-2 rounded-full border border-gray-200 bg-white text-sm shadow-sm hover:bg-emerald-50';
-        if (tabName === activeTab) btn.classList.add('bg-emerald-600','text-white','border-emerald-600');
-        btn.textContent = tabName;
-        btn.setAttribute('aria-pressed', tabName === activeTab ? 'true' : 'false');
-        btn.addEventListener('click', () => {
-          activeTab = tabName;
-          render();
-          btn.focus();
-        });
-        tabsContainer.appendChild(btn);
-      });
+function renderTabs(){
+  tabsContainer.innerHTML='';
+  ['All',...categories].forEach(tab=>{
+    const btn=document.createElement('button');
+    btn.textContent=tab;
+    btn.className=`tab-btn px-4 py-2 rounded-full border border-gray-200 bg-white text-sm shadow-sm hover:bg-emerald-50 ${tab===activeTab?'bg-emerald-600 text-white border-emerald-600':''}`;
+    btn.addEventListener('click',()=>{activeTab=tab;render();});
+    tabsContainer.appendChild(btn);
+  });
+}
+
+function render(){
+  productGrid.innerHTML='';
+  const q=(searchInput.value||'').toLowerCase();
+  let count=0;
+  products.forEach(p=>{
+    const matchCat=activeTab==='All'||p.category===activeTab;
+    const matchSearch=p.name.toLowerCase().includes(q)||(p.description||'').toLowerCase().includes(q);
+    if(matchCat&&matchSearch){
+      const tile=document.createElement('div');
+      tile.className='product-tile bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden';
+      tile.innerHTML=`
+        <div class="relative">
+          <img src="${p.image}" alt="${p.name}" loading="lazy" class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition"></div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-xl font-semibold text-emerald-700">${p.name}</h3>
+          <p class="text-sm text-gray-600 mt-2">${p.description}</p>
+          <p class="text-sm text-gray-800 mt-2 font-semibold">₹${p.price_min.toLocaleString()} - ₹${p.price_max.toLocaleString()}</p>
+          <div class="flex justify-between items-center mt-4">
+            <a href="products/${p.id}.html" class="text-emerald-700 hover:underline text-sm font-medium">View Details</a>
+            <a href="shop-ecom.html?product=${p.id}" class="text-sm bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg shadow font-medium">Buy Now</a>
+          </div>
+        </div>`;
+      productGrid.appendChild(tile);
+      count++;
     }
-
-    function matchesSearch(tile, q){
-      if(!q) return true;
-      const tags = (tile.getAttribute('data-tags') || '') + ' ' + (tile.querySelector('h3')?.textContent || '');
-      return tags.toLowerCase().includes(q);
-    }
-
-    function matchesTab(tile, tab){
-      if(!tab || tab === 'Show All') return true;
-      const cat = tile.getAttribute('data-category') || '';
-      return cat === tab;
-    }
-
-    function render(){
-      const q = (searchInput.value || '').trim().toLowerCase();
-      let visibleCount = 0;
-      tiles.forEach(tile => {
-        const show = matchesTab(tile, activeTab) && matchesSearch(tile, q);
-        tile.style.display = show ? '' : 'none';
-        if (show) visibleCount++;
-      });
-
-      // show/hide no results
-      if (visibleCount === 0) {
-        noResults.classList.remove('hidden');
-      } else {
-        noResults.classList.add('hidden');
-      }
-
-      // update tab active classes
-      Array.from(tabsContainer.children).forEach(btn => {
-        if (btn.textContent === activeTab) {
-          btn.classList.add('bg-emerald-600','text-white','border-emerald-600');
-          btn.setAttribute('aria-pressed','true');
-        } else {
-          btn.classList.remove('bg-emerald-600','text-white','border-emerald-600');
-          btn.setAttribute('aria-pressed','false');
-        }
-      });
-    }
-
-    // wire inputs
-    searchInput.addEventListener('input', render);
-    clearBtn.addEventListener('click', () => { searchInput.value=''; activeTab='Show All'; render(); });
-
-    // keyboard: left/right arrow to switch tabs
-    tabsContainer.addEventListener('keydown', (e) => {
-      const focusable = Array.from(tabsContainer.querySelectorAll('button'));
-      const idx = focusable.indexOf(document.activeElement);
-      if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        const next = focusable[(idx + 1) % focusable.length];
-        next.focus(); next.click();
-      } else if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        const prev = focusable[(idx - 1 + focusable.length) % focusable.length];
-        prev.focus(); prev.click();
-      }
-    });
-
-    // init
-    renderTabs();
-    render();
-
-  })();
+  });
+  noResults.classList.toggle('hidden',count>0);
+  renderTabs();
+}
+searchInput.addEventListener('input',render);
+clearBtn.addEventListener('click',()=>{searchInput.value='';activeTab='All';render();});
+renderTabs();render();
 </script>
 
 </body>

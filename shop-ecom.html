@@ -61,24 +61,94 @@
 </head>
 <body class="bg-gray-50 text-gray-800 font-montserrat">
 
-<!-- NAVBAR (kept minimal) -->
-<header class="bg-emerald-900 text-white shadow-md">
-  <nav class="container mx-auto flex justify-between items-center py-4 px-6">
-    <a href="index.html" class="flex items-center">
-      <img src="images/logo.png" alt="Gems of Nature Logo" class="h-12 w-auto" loading="lazy">
-      <span class="ml-2 text-2xl font-bold">Gems of Nature</span>
-    </a>
+<!-- NAVBAR (replace existing header with this) -->
+<header class="sticky top-0 z-50">
+  <nav id="mainNav" class="bg-emerald-900/95 backdrop-blur-sm text-white shadow-md transition-colors">
+    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+      <a href="index.html" class="flex items-center" aria-label="Gems of Nature - Home">
+        <img src="images/logo.png" alt="Gems of Nature Logo" class="h-12 w-auto" loading="lazy">
+        <span class="ml-2 text-2xl font-bold font-montserrat">Gems of Nature</span>
+      </a>
 
-    <div class="flex items-center gap-4">
-      <a href="shop-ecom.html" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold hidden md:inline-block">Buy Online</a>
-      <button id="cart-button" class="relative">
-        <span class="text-2xl">🛒</span>
-        <span id="cart-count" class="absolute -top-2 -right-3 bg-red-500 text-white rounded-full text-xs px-2">0</span>
-      </button>
-      <button id="mobile-menu-button" class="text-2xl md:hidden">☰</button>
+      <!-- Desktop links -->
+      <ul class="hidden md:flex gap-6 text-lg font-montserrat items-center">
+        <li><a href="index.html" class="hover:text-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-300 rounded">Home</a></li>
+        <li><a href="about.html" class="hover:text-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-300 rounded">About</a></li>
+        <li><a href="shop.html" class="text-emerald-300 font-semibold" aria-current="page">Collections</a></li>
+        <li><a href="contact.html" class="hover:text-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-300 rounded">Contact</a></li>
+      </ul>
+
+      <!-- Right controls -->
+      <div class="flex items-center gap-4">
+        <a href="shop-ecom.html"
+           class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold hidden md:inline-block focus:outline-none focus:ring-2 focus:ring-emerald-300"
+           aria-label="Buy online - Gems of Nature">
+          Buy Online
+        </a>
+
+        <a href="shop-ecom.html" class="text-2xl cursor-pointer" aria-label="Open cart">🛒</a>
+
+        <!-- Mobile menu button -->
+        <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu"
+                class="text-2xl md:hidden p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-300"
+                aria-label="Open mobile menu">☰</button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden bg-emerald-800 md:hidden">
+      <ul class="flex flex-col gap-4 px-6 py-4">
+        <li><a href="index.html" class="block py-2 px-1 rounded hover:text-emerald-200">Home</a></li>
+        <li><a href="about.html" class="block py-2 px-1 rounded hover:text-emerald-200">About</a></li>
+        <li><a href="shop.html" class="block py-2 px-1 rounded hover:text-emerald-200 font-semibold text-emerald-300">Collections</a></li>
+        <li><a href="shop-ecom.html" class="block py-2 px-1 rounded hover:text-emerald-200">Buy Online</a></li>
+        <li><a href="contact.html" class="block py-2 px-1 rounded hover:text-emerald-200">Contact</a></li>
+      </ul>
     </div>
   </nav>
 </header>
+
+<!-- Mobile menu toggle script (place once near bottom of page) -->
+<script>
+  (function () {
+    const btn = document.getElementById('mobile-menu-button');
+    const mobile = document.getElementById('mobile-menu');
+
+    function setAria(open) {
+      btn.setAttribute('aria-expanded', String(open));
+    }
+
+    btn && btn.addEventListener('click', () => {
+      const open = mobile.classList.toggle('hidden') === false;
+      setAria(open);
+      // move focus into mobile menu for accessibility when opened
+      if (open) {
+        const firstLink = mobile.querySelector('a');
+        firstLink && firstLink.focus();
+      } else {
+        btn.focus();
+      }
+    });
+
+    // Close mobile menu when any link inside is clicked (nice UX)
+    mobile && mobile.addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') {
+        mobile.classList.add('hidden');
+        setAria(false);
+      }
+    });
+
+    // Close on Esc
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !mobile.classList.contains('hidden')) {
+        mobile.classList.add('hidden');
+        setAria(false);
+        btn && btn.focus();
+      }
+    });
+  })();
+</script>
+
 
 <!-- HERO -->
 <section class="relative bg-cover bg-center h-52 md:h-64 fade-in" style="background-image:url('images/hero-bg.jpg')">
@@ -102,12 +172,14 @@
           <input id="search-input" type="search" placeholder="Search stones, rudraksha or qualities" class="border rounded px-3 py-2 w-72" />
 
           <select id="category-filter" class="border rounded px-2 py-2 text-sm">
-            <option value="all">All categories</option>
-            <option value="Precious">Precious</option>
-            <option value="Semi-Precious">Semi-Precious</option>
-            <option value="Healing">Healing</option>
-            <option value="Rudraksha">Rudraksha</option>
-          </select>
+  <option value="all">All categories</option>
+  <option value="Precious">Precious</option>
+  <option value="Semi-Precious">Semi-Precious</option>
+  <option value="Healing">Healing</option>
+  <option value="Rudraksha">Rudraksha</option>
+  <option value="Raw Stones">Raw Stones</option>
+</select>
+
 
           <select id="sort-select" class="border rounded px-2 py-2 text-sm">
             <option value="default">Sort: Featured</option>
@@ -320,49 +392,41 @@
       100% natural stones • Secure payments • Fast shipping • 7-day returns
     </div>
 
-    <!-- Social Links -->
-    <div class="inline-flex gap-4 items-center">
-
+    <!-- Social Links (PNG icons + labels) -->
+<div class="flex items-center justify-center gap-8 ml-2">
       <!-- Facebook -->
-      <a href="https://www.facebook.com/profile.php?id=61581929357076"
-         target="_blank"
-         rel="noopener noreferrer"
-         aria-label="Facebook"
-         class="hover:text-emerald-300 transition flex items-center gap-1">
-        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M22 12a10 10 0 1 0-11 9.95V14.89h-2.18v-2.89H11V10.1c0-2.16 1.28-3.36 3.25-3.36.94 0 1.93.17 1.93.17v2.12h-1.09c-1.08 0-1.42.67-1.42 1.36v1.64h2.42l-.39 2.89h-2.03v7.06A10 10 0 0 0 22 12z"/>
-        </svg>
-        <span class="text-sm">Facebook</span>
+      <a
+        href="https://www.facebook.com/profile.php?id=61581929357076"
+        target="_blank" rel="noopener noreferrer"
+        class="flex items-center gap-2 hover:opacity-90 transition"
+      >
+        <img src="images/social/facebook.png" alt="Facebook" class="w-6 h-6 rounded-full shadow-md">
+        <span class="text-sm font-medium">Facebook</span>
       </a>
 
       <!-- Instagram -->
-      <a href="https://www.instagram.com/gemsofnatureshop"
-         target="_blank"
-         rel="noopener noreferrer"
-         aria-label="Instagram"
-         class="hover:text-emerald-300 transition flex items-center gap-1">
-        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M12 2.16c3.2 0 3.584.012 4.85.07 1.17.056 1.94.24 2.39.407a4.79 4.79 0 0 1 1.74 1.13 4.79 4.79 0 0 1 1.13 1.74c.167.45.351 1.22.407 2.39.058 1.266.07 1.65.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.94-.407 2.39a4.79 4.79 0 0 1-1.13 1.74 4.79 4.79 0 0 1-1.74 1.13c-.45.167-1.22.351-2.39.407-1.266.058-1.65.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.056-1.94-.24-2.39-.407a4.79 4.79 0 0 1-1.74-1.13 4.79 4.79 0 0 1-1.13-1.74c-.167-.45-.351-1.22-.407-2.39C2.172 15.584 2.16 15.2 2.16 12s.012-3.584.07-4.85c.056-1.17.24-1.94.407-2.39a4.79 4.79 0 0 1 1.13-1.74 4.79 4.79 0 0 1 1.74-1.13c.45-.167 1.22-.351 2.39-.407C8.416 2.172 8.8 2.16 12 2.16zm0-2.16C8.735 0 8.332.014 7.052.072 5.773.13 4.768.312 4.042.556a6.77 6.77 0 0 0-2.45 1.2A6.77 6.77 0 0 0 .393 4.21c-.244.726-.426 1.73-.484 3.008C-.014 8.332 0 8.735 0 12c0 3.265.014 3.668.072 4.948.058 1.278.24 2.282.484 3.008a6.77 6.77 0 0 0 1.2 2.45 6.77 6.77 0 0 0 2.45 1.2c.726.244 1.73.426 3.008.484C8.332 23.986 8.735 24 12 24s3.668-.014 4.948-.072c1.278-.058 2.282-.24 3.008-.484a6.77 6.77 0 0 0 2.45-1.2 6.77 6.77 0 0 0 1.2-2.45c.244-.726.426-1.73.484-3.008.058-1.28.072-1.683.072-4.948s-.014-3.668-.072-4.948c-.058-1.278-.24-2.282-.484-3.008a6.77 6.77 0 0 0-1.2-2.45 6.77 6.77 0 0 0-2.45-1.2c-.726-.244-1.73-.426-3.008-.484C15.668.014 15.265 0 12 0z"/>
-          <circle cx="12" cy="12" r="3.6"/>
-        </svg>
-        <span class="text-sm">Instagram</span>
+      <a
+        href="https://www.instagram.com/gemsofnatureshop"
+        target="_blank" rel="noopener noreferrer"
+        class="flex items-center gap-2 hover:opacity-90 transition"
+      >
+        <img src="images/social/instagram.png" alt="Instagram" class="w-6 h-6 rounded-md shadow-md">
+        <span class="text-sm font-medium">Instagram</span>
       </a>
 
       <!-- LinkedIn -->
-      <a href="https://www.linkedin.com/company/gems-of-nature"
-         target="_blank"
-         rel="noopener noreferrer"
-         aria-label="LinkedIn"
-         class="hover:text-emerald-300 transition flex items-center gap-1">
-        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M22.225 0H1.771C.792 0 0 .774 0 1.728v20.543C0 23.226.792 24 1.771 24h20.451C23.208 24 24 23.226 24 22.271V1.728C24 .774 23.208 0 22.225 0zM7.082 20.452H3.539V9h3.543v11.452zM5.31 7.528a2.056 2.056 0 1 1 0-4.112 2.056 2.056 0 0 1 0 4.112zm14.832 12.924h-3.543v-5.555c0-1.324-.026-3.026-1.846-3.026-1.846 0-2.128 1.44-2.128 2.926v5.655h-3.543V9h3.4v1.561h.047c.474-.9 1.63-1.846 3.355-1.846 3.59 0 4.253 2.363 4.253 5.436v6.741z"/>
-        </svg>
-        <span class="text-sm">LinkedIn</span>
+      <a
+        href="https://www.linkedin.com/company/gems-of-nature"
+        target="_blank" rel="noopener noreferrer"
+        class="flex items-center gap-2 hover:opacity-90 transition"
+      >
+        <img src="images/social/linkedin.png" alt="LinkedIn" class="w-6 h-6 rounded-md shadow-md">
+        <span class="text-sm font-medium">LinkedIn</span>
       </a>
-
     </div>
   </div>
 </footer>
+
 
 
 <!-- SCRIPTS: full product dataset + filtering, pagination, hover overlay, currency -->
@@ -468,7 +532,17 @@ const products = [
  {"id":"p97","name":"Ganesh Rudraksha","category":"Rudraksha","description":"Removes obstacles and supports auspicious starts.","image":"images/products/ganesh-rd.jpg","price_min":3000,"price_max":25000},
  {"id":"p98","name":"Trijuti / Trinayan Rudraksha","category":"Rudraksha","description":"Powerful combined effects; rare cluster beads.","image":"images/products/trijuti.jpg","price_min":5000,"price_max":60000},
  {"id":"p99","name":"Rudraksha Mala (108 beads)","category":"Rudraksha","description":"Handcrafted energised mala for daily japa & ritual.","image":"images/products/rudraksha-mala.jpg","price_min":1200,"price_max":25000},
- {"id":"p100","name":"Rudraksha Accessories (Lockets/Bracelets)","category":"Rudraksha","description":"Pendants, bracelets & mixed malas for daily wear.","image":"images/products/rudraksha-accessories.jpg","price_min":300,"price_max":25000}
+{"id":"p100","name":"Rudraksha Accessories","category":"Rudraksha","description":"Bracelets, lockets & malas for daily wear.","image":"images/products/rudraksha-accessories.jpg","price_min":300,"price_max":25000},
+{"id":"p101","name":"Raw Amethyst Cluster","category":"Raw Stones","description":"Uncut amethyst crystal cluster — ideal for meditation or room energy clearing.","image":"images/products/raw-amethyst.jpg","price_min":500,"price_max":6000},
+{"id":"p102","name":"Raw Citrine Point","category":"Raw Stones","description":"Natural citrine point for wealth and manifestation energy.","image":"images/products/raw-citrine.jpg","price_min":400,"price_max":5500},
+{"id":"p103","name":"Raw Rose Quartz Chunk","category":"Raw Stones","description":"Heart chakra raw stone for unconditional love and emotional healing.","image":"images/products/raw-rosequartz.jpg","price_min":300,"price_max":4000},
+{"id":"p104","name":"Raw Clear Quartz","category":"Raw Stones","description":"Amplifies energy and intentions; perfect for grids or altars.","image":"images/products/raw-clearquartz.jpg","price_min":200,"price_max":5000},
+{"id":"p105","name":"Raw Black Tourmaline","category":"Raw Stones","description":"Powerful EMF and negativity protection crystal.","image":"images/products/raw-blacktourmaline.jpg","price_min":250,"price_max":4000},
+{"id":"p106","name":"Raw Green Aventurine","category":"Raw Stones","description":"Prosperity and abundance magnet; keeps environment positive.","image":"images/products/raw-aventurine.jpg","price_min":300,"price_max":3500},
+{"id":"p107","name":"Raw Pyrite","category":"Raw Stones","description":"Known as ‘Fool’s Gold’; enhances luck, wealth, and strength.","image":"images/products/raw-pyrite.jpg","price_min":400,"price_max":7000},
+{"id":"p108","name":"Raw Lapis Lazuli","category":"Raw Stones","description":"Intuition and higher wisdom stone; ideal for altar placement.","image":"images/products/raw-lapis.jpg","price_min":500,"price_max":8000},
+{"id":"p109","name":"Raw Fluorite Octahedron","category":"Raw Stones","description":"Cleanses aura and stabilises energy flow.","image":"images/products/raw-fluorite.jpg","price_min":350,"price_max":6500},
+{"id":"p110","name":"Raw Carnelian","category":"Raw Stones","description":"Boosts energy, creativity and motivation.","image":"images/products/raw-carnelian.jpg","price_min":200,"price_max":3500}
 ];
 
 // compute a display price (midpoint) for each product if not present
