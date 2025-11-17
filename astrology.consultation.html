@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -19,10 +19,6 @@
     :root {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      --site-accent: #0f6b4f;
-      --accent-2: #07a66a;
-      --muted: #6b7280;
-      --card-border: #e6f7ef;
     }
 
     html, body {
@@ -33,7 +29,6 @@
       font-family: 'Montserrat', sans-serif;
       display: flex;
       flex-direction: column;
-      color: #0f1724;
     }
 
     /* Make main fill remaining space so footer sits at bottom */
@@ -63,20 +58,7 @@
     }
 
     /* Images: ensure block-level, no background bleed and consistent cover */
-    img { background: transparent; display: block; max-width:100%; height:auto; }
-
-    /* Header — matches site style */
-    header.site-header { background:#0b5a49; }
-    header .site-inner { max-width:1200px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
-    .site-logo { display:flex; align-items:center; gap:12px; color:#fff; text-decoration:none; }
-    .site-logo .mark{ width:44px; height:44px; border-radius:6px; background:linear-gradient(180deg,#063e2f,#0f6b4f); display:flex; align-items:center; justify-content:center; font-weight:800; color:#fff; }
-    nav.primary { display:flex; gap:22px; align-items:center; justify-content:center; flex:1; }
-    nav.primary a { color:#e6fff7; text-decoration:none; font-weight:600; }
-    nav.primary a:hover{ opacity:0.95; }
-    .header-actions { display:flex; gap:12px; align-items:center; }
-    .btn-pill { padding:8px 14px; border-radius:999px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:8px; }
-    .btn-buy { background:#06b58a; color:#fff; box-shadow:0 6px 18px rgba(6,101,78,0.12); }
-    .btn-ghost { background:transparent; border:1px solid rgba(255,255,255,0.08); color:#e9fff6; }
+    img { background: transparent; display: block; }
 
     /* Footer: keep pinned without negative margin hacks */
     footer {
@@ -85,43 +67,22 @@
       flex-shrink: 0;
       background-color: #065f46; /* emerald-900 */
       width: 100%;
-      color: #fff;
     }
-    .footer-inner { padding-left: 24px; padding-right: 24px; max-width:1200px; margin:0 auto; display:flex; gap:16px; align-items:center; justify-content:space-between; }
 
-    /* Consultation embed styles (scoped) */
-    #gn-consultation-embed {
-      max-width: 1080px;
-      margin: 28px auto;
-      padding: 18px;
-      border-radius: 12px;
-      background: #ffffff;
-      border: 1px solid var(--card-border);
-      box-shadow: 0 8px 30px rgba(8,55,34,0.04);
-      font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-      color:#0f1724;
-    }
-    #gn-consultation-embed h3{ margin:0; font-size:1.25rem; color:var(--site-accent); font-weight:800; }
-    #gn-consultation-embed p.lead{ margin:6px 0 0 0; color:var(--muted); font-size:0.95rem; }
-    .gn-auth-grid{ display:grid; grid-template-columns:1fr 260px; gap:14px; margin-top:12px; align-items:start; }
-    @media (max-width:820px){ .gn-auth-grid{ grid-template-columns:1fr; } }
-    .gn-auth-card{ padding:12px; border-radius:10px; }
-    .gn-auth-card .t{ font-weight:700; color:#0b5f46; margin-bottom:8px; font-size:1rem; }
-    .gn-auth-card ul{ margin:0; padding-left:1rem; color:var(--muted); font-size:0.92rem; line-height:1.45; }
-    .gn-quick { display:flex; flex-direction:column; gap:10px; }
-    .gn-btn { display:inline-flex; align-items:center; justify-content:center; padding:10px 14px; border-radius:999px; font-weight:700; font-size:0.95rem; cursor:pointer; text-decoration:none; }
-    .gn-btn-strong { background:var(--site-accent); color:#fff; box-shadow:0 6px 18px rgba(11,95,70,0.12); border:none; }
-    .gn-btn-ghost { background:transparent; border:1px solid #e6e6e6; color:var(--site-accent); }
-    #gn-consultation-embed input, #gn-consultation-embed select, #gn-consultation-embed textarea {
-      width:100%; padding:10px 12px; border-radius:8px; border:1px solid #eef6f0; font-family:inherit; font-size:0.95rem;
-    }
-    .gn-row-2{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-    @media (max-width:520px){ .gn-row-2{ grid-template-columns:1fr; } }
-    #gn-embed-result{ margin-top:10px; padding:10px; border-radius:8px; background:#f0fff6; color:#074f2f; display:none; font-weight:600; }
+    /* Footer inner padding */
+    .footer-inner { padding-left: 24px; padding-right: 24px; }
 
-    /* Floating WhatsApp bubble (site-like) */
-    .gn-float-wa{ position:fixed; right:18px; bottom:18px; z-index:99999; display:flex; align-items:center; gap:10px; background:var(--accent-2); color:#fff; padding:10px 14px; border-radius:999px; box-shadow:0 8px 30px rgba(7,101,81,0.18); text-decoration:none; font-weight:800; font-size:0.95rem; }
-    .gn-float-wa img{ width:20px; height:20px; display:inline-block; vertical-align:middle; filter:brightness(120%); }
+    /* Prevent accidental wrap for the copyright on narrow widths */
+    .footer-nowrap { white-space: nowrap; }
+
+    /* Hero fills full viewport (adjust if header becomes fixed) */
+    .hero-min-h { min-height: calc(100vh - 0px); }
+
+    /* Button: remove any default extra shadow inside cards */
+    .no-btn-shadow, .no-btn-shadow * { box-shadow: none !important; }
+
+    /* Small responsive tweak to keep footer icons centered vertically */
+    footer svg { vertical-align: middle; }
   </style>
 
   <!-- Structured data (Organization) -->
@@ -140,34 +101,69 @@
   }
   </script>
 </head>
-<body class="min-h-screen bg-gray-50 text-slate-800">
 
-  <!-- Header -->
-  <header class="site-header" role="banner">
-    <div class="site-inner">
-      <a href="/" class="site-logo" aria-label="Gems of Nature">
-        <div class="mark">GN</div>
-        <div>
-          <div style="font-size:18px; font-weight:700; color:#fff;">Gems of Nature</div>
-          <div style="font-size:12px; color:#e6fff7;">Healing Gemstones & Crystals</div>
-        </div>
+<body class="bg-white text-gray-800 antialiased">
+
+<!-- Navbar -->
+<header class="bg-emerald-900 text-white shadow-md">
+  <nav class="max-w-7xl mx-auto flex justify-between items-center py-4 px-6">
+    <!-- Logo -->
+    <a href="index.html" class="flex items-center shrink-0">
+      <img src="images/logo.png" alt="Gems of Nature Logo" class="h-12 w-auto" loading="lazy">
+      <span class="ml-3 text-2xl font-bold">Gems of Nature</span>
+    </a>
+
+    <!-- Navigation links -->
+    <ul class="hidden md:flex gap-6 text-lg">
+      <li><a href="index.html" class="hover:text-emerald-300 transition">Home</a></li>
+      <li><a href="about.html" class="hover:text-emerald-300 transition">About Us</a></li>
+      <li><a href="shop.html" class="hover:text-emerald-300 transition">Collections</a></li>
+      <li><a href="contact.html" class="hover:text-emerald-300 transition">Contact</a></li>
+      <li><a href="astrology.consultation.html" class="hover:text-emerald-300 transition">Astrology & Consultation</a></li>
+
+      
+    </ul>
+
+    <!-- Right side: Buy Online + Cart -->
+    <div class="flex items-center gap-4">
+      <a href="shop-ecom.html" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold hidden md:inline-block transition-colors">
+        Buy Online
       </a>
 
-      <nav class="primary" role="navigation" aria-label="Main navigation">
-        <a href="#home">Home</a>
-        <a href="#about">About Us</a>
-        <a href="#collections">Collections</a>
-        <a href="#contact">Contact</a>
-        <!-- Added links requested (after Contact) -->
-        <a href="#astrology & consultation" class="btn-pill btn-ghost" style="padding:6px 10px; border-radius:8px;">Astrology & Consultation</a>
-      </nav>
+      <a href="shop-ecom.html" class="text-2xl cursor-pointer" aria-label="Open Cart">🛒</a>
 
-      <div class="header-actions" aria-hidden="false">
-        <a href="#shop" class="btn-pill btn-buy">Buy Online</a>
-        <a href="#cart" class="text-white" aria-label="Cart">🛒</a>
-      </div>
+      <!-- Mobile menu button -->
+      <button id="mobile-menu-button" class="text-2xl md:hidden focus:outline-none" aria-expanded="false" aria-controls="mobile-menu">☰</button>
     </div>
-  </header>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden bg-emerald-800 md:hidden" aria-hidden="true">
+    <ul class="flex flex-col gap-4 px-6 py-4">
+      <li><a href="index.html" class="block hover:text-emerald-300 transition">Home</a></li>
+      <li><a href="about.html" class="block hover:text-emerald-300 transition">About Us</a></li>
+      <li><a href="shop.html" class="block hover:text-emerald-300 transition">Collections</a></li>
+      <li><a href="shop-ecom.html" class="block hover:text-emerald-300 transition font-semibold">Buy Online</a></li>
+      <li><a href="contact.html" class="block hover:text-emerald-300 transition">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (mobileMenuButton) {
+    mobileMenuButton.addEventListener('click', () => {
+      const hidden = mobileMenu.classList.toggle('hidden');
+      mobileMenuButton.setAttribute('aria-expanded', String(!hidden));
+      mobileMenu.setAttribute('aria-hidden', String(hidden));
+    });
+  }
+</script>
+
+<!-- MAIN: page content grows -->
+<main>
+
 
   <!-- HERO -->
   <section class="hero-gradient py-12" style="background:linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/images/hero.jpg'); background-size:cover; background-position:center;">
