@@ -162,7 +162,7 @@
 <main>
 
   <!-- Hero Section -->
-  <section id="home" class="relative bg-cover bg-center hero-min-h fade-in" style="background-image: url('images/hero-bg.jpg');">
+  <section id="home" class="relative bg-cover bg-center min-h-[55vh] fade-in" style="background-image: url('images/hero-bg.jpg');">
     <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60 flex flex-col justify-center items-center text-center text-white px-6">
       <h1 class="text-4xl md:text-5xl font-bold mb-4">Discover the Healing Power of Nature</h1>
       <p class="text-lg md:text-xl mb-6 max-w-2xl">
@@ -175,6 +175,21 @@
       </div>
     </div>
   </section>
+
+  <!-- 🔮 GEM RECOMMENDATION QUIZ WIDGET -->
+<section id="recommendation-widget" class="container mx-auto px-4 py-8">
+  <div class="bg-white rounded-2xl shadow-lg p-6 border border-emerald-100">
+    <h2 class="text-2xl font-bold text-emerald-700 mb-3">
+      Find Your Perfect Gemstone 🔍✨
+    </h2>
+    <p class="text-gray-600 mb-4 text-sm">
+      Answer 3 quick questions and get 3 personalized recommendations.
+    </p>
+    <div id="rec-quiz" class="mt-4 grid gap-4"></div>
+    <div id="rec-results" class="mt-6"></div>
+  </div>
+</section>
+
 
   <!-- Collections Section -->
   <section id="collections" class="py-20 bg-gray-50 text-center fade-in">
@@ -339,70 +354,376 @@
   </section>
 
   <!-- Newsletter (above footer) -->
-  <section class="bg-emerald-50 py-12 fade-in newsletter-section">
-    <div class="max-w-3xl mx-auto px-6 text-center">
-      <h2 class="text-2xl font-semibold text-emerald-800 mb-3">Join the Gems of Nature Circle</h2>
-      <p class="text-gray-600 mb-6">Get 10% off your first order and receive gemstone care tips and exclusive drops.</p>
-      <form action="https://formspree.io/f/mzzybgop" method="POST" class="flex flex-col sm:flex-row gap-3 justify-center">
-        <input type="email" name="email" required placeholder="Enter your email"
-               class="border border-gray-300 rounded-lg px-4 py-2 w-full sm:w-auto flex-1 focus:outline-none focus:ring-2 focus:ring-emerald-400">
-        <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">Subscribe</button>
-      </form>
-      <p class="text-xs text-gray-500 mt-3">We respect your privacy — no spam. Unsubscribe anytime.</p>
+
+<!-- MAIN bottom widgets: recommender, chat, authenticity, modals -->
+<!-- Minimal products + cart helpers: paste your full products[] earlier in the file if you have it -->
+<script>
+/* Minimal products example — if you already have a products array elsewhere, this will be ignored.
+   You can paste the full products list here or rely on the shop-ecom script. */
+const products = window.products || [
+  { id: 'p3', name: 'Blue Sapphire', category: 'Precious', price: 42500, image: 'images/products/blue-sapphire.jpg' },
+  { id: 'p14', name: 'Amethyst', category: 'Semi-Precious', price: 800, image: 'images/products/amethyst.jpg' },
+  { id: 'p15', name: 'Citrine', category: 'Semi-Precious', price: 1200, image: 'images/products/citrine.jpg' },
+  { id: 'p33', name: 'Green Aventurine', category: 'Semi-Precious', price: 350, image: 'images/products/aventurine.jpg' },
+  { id: 'p61', name: 'Clear Quartz', category: 'Healing', price: 250, image: 'images/products/clear-quartz.jpg' },
+  { id: 'p62', name: 'Black Tourmaline', category: 'Healing', price: 400, image: 'images/products/black-tourmaline.jpg' },
+  { id: 'p40', name: 'Morganite', category: 'Semi-Precious', price: 4500, image: 'images/products/morganite.jpg' }
+];
+/* Cart stored under 'gon_cart' so same cart works across pages */
+let cart = JSON.parse(localStorage.getItem('gon_cart') || '{}');
+function saveCart() { localStorage.setItem('gon_cart', JSON.stringify(cart)); try { if (typeof renderCart === 'function') renderCart(); } catch(e) {} }
+</script>
+
+<!-- 🔮 GEM RECOMMENDER SCRIPT -->
+<script>
+(function () {
+  const quizContainer = document.getElementById("rec-quiz");
+  const resultsEl = document.getElementById("rec-results");
+  if (!quizContainer || !resultsEl) return;
+
+  // Build quiz UI
+  quizContainer.innerHTML = `
+    <div class="grid gap-3 sm:grid-cols-2">
+      <div>
+        <label class="block text-sm font-medium">What is your intention?</label>
+        <select id="rec-purpose" class="border rounded px-3 py-2 w-full">
+          <option value="wealth">Wealth & Prosperity</option>
+          <option value="love">Love & Relationships</option>
+          <option value="protection">Protection</option>
+          <option value="healing">Healing</option>
+          <option value="career">Career & Success</option>
+          <option value="spiritual">Spiritual Growth</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium">Zodiac Sign (optional)</label>
+        <select id="rec-zodiac" class="border rounded px-3 py-2 w-full">
+          <option value="">— Select —</option>
+          <option value="aries">Aries</option>
+          <option value="taurus">Taurus</option>
+          <option value="gemini">Gemini</option>
+          <option value="cancer">Cancer</option>
+          <option value="leo">Leo</option>
+          <option value="virgo">Virgo</option>
+          <option value="libra">Libra</option>
+          <option value="scorpio">Scorpio</option>
+          <option value="sagittarius">Sagittarius</option>
+          <option value="capricorn">Capricorn</option>
+          <option value="aquarius">Aquarius</option>
+          <option value="pisces">Pisces</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium">Budget</label>
+        <select id="rec-budget" class="border rounded px-3 py-2 w-full">
+          <option value="low">Under ₹1,000</option>
+          <option value="mid">₹1,000 — ₹10,000</option>
+          <option value="high">Above ₹10,000</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium">Chakra Focus (optional)</label>
+        <select id="rec-chakra" class="border rounded px-3 py-2 w-full">
+          <option value="">— Any —</option>
+          <option value="root">Root</option>
+          <option value="sacral">Sacral</option>
+          <option value="solar">Solar Plexus</option>
+          <option value="heart">Heart</option>
+          <option value="throat">Throat</option>
+          <option value="third">Third Eye</option>
+          <option value="crown">Crown</option>
+        </select>
+      </div>
     </div>
-  </section>
+    <div class="mt-4 flex gap-3">
+      <button id="rec-run" class="bg-emerald-600 text-white px-4 py-2 rounded font-semibold">Find My Gem</button>
+      <button id="rec-reset" class="border px-4 py-2 rounded">Reset</button>
+    </div>
+  `;
 
-</main>
+  // Basic scoring logic
+  function scoreProducts(answers) {
+    return products.map(p => {
+      let score = 0;
+      const name = (p.name || "").toLowerCase();
+      if (answers.purpose === "wealth" && name.includes("citrine")) score += 10;
+      if (answers.purpose === "love" && (name.includes("rose") || name.includes("morganite"))) score += 10;
+      if (answers.purpose === "protection" && (name.includes("tourmaline") || name.includes("black"))) score += 10;
+      if (answers.purpose === "healing" && name.includes("amethyst")) score += 10;
+      if (answers.purpose === "career" && (name.includes("sapphire") || name.includes("blue"))) score += 8;
+      if (answers.purpose === "spiritual" && (name.includes("quartz") || name.includes("moldavite"))) score += 8;
 
-<!-- FOOTER -->
+      if (answers.zodiac && name.includes(answers.zodiac)) score += 4;
+      if (answers.budget === "low" && p.price < 1000) score += 3;
+      if (answers.budget === "mid" && p.price >= 1000 && p.price <= 10000) score += 3;
+      if (answers.budget === "high" && p.price > 10000) score += 3;
+      return { product: p, score };
+    }).sort((a,b) => b.score - a.score);
+  }
+
+  function renderResults(scored) {
+    resultsEl.innerHTML = "";
+    const top = scored.filter(s=>s.score>0).slice(0,3);
+    if (top.length === 0) {
+      resultsEl.innerHTML = `<div class="p-4 bg-white border rounded text-gray-600">No recommendations found for these options — try a different budget or purpose.</div>`;
+      return;
+    }
+    top.forEach(item => {
+      const p = item.product;
+      const card = document.createElement("div");
+      card.className = "p-4 border rounded-lg shadow bg-white mb-4";
+      card.innerHTML = `
+        <div class="flex items-center gap-4">
+          <img src="${p.image || 'images/placeholder.jpg'}" class="w-20 h-20 object-cover rounded" alt="${p.name}">
+          <div class="flex-1">
+            <h3 class="text-lg font-semibold text-emerald-700">${p.name}</h3>
+            <p class="text-sm text-gray-600">Price: ₹${p.price.toLocaleString('en-IN')}</p>
+          </div>
+          <div>
+            <button class="bg-emerald-600 text-white px-3 py-2 rounded add-rec" data-id="${p.id}">Add to Cart</button>
+          </div>
+        </div>
+      `;
+      resultsEl.appendChild(card);
+    });
+
+    // attach add-to-cart handlers
+    document.querySelectorAll(".add-rec").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.dataset.id;
+        cart[id] = (cart[id] || 0) + 1;
+        saveCart();
+        btn.textContent = "Added!";
+        setTimeout(()=> btn.textContent = "Add to Cart", 800);
+      });
+    });
+  }
+
+  document.getElementById("rec-run").addEventListener("click", () => {
+    const answers = {
+      purpose: document.getElementById("rec-purpose").value,
+      zodiac: document.getElementById("rec-zodiac").value,
+      budget: document.getElementById("rec-budget").value,
+      chakra: document.getElementById("rec-chakra").value
+    };
+    const scored = scoreProducts(answers);
+    renderResults(scored);
+  });
+
+  document.getElementById("rec-reset").addEventListener("click", () => { resultsEl.innerHTML = ""; });
+})();
+</script>
+
+<!-- WhatsApp Floating Chat Button -->
+<a href="https://wa.me/917827491801?text=Hi%20Gems%20of%20Nature,%20I%20need%20help%20with%20a%20gemstone."
+   class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-sm font-semibold transition-all z-50"
+   target="_blank" rel="noopener">
+  <img src="images/social/whatsapp.png" class="w-6 h-6" alt="WhatsApp">
+  Chat with Us
+</a>
+
+<!-- Gemstone Authenticity Section -->
+<section id="authenticity" class="py-6 bg-white">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="flex flex-col lg:flex-row items-start gap-6">
+      <div class="flex-shrink-0">
+        <div class="bg-emerald-50 border border-emerald-100 rounded-lg p-4 text-center">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" class="mx-auto mb-1">
+            <path d="M12 2l3 6 6 3-6 3-3 6-3-6-6-3 6-3 3-6z" fill="#10B981" opacity="0.12"/>
+            <path d="M12 6l1.6 3.2L17 10l-3 2 1 3-3-2-3 2 1-3-3-2 3.4-.8L12 6z" fill="#059669"/>
+          </svg>
+          <div class="text-sm font-semibold text-emerald-700">100% Genuine</div>
+          <div class="text-xs text-gray-500">Verified by Gemologist</div>
+        </div>
+      </div>
+
+      <div class="flex-1">
+        <h2 class="text-2xl font-bold text-emerald-700">Gemstone Authenticity & Lab Reports</h2>
+        <p class="text-gray-600 mt-2 max-w-3xl">We guarantee natural gemstones — no synthetic stones sold as natural. High-value items are inspected by a certified gemologist and can be issued an independent lab report on request.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
+          <div class="bg-gray-50 p-3 rounded-lg border">
+            <h4 class="font-semibold text-gray-800">How to identify natural gems</h4>
+            <ul class="text-sm text-gray-600 mt-2 space-y-1">
+              <li>Look for natural inclusions and growth lines (perfect clarity is suspicious).</li>
+              <li>Ask for origin & treatment disclosure (heat, coating, irradiation).</li>
+              <li>Request photos under different light to check color & flash.</li>
+            </ul>
+          </div>
+
+          <div class="bg-gray-50 p-3 rounded-lg border">
+            <h4 class="font-semibold text-gray-800">Lab report & certificate</h4>
+            <p class="text-sm text-gray-600 mt-2">Independent lab reports available for premium items. View/download a sample report.</p>
+            <div class="mt-3">
+              <button id="open-sample-report" class="bg-emerald-600 text-white px-3 py-2 rounded">View sample report</button>
+              <a href="/files/sample-lab-report.pdf" class="ml-3 text-sm text-gray-600 underline" download>Download PDF</a>
+            </div>
+          </div>
+
+          <div class="bg-gray-50 p-3 rounded-lg border">
+            <h4 class="font-semibold text-gray-800">Quality Guarantee</h4>
+            <p class="text-sm text-gray-600 mt-2">7-day inspection & return for authenticity disputes, or we buy back (terms apply). Lab-certificate option for high-value purchases.</p>
+          </div>
+        </div>
+
+        <div class="mt-6 flex gap-3">
+          <button id="request-certificate" class="bg-emerald-600 text-white px-4 py-2 rounded font-semibold">Request Certificate</button>
+          <button onclick="openConsult()" class="border px-4 py-2 rounded text-gray-700">Book Consultation</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 border-t pt-6 text-sm text-gray-600">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div><strong>Q:</strong> Are all stones natural?<br/><strong>A:</strong> Yes — we only list natural stones. Lab-grown or treated pieces are clearly labelled.</div>
+        <div><strong>Q:</strong> How do I request a certificate?<br/><strong>A:</strong> Click Request Certificate or contact us and we’ll share the steps and cost (if any).</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sample report modal -->
+<div id="sample-report-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+  <div class="bg-white max-w-3xl w-full rounded-lg p-6 mx-4">
+    <div class="flex justify-between items-start">
+      <h4 class="text-lg font-semibold">Sample Lab Report — Gems of Nature</h4>
+      <button id="close-sample-report" class="text-gray-600">✕</button>
+    </div>
+
+    <div class="mt-4 text-sm text-gray-700">
+      <p><strong>Report includes:</strong> Gem identification, weight, dimensions, origin (if known), treatment disclosure, and gemologist remarks with authenticated stamp.</p>
+      <p class="mt-3">Your item’s report will include high-resolution photos of the tested area and precise measurements.</p>
+      <div class="mt-4">
+        <a href="/files/sample-lab-report.pdf" class="text-emerald-600 underline" download>Download full sample report (PDF)</a>
+      </div>
+    </div>
+
+    <div class="mt-6 text-right">
+      <button id="modal-request-cert" class="bg-emerald-600 text-white px-4 py-2 rounded">Request Certificate</button>
+      <button id="modal-close" class="ml-2 border px-3 py-2 rounded">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Consultation modal -->
+<div id="consult-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+  <div class="bg-white rounded-lg max-w-2xl w-full p-6 mx-4">
+    <div class="flex items-center justify-between">
+      <h3 class="text-xl font-semibold text-emerald-700">Rudraksha & Astrology Consultation</h3>
+      <button id="close-consult" class="text-gray-500">✕</button>
+    </div>
+
+    <p class="text-sm text-gray-600 mt-2">Choose a free quick recommendation, or book a paid 30-minute session for detailed guidance including Rudraksha matching and gemstone prescription.</p>
+
+    <form id="consult-form" class="mt-4 grid gap-3">
+      <div class="grid sm:grid-cols-2 gap-3">
+        <input type="text" id="c-name" name="name" placeholder="Full name" required class="border rounded px-3 py-2" />
+        <input type="email" id="c-email" name="email" placeholder="Email" required class="border rounded px-3 py-2" />
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-3">
+        <input type="date" id="c-dob" name="dob" placeholder="Date of birth" required class="border rounded px-3 py-2" />
+        <input type="time" id="c-tob" name="tob" placeholder="Time of birth (if known)" class="border rounded px-3 py-2" />
+      </div>
+
+      <textarea id="c-notes" name="notes" placeholder="Short note: what do you want? (gemstone, rudraksha, career, marriage)" class="border rounded px-3 py-2" rows="3"></textarea>
+
+      <div class="flex gap-3 items-center mt-2">
+        <label class="flex items-center gap-2"><input type="radio" name="mode" value="free" checked /> Free Recommendation</label>
+        <label class="flex items-center gap-2 ml-4"><input type="radio" name="mode" value="paid" /> 30-min Paid Consultation</label>
+      </div>
+
+      <div id="consult-actions" class="mt-3">
+        <button id="consult-submit" type="submit" class="bg-emerald-600 text-white px-4 py-2 rounded">Submit</button>
+      </div>
+    </form>
+
+    <div class="mt-4 text-xs text-gray-500">
+      <strong>Note:</strong> For paid consultations we recommend Calendly + a payment gateway (Razorpay/Stripe). If you prefer manual scheduling we will respond with times and payment link.
+    </div>
+  </div>
+</div>
+
+<!-- Footer (if you have a footer after this block you can remove it here to avoid duplication) -->
 <footer class="bg-emerald-900 text-white py-6 mt-12">
   <div class="max-w-7xl mx-auto footer-inner flex flex-col md:flex-row items-center justify-between gap-4 px-6">
-
-    <!-- Copyright -->
-    <div class="text-sm footer-nowrap">
-      &copy; 2025 <strong>Gems of Nature</strong>. All rights reserved.
-    </div>
-
-    <!-- Tagline -->
-    <div class="text-sm text-emerald-100 font-medium text-center">
-      100% natural stones • Secure payments • Fast shipping • 7-day returns
-    </div>
-
-    <!-- Social Links (PNG icons + labels) -->
-<div class="flex items-center justify-center gap-8 ml-2">
-      <!-- Facebook -->
-      <a
-        href="https://www.facebook.com/profile.php?id=61581929357076"
-        target="_blank" rel="noopener noreferrer"
-        class="flex items-center gap-2 hover:opacity-90 transition"
-      >
-        <img src="images/social/facebook.png" alt="Facebook" class="w-6 h-6 rounded-full shadow-md">
-        <span class="text-sm font-medium">Facebook</span>
+    <div class="text-sm footer-nowrap">&copy; 2025 <strong>Gems of Nature</strong>. All rights reserved.</div>
+    <div class="text-sm text-emerald-100 font-medium text-center">100% natural stones • Secure payments • Fast shipping • 7-day returns</div>
+    <div class="flex items-center justify-center gap-8 ml-2">
+      <a href="https://www.facebook.com/profile.php?id=61581929357076" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:opacity-90 transition">
+        <img src="images/social/facebook.png" alt="Facebook" class="w-6 h-6 rounded-full shadow-md"><span class="text-sm font-medium">Facebook</span>
       </a>
-
-      <!-- Instagram -->
-      <a
-        href="https://www.instagram.com/gemsofnatureshop"
-        target="_blank" rel="noopener noreferrer"
-        class="flex items-center gap-2 hover:opacity-90 transition"
-      >
-        <img src="images/social/instagram.png" alt="Instagram" class="w-6 h-6 rounded-md shadow-md">
-        <span class="text-sm font-medium">Instagram</span>
+      <a href="https://www.instagram.com/gemsofnatureshop" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:opacity-90 transition">
+        <img src="images/social/instagram.png" alt="Instagram" class="w-6 h-6 rounded-md shadow-md"><span class="text-sm font-medium">Instagram</span>
       </a>
-
-      <!-- LinkedIn -->
-      <a
-        href="https://www.linkedin.com/company/gems-of-nature"
-        target="_blank" rel="noopener noreferrer"
-        class="flex items-center gap-2 hover:opacity-90 transition"
-      >
-        <img src="images/social/linkedin.png" alt="LinkedIn" class="w-6 h-6 rounded-md shadow-md">
-        <span class="text-sm font-medium">LinkedIn</span>
+      <a href="https://www.linkedin.com/company/gems-of-nature" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:opacity-90 transition">
+        <img src="images/social/linkedin.png" alt="LinkedIn" class="w-6 h-6 rounded-md shadow-md"><span class="text-sm font-medium">LinkedIn</span>
       </a>
     </div>
   </div>
 </footer>
 
+<!-- Modal & consult wiring (script) -->
+<script>
+  // helper opens/closes
+  function openConsult(){ const m=document.getElementById('consult-modal'); if(!m) return; m.classList.remove('hidden'); m.classList.add('flex'); }
+  function closeConsult(){ const m=document.getElementById('consult-modal'); if(!m) return; m.classList.add('hidden'); m.classList.remove('flex'); }
+
+  function openSampleReport(){ const s=document.getElementById('sample-report-modal'); if(!s) return; s.classList.remove('hidden'); s.classList.add('flex'); }
+  function closeSampleReport(){ const s=document.getElementById('sample-report-modal'); if(!s) return; s.classList.add('hidden'); s.classList.remove('flex'); }
+
+  document.getElementById('close-consult')?.addEventListener('click', closeConsult);
+  document.getElementById('close-sample-report')?.addEventListener('click', closeSampleReport);
+  document.getElementById('modal-close')?.addEventListener('click', closeSampleReport);
+
+  document.getElementById('open-sample-report')?.addEventListener('click', openSampleReport);
+  document.getElementById('request-certificate')?.addEventListener('click', function(){
+    // default behaviour: open sample modal. Change to redirect if needed:
+    openSampleReport();
+  });
+
+  // Consult form submit (Formspree fallback)
+  document.getElementById('consult-form')?.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const mode = document.querySelector('input[name="mode"]:checked').value;
+    const data = {
+      name: document.getElementById('c-name').value || '',
+      email: document.getElementById('c-email').value || '',
+      dob: document.getElementById('c-dob').value || '',
+      tob: document.getElementById('c-tob').value || '',
+      notes: document.getElementById('c-notes').value || '',
+      mode
+    };
+
+    if (mode === 'free') {
+      // replace with your Formspree endpoint or your backend API
+      try {
+        await fetch('https://formspree.io/f/your_form_id', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
+        });
+      } catch (err) { console.warn('Form submit failed', err); }
+      alert('Thank you — we will email you a short recommendation within 24 hours.');
+      closeConsult();
+      return;
+    }
+
+    // Paid consultations -> redirect to Calendly (replace link)
+    const calendlyLink = 'https://calendly.com/YOUR_CALENDLY_ID/30min';
+    if (confirm('You will be redirected to booking & payment. Proceed?')) {
+      window.location.href = calendlyLink;
+    }
+  });
+
+  // Modal close when pressing ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeConsult();
+      closeSampleReport();
+    }
+  });
+
+  console.log('Widgets loaded');
+</script>
 
 </body>
 </html>

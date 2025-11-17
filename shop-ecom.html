@@ -1127,14 +1127,53 @@ function finalizeOrder(order){
     <div class="muted text-sm mt-2">Name: ${order.name}<br/>Total: ${formatCurrency(order.total, currentCurrency)}</div>`;
   hideCheckout();
   showOrderConfirm();
-
-  // clear cart and update UI
-  cart = {};
-  saveCart();
-  checkoutForm?.reset();
-  placeOrderBtn.textContent = 'Place Order';
-  placeOrderBtn.disabled = true;
 }
+// ===============================
+// FINAL CLEAR CART FUNCTION (WORKING)
+// ===============================
+function clearCart() {
+  cart = {};         // empty cart object
+  localStorage.setItem('gon_cart', JSON.stringify({}));
+
+  renderCart();      // rebuild cart UI
+  updateCheckoutTotals(); // optional if you want
+
+  // update checkout form if open
+  const checkoutForm = document.getElementById('checkout-form');
+  if (checkoutForm) checkoutForm.reset();
+}
+
+// refresh totals on right side checkout (optional)
+function updateCheckoutTotals() {
+  const subtotalEl = document.getElementById('cart-subtotal');
+  const shippingEl = document.getElementById('cart-shipping');
+  const totalEl = document.getElementById('cart-total');
+
+  subtotalEl.textContent = '₹0';
+  shippingEl.textContent = '₹0';
+  totalEl.textContent = '₹0';
+}
+
+// ===============================
+// ATTACH CLEAR CART BUTTON
+// ===============================
+document.addEventListener("DOMContentLoaded", function () {
+  const clearBtn = document.getElementById("clear-cart");
+  if (clearBtn) {
+    clearBtn.addEventListener("click", function () {
+      if (!confirm("Clear your cart?")) return;
+      clearCart();
+    });
+  }
+});
+
 </script>
+<!-- WhatsApp Floating Chat Button -->
+<a href="https://wa.me/917827491801?text=Hi%20Gems%20of%20Nature,%20I%20need%20help%20with%20a%20gemstone."
+   class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-sm font-semibold transition-all z-50"
+   target="_blank" rel="noopener">
+  <img src="images/social/whatsapp.png" class="w-6 h-6" alt="WhatsApp">
+  Chat with Us
+</a>
 </body>
 </html>
