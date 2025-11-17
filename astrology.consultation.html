@@ -19,6 +19,10 @@
     :root {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      --site-accent: #0f6b4f;
+      --accent-2: #07a66a;
+      --muted: #6b7280;
+      --card-border: #e6f7ef;
     }
 
     html, body {
@@ -29,6 +33,7 @@
       font-family: 'Montserrat', sans-serif;
       display: flex;
       flex-direction: column;
+      color: #0f1724;
     }
 
     /* Make main fill remaining space so footer sits at bottom */
@@ -58,7 +63,20 @@
     }
 
     /* Images: ensure block-level, no background bleed and consistent cover */
-    img { background: transparent; display: block; }
+    img { background: transparent; display: block; max-width:100%; height:auto; }
+
+    /* Header — matches site style */
+    header.site-header { background:#0b5a49; }
+    header .site-inner { max-width:1200px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .site-logo { display:flex; align-items:center; gap:12px; color:#fff; text-decoration:none; }
+    .site-logo .mark{ width:44px; height:44px; border-radius:6px; background:linear-gradient(180deg,#063e2f,#0f6b4f); display:flex; align-items:center; justify-content:center; font-weight:800; color:#fff; }
+    nav.primary { display:flex; gap:22px; align-items:center; justify-content:center; flex:1; }
+    nav.primary a { color:#e6fff7; text-decoration:none; font-weight:600; }
+    nav.primary a:hover{ opacity:0.95; }
+    .header-actions { display:flex; gap:12px; align-items:center; }
+    .btn-pill { padding:8px 14px; border-radius:999px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:8px; }
+    .btn-buy { background:#06b58a; color:#fff; box-shadow:0 6px 18px rgba(6,101,78,0.12); }
+    .btn-ghost { background:transparent; border:1px solid rgba(255,255,255,0.08); color:#e9fff6; }
 
     /* Footer: keep pinned without negative margin hacks */
     footer {
@@ -67,22 +85,43 @@
       flex-shrink: 0;
       background-color: #065f46; /* emerald-900 */
       width: 100%;
+      color: #fff;
     }
+    .footer-inner { padding-left: 24px; padding-right: 24px; max-width:1200px; margin:0 auto; display:flex; gap:16px; align-items:center; justify-content:space-between; }
 
-    /* Footer inner padding */
-    .footer-inner { padding-left: 24px; padding-right: 24px; }
+    /* Consultation embed styles (scoped) */
+    #gn-consultation-embed {
+      max-width: 1080px;
+      margin: 28px auto;
+      padding: 18px;
+      border-radius: 12px;
+      background: #ffffff;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 8px 30px rgba(8,55,34,0.04);
+      font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      color:#0f1724;
+    }
+    #gn-consultation-embed h3{ margin:0; font-size:1.25rem; color:var(--site-accent); font-weight:800; }
+    #gn-consultation-embed p.lead{ margin:6px 0 0 0; color:var(--muted); font-size:0.95rem; }
+    .gn-auth-grid{ display:grid; grid-template-columns:1fr 260px; gap:14px; margin-top:12px; align-items:start; }
+    @media (max-width:820px){ .gn-auth-grid{ grid-template-columns:1fr; } }
+    .gn-auth-card{ padding:12px; border-radius:10px; }
+    .gn-auth-card .t{ font-weight:700; color:#0b5f46; margin-bottom:8px; font-size:1rem; }
+    .gn-auth-card ul{ margin:0; padding-left:1rem; color:var(--muted); font-size:0.92rem; line-height:1.45; }
+    .gn-quick { display:flex; flex-direction:column; gap:10px; }
+    .gn-btn { display:inline-flex; align-items:center; justify-content:center; padding:10px 14px; border-radius:999px; font-weight:700; font-size:0.95rem; cursor:pointer; text-decoration:none; }
+    .gn-btn-strong { background:var(--site-accent); color:#fff; box-shadow:0 6px 18px rgba(11,95,70,0.12); border:none; }
+    .gn-btn-ghost { background:transparent; border:1px solid #e6e6e6; color:var(--site-accent); }
+    #gn-consultation-embed input, #gn-consultation-embed select, #gn-consultation-embed textarea {
+      width:100%; padding:10px 12px; border-radius:8px; border:1px solid #eef6f0; font-family:inherit; font-size:0.95rem;
+    }
+    .gn-row-2{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    @media (max-width:520px){ .gn-row-2{ grid-template-columns:1fr; } }
+    #gn-embed-result{ margin-top:10px; padding:10px; border-radius:8px; background:#f0fff6; color:#074f2f; display:none; font-weight:600; }
 
-    /* Prevent accidental wrap for the copyright on narrow widths */
-    .footer-nowrap { white-space: nowrap; }
-
-    /* Hero fills full viewport (adjust if header becomes fixed) */
-    .hero-min-h { min-height: calc(100vh - 0px); }
-
-    /* Button: remove any default extra shadow inside cards */
-    .no-btn-shadow, .no-btn-shadow * { box-shadow: none !important; }
-
-    /* Small responsive tweak to keep footer icons centered vertically */
-    footer svg { vertical-align: middle; }
+    /* Floating WhatsApp bubble (site-like) */
+    .gn-float-wa{ position:fixed; right:18px; bottom:18px; z-index:99999; display:flex; align-items:center; gap:10px; background:var(--accent-2); color:#fff; padding:10px 14px; border-radius:999px; box-shadow:0 8px 30px rgba(7,101,81,0.18); text-decoration:none; font-weight:800; font-size:0.95rem; }
+    .gn-float-wa img{ width:20px; height:20px; display:inline-block; vertical-align:middle; filter:brightness(120%); }
   </style>
 
   <!-- Structured data (Organization) -->
@@ -105,34 +144,27 @@
 <body class="bg-white text-gray-800 antialiased">
 
 <!-- Navbar -->
-<header class="bg-emerald-900 text-white shadow-md">
-  <nav class="max-w-7xl mx-auto flex justify-between items-center py-4 px-6">
+<header class="bg-emerald-900 text-white shadow-md site-header">
+  <nav class="site-inner">
     <!-- Logo -->
-    <a href="index.html" class="flex items-center shrink-0">
+    <a href="index.html" class="site-logo flex items-center shrink-0" aria-label="Gems of Nature">
       <img src="images/logo.png" alt="Gems of Nature Logo" class="h-12 w-auto" loading="lazy">
       <span class="ml-3 text-2xl font-bold">Gems of Nature</span>
     </a>
 
-    <!-- Navigation links -->
-    <ul class="hidden md:flex gap-6 text-lg">
-      <li><a href="index.html" class="hover:text-emerald-300 transition">Home</a></li>
-      <li><a href="about.html" class="hover:text-emerald-300 transition">About Us</a></li>
-      <li><a href="shop.html" class="hover:text-emerald-300 transition">Collections</a></li>
-      <li><a href="contact.html" class="hover:text-emerald-300 transition">Contact</a></li>
-      <li><a href="astrology.consultation.html" class="hover:text-emerald-300 transition">Astrology & Consultation</a></li>
+    <!-- Navigation links (centered) -->
+    <nav class="primary" aria-label="Primary navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="shop.html">Collections</a>
+      <a href="contact.html">Contact</a>
+      <a href="astrology.consultation.html" class="btn-pill btn-ghost" style="padding:6px 10px; border-radius:8px;">Astrology &amp; Consultation</a>
+    </nav>
 
-      
-    </ul>
-
-    <!-- Right side: Buy Online + Cart -->
-    <div class="flex items-center gap-4">
-      <a href="shop-ecom.html" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold hidden md:inline-block transition-colors">
-        Buy Online
-      </a>
-
-      <a href="shop-ecom.html" class="text-2xl cursor-pointer" aria-label="Open Cart">🛒</a>
-
-      <!-- Mobile menu button -->
+    <!-- Right side: Buy Online + Cart + Mobile button -->
+    <div class="header-actions">
+      <a href="shop-ecom.html" class="btn-pill btn-buy hidden md:inline-block">Buy Online</a>
+      <a href="shop-ecom.html" class="text-2xl" aria-label="Open Cart">🛒</a>
       <button id="mobile-menu-button" class="text-2xl md:hidden focus:outline-none" aria-expanded="false" aria-controls="mobile-menu">☰</button>
     </div>
   </nav>
@@ -150,266 +182,240 @@
 </header>
 
 <script>
-  const mobileMenuButton = document.getElementById('mobile-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
-  if (mobileMenuButton) {
-    mobileMenuButton.addEventListener('click', () => {
-      const hidden = mobileMenu.classList.toggle('hidden');
-      mobileMenuButton.setAttribute('aria-expanded', String(!hidden));
-      mobileMenu.setAttribute('aria-hidden', String(hidden));
-    });
-  }
+  // mobile menu toggle (safe)
+  (function(){
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener('click', () => {
+        const isHidden = mobileMenu.classList.toggle('hidden');
+        mobileMenuButton.setAttribute('aria-expanded', String(!isHidden));
+        mobileMenu.setAttribute('aria-hidden', String(isHidden));
+      });
+    }
+  })();
 </script>
 
-<!-- MAIN: page content grows -->
-<main>
+<!-- HERO -->
+<section class="hero-gradient py-12" style="background:linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/images/hero.jpg'); background-size:cover; background-position:center;">
+  <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+    <div class="glass p-6 rounded-2xl shadow-lg">
+      <h2 class="text-3xl font-extrabold text-white">Rudraksha + Astrological Gem Consultation</h2>
+      <p class="mt-3 text-white/90">Free gemstone recommendation (based on DOB) + paid 30-min personalized consultation. We match natural gemstones & Rudraksha with your astrology, dosha, and life goals.</p>
 
+      <ul class="mt-4 space-y-2 text-sm text-white/90">
+        <li>✅ Free automatic gem recommendation by date of birth</li>
+        <li>✅ Expert Rudraksha matching and mala recommendations</li>
+        <li>✅ 30-minute paid consultation (voice/video) — INR / USD options</li>
+        <li>✅ Certification guidance & stone authenticity tips</li>
+      </ul>
 
-  <!-- HERO -->
-  <section class="hero-gradient py-12" style="background:linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/images/hero.jpg'); background-size:cover; background-position:center;">
-    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-      <div class="glass p-6 rounded-2xl shadow-lg">
-        <h2 class="text-3xl font-extrabold text-white">Rudraksha + Astrological Gem Consultation</h2>
-        <p class="mt-3 text-white/90">Free gemstone recommendation (based on DOB) + paid 30-min personalized consultation. We match natural gemstones & Rudraksha with your astrology, dosha, and life goals.</p>
+      <div class="mt-6 flex gap-3">
+        <a href="#consultation" class="inline-block bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-md font-semibold">Get Free Recommendation</a>
+        <a href="#pricing" class="inline-block border border-white/30 text-white px-4 py-2 rounded-md">Book 30-min</a>
+      </div>
+    </div>
 
-        <ul class="mt-4 space-y-2 text-sm text-white/90">
-          <li>✅ Free automatic gem recommendation by date of birth</li>
-          <li>✅ Expert Rudraksha matching and mala recommendations</li>
-          <li>✅ 30-minute paid consultation (voice/video) — INR / USD options</li>
-          <li>✅ Certification guidance & stone authenticity tips</li>
+    <div class="p-6 rounded-2xl">
+      <div class="bg-white rounded-2xl p-4 shadow">
+        <h3 class="font-semibold">Quick Booking</h3>
+        <p class="text-sm text-slate-600">Fill your birth details — get a recommendation instantly.</p>
+        <form id="quick-form" class="mt-3 space-y-3">
+          <div>
+            <label for="q-name" class="text-xs text-slate-600">Full name</label>
+            <input required id="q-name" name="name" class="w-full mt-1 p-2 border rounded" placeholder="Paramjeet Singh" />
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label for="q-dob" class="text-xs text-slate-600">Date of Birth</label>
+              <input required id="q-dob" name="dob" type="date" class="w-full mt-1 p-2 border rounded" />
+            </div>
+            <div>
+              <label for="q-tob" class="text-xs text-slate-600">Time of Birth (optional)</label>
+              <input id="q-tob" name="tob" type="time" class="w-full mt-1 p-2 border rounded" />
+            </div>
+          </div>
+          <div>
+            <label for="q-pob" class="text-xs text-slate-600">Place of Birth</label>
+            <input id="q-pob" name="pob" class="w-full mt-1 p-2 border rounded" placeholder="Delhi, India" />
+          </div>
+          <div>
+            <label for="q-goal" class="text-xs text-slate-600">Main concern / goal</label>
+            <select id="q-goal" name="goal" class="w-full mt-1 p-2 border rounded">
+              <option value="wealth">Wealth & career</option>
+              <option value="health">Health & wellbeing</option>
+              <option value="relationship">Relationships</option>
+              <option value="protection">Protection / spirituality</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="flex items-center gap-2 pt-2">
+            <button type="submit" class="bg-emerald-500 px-3 py-2 rounded text-white font-semibold">Get Recommendation</button>
+            <button id="wa-btn-quick" type="button" class="border px-3 py-2 rounded">Chat on WhatsApp</button>
+          </div>
+        </form>
+        <div id="quick-result" role="status" aria-live="polite" class="mt-3 hidden bg-amber-50 border border-amber-100 p-3 rounded text-sm"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="max-w-6xl mx-auto p-6 space-y-8">
+  <!-- Consultation Embed -->
+  <div id="gn-consultation-embed" class="card-base fade-in">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+      <div>
+        <h3>Find Your Perfect Gemstone — Consultation</h3>
+        <p class="lead">Free DOB recommendation + paid 30-minute personalized reading. Rudraksha & gem pairing guided by astrology and authenticity checks.</p>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <a href="#consultation" class="gn-btn gn-btn-strong btn-pill" style="background:var(--site-accent); color:#fff;">Get Free</a>
+        <a href="#pricing" class="gn-btn gn-btn-ghost btn-pill">Book</a>
+      </div>
+    </div>
+
+    <div class="gn-auth-grid" role="group" aria-label="authenticity and actions">
+      <div class="gn-auth-card">
+        <div class="t">Quick authenticity tips</div>
+        <ul>
+          <li>Request lab certificates (IGI / GIA / SSEF) for faceted gems.</li>
+          <li>Watch for bubbles (glass) and unrealistic even color (dyed).</li>
+          <li>Compare weight/size vs price — unusually cheap often means treated.</li>
+          <li>For Rudraksha: clear mukhi-count photos, origin, and hole condition.</li>
         </ul>
-
-        <div class="mt-6 flex gap-3">
-          <a href="#consultation" class="inline-block bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-md font-semibold">Get Free Recommendation</a>
-          <a href="#pricing" class="inline-block border border-white/30 text-white px-4 py-2 rounded-md">Book 30-min</a>
-        </div>
       </div>
 
-      <div class="p-6 rounded-2xl">
-        <div class="bg-white rounded-2xl p-4 shadow">
-          <h3 class="font-semibold">Quick Booking</h3>
-          <p class="text-sm text-slate-600">Fill your birth details — get a recommendation instantly.</p>
-          <form id="quick-form" class="mt-3 space-y-3">
-            <div>
-              <label class="text-xs text-slate-600">Full name</label>
-              <input required id="q-name" class="w-full mt-1 p-2 border rounded" placeholder="Paramjeet Singh" />
-            </div>
-            <div class="grid grid-cols-2 gap-2">
-              <div>
-                <label class="text-xs text-slate-600">Date of Birth</label>
-                <input required id="q-dob" type="date" class="w-full mt-1 p-2 border rounded" />
-              </div>
-              <div>
-                <label class="text-xs text-slate-600">Time of Birth (optional)</label>
-                <input id="q-tob" type="time" class="w-full mt-1 p-2 border rounded" />
-              </div>
-            </div>
-            <div>
-              <label class="text-xs text-slate-600">Place of Birth</label>
-              <input id="q-pob" class="w-full mt-1 p-2 border rounded" placeholder="Delhi, India" />
-            </div>
-            <div>
-              <label class="text-xs text-slate-600">Main concern / goal</label>
-              <select id="q-goal" class="w-full mt-1 p-2 border rounded">
-                <option value="wealth">Wealth & career</option>
-                <option value="health">Health & wellbeing</option>
-                <option value="relationship">Relationships</option>
-                <option value="protection">Protection / spirituality</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div class="flex items-center gap-2 pt-2">
-              <button type="submit" class="bg-emerald-500 px-3 py-2 rounded text-white font-semibold">Get Recommendation</button>
-              <button id="wa-btn-quick" type="button" class="border px-3 py-2 rounded">Chat on WhatsApp</button>
-            </div>
-          </form>
-          <div id="quick-result" class="mt-3 hidden bg-amber-50 border border-amber-100 p-3 rounded text-sm"></div>
-        </div>
+      <div class="gn-quick" role="group" aria-label="Quick actions">
+        <button id="gn-embed-reco" class="gn-btn gn-btn-strong" style="width:100%;">Get Free DOB Reco</button>
+        <button id="gn-embed-book" class="gn-btn gn-btn-ghost" style="width:100%;">Book 30-min (₹999)</button>
+        <button id="gn-embed-wa" class="gn-btn gn-btn-ghost" style="width:100%;">Chat on WhatsApp</button>
       </div>
+    </div>
+
+    <form id="gn-embed-form" style="margin-top:14px;">
+      <div class="gn-row-2">
+        <input id="gn-e-name" name="name" placeholder="Full name" />
+        <input id="gn-e-phone" name="phone" placeholder="WhatsApp +91..." />
+      </div>
+
+      <div class="gn-row-2" style="margin-top:8px;">
+        <input id="gn-e-dob" name="dob" type="date" />
+        <select id="gn-e-goal" name="goal"><option value="wealth">Wealth</option><option value="health">Health</option><option value="other">Other</option></select>
+      </div>
+
+      <textarea id="gn-e-note" name="note" rows="2" placeholder="Short note... (optional)" style="margin-top:8px;"></textarea>
+
+      <div style="display:flex; gap:10px; margin-top:10px;">
+        <button type="submit" class="gn-btn gn-btn-strong btn-pill">Get Free Reco</button>
+        <button id="gn-embed-pay" type="button" class="gn-btn gn-btn-ghost btn-pill">Book 30-min (₹999)</button>
+      </div>
+
+      <div id="gn-embed-result" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+
+  <!-- Services / Cards -->
+  <section id="services">
+    <h2 class="text-2xl font-bold">Our Consultation Services</h2>
+    <p class="text-slate-600 mt-1">Choose a service — each includes a written recommendation and gemstone pairing guide.</p>
+
+    <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+      <article class="p-4 bg-white rounded-xl shadow">
+        <h3 class="font-semibold">Free DOB Recommendation</h3>
+        <p class="text-sm text-slate-600 mt-2">Instant automated suggestion of 1–3 suitable gemstones (and Rudraksha if relevant) based on your date of birth.</p>
+        <ul class="mt-3 text-sm space-y-1">
+          <li>• Gem suggestions & analogs</li>
+          <li>• Notes on authenticity & certification</li>
+        </ul>
+        <div class="mt-3">
+          <a href="#consultation" class="inline-block text-amber-600 text-sm">Start free</a>
+        </div>
+      </article>
+
+      <article class="p-4 bg-white rounded-xl shadow">
+        <h3 class="font-semibold">30-min Personal Consultation</h3>
+        <p class="text-sm text-slate-600 mt-2">Personal voice/video call covering full birth-chart based gem & Rudraksha prescription. Includes follow-up notes.</p>
+        <ul class="mt-3 text-sm space-y-1">
+          <li>• Live recommendations</li>
+          <li>• Mala / bead size, mukhi selection</li>
+          <li>• Wearing & cleansing procedure</li>
+        </ul>
+        <div class="mt-3">
+          <a href="#pricing" class="inline-block text-amber-600 text-sm">Book a session</a>
+        </div>
+      </article>
+
+      <article class="p-4 bg-white rounded-xl shadow">
+        <h3 class="font-semibold">Gemstone + Rudraksha Audit</h3>
+        <p class="text-sm text-slate-600 mt-2">Send images/certificates; we’ll audit authenticity, origin likelihood, and valuation tips.</p>
+        <ul class="mt-3 text-sm space-y-1">
+          <li>• Lab certificate check</li>
+          <li>• Visual authenticity checklist</li>
+        </ul>
+        <div class="mt-3">
+          <a href="#contact" class="inline-block text-amber-600 text-sm">Send audit request</a>
+        </div>
+      </article>
     </div>
   </section>
 
-  <main class="max-w-6xl mx-auto p-6 space-y-8">
-    <!-- Consultation Embed -->
-    <div id="gn-consultation-embed" class="card-base fade-in">
-      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
-        <div>
-          <h3>Find Your Perfect Gemstone — Consultation</h3>
-          <p class="lead">Free DOB recommendation + paid 30-minute personalized reading. Rudraksha & gem pairing guided by astrology and authenticity checks.</p>
-        </div>
-        <div style="display:flex; gap:10px; align-items:center;">
-          <a href="#consultation" class="gn-btn gn-btn-strong btn-pill" style="background:var(--site-accent); color:#fff;">Get Free</a>
-          <a href="#pricing" class="gn-btn gn-btn-ghost btn-pill">Book</a>
-        </div>
+  <!-- (rest of your content) -->
+
+</main>
+
+<!-- WhatsApp Floating Chat Button -->
+<a href="https://wa.me/917827491801?text=Hi%20Gems%20of%20Nature,%20I%20need%20help%20with%20a%20gemstone."
+   class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-sm font-semibold transition-all z-50"
+   target="_blank" rel="noopener">
+  <img src="images/social/whatsapp.png" class="w-6 h-6" alt="WhatsApp">
+  Chat with Us
+</a>
+
+<!-- Booking modal -->
+<div id="modal" class="fixed inset-0 hidden items-center justify-center bg-black/40 p-4">
+  <div class="bg-white rounded-xl p-6 w-full max-w-lg">
+    <h3 class="text-xl font-bold">Confirm Booking — 30 minute</h3>
+    <p class="text-sm text-slate-600 mt-1">Fill contact details to complete booking.</p>
+    <form id="modal-form" class="mt-4 space-y-3">
+      <input id="m-name" name="m_name" class="w-full p-2 border rounded" placeholder="Full name" required />
+      <input id="m-email" name="m_email" type="email" class="w-full p-2 border rounded" placeholder="Email" />
+      <input id="m-phone" name="m_phone" class="w-full p-2 border rounded" placeholder="WhatsApp number" required />
+      <div class="flex gap-3 justify-end">
+        <button id="modal-cancel" type="button" class="px-3 py-2 border rounded">Cancel</button>
+        <button id="modal-pay" type="submit" class="px-3 py-2 bg-amber-500 text-white rounded">Proceed to Pay</button>
       </div>
-
-      <div class="gn-auth-grid" role="group" aria-label="authenticity and actions">
-        <div class="gn-auth-card">
-          <div class="t">Quick authenticity tips</div>
-          <ul>
-            <li>Request lab certificates (IGI / GIA / SSEF) for faceted gems.</li>
-            <li>Watch for bubbles (glass) and unrealistic even color (dyed).</li>
-            <li>Compare weight/size vs price — unusually cheap often means treated.</li>
-            <li>For Rudraksha: clear mukhi-count photos, origin, and hole condition.</li>
-          </ul>
-        </div>
-
-        <div class="gn-quick" role="group" aria-label="Quick actions">
-          <button id="gn-embed-reco" class="gn-btn gn-btn-strong" style="width:100%;">Get Free DOB Reco</button>
-          <button id="gn-embed-book" class="gn-btn gn-btn-ghost" style="width:100%;">Book 30-min (₹999)</button>
-          <button id="gn-embed-wa" class="gn-btn gn-btn-ghost" style="width:100%;">Chat on WhatsApp</button>
-        </div>
-      </div>
-
-      <form id="gn-embed-form" style="margin-top:14px;">
-        <div class="gn-row-2">
-          <input id="gn-e-name" placeholder="Full name" />
-          <input id="gn-e-phone" placeholder="WhatsApp +91..." />
-        </div>
-
-        <div class="gn-row-2" style="margin-top:8px;">
-          <input id="gn-e-dob" type="date" />
-          <select id="gn-e-goal"><option value="wealth">Wealth</option><option value="health">Health</option><option value="other">Other</option></select>
-        </div>
-
-        <textarea id="gn-e-note" rows="2" placeholder="Short note... (optional)" style="margin-top:8px;"></textarea>
-
-        <div style="display:flex; gap:10px; margin-top:10px;">
-          <button type="submit" class="gn-btn gn-btn-strong btn-pill">Get Free Reco</button>
-          <button id="gn-embed-pay" type="button" class="gn-btn gn-btn-ghost btn-pill">Book 30-min (₹999)</button>
-        </div>
-
-        <div id="gn-embed-result"></div>
-      </form>
-    </div>
-
-    <!-- Services / Cards -->
-    <section id="services">
-      <h2 class="text-2xl font-bold">Our Consultation Services</h2>
-      <p class="text-slate-600 mt-1">Choose a service — each includes a written recommendation and gemstone pairing guide.</p>
-
-      <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <article class="p-4 bg-white rounded-xl shadow">
-          <h3 class="font-semibold">Free DOB Recommendation</h3>
-          <p class="text-sm text-slate-600 mt-2">Instant automated suggestion of 1–3 suitable gemstones (and Rudraksha if relevant) based on your date of birth.</p>
-          <ul class="mt-3 text-sm space-y-1">
-            <li>• Gem suggestions & analogs</li>
-            <li>• Notes on authenticity & certification</li>
-          </ul>
-          <div class="mt-3">
-            <a href="#consultation" class="inline-block text-amber-600 text-sm">Start free</a>
-          </div>
-        </article>
-
-        <article class="p-4 bg-white rounded-xl shadow">
-          <h3 class="font-semibold">30-min Personal Consultation</h3>
-          <p class="text-sm text-slate-600 mt-2">Personal voice/video call covering full birth-chart based gem & Rudraksha prescription. Includes follow-up notes.</p>
-          <ul class="mt-3 text-sm space-y-1">
-            <li>• Live recommendations</li>
-            <li>• Mala / bead size, mukhi selection</li>
-            <li>• Wearing & cleansing procedure</li>
-          </ul>
-          <div class="mt-3">
-            <a href="#pricing" class="inline-block text-amber-600 text-sm">Book a session</a>
-          </div>
-        </article>
-
-        <article class="p-4 bg-white rounded-xl shadow">
-          <h3 class="font-semibold">Gemstone + Rudraksha Audit</h3>
-          <p class="text-sm text-slate-600 mt-2">Send images/certificates; we’ll audit authenticity, origin likelihood, and valuation tips.</p>
-          <ul class="mt-3 text-sm space-y-1">
-            <li>• Lab certificate check</li>
-            <li>• Visual authenticity checklist</li>
-          </ul>
-          <div class="mt-3">
-            <a href="#contact" class="inline-block text-amber-600 text-sm">Send audit request</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- Pricing and Consultation form are unchanged (kept from original) -->
-    <!-- ... (kept in original for brevity) -->
-
-  </main>
-
-  <!-- Floating WhatsApp bubble (replace number below) -->
-  <a class="gn-float-wa" id="gn-float-wa" href="https://wa.me/919999999999?text=Hi%20I%20want%20a%20gem%20consultation" target="_blank" rel="noopener noreferrer">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp" />
-    Chat with Us
-  </a>
-
-  <!-- Booking modal -->
-  <div id="modal" class="fixed inset-0 hidden items-center justify-center bg-black/40 p-4">
-    <div class="bg-white rounded-xl p-6 w-full max-w-lg">
-      <h3 class="text-xl font-bold">Confirm Booking — 30 minute</h3>
-      <p class="text-sm text-slate-600 mt-1">Fill contact details to complete booking.</p>
-      <form id="modal-form" class="mt-4 space-y-3">
-        <input id="m-name" class="w-full p-2 border rounded" placeholder="Full name" required />
-        <input id="m-email" type="email" class="w-full p-2 border rounded" placeholder="Email" />
-        <input id="m-phone" class="w-full p-2 border rounded" placeholder="WhatsApp number" required />
-        <div class="flex gap-3 justify-end">
-          <button id="modal-cancel" type="button" class="px-3 py-2 border rounded">Cancel</button>
-          <button id="modal-pay" type="submit" class="px-3 py-2 bg-amber-500 text-white rounded">Proceed to Pay</button>
-        </div>
-      </form>
-    </div>
+    </form>
   </div>
+</div>
 
-  <!-- FOOTER -->
+<!-- FOOTER -->
 <footer class="bg-emerald-900 text-white py-6 mt-12">
-  <div class="max-w-7xl mx-auto footer-inner flex flex-col md:flex-row items-center justify-between gap-4 px-6">
-
-    <!-- Copyright -->
-    <div class="text-sm footer-nowrap">
-      &copy; 2025 <strong>Gems of Nature</strong>. All rights reserved.
-    </div>
-
-    <!-- Tagline -->
-    <div class="text-sm text-emerald-100 font-medium text-center">
-      100% natural stones • Secure payments • Fast shipping • 7-day returns
-    </div>
-
-    <!-- Social Links (PNG icons + labels) -->
-<div class="flex items-center justify-center gap-8 ml-2">
-      <!-- Facebook -->
-      <a
-        href="https://www.facebook.com/profile.php?id=61581929357076"
-        target="_blank" rel="noopener noreferrer"
-        class="flex items-center gap-2 hover:opacity-90 transition"
-      >
-        <img src="images/social/facebook.png" alt="Facebook" class="w-6 h-6 rounded-full shadow-md">
-        <span class="text-sm font-medium">Facebook</span>
+  <div class="footer-inner">
+    <div class="text-sm footer-nowrap">&copy; 2025 <strong>Gems of Nature</strong>. All rights reserved.</div>
+    <div class="text-sm text-emerald-100 font-medium text-center">100% natural stones • Secure payments • Fast shipping • 7-day returns</div>
+    <div class="flex items-center justify-center gap-8 ml-2">
+      <a href="https://www.facebook.com/profile.php?id=61581929357076" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:opacity-90 transition">
+        <img src="images/social/facebook.png" alt="Facebook" class="w-6 h-6 rounded-full shadow-md"><span class="text-sm font-medium">Facebook</span>
       </a>
-
-      <!-- Instagram -->
-      <a
-        href="https://www.instagram.com/gemsofnatureshop"
-        target="_blank" rel="noopener noreferrer"
-        class="flex items-center gap-2 hover:opacity-90 transition"
-      >
-        <img src="images/social/instagram.png" alt="Instagram" class="w-6 h-6 rounded-md shadow-md">
-        <span class="text-sm font-medium">Instagram</span>
+      <a href="https://www.instagram.com/gemsofnatureshop" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:opacity-90 transition">
+        <img src="images/social/instagram.png" alt="Instagram" class="w-6 h-6 rounded-md shadow-md"><span class="text-sm font-medium">Instagram</span>
       </a>
-
-      <!-- LinkedIn -->
-      <a
-        href="https://www.linkedin.com/company/gems-of-nature"
-        target="_blank" rel="noopener noreferrer"
-        class="flex items-center gap-2 hover:opacity-90 transition"
-      >
-        <img src="images/social/linkedin.png" alt="LinkedIn" class="w-6 h-6 rounded-md shadow-md">
-        <span class="text-sm font-medium">LinkedIn</span>
+      <a href="https://www.linkedin.com/company/gems-of-nature" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:opacity-90 transition">
+        <img src="images/social/linkedin.png" alt="LinkedIn" class="w-6 h-6 rounded-md shadow-md"><span class="text-sm font-medium">LinkedIn</span>
       </a>
     </div>
   </div>
 </footer>
 
-  <script>
-    // Defensive helpers
-    const $id = id => document.getElementById(id) || null;
+<script>
+  // Centralized WA phone variable — change here to update all WA links
+  const BUSINESS_WA = '917827491801'; // <-- replace with your desired number (no +)
 
-    // Quick form handler (simulated recommendation)
+  // Defensive helpers
+  const $id = id => document.getElementById(id) || null;
+
+  // Quick form handler (simulated recommendation)
+  (function(){
     const quickForm = $id('quick-form');
     if (quickForm) {
       quickForm.addEventListener('submit', function (e) {
@@ -431,36 +437,17 @@
       });
     }
 
-    <!-- WhatsApp Floating Chat Button -->
-<a href="https://wa.me/917827491801?text=Hi%20Gems%20of%20Nature,%20I%20need%20help%20with%20a%20gemstone."
-   class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-sm font-semibold transition-all z-50"
-   target="_blank" rel="noopener">
-  <img src="images/social/whatsapp.png" class="w-6 h-6" alt="WhatsApp">
-  Chat with Us
-</a>
-
-    // Main consult form
-    const consultForm = $id('consult-form');
-    if (consultForm) {
-      consultForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const name = $id('name')?.value;
-        const dob = $id('dob')?.value;
-        if (!name || !dob) {
-          alert('Please provide name and date of birth.');
-          return;
-        }
-        const out = $id('consult-result');
-        if (out) {
-          out.innerHTML = `<strong>Thanks ${name}.</strong> We received your details and will send a free recommendation to your email/WhatsApp. For faster service, book a 30-min consult.`;
-          out.classList.remove('hidden');
-        } else {
-          alert('Details received — we will contact you shortly.');
-        }
+    const waQuick = $id('wa-btn-quick');
+    if (waQuick) {
+      waQuick.addEventListener('click', function () {
+        const text = encodeURIComponent('Hello, I want a gemstone/rudraksha consultation.');
+        window.open(`https://wa.me/${BUSINESS_WA}?text=${text}`, '_blank', 'noopener');
       });
     }
+  })();
 
-    // Modal open/close (safe)
+  // Modal open/close (safe)
+  (function(){
     const bookBtn1 = $id('book-30');
     const bookBtn2 = $id('book-30b');
     const modal = $id('modal');
@@ -477,8 +464,10 @@
         closeModal();
       });
     }
+  })();
 
-    // Audit upload handlers
+  // Audit upload handlers
+  (function(){
     const sendAudit = $id('send-audit');
     if (sendAudit) {
       sendAudit.addEventListener('click', function () {
@@ -490,22 +479,21 @@
     const waUpload = $id('wa-upload');
     if (waUpload) {
       waUpload.addEventListener('click', function () {
-        const phone = '919999999999'; // <-- replace with your number
         const text = encodeURIComponent('Hi, I want to send photos for a gem audit.');
-        window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+        window.open(`https://wa.me/${BUSINESS_WA}?text=${text}`, '_blank', 'noopener');
       });
     }
-
     const waBtn = $id('wa-btn');
     if (waBtn) {
       waBtn.addEventListener('click', function () {
-        const phone = '919999999999'; // <-- replace with your number
         const text = encodeURIComponent('Hello, I would like to book a gemstone consultation.');
-        window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+        window.open(`https://wa.me/${BUSINESS_WA}?text=${text}`, '_blank', 'noopener');
       });
     }
+  })();
 
-    // Consultation embed handlers (safe)
+  // Consultation embed handlers (safe)
+  (function(){
     const gnForm = $id('gn-embed-form');
     if (gnForm) {
       gnForm.addEventListener('submit', function (e) {
@@ -518,14 +506,11 @@
     $id('gn-embed-reco')?.addEventListener('click', function () { $id('gn-e-dob')?.focus(); });
     $id('gn-embed-book')?.addEventListener('click', function () { alert('Open booking modal or redirect to checkout.'); });
     $id('gn-embed-wa')?.addEventListener('click', function () {
-      const phone = '919999999999'; // <-- replace with your number
       const text = encodeURIComponent('Hi, I want a gem consultation from Gems of Nature');
-      window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+      window.open(`https://wa.me/${BUSINESS_WA}?text=${text}`, '_blank', 'noopener');
     });
     $id('gn-embed-pay')?.addEventListener('click', function () { $id('gn-embed-book')?.click(); });
-
-    // Floating WA bubble fallback (link already points to WA)
-    $id('gn-float-wa')?.addEventListener('click', function () { /* noop */ });
-  </script>
+  })();
+</script>
 </body>
 </html>
