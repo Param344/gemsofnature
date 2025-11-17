@@ -143,43 +143,54 @@
 
 <body class="bg-white text-gray-800 antialiased">
 
-<!-- Navbar -->
-<header class="bg-emerald-900 text-white shadow-md site-header">
-  <nav class="site-inner">
-    <!-- Logo -->
-    <a href="index.html" class="site-logo flex items-center shrink-0" aria-label="Gems of Nature">
-      <img src="images/logo.png" alt="Gems of Nature Logo" class="h-12 w-auto" loading="lazy">
-      <span class="ml-3 text-2xl font-bold">Gems of Nature</span>
-    </a>
+<!-- NAVBAR (replace existing header with this) -->
+<header class="sticky top-0 z-50">
+  <nav id="mainNav" class="bg-emerald-900/95 backdrop-blur-sm text-white shadow-md transition-colors">
+    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+      <a href="index.html" class="flex items-center" aria-label="Gems of Nature - Home">
+        <img src="images/logo.png" alt="Gems of Nature Logo" class="h-12 w-auto" loading="lazy">
+        <span class="ml-2 text-2xl font-bold font-montserrat">Gems of Nature</span>
+      </a>
 
-    <!-- Navigation links (centered) -->
-    <nav class="primary" aria-label="Primary navigation">
-      <a href="index.html">Home</a>
-      <a href="about.html">About Us</a>
-      <a href="shop.html">Collections</a>
-      <a href="contact.html">Contact</a>
-      <a href="astrology.consultation.html" class="btn-pill btn-ghost" style="padding:6px 10px; border-radius:8px;">Astrology &amp; Consultation</a>
-    </nav>
+      <!-- Desktop links -->
+      <ul class="hidden md:flex gap-6 text-lg font-montserrat items-center">
+        <li><a href="index.html" class="hover:text-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-300 rounded">Home</a></li>
+        <li><a href="about.html" class="hover:text-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-300 rounded">About</a></li>
+        <li><a href="shop.html" class="text-emerald-300 font-semibold" aria-current="page">Collections</a></li>
+        <li><a href="contact.html" class="hover:text-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-300 rounded">Contact</a></li>
+      <li><a href="astrology.consultation.html" class="hover:text-emerald-300 transition">Astrology & Consultation</a></li>
 
-    <!-- Right side: Buy Online + Cart + Mobile button -->
-    <div class="header-actions">
-      <a href="shop-ecom.html" class="btn-pill btn-buy hidden md:inline-block">Buy Online</a>
-      <a href="shop-ecom.html" class="text-2xl" aria-label="Open Cart">🛒</a>
-      <button id="mobile-menu-button" class="text-2xl md:hidden focus:outline-none" aria-expanded="false" aria-controls="mobile-menu">☰</button>
+      </ul>
+
+      <!-- Right controls -->
+      <div class="flex items-center gap-4">
+        <a href="shop-ecom.html"
+           class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold hidden md:inline-block focus:outline-none focus:ring-2 focus:ring-emerald-300"
+           aria-label="Buy online - Gems of Nature">
+          Buy Online
+        </a>
+
+        <a href="shop-ecom.html" class="text-2xl cursor-pointer" aria-label="Open cart">🛒</a>
+
+        <!-- Mobile menu button -->
+        <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu"
+                class="text-2xl md:hidden p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-300"
+                aria-label="Open mobile menu">☰</button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden bg-emerald-800 md:hidden">
+      <ul class="flex flex-col gap-4 px-6 py-4">
+        <li><a href="index.html" class="block py-2 px-1 rounded hover:text-emerald-200">Home</a></li>
+        <li><a href="about.html" class="block py-2 px-1 rounded hover:text-emerald-200">About</a></li>
+        <li><a href="shop.html" class="block py-2 px-1 rounded hover:text-emerald-200 font-semibold text-emerald-300">Collections</a></li>
+        <li><a href="shop-ecom.html" class="block py-2 px-1 rounded hover:text-emerald-200">Buy Online</a></li>
+        <li><a href="contact.html" class="block py-2 px-1 rounded hover:text-emerald-200">Contact</a></li>
+        <li><a href="astrology.consultation.html" class="hover:text-emerald-300 transition">Astrology & Consultation</a></li>
+      </ul>
     </div>
   </nav>
-
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden bg-emerald-800 md:hidden" aria-hidden="true">
-    <ul class="flex flex-col gap-4 px-6 py-4">
-      <li><a href="index.html" class="block hover:text-emerald-300 transition">Home</a></li>
-      <li><a href="about.html" class="block hover:text-emerald-300 transition">About Us</a></li>
-      <li><a href="shop.html" class="block hover:text-emerald-300 transition">Collections</a></li>
-      <li><a href="shop-ecom.html" class="block hover:text-emerald-300 transition font-semibold">Buy Online</a></li>
-      <li><a href="contact.html" class="block hover:text-emerald-300 transition">Contact</a></li>
-      <li><a href="astrology.consultation.html" class="hover:text-emerald-300 transition">Astrology & Consultation</a></li>
-    </ul>
-  </div>
 </header>
 
 <script>
@@ -366,7 +377,7 @@
 
 <!-- WhatsApp Floating Chat Button -->
 <a href="https://wa.me/917827491801?text=Hi%20Gems%20of%20Nature,%20I%20need%20help%20with%20a%20gemstone."
-   class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-sm font-semibold transition-all z-50"
+   class="fixed bottom-20 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-sm font-semibold transition-all z-50"
    target="_blank" rel="noopener">
   <img src="images/social/whatsapp.png" class="w-6 h-6" alt="WhatsApp">
   Chat with Us
@@ -391,22 +402,53 @@
 
 <!-- FOOTER -->
 <footer class="bg-emerald-900 text-white py-6 mt-12">
-  <div class="footer-inner">
-    <div class="text-sm footer-nowrap">&copy; 2025 <strong>Gems of Nature</strong>. All rights reserved.</div>
-    <div class="text-sm text-emerald-100 font-medium text-center">100% natural stones • Secure payments • Fast shipping • 7-day returns</div>
-    <div class="flex items-center justify-center gap-8 ml-2">
-      <a href="https://www.facebook.com/profile.php?id=61581929357076" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:opacity-90 transition">
-        <img src="images/social/facebook.png" alt="Facebook" class="w-6 h-6 rounded-full shadow-md"><span class="text-sm font-medium">Facebook</span>
+  <div class="max-w-7xl mx-auto footer-inner flex flex-col md:flex-row items-center justify-between gap-4 px-6">
+
+    <!-- Copyright -->
+    <div class="text-sm footer-nowrap">
+      &copy; 2025 <strong>Gems of Nature</strong>. All rights reserved.
+    </div>
+
+    <!-- Tagline -->
+    <div class="text-sm text-emerald-100 font-medium text-center">
+      100% natural stones • Secure payments • Fast shipping • 7-day returns
+    </div>
+
+    <!-- Social Links (PNG icons + labels) -->
+<div class="flex items-center justify-center gap-8 ml-2">
+      <!-- Facebook -->
+      <a
+        href="https://www.facebook.com/profile.php?id=61581929357076"
+        target="_blank" rel="noopener noreferrer"
+        class="flex items-center gap-2 hover:opacity-90 transition"
+      >
+        <img src="images/social/facebook.png" alt="Facebook" class="w-6 h-6 rounded-full shadow-md">
+        <span class="text-sm font-medium">Facebook</span>
       </a>
-      <a href="https://www.instagram.com/gemsofnatureshop" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:opacity-90 transition">
-        <img src="images/social/instagram.png" alt="Instagram" class="w-6 h-6 rounded-md shadow-md"><span class="text-sm font-medium">Instagram</span>
+
+      <!-- Instagram -->
+      <a
+        href="https://www.instagram.com/gemsofnatureshop"
+        target="_blank" rel="noopener noreferrer"
+        class="flex items-center gap-2 hover:opacity-90 transition"
+      >
+        <img src="images/social/instagram.png" alt="Instagram" class="w-6 h-6 rounded-md shadow-md">
+        <span class="text-sm font-medium">Instagram</span>
       </a>
-      <a href="https://www.linkedin.com/company/gems-of-nature" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:opacity-90 transition">
-        <img src="images/social/linkedin.png" alt="LinkedIn" class="w-6 h-6 rounded-md shadow-md"><span class="text-sm font-medium">LinkedIn</span>
+
+      <!-- LinkedIn -->
+      <a
+        href="https://www.linkedin.com/company/gems-of-nature"
+        target="_blank" rel="noopener noreferrer"
+        class="flex items-center gap-2 hover:opacity-90 transition"
+      >
+        <img src="images/social/linkedin.png" alt="LinkedIn" class="w-6 h-6 rounded-md shadow-md">
+        <span class="text-sm font-medium">LinkedIn</span>
       </a>
     </div>
   </div>
 </footer>
+
 
 <script>
   // Centralized WA phone variable — change here to update all WA links
