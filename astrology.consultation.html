@@ -36,6 +36,36 @@
       color: #0f1724;
     }
 
+    /* --- NEW: consistent centered content wrapper used across sections --- */
+    .content-inner {
+      max-width: 1080px;        /* central column width */
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 20px;
+      padding-right: 20px;
+      box-sizing: border-box;
+    }
+
+    /* Slightly tighter vertical rhythm for the page */
+    .glass { padding: 20px; }            /* hero left card smaller */
+    .hero-right { padding: 16px; }       /* hero right card smaller */
+    .card-compact { padding: 14px; }     /* smaller card padding for consistency */
+
+    /* Buying guide (scoped) */
+    .buying-guide {
+      max-width: 1080px;
+      margin: 1.75rem auto;
+      padding: 1rem 1.25rem;
+      border-radius: 0.6rem;
+      background: #ffffff;
+      box-shadow: 0 6px 18px rgba(15,23,42,0.04);
+      border: 1px solid #eef7f2;
+      box-sizing: border-box;
+    }
+    .buying-guide .logos img { height:36px; }
+    .buying-guide p, .buying-guide li { color:#475569; font-size:0.95rem; }
+    .buying-guide h2, .buying-guide h3 { margin-top:0; }
+
     /* Make main fill remaining space so footer sits at bottom */
     main { flex: 1 0 auto; }
 
@@ -44,8 +74,8 @@
     /* Fade-in animation */
     .fade-in {
       opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s ease forwards;
+      transform: translateY(12px);
+      animation: fadeInUp 0.6s ease forwards;
     }
     @keyframes fadeInUp {
       to { opacity: 1; transform: translateY(0); }
@@ -58,8 +88,8 @@
       will-change: transform, box-shadow;
     }
     .card-base:hover, .group:hover .card-base {
-      transform: translateY(-6px);
-      box-shadow: 0 14px 36px rgba(15, 23, 42, 0.10);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.09);
     }
 
     /* Images: ensure block-level, no background bleed and consistent cover */
@@ -89,39 +119,52 @@
     }
     .footer-inner { padding-left: 24px; padding-right: 24px; max-width:1200px; margin:0 auto; display:flex; gap:16px; align-items:center; justify-content:space-between; }
 
-    /* Consultation embed styles (scoped) */
+    /* Consultation embed styles (scoped & tightened) */
     #gn-consultation-embed {
       max-width: 1080px;
-      margin: 28px auto;
-      padding: 18px;
-      border-radius: 12px;
+      margin: 18px auto;
+      padding: 14px;
+      border-radius: 10px;
       background: #ffffff;
       border: 1px solid var(--card-border);
-      box-shadow: 0 8px 30px rgba(8,55,34,0.04);
+      box-shadow: 0 8px 24px rgba(8,55,34,0.04);
       font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
       color:#0f1724;
+      box-sizing: border-box;
     }
-    #gn-consultation-embed h3{ margin:0; font-size:1.25rem; color:var(--site-accent); font-weight:800; }
+    #gn-consultation-embed h3{ margin:0; font-size:1.15rem; color:var(--site-accent); font-weight:800; }
     #gn-consultation-embed p.lead{ margin:6px 0 0 0; color:var(--muted); font-size:0.95rem; }
-    .gn-auth-grid{ display:grid; grid-template-columns:1fr 260px; gap:14px; margin-top:12px; align-items:start; }
-    @media (max-width:820px){ .gn-auth-grid{ grid-template-columns:1fr; } }
-    .gn-auth-card{ padding:12px; border-radius:10px; }
-    .gn-auth-card .t{ font-weight:700; color:#0b5f46; margin-bottom:8px; font-size:1rem; }
+
+    .gn-auth-grid{ display:grid; grid-template-columns:1fr 260px; gap:12px; margin-top:12px; align-items:start; }
+    @media (max-width:920px){ .gn-auth-grid{ grid-template-columns:1fr; } }
+
+    .gn-auth-card{ padding:8px; border-radius:8px; }
+    .gn-auth-card .t{ font-weight:700; color:#0b5f46; margin-bottom:6px; font-size:0.98rem; }
     .gn-auth-card ul{ margin:0; padding-left:1rem; color:var(--muted); font-size:0.92rem; line-height:1.45; }
-    .gn-quick { display:flex; flex-direction:column; gap:10px; }
-    .gn-btn { display:inline-flex; align-items:center; justify-content:center; padding:10px 14px; border-radius:999px; font-weight:700; font-size:0.95rem; cursor:pointer; text-decoration:none; }
+    .gn-quick { display:flex; flex-direction:column; gap:8px; }
+    .gn-btn { display:inline-flex; align-items:center; justify-content:center; padding:10px 12px; border-radius:999px; font-weight:700; font-size:0.95rem; cursor:pointer; text-decoration:none; }
     .gn-btn-strong { background:var(--site-accent); color:#fff; box-shadow:0 6px 18px rgba(11,95,70,0.12); border:none; }
     .gn-btn-ghost { background:transparent; border:1px solid #e6e6e6; color:var(--site-accent); }
     #gn-consultation-embed input, #gn-consultation-embed select, #gn-consultation-embed textarea {
-      width:100%; padding:10px 12px; border-radius:8px; border:1px solid #eef6f0; font-family:inherit; font-size:0.95rem;
+      width:100%; padding:9px 10px; border-radius:8px; border:1px solid #eef6f0; font-family:inherit; font-size:0.92rem;
     }
-    .gn-row-2{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .gn-row-2{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
     @media (max-width:520px){ .gn-row-2{ grid-template-columns:1fr; } }
-    #gn-embed-result{ margin-top:10px; padding:10px; border-radius:8px; background:#f0fff6; color:#074f2f; display:none; font-weight:600; }
+    #gn-embed-result{ margin-top:8px; padding:8px; border-radius:8px; background:#f0fff6; color:#074f2f; display:none; font-weight:600; }
 
     /* Floating WhatsApp bubble (site-like) */
     .gn-float-wa{ position:fixed; right:18px; bottom:18px; z-index:99999; display:flex; align-items:center; gap:10px; background:var(--accent-2); color:#fff; padding:10px 14px; border-radius:999px; box-shadow:0 8px 30px rgba(7,101,81,0.18); text-decoration:none; font-weight:800; font-size:0.95rem; }
     .gn-float-wa img{ width:20px; height:20px; display:inline-block; vertical-align:middle; filter:brightness(120%); }
+
+    /* Prevent accidental horizontal overflow */
+    * { box-sizing: border-box; }
+    .no-overflow { overflow-wrap: break-word; word-break: break-word; }
+
+    /* Small screens: reduce hero padding for compact layout */
+    @media (max-width: 900px) {
+      .glass { padding: 14px; }
+      .hero-right { padding: 12px; }
+    }
   </style>
 
   <!-- Structured data (Organization) -->
@@ -146,7 +189,7 @@
 <!-- NAVBAR (replace existing header with this) -->
 <header class="sticky top-0 z-50">
   <nav id="mainNav" class="bg-emerald-900/95 backdrop-blur-sm text-white shadow-md transition-colors">
-    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+    <div class="content-inner flex justify-between items-center py-4 px-0">
       <a href="index.html" class="flex items-center" aria-label="Gems of Nature - Home">
         <img src="images/logo.png" alt="Gems of Nature Logo" class="h-12 w-auto" loading="lazy">
         <span class="ml-2 text-2xl font-bold font-montserrat">Gems of Nature</span>
@@ -209,14 +252,15 @@
 </script>
 
 <!-- HERO -->
-<section class="hero-gradient py-12" style="background:
+<section class="hero-gradient py-10" style="background:
   linear-gradient(180deg, rgba(0,140,120,0.35) 0%, rgba(0,90,65,0.55) 100%),
   url('/images/hero.jpg');
 background-size: cover;
 background-position: center;">
 
-  <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-    <div class="glass p-6 rounded-2xl shadow-lg">
+  <!-- Use the single .content-inner so left/right align with the rest of page -->
+  <div class="content-inner px-0 grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+    <div class="glass rounded-2xl shadow-lg card-base">
       <h2 class="text-3xl font-extrabold text-white">Rudraksha + Astrological Gem Consultation</h2>
       <p class="mt-3 text-white/90">Free gemstone recommendation (based on DOB) + paid 30-min personalized consultation. We match natural gemstones & Rudraksha with your astrology, dosha, and life goals.</p>
 
@@ -227,14 +271,14 @@ background-position: center;">
         <li>✅ Certification guidance & stone authenticity tips</li>
       </ul>
 
-      <div class="mt-6 flex gap-3">
+      <div class="mt-4 flex gap-3">
         <a href="#consultation" class="inline-block bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-md font-semibold">Get Free Recommendation</a>
         <a href="#pricing" class="inline-block border border-white/30 text-white px-4 py-2 rounded-md">Book 30-min</a>
       </div>
     </div>
 
-    <div class="p-6 rounded-2xl">
-      <div class="bg-white rounded-2xl p-4 shadow">
+    <div class="hero-right card-base rounded-2xl bg-white">
+      <div class="p-4 card-compact">
         <h3 class="font-semibold">Quick Booking</h3>
         <p class="text-sm text-slate-600">Fill your birth details — get a recommendation instantly.</p>
         <form id="quick-form" class="mt-3 space-y-3">
@@ -277,7 +321,7 @@ background-position: center;">
   </div>
 </section>
 
-<main class="max-w-6xl mx-auto p-6 space-y-8">
+<main class="content-inner space-y-8 py-6">
   <!-- Consultation Embed -->
   <div id="gn-consultation-embed" class="card-base fade-in">
     <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
@@ -309,7 +353,7 @@ background-position: center;">
       </div>
     </div>
 
-    <form id="gn-embed-form" style="margin-top:14px;">
+    <form id="gn-embed-form" style="margin-top:12px;">
       <div class="gn-row-2">
         <input id="gn-e-name" name="name" placeholder="Full name" />
         <input id="gn-e-phone" name="phone" placeholder="WhatsApp +91..." />
@@ -332,12 +376,12 @@ background-position: center;">
   </div>
 
   <!-- Services / Cards -->
-  <section id="services">
+  <section id="services" class="space-y-4">
     <h2 class="text-2xl font-bold">Our Consultation Services</h2>
     <p class="text-slate-600 mt-1">Choose a service — each includes a written recommendation and gemstone pairing guide.</p>
 
-    <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-      <article class="p-4 bg-white rounded-xl shadow">
+    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <article class="p-4 bg-white rounded-xl shadow card-compact">
         <h3 class="font-semibold">Free DOB Recommendation</h3>
         <p class="text-sm text-slate-600 mt-2">Instant automated suggestion of 1–3 suitable gemstones (and Rudraksha if relevant) based on your date of birth.</p>
         <ul class="mt-3 text-sm space-y-1">
@@ -349,7 +393,7 @@ background-position: center;">
         </div>
       </article>
 
-      <article class="p-4 bg-white rounded-xl shadow">
+      <article class="p-4 bg-white rounded-xl shadow card-compact">
         <h3 class="font-semibold">30-min Personal Consultation</h3>
         <p class="text-sm text-slate-600 mt-2">Personal voice/video call covering full birth-chart based gem & Rudraksha prescription. Includes follow-up notes.</p>
         <ul class="mt-3 text-sm space-y-1">
@@ -362,7 +406,7 @@ background-position: center;">
         </div>
       </article>
 
-      <article class="p-4 bg-white rounded-xl shadow">
+      <article class="p-4 bg-white rounded-xl shadow card-compact md:col-span-2">
         <h3 class="font-semibold">Gemstone + Rudraksha Audit</h3>
         <p class="text-sm text-slate-600 mt-2">Send images/certificates; we’ll audit authenticity, origin likelihood, and valuation tips.</p>
         <ul class="mt-3 text-sm space-y-1">
@@ -376,7 +420,78 @@ background-position: center;">
     </div>
   </section>
 
-  <!-- (rest of your content) -->
+  <!-- Buying Guide (final aligned version) -->
+  <section id="buying-guide" class="buying-guide no-overflow">
+    <h2 class="text-2xl font-bold text-emerald-800">Gemstone Buying Guide — What to check</h2>
+    <p class="text-slate-600 mt-2">A short checklist to verify authenticity, suitability and the right metal/setting for astrological use.</p>
+
+    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <h3 class="font-semibold text-lg">1. Which gemstone is ideal for you?</h3>
+        <p class="text-sm text-gray-600 mt-2">Each gemstone corresponds to a ruling planet. Use the free DOB recommendation tool or consult an astrologer to find your suitable gemstones.</p>
+      </div>
+
+      <div>
+        <h3 class="font-semibold text-lg">2. How to select quality (Cut • Color • Clarity • Carat • Origin)</h3>
+        <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc pl-5">
+          <li><strong>Cut:</strong> Well-cut stones give proper brilliance.</li>
+          <li><strong>Color:</strong> Natural, balanced color. Avoid overly uniform/dyed stones.</li>
+          <li><strong>Clarity:</strong> Normal inclusions okay; bubbles = synthetic.</li>
+          <li><strong>Carat vs Price:</strong> Too cheap → usually treated/synthetic.</li>
+          <li><strong>Origin:</strong> Provenance adds value (e.g., Burma Ruby, Colombian Emerald).</li>
+        </ul>
+      </div>
+
+      <div class="md:col-span-2">
+        <h3 class="font-semibold text-lg">3. Certification & labs</h3>
+        <p class="text-sm text-gray-600 mt-2">Always request third-party lab certificates. Trusted labs include GIA, IGI, GRS, Gubelin, SSEF.</p>
+        <div class="flex items-center gap-4 mt-3 flex-wrap">
+          <img src="images/logos/gia.png" class="h-9" alt="GIA" />
+          <img src="images/logos/igi.png" class="h-9" alt="IGI" />
+          <img src="images/logos/grs.png" class="h-9" alt="GRS" />
+        </div>
+      </div>
+
+      <div>
+        <h3 class="font-semibold text-lg">4. Metals & mounting — what to choose</h3>
+        <p class="text-sm text-gray-600 mt-2">Gold, silver, or panchdhatu depending on gemstone and planet.</p>
+
+        <div class="flex gap-3 mt-3">
+          <div class="text-center border rounded-lg p-2 w-24">
+            <img src="images/metal-gold.png" class="h-8 mx-auto" />
+            <p class="text-sm mt-1">Gold</p>
+          </div>
+          <div class="text-center border rounded-lg p-2 w-24">
+            <img src="images/metal-silver.png" class="h-8 mx-auto" />
+            <p class="text-sm mt-1">Silver</p>
+          </div>
+          <div class="text-center border rounded-lg p-2 w-24">
+            <img src="images/metal-panchdhatu.png" class="h-8 mx-auto" />
+            <p class="text-sm mt-1">Panchdhatu</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="font-semibold text-lg">5. Where to purchase & red flags</h3>
+        <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc pl-5">
+          <li>Always purchase from a gemstone expert with certification.</li>
+          <li>Be cautious if seller refuses lab report or hides treatments.</li>
+          <li>Red flags: Too cheap, no returns, no certificate.</li>
+        </ul>
+      </div>
+
+      <div class="md:col-span-2">
+        <h3 class="font-semibold text-lg">6. Acceptance & preparation</h3>
+        <p class="text-sm text-gray-600 mt-2">Prefer untreated stones for astrology. Emeralds may be oiled and still acceptable.</p>
+
+        <div class="flex gap-3 mt-3">
+          <a href="#consultation" class="bg-emerald-600 text-white px-4 py-2 rounded-md font-semibold">Get Free DOB Recommendation</a>
+          <a href="downloads/gemstone-buying-checklist.pdf" download class="border border-emerald-600 text-emerald-700 px-4 py-2 rounded-md font-semibold">Download Checklist (PDF)</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
 </main>
 
@@ -388,26 +503,9 @@ background-position: center;">
   Chat with Us
 </a>
 
-<!-- Booking modal -->
-<div id="modal" class="fixed inset-0 hidden items-center justify-center bg-black/40 p-4">
-  <div class="bg-white rounded-xl p-6 w-full max-w-lg">
-    <h3 class="text-xl font-bold">Confirm Booking — 30 minute</h3>
-    <p class="text-sm text-slate-600 mt-1">Fill contact details to complete booking.</p>
-    <form id="modal-form" class="mt-4 space-y-3">
-      <input id="m-name" name="m_name" class="w-full p-2 border rounded" placeholder="Full name" required />
-      <input id="m-email" name="m_email" type="email" class="w-full p-2 border rounded" placeholder="Email" />
-      <input id="m-phone" name="m_phone" class="w-full p-2 border rounded" placeholder="WhatsApp number" required />
-      <div class="flex gap-3 justify-end">
-        <button id="modal-cancel" type="button" class="px-3 py-2 border rounded">Cancel</button>
-        <button id="modal-pay" type="submit" class="px-3 py-2 bg-amber-500 text-white rounded">Proceed to Pay</button>
-      </div>
-    </form>
-  </div>
-</div>
-
 <!-- FOOTER -->
 <footer class="bg-emerald-900 text-white py-6 mt-12">
-  <div class="max-w-7xl mx-auto footer-inner flex flex-col md:flex-row items-center justify-between gap-4 px-6">
+  <div class="content-inner footer-inner flex flex-col md:flex-row items-center justify-between gap-4 px-0">
 
     <!-- Copyright -->
     <div class="text-sm footer-nowrap">
@@ -420,33 +518,18 @@ background-position: center;">
     </div>
 
     <!-- Social Links (PNG icons + labels) -->
-<div class="flex items-center justify-center gap-8 ml-2">
-      <!-- Facebook -->
-      <a
-        href="https://www.facebook.com/profile.php?id=61581929357076"
-        target="_blank" rel="noopener noreferrer"
-        class="flex items-center gap-2 hover:opacity-90 transition"
-      >
+    <div class="flex items-center justify-center gap-8 ml-2">
+      <a href="https://www.facebook.com/profile.php?id=61581929357076" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:opacity-90 transition">
         <img src="images/social/facebook.png" alt="Facebook" class="w-6 h-6 rounded-full shadow-md">
         <span class="text-sm font-medium">Facebook</span>
       </a>
 
-      <!-- Instagram -->
-      <a
-        href="https://www.instagram.com/gemsofnatureshop"
-        target="_blank" rel="noopener noreferrer"
-        class="flex items-center gap-2 hover:opacity-90 transition"
-      >
+      <a href="https://www.instagram.com/gemsofnatureshop" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:opacity-90 transition">
         <img src="images/social/instagram.png" alt="Instagram" class="w-6 h-6 rounded-md shadow-md">
         <span class="text-sm font-medium">Instagram</span>
       </a>
 
-      <!-- LinkedIn -->
-      <a
-        href="https://www.linkedin.com/company/gems-of-nature"
-        target="_blank" rel="noopener noreferrer"
-        class="flex items-center gap-2 hover:opacity-90 transition"
-      >
+      <a href="https://www.linkedin.com/company/gems-of-nature" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:opacity-90 transition">
         <img src="images/social/linkedin.png" alt="LinkedIn" class="w-6 h-6 rounded-md shadow-md">
         <span class="text-sm font-medium">LinkedIn</span>
       </a>
@@ -454,15 +537,12 @@ background-position: center;">
   </div>
 </footer>
 
-
 <script>
   // Centralized WA phone variable — change here to update all WA links
   const BUSINESS_WA = '917827491801'; // <-- replace with your desired number (no +)
 
-  // Defensive helpers
   const $id = id => document.getElementById(id) || null;
 
-  // Quick form handler (simulated recommendation)
   (function(){
     const quickForm = $id('quick-form');
     if (quickForm) {
@@ -494,7 +574,6 @@ background-position: center;">
     }
   })();
 
-  // Modal open/close (safe)
   (function(){
     const bookBtn1 = $id('book-30');
     const bookBtn2 = $id('book-30b');
@@ -514,7 +593,6 @@ background-position: center;">
     }
   })();
 
-  // Audit upload handlers
   (function(){
     const sendAudit = $id('send-audit');
     if (sendAudit) {
@@ -540,7 +618,6 @@ background-position: center;">
     }
   })();
 
-  // Consultation embed handlers (safe)
   (function(){
     const gnForm = $id('gn-embed-form');
     if (gnForm) {
