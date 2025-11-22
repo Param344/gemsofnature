@@ -75,6 +75,41 @@ if(mobileMenuButton){mobileMenuButton.addEventListener('click',()=>mobileMenu.cl
       <input id="shopSearch" type="search" placeholder="Search within category..." class="px-4 py-2 rounded-lg border w-64">
       <button id="clearFilters" class="px-3 py-2 bg-white border rounded-lg hover:bg-gray-50">Clear</button>
     </div>
+    <div class="flex items-center gap-3">
+  <select id="sortSelect" class="px-3 py-2 rounded-lg border">
+    <option value="">Sort</option>
+    <option value="low">Price: Low to High</option>
+    <option value="high">Price: High to Low</option>
+    <option value="az">A–Z</option>
+  </select>
+
+  <select id="chakraSelect" class="px-3 py-2 rounded-lg border">
+    <option value="">Chakra</option>
+    <option value="root">Root</option>
+    <option value="sacral">Sacral</option>
+    <option value="solar">Solar</option>
+    <option value="heart">Heart</option>
+    <option value="throat">Throat</option>
+    <option value="third">Third Eye</option>
+    <option value="crown">Crown</option>
+  </select>
+
+  <select id="zodiacSelect" class="px-3 py-2 rounded-lg border">
+    <option value="">Zodiac</option>
+    <option value="aries">Aries</option>
+    <option value="taurus">Taurus</option>
+    <option value="gemini">Gemini</option>
+    <option value="cancer">Cancer</option>
+    <option value="leo">Leo</option>
+    <option value="virgo">Virgo</option>
+    <option value="libra">Libra</option>
+    <option value="scorpio">Scorpio</option>
+    <option value="sagittarius">Sagittarius</option>
+    <option value="capricorn">Capricorn</option>
+    <option value="aquarius">Aquarius</option>
+    <option value="pisces">Pisces</option>
+  </select>
+</div>
   </div>
 </section>
 
@@ -134,129 +169,18 @@ if(mobileMenuButton){mobileMenuButton.addEventListener('click',()=>mobileMenu.cl
 </footer>
 
 
-<!-- DYNAMIC PRODUCTS SCRIPT (p1–p60) -->
-<script>
-const products = [
-{"id":"p1","name":"Yellow Sapphire","category":"Precious","description":"Rare brilliant-cut yellow sapphire known for its pure golden color and superior clarity.; luxury jewellery & heirloom.","image":"images/products/yellow-sapphire.jpg","price_min":20000,"price_max":100000},
-{"id":"p2","name":"Ruby","category":"Precious","description":"Vitality, leadership, passion; high astrology demand.","image":"images/products/ruby.jpg","price_min":20000,"price_max":100000},
-{"id":"p3","name":"Blue Sapphire","category":"Precious","description":"Powerful gemstone for Saturn; clarity, discipline.","image":"images/products/blue-sapphire.jpg","price_min":5000,"price_max":10000},
-{"id":"p4","name":"Rubellite","category":"Precious","description":"Royal gemstone for strength and vitality.","image":"images/products/rubellite.jpg","price_min":4000,"price_max":50000},
-{"id":"p5","name":"Emerald","category":"Precious","description":"Enhances love, memory and communication.","image":"images/products/emerald.jpg","price_min":8000,"price_max":250000},
-{"id":"p6","name":"Padparadscha Sapphire","category":"Precious","description":"Rare salmon-pink; collector & jewellery value.","image":"images/products/padparadscha.jpg","price_min":20000,"price_max":100000},
-{"id":"p7","name":"Alexandrite","category":"Precious","description":"Colour-change rarity — transformative & luck stone.","image":"images/products/alexandrite.jpg","price_min":30000,"price_max":300000},
-{"id":"p8","name":"Paraiba Tourmaline","category":"Precious","description":"Electric blue-green; high jewellery demand.","image":"images/products/paraiba.jpg","price_min":20000,"price_max":250000},
-{"id":"p9","name":"Spinel","category":"Precious","description":"Durable, good value alternative to ruby/sapphire.","image":"images/products/spinel.jpg","price_min":6000,"price_max":60000},
-{"id":"p10","name":"Natural Pearl","category":"Precious","description":"Classic pearl for astrology & bridal jewellery.","image":"images/products/pearl.jpg","price_min":1500,"price_max":60000},
-{"id":"p11","name":"Black Opal","category":"Precious","description":"Collector gem with striking play-of-color.","image":"images/products/black-opal.jpg","price_min":10000,"price_max":250000},
-{"id":"p12","name":"Jadeite (Imperial)","category":"Precious","description":"High-end jade for collectors & talismans.","image":"images/products/jadeite.jpg","price_min":20000,"price_max":200000},
-{"id":"p13","name":"Golden Beryl","category":"Precious","description":"Investment-grade beryl variety.","image":"images/products/beryl.jpg","price_min":8000,"price_max":200000},
-{"id":"p14","name":"Amethyst","category":"Semi-Precious","description":"Calming stone aiding intuition and spiritual growth.","image":"images/products/amethyst.jpg","price_min":400,"price_max":5000},
-{"id":"p15","name":"Citrine Stone","category":"Semi-Precious","description":"Abundance and manifestation stone.","image":"images/products/citrine.jpg","price_min":300,"price_max":4000},
-{"id":"p16","name":"Garnet","category":"Semi-Precious","description":"Energising stone for vitality and protection.","image":"images/products/garnet.jpg","price_min":200,"price_max":8000},
-{"id":"p17","name":"Topaz","category":"Semi-Precious","description":"Clarity, confidence and luck.","image":"images/products/topaz.jpg","price_min":500,"price_max":15000},
-{"id":"p18","name":"Tourmaline","category":"Semi-Precious","description":"Protection and balancing stone; many colours.","image":"images/products/tourmaline.jpg","price_min":300,"price_max":20000},
-{"id":"p19","name":"Peridot","category":"Semi-Precious","description":"Renewal, vitality and prosperity.","image":"images/products/peridot.jpg","price_min":400,"price_max":6000},
-{"id":"p20","name":"Aquamarine","category":"Semi-Precious","description":"Calming sea-blue; courage and travel protection.","image":"images/products/aquamarine.jpg","price_min":800,"price_max":15000},
-{"id":"p21","name":"Moonstone","category":"Semi-Precious","description":"Intuition, feminine cycles and calm energy.","image":"images/products/moonstone.jpg","price_min":300,"price_max":6000},
-{"id":"p22","name":"Lapis Lazuli","category":"Semi-Precious","description":"Wisdom, throat chakra and psychic awareness.","image":"images/products/lapis.jpg","price_min":300,"price_max":5000},
-{"id":"p23","name":"Turquoise","category":"Semi-Precious","description":"Protector stone; healing & communication.","image":"images/products/turquoise.jpg","price_min":400,"price_max":8000},
-{"id":"p24","name":"Malachite","category":"Semi-Precious","description":"Transformation and emotional healing.","image":"images/products/malachite.jpg","price_min":200,"price_max":6000},
-{"id":"p25","name":"Black Onyx","category":"Semi-Precious","description":"Grounding and stability.","image":"images/products/onyx.jpg","price_min":100,"price_max":2000},
-{"id":"p26","name":"Jasper","category":"Semi-Precious","description":"Grounding and nurture; earth energy.","image":"images/products/jasper.jpg","price_min":150,"price_max":2500},
-{"id":"p27","name":"Carnelian","category":"Semi-Precious","description":"Energy, motivation and creativity.","image":"images/products/carnelian.jpg","price_min":100,"price_max":2500},
-{"id":"p28","name":"Chrysoprase","category":"Semi-Precious","description":"Joy, optimism and heart healing.","image":"images/products/chrysoprase.jpg","price_min":400,"price_max":7000},
-{"id":"p29","name":"Kunzite","category":"Semi-Precious","description":"Heart-opening emotional healer.","image":"images/products/kunzite.jpg","price_min":500,"price_max":20000},
-{"id":"p30","name":"Iolite","category":"Semi-Precious","description":"Vision, inner guidance and meditation aid.","image":"images/products/iolite.jpg","price_min":300,"price_max":4000},
-{"id":"p31","name":"Smoky Quartz","category":"Semi-Precious","description":"Grounding and negativity removal.","image":"images/products/smoky-quartz.jpg","price_min":150,"price_max":3000},
-{"id":"p32","name":"Amazonite","category":"Semi-Precious","description":"Soothing, communication and calming nerves.","image":"images/products/amazonite.jpg","price_min":200,"price_max":3500},
-{"id":"p33","name":"Aventurine","category":"Semi-Precious","description":"Luck, prosperity and heart healing.","image":"images/products/aventurine.jpg","price_min":150,"price_max":3000},
-{"id":"p34","name":"Sodalite","category":"Semi-Precious","description":"Logic, communication and intuition balance.","image":"images/products/sodalite.jpg","price_min":150,"price_max":2500},
-{"id":"p35","name":"Bloodstone","category":"Semi-Precious","description":"Courage and vitality.","image":"images/products/bloodstone.jpg","price_min":150,"price_max":2000},
-{"id":"p36","name":"Tanzanite","category":"Semi-Precious","description":"Spiritual uplift and higher vision.","image":"images/products/zoisite.jpg","price_min":800,"price_max":30000},
-{"id":"p37","name":"Sunstone","category":"Semi-Precious","description":"Joy, leadership and power.","image":"images/products/sunstone.jpg","price_min":200,"price_max":4000},
-{"id":"p38","name":"Chalcedony","category":"Semi-Precious","description":"Soothing, social harmony and calm communication.","image":"images/products/chalcedony.jpg","price_min":150,"price_max":3000},
-{"id":"p39","name":"Blue Lace Agate","category":"Semi-Precious","description":"Gentle communication and throat support.","image":"images/products/blue-lace-agate.jpg","price_min":200,"price_max":3500},
-{"id":"p40","name":"Morganite","category":"Semi-Precious","description":"Divine love, compassion and healing.","image":"images/products/morganite.jpg","price_min":1000,"price_max":25000},
-{"id":"p41","name":"Rhodochrosite","category":"Semi-Precious","description":"Heart-healing and self-love.","image":"images/products/rhodochrosite.jpg","price_min":300,"price_max":6000},
-{"id":"p42","name":"Rhodonite","category":"Semi-Precious","description":"Emotional healing and forgiveness.","image":"images/products/rhodonite.jpg","price_min":200,"price_max":4000},
-{"id":"p43","name":"Larimar","category":"Semi-Precious","description":"Soothing oceanic calm and throat healing.","image":"images/products/larimar.jpg","price_min":1000,"price_max":12000},
-{"id":"p44","name":"Serpentine","category":"Semi-Precious","description":"Kundalini support and cleansing.","image":"images/products/serpentine.jpg","price_min":150,"price_max":2500},
-{"id":"p45","name":"Labradorite","category":"Semi-Precious","description":"Psychic protection and awakening.","image":"images/products/labradorite.jpg","price_min":400,"price_max":8000},
-{"id":"p46","name":"Apatite","category":"Semi-Precious","description":"Focus and clarity.","image":"images/products/apatite.jpg","price_min":200,"price_max":3500},
-{"id":"p47","name":"Chromium Diopside","category":"Semi-Precious","description":"Bright green alternative to emerald.","image":"images/products/diopside.jpg","price_min":800,"price_max":8000},
-{"id":"p48","name":"Hematite","category":"Semi-Precious","description":"Grounding and strength.","image":"images/products/hematite.jpg","price_min":100,"price_max":2000},
-{"id":"p49","name":"Pietersite","category":"Semi-Precious","description":"Spiritual insight and transformation.","image":"images/products/pietersite.jpg","price_min":800,"price_max":12000},
-{"id":"p50","name":"Fire Agate","category":"Semi-Precious","description":"Protective and energizing with inner fire.","image":"images/products/fire-agate.jpg","price_min":400,"price_max":7000},
-{"id":"p51","name":"Chrysocolla","category":"Semi-Precious","description":"Calming communication and creativity.","image":"images/products/chrysocolla.jpg","price_min":150,"price_max":4000},
-{"id":"p52","name":"Brazilian Topaz","category":"Semi-Precious","description":"Clarity and prosperity.","image":"images/products/brazilian-topaz.jpg","price_min":1000,"price_max":15000},
-{"id":"p53","name":"Tsavorite","category":"Semi-Precious","description":"Heart energy with luxury demand.","image":"images/products/tsavorite.jpg","price_min":4000,"price_max":50000},
-{"id":"p54","name":"---------","category":"Semi-Precious","description":"Durable jewellery favourite in many colours.","image":"images/products/sp","price_min":800,"price_max":25000},
-{"id":"p55","name":"Opal","category":"Semi-Precious","description":"Emotional healing and creativity.","image":"images/products/opal.jpg","price_min":400,"price_max":30000},
-{"id":"p56","name":"Heliodor","category":"Semi-Precious","description":"Vitality, focus and courage.","image":"images/products/heliodor.jpg","price_min":700,"price_max":8000},
-{"id":"p57","name":"Zircon","category":"Semi-Precious","description":"Sparkle similar to diamond.","image":"images/products/zircon.jpg","price_min":300,"price_max":6000},
-{"id":"p58","name":"White Sapphire","category":"Semi-Precious","description":"Durable & affordable diamond alternative.","image":"images/products/white-sapphire.jpg","price_min":800,"price_max":10000},
-{"id":"p59","name":"Blue Chalcedony","category":"Semi-Precious","description":"Soothing communication and creativity.","image":"images/products/blue-chalcedony.jpg","price_min":150,"price_max":4000},
-{"id":"p60","name":"Blue Fluorite","category":"Semi-Precious","description":"Healing and focus stone.","image":"images/products/blue-florite.jpg","price_min":200,"price_max":4000},
-{"id":"p61","name":"Clear Quartz (Sphatik)","category":"Healing","description":"Master healer; amplifies intentions and chakras.","image":"images/products/clear-quartz.jpg","price_min":100,"price_max":5000},
-{"id":"p62","name":"Black Tourmaline","category":"Healing","description":"Strong protection and grounding.","image":"images/products/black-tourmaline.jpg","price_min":150,"price_max":6000},
-{"id":"p63","name":"Shungite","category":"Healing","description":"EMF protection and purification.","image":"images/products/shungite.jpg","price_min":500,"price_max":8000},
-{"id":"p64","name":"Moldavite","category":"Healing","description":"Transformation and spiritual acceleration.","image":"images/products/moldavite.jpg","price_min":5000,"price_max":150000},
-{"id":"p65","name":"Selenite","category":"Healing","description":"Energy clearing and high-frequency wands.","image":"images/products/selenite.jpg","price_min":150,"price_max":6000},
-{"id":"p66","name":"Tektite","category":"Healing","description":"Psychic opening and transformational energy.","image":"images/products/tektite.jpg","price_min":1000,"price_max":20000},
-{"id":"p67","name":"Shiva Lingam","category":"Healing","description":"Kundalini & transformational ritual stone.","image":"images/products/shiva-lingam.jpg","price_min":200,"price_max":8000},
-{"id":"p68","name":"Crystal Spheres","category":"Healing","description":"Meditation aids & energy anchors.","image":"images/products/spheres.jpg","price_min":300,"price_max":6000},
-{"id":"p69","name":"Fuchsite","category":"Healing","description":"Heart healing and gentle uplift.","image":"images/products/fuchsite.jpg","price_min":200,"price_max":4000},
-{"id":"p70","name":"Petrified Wood","category":"Healing","description":"Grounding and Earth wisdom.","image":"images/products/petrified-wood.jpg","price_min":200,"price_max":5000},
-{"id":"p71","name":"Cat’s Eye / Shiva Eye","category":"Healing","description":"Insight, protection and astral clarity.","image":"images/products/cats-eye.jpg","price_min":400,"price_max":10000},
-{"id":"p72","name":"Crystal Clusters","category":"Healing","description":"Energy anchors for rooms & altars.","image":"images/products/clusters.jpg","price_min":500,"price_max":40000},
-{"id":"p73","name":"Aura Quartz","category":"Healing","description":"Treated quartz with intense colour for décor & ritual.","image":"images/products/aura-quartz.jpg","price_min":500,"price_max":6000},
-{"id":"p74","name":"Ocean Jasper","category":"Healing","description":"Emotional balance and grounding.","image":"images/products/ocean-jasper.jpg","price_min":200,"price_max":6000},
-{"id":"p75","name":"Angelite","category":"Healing","description":"Soothing and connection to higher guidance.","image":"images/products/angelite.jpg","price_min":400,"price_max":6000},
-{"id":"p76","name":"Blue Kyanite","category":"Healing","description":"Alignment and clears energy pathways.","image":"images/products/kyanite.jpg","price_min":400,"price_max":8000},
-{"id":"p77","name":"Bronzite","category":"Healing","description":"Protection and focus for action.","image":"images/products/bronzite.jpg","price_min":150,"price_max":3500},
-{"id":"p78","name":"Merlinite","category":"Healing","description":"Shadow work and deep inner transformation.","image":"images/products/merlinite.jpg","price_min":300,"price_max":6000},
-{"id":"p79","name":"Palo Santo Bundles","category":"Healing","description":"Cleansing smoke for rituals.","image":"images/products/palo-santo.jpg","price_min":150,"price_max":800},
-{"id":"p80","name":"Spathik Mala","category":"Healing","description":"Beginner-friendly chakra & protection.","image":"images/products/spatik-mala.jpg","price_min":400,"price_max":4000},
-{"id":"p81","name":"1 Mukhi Rudraksha","category":"Rudraksha","description":"Extremely rare; highest spiritual attainment & siddhis.","image":"images/products/rudraksha-1.jpg","price_min":20000,"price_max":500000},
-{"id":"p82","name":"2 Mukhi Rudraksha","category":"Rudraksha","description":"Harmony and relationship balance.","image":"images/products/rudraksha-2.jpg","price_min":500,"price_max":6000},
-{"id":"p83","name":"3 Mukhi Rudraksha","category":"Rudraksha","description":"Courage, willpower and karmic purification.","image":"images/products/rudraksha-3.jpg","price_min":400,"price_max":3000},
-{"id":"p84","name":"4 Mukhi Rudraksha","category":"Rudraksha","description":"Creative energy & learning (Brahma).","image":"images/products/rudraksha-4.jpg","price_min":400,"price_max":3500},
-{"id":"p85","name":"5 Mukhi Rudraksha","category":"Rudraksha","description":"Common & protective; health & concentration.","image":"images/products/rudraksha-5.jpg","price_min":500,"price_max":2000},
-{"id":"p86","name":"6 Mukhi Rudraksha","category":"Rudraksha","description":"Discipline & stability (Kartikey/Skanda).","image":"images/products/rudraksha-6.jpg","price_min":600,"price_max":3000},
-{"id":"p87","name":"7 Mukhi Rudraksha","category":"Rudraksha","description":"Prosperity & leadership (Lakshmi).","image":"images/products/rudraksha-7.jpg","price_min":700,"price_max":4000},
-{"id":"p88","name":"8 Mukhi Rudraksha","category":"Rudraksha","description":"Removes obstacles & supports new beginnings.","image":"images/products/rudraksha-8.jpg","price_min":800,"price_max":4500},
-{"id":"p89","name":"9 Mukhi Rudraksha","category":"Rudraksha","description":"Authority, vitality & leadership (Surya).","image":"images/products/rudraksha-9.jpg","price_min":1200,"price_max":6000},
-{"id":"p90","name":"10 Mukhi Rudraksha","category":"Rudraksha","description":"Strength, protection & discipline (Vishnu).","image":"images/products/rudraksha-10.jpg","price_min":1000,"price_max":5500},
-{"id":"p91","name":"11 Mukhi Rudraksha","category":"Rudraksha","description":"Spiritual insight and increased intuition.","image":"images/products/rudraksha-11.jpg","price_min":1500,"price_max":7000},
-{"id":"p92","name":"12 Mukhi Rudraksha","category":"Rudraksha","description":"Higher meditation & spiritual evolution.","image":"images/products/rudraksha-12.jpg","price_min":1800,"price_max":8000},
-{"id":"p93","name":"13 Mukhi Rudraksha","category":"Rudraksha","description":"Mastery over senses and focused sadhana.","image":"images/products/rudraksha-13.jpg","price_min":2000,"price_max":9000},
-{"id":"p94","name":"14 Mukhi Rudraksha","category":"Rudraksha","description":"Advanced stability in meditation & guidance.","image":"images/products/rudraksha-14.jpg","price_min":2500,"price_max":10000},
-{"id":"p95","name":"15 Mukhi Rudraksha","category":"Rudraksha","description":"Dharma & social harmony (family/community).","image":"images/products/rudraksha-15.jpg","price_min":2500,"price_max":9500},
-{"id":"p96","name":"Gauri Shankar Rudraksha","category":"Rudraksha","description":"Twin bead for family unity and marriage harmony.","image":"images/products/gauri-shankar.jpg","price_min":3000,"price_max":25000},
-{"id":"p97","name":"Ganesh Rudraksha","category":"Rudraksha","description":"Removes obstacles and supports auspicious starts.","image":"images/products/ganesh-rd.jpg","price_min":3000,"price_max":25000},
-{"id":"p98","name":"Trijuti Rudraksha","category":"Rudraksha","description":"Powerful combined effects; rare cluster beads.","image":"images/products/trijuti.jpg","price_min":5000,"price_max":60000},
-{"id":"p99","name":"Rudraksha Mala (108 beads)","category":"Rudraksha","description":"Energised mala for daily japa & ritual.","image":"images/products/rudraksha-mala.jpg","price_min":1200,"price_max":25000},
-{"id":"p100","name":"Rudraksha Accessories","category":"Rudraksha","description":"Bracelets, lockets & malas for daily wear.","image":"images/products/rudraksha-accessories.jpg","price_min":300,"price_max":25000},
-{"id":"p101","name":"Raw Amethyst Cluster","category":"Raw Stones","description":"Uncut amethyst crystal cluster — ideal for meditation or room energy clearing.","image":"images/products/raw-amethyst.jpg","price_min":500,"price_max":6000},
-{"id":"p102","name":"Raw Citrine Point","category":"Raw Stones","description":"Natural citrine point for wealth and manifestation energy.","image":"images/products/raw-citrine.jpg","price_min":400,"price_max":5500},
-{"id":"p103","name":"Raw Rose Quartz Chunk","category":"Raw Stones","description":"Heart chakra raw stone for unconditional love and emotional healing.","image":"images/products/raw-rosequartz.jpg","price_min":300,"price_max":4000},
-{"id":"p104","name":"Raw Clear Quartz","category":"Raw Stones","description":"Amplifies energy and intentions; perfect for grids or altars.","image":"images/products/raw-clearquartz.jpg","price_min":200,"price_max":5000},
-{"id":"p105","name":"Raw Black Tourmaline","category":"Raw Stones","description":"Powerful EMF and negativity protection crystal.","image":"images/products/raw-blacktourmaline.jpg","price_min":250,"price_max":4000},
-{"id":"p106","name":"Raw Green Aventurine","category":"Raw Stones","description":"Prosperity and abundance magnet; keeps environment positive.","image":"images/products/raw-aventurine.jpg","price_min":300,"price_max":3500},
-{"id":"p107","name":"Raw Pyrite","category":"Raw Stones","description":"Known as ‘Fool’s Gold’; enhances luck, wealth, and strength.","image":"images/products/raw-pyrite.jpg","price_min":400,"price_max":7000},
-{"id":"p108","name":"Raw Lapis Lazuli","category":"Raw Stones","description":"Intuition and higher wisdom stone; ideal for altar placement.","image":"images/products/raw-lapis.jpg","price_min":500,"price_max":8000},
-{"id":"p109","name":"Raw Fluorite Octahedron","category":"Raw Stones","description":"Cleanses aura and stabilises energy flow.","image":"images/products/raw-fluorite.jpg","price_min":350,"price_max":6500},
-{"id":"p110","name":"Raw Carnelian","category":"Raw Stones","description":"Boosts energy, creativity and motivation.","image":"images/products/raw-carnelian.jpg","price_min":200,"price_max":3500}
-];
+<!-- shared product data -->
+<script src="js/products.js"></script>
 
-// ------------------ Dynamic Rendering ------------------
+<!-- Dynamic Rendering -->
+<script>
 const productGrid=document.getElementById('productGrid');
 const tabsContainer=document.getElementById('categoryTabs');
 const searchInput=document.getElementById('shopSearch');
 const clearBtn=document.getElementById('clearFilters');
 const noResults=document.getElementById('noResults');
 
-const categories=[...new Set(products.map(p=>p.category))];
+const categories=[...new Set(window.products.map(p=>p.category))];
 let activeTab='All';
 
 function renderTabs(){
@@ -273,37 +197,50 @@ function renderTabs(){
 function render(){
   productGrid.innerHTML='';
   const q=(searchInput.value||'').toLowerCase();
+
+  // sort selection
+  const sortVal = document.getElementById("sortSelect").value;
+  const chakraVal = document.getElementById("chakraSelect").value;
+  const zodiacVal = document.getElementById("zodiacSelect").value;
+
+  let data = [...window.products];
+
+  // ---- FILTER ----
+  data = data.filter(p => {
+    const matchCat = activeTab==='All' || p.category===activeTab;
+    const matchSearch = p.name.toLowerCase().includes(q) || (p.description||'').toLowerCase().includes(q);
+    const matchChakra = !chakraVal || (p.chakra && p.chakra.toLowerCase() === chakraVal);
+    const matchZodiac = !zodiacVal || (p.zodiac && p.zodiac.toLowerCase().includes(zodiacVal));
+    return matchCat && matchSearch && matchChakra && matchZodiac;
+  });
+
+  // ---- SORT ----
+  if(sortVal==='low') data.sort((a,b)=>a.price_min-b.price_min);
+  if(sortVal==='high') data.sort((a,b)=>b.price_min-a.price_min);
+  if(sortVal==='az') data.sort((a,b)=>a.name.localeCompare(b.name));
+
+  // ---- RENDER ----
   let count=0;
-  products.forEach(p=>{
-    const matchCat=activeTab==='All'||p.category===activeTab;
-    const matchSearch=p.name.toLowerCase().includes(q)||(p.description||'').toLowerCase().includes(q);
-    if(matchCat&&matchSearch){
-      const tile=document.createElement('div');
-      tile.className='product-tile bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden';
-      tile.innerHTML=`
-        <div class="relative">
-          <img src="${p.image}" alt="${p.name}" loading="lazy" class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110">
-          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition"></div>
-        </div>
+  data.forEach(p=>{
+    const tile=document.createElement('div');
+    tile.className='product-tile bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden cursor-pointer';
+    tile.innerHTML=`
+      <div onclick="openModal('${p.id}')">
+        <img src="${p.image}" class="w-full h-56 object-cover">
         <div class="p-6">
           <h3 class="text-xl font-semibold text-emerald-700">${p.name}</h3>
           <p class="text-sm text-gray-600 mt-2">${p.description}</p>
           <p class="text-sm text-gray-800 mt-2 font-semibold">₹${p.price_min.toLocaleString()} - ₹${p.price_max.toLocaleString()}</p>
-          <div class="flex justify-between items-center mt-4">
-            <a href="products/${p.id}.html" class="text-emerald-700 hover:underline text-sm font-medium">View Details</a>
-            <a href="shop-ecom.html?product=${p.id}" class="text-sm bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg shadow font-medium">Buy Now</a>
-          </div>
-        </div>`;
-      productGrid.appendChild(tile);
-      count++;
-    }
+        </div>
+      </div>`;
+    productGrid.appendChild(tile);
+    count++;
   });
+
   noResults.classList.toggle('hidden',count>0);
   renderTabs();
 }
-searchInput.addEventListener('input',render);
-clearBtn.addEventListener('click',()=>{searchInput.value='';activeTab='All';render();});
-renderTabs();render();
+render();
 </script>
 
 <!-- WhatsApp Floating Chat Button -->
@@ -313,6 +250,25 @@ renderTabs();render();
   <img src="images/social/whatsapp.png" class="w-6 h-6" alt="WhatsApp">
   Chat with Us
 </a>
+<div id="quickModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden justify-center items-center z-50">
+  <div id="modalContent" class="bg-white rounded-xl p-6 w-[90%] max-w-lg shadow-xl"></div>
+</div>
+
+<script>
+function openModal(id){
+  const p = window.products.find(x=>x.id===id);
+  document.getElementById("modalContent").innerHTML = `
+    <img src="${p.image}" class="w-full h-72 object-cover rounded-lg mb-4">
+    <h2 class="text-2xl font-bold text-emerald-700">${p.name}</h2>
+    <p class="text-gray-700 mt-2 mb-2">${p.description}</p>
+    <p class="font-semibold text-lg">₹${p.price_min.toLocaleString()} - ₹${p.price_max.toLocaleString()}</p>
+    <a href="shop-ecom.html?product=${p.id}" class="mt-4 inline-block bg-emerald-600 text-white px-4 py-2 rounded-lg">Buy Now</a>
+    <button onclick="closeModal()" class="mt-3 text-sm text-gray-500 underline w-full">Close</button>
+  `;
+  document.getElementById("quickModal").classList.remove("hidden");
+}
+function closeModal(){ document.getElementById("quickModal").classList.add("hidden"); }
+</script>
 
 </body>
 </html>
