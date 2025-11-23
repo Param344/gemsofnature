@@ -12,18 +12,16 @@
   <!-- Google Fonts: Montserrat -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Favicon / Manifest (add actual files in /images and root manifest.json) -->
+  <!-- Favicon -->
   <link rel="icon" href="/images/favicon.ico">
-  <link rel="manifest" href="/manifest.json">
 
-  <!-- Open Graph & Twitter -->
+  <!-- Open Graph -->
   <meta property="og:title" content="Gems of Nature — Contact Us">
-  <meta property="og:description" content="Contact Gems of Nature for gemstone enquiries, orders, and support. Visit our shop online or message us on WhatsApp.">
+  <meta property="og:description" content="Contact Gems of Nature for gemstone enquiries, orders, and support. Send a message or WhatsApp us instantly.">
   <meta property="og:image" content="https://gemsofnature.shop/images/og-image.jpg">
   <meta property="og:url" content="https://gemsofnature.shop/contact.html">
-  <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Schema / JSON-LD -->
+  <!-- JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -46,353 +44,119 @@
 
   <style>
     .font-montserrat { font-family: 'Montserrat', sans-serif; }
-    .fade-in { opacity: 0; transform: translateY(8px); animation: fadeIn 0.45s ease forwards; }
-    @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
-    .modal-backdrop { background: rgba(0,0,0,0.5); }
-    /* subtle card hover */
+    .fade-in { opacity:0; transform:translateY(8px); animation:fadeIn .45s ease forwards; }
+    @keyframes fadeIn { to { opacity:1; transform:translateY(0); } }
+    .modal-backdrop { background:rgba(0,0,0,0.5); }
     .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(2,6,23,0.12); }
   </style>
 </head>
+
 <body class="bg-gray-50 text-gray-800 font-montserrat antialiased">
 
-  <!-- NAVBAR -->
-  <header class="bg-emerald-900 text-white shadow-md">
-    <nav class="container mx-auto flex justify-between items-center py-4 px-6">
-      <a href="index.html" class="flex items-center gap-3">
-        <img src="images/logo.png" alt="Gems of Nature logo" class="h-12 w-auto" loading="lazy">
-        <span class="text-2xl font-bold">Gems of Nature</span>
-      </a>
+<!-- SHARED HEADER -->
+<div id="header"></div>
 
-      <ul class="hidden md:flex gap-6 text-lg" role="menubar" aria-label="Primary">
-        <li role="none"><a role="menuitem" href="index.html" class="hover:text-emerald-300 transition">Home</a></li>
-        <li role="none"><a role="menuitem" href="about.html" class="hover:text-emerald-300 transition">About Us</a></li>
-        <li role="none"><a role="menuitem" href="shop.html" class="hover:text-emerald-300 transition">Collections</a></li>
-        <li role="none"><a role="menuitem" href="contact.html" class="hover:text-emerald-300 transition font-semibold" aria-current="page">Contact</a></li>
-        <li role="none"><a role="menuitem" href="astrology.consultation.html" class="hover:text-emerald-300 transition">Astrology & Consultation</a></li>
-      </ul>
+<!-- HERO -->
+<section class="relative bg-cover bg-center h-56 md:h-88" style="
+background-image:linear-gradient(135deg,rgba(5,139,119,.35),rgba(7,114,84,.55)),url('images/about-gems.jpg');
+background-size:cover; background-position:center;">
+  <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
+    <h1 class="text-3xl md:text-5xl text-white font-bold">Contact Us</h1>
+  </div>
+</section>
 
-      <div class="flex items-center gap-3">
-        <a href="shop-ecom.html" class="hidden md:inline-block bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-2 rounded-lg font-semibold">Buy Online</a>
-        <a href="shop-ecom.html" aria-label="Cart" class="text-2xl">🛒</a>
-        <button id="mobile-menu-button" class="text-2xl md:hidden focus:outline-none" aria-expanded="false" aria-controls="mobile-menu">☰</button>
-      </div>
-    </nav>
+<!-- MAIN -->
+<main class="py-12 px-6">
+  <div class="content-inner grid gap-8 md:grid-cols-2 items-start">
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden bg-emerald-800 md:hidden" aria-hidden="true">
-      <ul class="flex flex-col gap-4 px-6 py-4">
-        <li><a href="index.html" class="block hover:text-emerald-300 transition">Home</a></li>
-        <li><a href="about.html" class="block hover:text-emerald-300 transition">About Us</a></li>
-        <li><a href="shop.html" class="block hover:text-emerald-300 transition">Collections</a></li>
-        <li><a href="shop-ecom.html" class="block hover:text-emerald-300 transition font-semibold">Buy Online</a></li>
-        <li><a href="contact.html" class="block hover:text-emerald-300 transition">Contact</a></li>
-        <li><a href="astrology.consultation.html" class="hover:text-emerald-300 transition">Astrology & Consultation</a></li>
-      </ul>
-    </div>
-  </header>
+    <!-- LEFT -->
+    <div class="space-y-6">
+      <div class="bg-white p-6 rounded-2xl shadow card-hover fade-in">
+        <h3 class="text-xl font-semibold mb-3 text-emerald-700">Get in touch</h3>
+        <p class="text-gray-700 mb-4">Have questions or want to place an order? Use the form or reach us via phone or email. We reply within 1 business day.</p>
 
-  <!-- HERO -->
-  <section class="relative bg-cover bg-center h-56 md:h-88" style="
-  background-image: linear-gradient(135deg, rgba(5, 139, 119, 0.35), rgba(7, 114, 84, 0.55)),
-                    url('images/about-gems.jpg');
-  background-blend-mode: overlay;
-  background-size: cover;
-  background-position: center;">
-    <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
-      <h1 class="text-3xl md:text-5xl text-white font-bold">Contact Us</h1>
-    </div>
-  </section>
-
-  <!-- MAIN -->
-  <main class="py-12 px-6">
-    <div class="container mx-auto max-w-5xl grid gap-8 md:grid-cols-2 items-start">
-
-      <!-- LEFT: contact card + map -->
-      <div class="space-y-6">
-        <div class="bg-white p-6 rounded-2xl shadow card-hover transition fade-in">
-          <h3 class="text-xl font-semibold mb-3 text-emerald-700">Get in touch</h3>
-          <p class="text-gray-700 mb-4">Have questions or want to place an order? Use the form or reach us via phone or email. We reply within 1 business day (IST).</p>
-
-          <div class="grid gap-4 md:grid-cols-2">
-            <div class="p-4 bg-emerald-50 rounded-lg">
-              <h4 class="font-semibold text-emerald-700">Address</h4>
-              <address class="not-italic text-sm text-gray-700 mt-1">Maharshi Valmiki Marg,<br>Karkarduma Complex,<br>Anand Vihar, Delhi, 110092</address>
-              <p class="mt-2 text-sm"><a class="underline" href="https://www.google.com/maps/search/?api=1&query=Maharshi+Valmiki+Marg+Karkarduma+Complex+Anand+Vihar+Delhi+110092" target="_blank" rel="noopener noreferrer">Open in Google Maps</a></p>
-            </div>
-
-            <div class="p-4 bg-emerald-50 rounded-lg">
-              <h4 class="font-semibold text-emerald-700">Phone & Email</h4>
-              <p class="text-sm text-gray-700 mt-1"><a href="tel:+917827491801" class="hover:underline">+91 78274 91801</a><br><a href="mailto:Paramjeet.singh@outlook.in" class="hover:underline">Paramjeet.singh@outlook.in</a></p>
-            </div>
+        <div class="grid gap-4 md:grid-cols-2">
+          <div class="p-4 bg-emerald-50 rounded-lg">
+            <h4 class="font-semibold text-emerald-700">Address</h4>
+            <address class="not-italic text-sm text-gray-700 mt-1">
+              Maharshi Valmiki Marg,<br>Karkarduma Complex,<br>Anand Vihar, Delhi, 110092
+            </address>
+            <p class="mt-2 text-sm">
+              <a href="https://www.google.com/maps/search/?api=1&query=Maharshi+Valmiki+Marg+Karkarduma+Complex+Anand+Vihar+Delhi+110092"
+                 class="underline" target="_blank">
+                Open in Google Maps
+              </a>
+            </p>
           </div>
 
-          <div class="mt-4">
-            <h4 class="font-semibold text-emerald-700">Business Hours</h4>
-            <p class="text-sm text-gray-700 mt-1">Mon–Sat: 10:00 AM – 7:00 PM (IST)<br>Sun: Closed / By appointment</p>
+          <div class="p-4 bg-emerald-50 rounded-lg">
+            <h4 class="font-semibold text-emerald-700">Phone & Email</h4>
+            <p class="text-sm text-gray-700 mt-1">
+              <a href="tel:+917827491801" class="hover:underline">+91 78274 91801</a><br>
+              <a href="mailto:Paramjeet.singh@outlook.in" class="hover:underline">Paramjeet.singh@outlook.in</a>
+            </p>
           </div>
         </div>
 
-        <!-- MAP -->
-        <div id="map-wrap" class="overflow-hidden rounded-2xl shadow-lg" aria-hidden="false">
-          <!-- JS will render iframe here. If JS disabled, a link below will still work -->
-          <noscript>
-            <div class="w-full h-64 md:h-72 flex items-center justify-center bg-gray-100 text-gray-500">
-              <a href="https://www.google.com/maps/search/?api=1&query=Maharshi+Valmiki+Marg+Karkarduma+Complex+Anand+Vihar+Delhi+110092" target="_blank" rel="noopener">Open map in a new tab</a>
-            </div>
-          </noscript>
+        <div class="mt-4">
+          <h4 class="font-semibold text-emerald-700">Business Hours</h4>
+          <p class="text-sm text-gray-700 mt-1">Mon–Sat: 10 AM – 7 PM IST<br>Sun: Closed / By appointment</p>
         </div>
       </div>
 
-      <!-- CONTACT FORM -->
-      <form id="contact-form" action="https://formspree.io/f/xdkyozjp" method="POST" class="grid gap-6 bg-white p-8 rounded-2xl shadow-lg fade-in" novalidate aria-describedby="form-status" aria-labelledby="contact-heading">
-        <h3 id="contact-heading" class="text-xl font-semibold mb-1 text-emerald-700">Send us a message</h3>
-        <p class="text-sm text-gray-600">We'll reply within 1 business day.</p>
+      <!-- MAP -->
+      <div id="map-wrap" class="overflow-hidden rounded-2xl shadow-lg"></div>
+    </div>
 
-        <div>
-          <label for="name" class="block mb-2 font-semibold">Name</label>
-          <input id="name" name="name" type="text" class="w-full px-4 py-2 border rounded-lg" placeholder="Your Name" required aria-required="true">
-        </div>
+    <!-- FORM -->
+    <form id="contact-form" action="https://formspree.io/f/xdkyozjp" method="POST"
+          class="grid gap-6 bg-white p-8 rounded-2xl shadow-lg fade-in">
 
-        <div>
-          <label for="email" class="block mb-2 font-semibold">Email</label>
-          <input id="email" name="_replyto" type="email" class="w-full px-4 py-2 border rounded-lg" placeholder="you@example.com" required aria-required="true">
-        </div>
+      <h3 class="text-xl font-semibold mb-1 text-emerald-700">Send us a message</h3>
+      <p class="text-sm text-gray-600">We'll reply within 1 business day.</p>
 
-        <div>
-          <label for="phone" class="block mb-2 font-semibold">Phone</label>
-          <input id="phone" name="phone" type="tel" class="w-full px-4 py-2 border rounded-lg" placeholder="+91 98765 43210">
-        </div>
+      <label>Name<input id="name" name="name" class="w-full px-4 py-2 border rounded-lg" required></label>
+      <label>Email<input id="email" name="_replyto" type="email" class="w-full px-4 py-2 border rounded-lg" required></label>
+      <label>Phone<input id="phone" name="phone" type="tel" class="w-full px-4 py-2 border rounded-lg"></label>
+      <label>Message<textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border rounded-lg" required></textarea></label>
 
-        <div>
-          <label for="message" class="block mb-2 font-semibold">Message</label>
-          <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border rounded-lg" placeholder="Tell us how we can help..." required aria-required="true"></textarea>
-        </div>
-
-        <!-- Honeypot -->
-        <div style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;" aria-hidden="true">
-          <label for="hp-field">Leave this empty</label>
-          <input id="hp-field" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
-        </div>
-
-        <input type="hidden" name="_subject" value="Contact form message — Gems of Nature">
-
-        <div class="flex gap-3 items-center">
-          <button id="send-btn" type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full flex items-center gap-3" aria-live="polite">
-            <!-- spinner (hidden by default) -->
-            <svg id="send-spinner" class="hidden w-5 h-5 animate-spin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" stroke-opacity="0.25"></circle><path d="M22 12a10 10 0 0 1-10 10" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path></svg>
-            <span id="send-label">Send Message</span>
-          </button>
-          <div id="form-status" class="text-sm text-gray-600" role="status" aria-live="polite"></div>
-        </div>
-      </form>
-
-      <div class="mt-6 p-4 bg-white rounded-2xl shadow hover:shadow-lg transition">
-        <h4 class="font-semibold text-emerald-700 mb-2">Quick Answers</h4>
-        <ul class="text-sm text-gray-700 space-y-2">
-          <li><strong>Shipping:</strong> We ship pan-India and offer expedited options.</li>
-          <li><strong>Returns:</strong> 7-day returns — see product page for details.</li>
-          <li><strong>Payments:</strong> COD & online payment available (simulated on demo).</li>
-        </ul>
+      <div class="flex gap-3 items-center">
+        <button id="send-btn" type="submit"
+                class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full flex items-center gap-3">
+          <span id="send-label">Send Message</span>
+        </button>
+        <div id="form-status" class="text-sm text-gray-600"></div>
       </div>
+    </form>
 
-    </div>
-  </main>
-
-  <!-- Success Modal -->
-  <div id="success-modal" class="fixed inset-0 z-50 hidden items-center justify-center modal-backdrop p-4" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="success-title">
-    <div class="bg-white rounded-xl p-6 max-w-md w-full text-center">
-      <h3 id="success-title" class="text-2xl font-semibold text-emerald-700">Message sent!</h3>
-      <p id="success-info" class="mt-3 text-gray-700">Thanks — we received your message and will reply shortly.</p>
-      <button id="close-success" class="mt-6 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg">Close</button>
-    </div>
   </div>
+</main>
 
-<!-- FOOTER -->
-<footer class="bg-emerald-900 text-white py-6 mt-12">
-  <div class="max-w-7xl mx-auto footer-inner flex flex-col md:flex-row items-center justify-between gap-4 px-6">
-
-    <!-- Copyright -->
-    <div class="text-sm footer-nowrap">
-      &copy; 2025 <strong>Gems of Nature</strong>. All rights reserved.
-    </div>
-
-    <!-- Tagline -->
-    <div class="text-sm text-emerald-100 font-medium text-center">
-      100% natural stones • Secure payments • Fast shipping • 7-day returns
-    </div>
-
-    <!-- Social Links (PNG icons + labels) -->
-    <div class="flex items-center justify-center gap-8 ml-2">
-      <a href="https://www.facebook.com/profile.php?id=61581929357076" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:opacity-90 transition">
-        <img src="images/social/facebook.png" alt="Facebook" class="w-6 h-6 rounded-full shadow-md"><span class="text-sm font-medium">Facebook</span>
-      </a>
-
-      <a href="https://www.instagram.com/gemsofnatureshop" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:opacity-90 transition">
-        <img src="images/social/instagram.png" alt="Instagram" class="w-6 h-6 rounded-md shadow-md"><span class="text-sm font-medium">Instagram</span>
-      </a>
-
-      <a href="https://www.linkedin.com/company/gems-of-nature" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:opacity-90 transition">
-        <img src="images/social/linkedin.png" alt="LinkedIn" class="w-6 h-6 rounded-md shadow-md"><span class="text-sm font-medium">LinkedIn</span>
-      </a>
-    </div>
+<!-- SUCCESS MODAL -->
+<div id="success-modal" class="hidden fixed inset-0 z-50 items-center justify-center modal-backdrop p-4">
+  <div class="bg-white rounded-xl p-6 max-w-md w-full text-center">
+    <h3 class="text-2xl font-semibold text-emerald-700">Message sent!</h3>
+    <p class="mt-3 text-gray-700">Thanks — we will reply shortly.</p>
+    <button id="close-success" class="mt-6 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg">Close</button>
   </div>
-</footer>
+</div>
 
-  <!-- SINGLE SCRIPT: map, accessible form handling -->
-  <script>
-  (function() {
-    // ---------- CONFIG ----------
-    const MAP_EMBED_URL = 'https://www.google.com/maps?q=Maharshi+Valmiki+Marg+Karkarduma+Complex+Anand+Vihar+Delhi+110092&output=embed';
-    const DEFAULT_FORM_ACTION = 'https://formspree.io/f/xdkyozjp';
+<!-- SHARED FOOTER -->
+<div id="footer"></div>
 
-    // DOM refs
-    const wrap = document.getElementById('map-wrap');
-    const form = document.getElementById('contact-form');
-    const statusEl = document.getElementById('form-status');
-    const successModal = document.getElementById('success-modal');
-    const closeSuccess = document.getElementById('close-success');
-    const sendBtn = document.getElementById('send-btn');
-    const spinner = document.getElementById('send-spinner');
-    const sendLabel = document.getElementById('send-label');
+<!-- WhatsApp Button -->
+<a href="https://wa.me/917827491801?text=Hi%20Gems%20of%20Nature,%20I%20need%20help"
+   class="fixed bottom-20 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-sm font-semibold transition-all z-50"
+   target="_blank">
+  <img src="images/social/whatsapp.png" class="w-6 h-6"> Chat with Us
+</a>
 
-    // Render map iframe
-    (function renderMap() {
-      try {
-        const iframe = document.createElement('iframe');
-        iframe.src = MAP_EMBED_URL;
-        iframe.className = 'w-full h-64 md:h-72';
-        iframe.style.border = '0';
-        iframe.loading = 'lazy';
-        iframe.referrerPolicy = 'no-referrer-when-downgrade';
-        iframe.allowFullscreen = true;
-        iframe.title = 'Gems of Nature location';
-        wrap.innerHTML = '';
-        wrap.appendChild(iframe);
-      } catch (e) {
-        wrap.innerHTML = '<div class="w-full h-64 md:h-72 flex items-center justify-center bg-gray-100 text-gray-500">Open map in <a href="https://www.google.com/maps/search/?api=1&query=Maharshi+Valmiki+Marg+Karkarduma+Complex+Anand+Vihar+Delhi+110092" target="_blank" rel="noopener">Google Maps</a></div>';
-      }
-    })();
-
-    // Ensure form has an action (fallback to default)
-    if (form && (!form.action || form.action.trim() === '')) {
-      form.action = DEFAULT_FORM_ACTION;
-    }
-
-    // Accessibility: close modal on ESC
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && successModal && !successModal.classList.contains('hidden')) {
-        closeSuccess.click();
-      }
-    });
-
-    // Helper: show status
-    function showStatus(msg, timeout=4000) {
-      if (statusEl) {
-        statusEl.textContent = msg;
-        if (timeout) setTimeout(()=> { if (statusEl) statusEl.textContent === msg ? statusEl.textContent = '' : null; }, timeout);
-      } else {
-        console.log('[contact] status:', msg);
-      }
-    }
-
-    // Form submit handler (robust)
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      // honeypot check
-      const hp = document.getElementById('hp-field')?.value;
-      if (hp && hp.trim() !== '') {
-        showStatus('Spam detected — message not sent.');
-        return;
-      }
-
-      // basic client validation
-      const name = form.querySelector('#name');
-      const email = form.querySelector('#email');
-      const message = form.querySelector('#message');
-      if (!name.value.trim() || !email.value.trim() || !message.value.trim()) {
-        showStatus('Please complete the required fields.');
-        return;
-      }
-
-      // UI feedback
-      if (sendBtn) sendBtn.disabled = true;
-      if (spinner) spinner.classList.remove('hidden');
-      if (sendLabel) sendLabel.textContent = 'Sending...';
-
-      const data = new FormData(form);
-
-      try {
-        if (form.action) {
-          const resp = await fetch(form.action, {
-            method: form.method || 'POST',
-            body: data,
-            headers: { 'Accept': 'application/json' }
-          });
-
-          if (resp.ok) {
-            onSendSuccess();
-          } else {
-            // try parse json, fallback to text
-            const json = await resp.json().catch(()=>null);
-            const text = await resp.text().catch(()=>null);
-            const errMsg = json?.error || json?.message || (text ? text : ('There was an error sending the message (' + resp.status + ')'));
-            showStatus(errMsg, 6000);
-            console.error('Form submission error:', resp.status, json || text);
-          }
-        } else {
-          console.log('Form data (demo):', Object.fromEntries(data.entries()));
-          onSendSuccess('(demo) message logged to console');
-        }
-      } catch (err) {
-        console.error('Network/fetch error:', err);
-        showStatus('Network error. Please try again later.', 6000);
-      } finally {
-        if (sendBtn) sendBtn.disabled = false;
-        if (spinner) spinner.classList.add('hidden');
-        if (sendLabel) sendLabel.textContent = 'Send Message';
-      }
-    });
-
-    function onSendSuccess(extra='') {
-      const successInfo = document.getElementById('success-info');
-      if (successInfo) successInfo.textContent = 'Thanks — we received your message and will reply shortly.' + (extra ? ' ' + extra : '');
-      if (successModal) {
-        successModal.classList.remove('hidden');
-        successModal.classList.add('flex');
-        successModal.setAttribute('aria-hidden', 'false');
-      }
-      if (form) form.reset();
-      showStatus('Message sent — thank you!', 3000);
-    }
-
-    closeSuccess.addEventListener('click', () => {
-      if (successModal) {
-        successModal.classList.add('hidden');
-        successModal.classList.remove('flex');
-        successModal.setAttribute('aria-hidden', 'true');
-      }
-    });
-
-    // mobile menu toggle
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    mobileMenuButton?.addEventListener('click', () => {
-      const expanded = mobileMenu.classList.toggle('hidden');
-      mobileMenuButton.setAttribute('aria-expanded', String(!expanded));
-      mobileMenu.setAttribute('aria-hidden', String(expanded));
-    });
-
-  })();
-  </script>
-
-  <!-- WhatsApp Floating Chat Button -->
-  <a href="https://wa.me/917827491801?text=Hi%20Gems%20of%20Nature,%20I%20need%20help%20with%20a%20gemstone."
-     class="fixed bottom-20 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-sm font-semibold transition-all z-50"
-     target="_blank" rel="noopener">
-    <img src="images/social/whatsapp.png" class="w-6 h-6" alt="WhatsApp">
-    Chat with Us
-  </a>
+<!-- Scripts -->
+<script src="js/layout.js"></script>
+<script>
+  const MAP = 'https://www.google.com/maps?q=Maharshi+Valmiki+Marg+Karkarduma+Complex+Anand+Vihar+Delhi+110092&output=embed';
+  document.getElementById('map-wrap').innerHTML = `<iframe src="${MAP}" class="w-full h-64 md:h-72" style="border:0" loading="lazy"></iframe>`;
+</script>
 
 </body>
 </html>

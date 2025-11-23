@@ -26,68 +26,23 @@
   </style>
 </head>
 
-<body class="bg-white text-gray-800 font-montserrat">
-
-  <!-- Navbar -->
-  <header class="bg-emerald-900 text-white shadow-md">
-    <nav class="container mx-auto flex justify-between items-center py-4 px-6">
-      <!-- Logo -->
-      <a href="index.html" class="flex items-center">
-        <img src="images/logo.png" alt="Gems of Nature Logo" class="h-12 w-auto" loading="lazy">
-        <span class="ml-3 text-2xl font-bold">Gems of Nature</span>
-      </a>
-
-      <!-- Desktop Links -->
-      <ul class="hidden md:flex gap-6 text-lg">
-        <li><a href="index.html" class="hover:text-emerald-300 transition">Home</a></li>
-        <li><a href="about.html" class="hover:text-emerald-300 transition font-semibold text-emerald-300">About Us</a></li>
-        <li><a href="shop.html" class="hover:text-emerald-300 transition">Collections</a></li>
-        <li><a href="contact.html" class="hover:text-emerald-300 transition">Contact</a></li>
-        <li><a href="astrology.consultation.html" class="hover:text-emerald-300 transition">Astrology & Consultation</a></li>
-
-      </ul>
-
-      <!-- Right: Buy Online + Cart + Mobile -->
-      <div class="flex items-center gap-4">
-        <a href="shop-ecom.html" class="hidden md:inline-block bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold">Buy Online</a>
-        <a href="shop-ecom.html" aria-label="Cart" class="text-2xl">🛒</a>
-        <button id="mobile-menu-button" class="text-2xl md:hidden focus:outline-none">☰</button>
-      </div>
-    </nav>
-
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden bg-emerald-800 md:hidden">
-      <ul class="flex flex-col gap-4 px-6 py-4">
-        <li><a href="index.html" class="block hover:text-emerald-300 transition">Home</a></li>
-        <li><a href="about.html" class="block hover:text-emerald-300 transition font-semibold">About Us</a></li>
-        <li><a href="shop.html" class="block hover:text-emerald-300 transition">Collections</a></li>
-        <li><a href="shop-ecom.html" class="block hover:text-emerald-300 transition">Buy Online</a></li>
-        <li><a href="contact.html" class="block hover:text-emerald-300 transition">Contact</a></li>
-        <li><a href="astrology.consultation.html" class="hover:text-emerald-300 transition">Astrology & Consultation</a></li>
-      </ul>
-    </div>
-  </header>
-
-  <script>
-    // mobile menu toggle
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    mobileMenuButton?.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-  </script>
+<body>
+  <!-- Header placeholder (filled by js/layout.js) -->
+  <div id="header"></div>
 
   <!-- Hero / Banner (warm citrine gradient over image) -->
   <section class="relative bg-cover bg-center h-64 md:h-96" style="
-  background-image: linear-gradient(135deg, rgba(0,140,120,0.35), rgba(0,90,65,0.55)),
-                    url('images/about-gems.jpg');
-  background-blend-mode: overlay;
-  background-size: cover;
-  background-position: center;">
-
-
+    background-image: linear-gradient(135deg, rgba(0,140,120,0.35), rgba(0,90,65,0.55)),
+                      url('images/about-gems.jpg');
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;">
     <div class="absolute inset-0 bg-black/25 flex items-center justify-center">
       <div class="text-center text-white px-6">
         <h1 class="text-3xl md:text-5xl font-bold drop-shadow-lg">About Gems of Nature</h1>
-        <p class="mt-3 text-sm md:text-lg max-w-2xl mx-auto">Ethically-sourced gemstones, crafted for healing, jewelry and meaningful gifts.</p>
+        <p class="mt-3 text-sm md:text-lg max-w-2xl mx-auto">
+          Ethically-sourced gemstones, crafted for healing, jewelry and meaningful gifts.
+        </p>
       </div>
     </div>
   </section>
@@ -100,10 +55,14 @@
           <div>
             <h2 class="text-3xl font-bold section-title mb-4">Our Mission</h2>
             <p class="text-gray-700 leading-relaxed text-lg">
-              At <span class="font-semibold">Gems of Nature</span> our mission is to bring transparent, ethical and sustainable gemstones directly to you.
-              We partner with small-scale miners and trusted suppliers so every stone we sell has a clear origin and supports fair practices.
+              At <span class="font-semibold">Gems of Nature</span> our mission is to bring transparent,
+              ethical and sustainable gemstones directly to you.
+              We partner with small-scale miners and trusted suppliers so every stone we sell
+              has a clear origin and supports fair practices.
             </p>
-            <p class="mt-4 text-gray-700">Buying from us means supporting safer mines, fair wages and traceability across the supply chain.</p>
+            <p class="mt-4 text-gray-700">
+              Buying from us means supporting safer mines, fair wages and traceability across the supply chain.
+            </p>
           </div>
 
           <div class="space-y-4">
@@ -127,15 +86,21 @@
       <div class="grid md:grid-cols-3 gap-6">
         <div class="bg-white p-6 card">
           <h3 class="text-xl font-semibold text-emerald-700 mb-2">Curated Collections</h3>
-          <p class="text-gray-700">Loose stones, beads, cabochons and specimens hand-selected for energy and quality.</p>
+          <p class="text-gray-700">
+            Loose stones, beads, cabochons and specimens hand-selected for energy and quality.
+          </p>
         </div>
         <div class="bg-white p-6 card">
           <h3 class="text-xl font-semibold text-emerald-700 mb-2">Custom Orders</h3>
-          <p class="text-gray-700">Jewellery-ready stones and bespoke sourcing for designers and collectors.</p>
+          <p class="text-gray-700">
+            Jewellery-ready stones and bespoke sourcing for designers and collectors.
+          </p>
         </div>
         <div class="bg-white p-6 card">
           <h3 class="text-xl font-semibold text-emerald-700 mb-2">Education</h3>
-          <p class="text-gray-700">Guides and care tips so you choose the right stone for your intention.</p>
+          <p class="text-gray-700">
+            Guides and care tips so you choose the right stone for your intention.
+          </p>
         </div>
       </div>
 
@@ -162,17 +127,20 @@
       <h2 class="text-3xl font-bold section-title mb-6">Meet the Team</h2>
       <div class="grid sm:grid-cols-3 gap-6">
         <div class="bg-white p-6 text-center card">
-          <img src="images/team-param.jpg" alt="Paramjeet Singh" loading="lazy" class="mx-auto rounded-full h-28 w-28 object-cover mb-4">
+          <img src="images/team-param.jpg" alt="Paramjeet Singh" loading="lazy"
+               class="mx-auto rounded-full h-28 w-28 object-cover mb-4">
           <h4 class="font-semibold">Paramjeet Singh</h4>
           <p class="text-sm text-gray-600 mt-1">Founder • Sourcing & Quality</p>
         </div>
         <div class="bg-white p-6 text-center card">
-          <img src="images/team-2.jpg" alt="Team member" loading="lazy" class="mx-auto rounded-full h-28 w-28 object-cover mb-4">
+          <img src="images/team-2.jpg" alt="Team member" loading="lazy"
+               class="mx-auto rounded-full h-28 w-28 object-cover mb-4">
           <h4 class="font-semibold">Rupinder Kaur</h4>
           <p class="text-sm text-gray-600 mt-1">Customer Care & Logistics</p>
         </div>
         <div class="bg-white p-6 text-center card">
-          <img src="images/team-3.jpg" alt="Team member" loading="lazy" class="mx-auto rounded-full h-28 w-28 object-cover mb-4">
+          <img src="images/team-3.jpg" alt="Team member" loading="lazy"
+               class="mx-auto rounded-full h-28 w-28 object-cover mb-4">
           <h4 class="font-semibold">Vishal Sadh</h4>
           <p class="text-sm text-gray-600 mt-1">Photography & Catalog</p>
         </div>
@@ -190,7 +158,9 @@
           <div class="min-w-[56px] h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold">01</div>
           <div>
             <h4 class="font-semibold">Transparency</h4>
-            <p class="text-gray-700">We share origin details, clear photos and provide care instructions for every product.</p>
+            <p class="text-gray-700">
+              We share origin details, clear photos and provide care instructions for every product.
+            </p>
           </div>
         </div>
 
@@ -198,7 +168,9 @@
           <div class="min-w-[56px] h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold">02</div>
           <div>
             <h4 class="font-semibold">Ethics</h4>
-            <p class="text-gray-700">We support fair wages, sustainable extraction and small-scale miners.</p>
+            <p class="text-gray-700">
+              We support fair wages, sustainable extraction and small-scale miners.
+            </p>
           </div>
         </div>
 
@@ -206,7 +178,9 @@
           <div class="min-w-[56px] h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold">03</div>
           <div>
             <h4 class="font-semibold">Quality</h4>
-            <p class="text-gray-700">We verify notable pieces with independent gem labs and maintain strict quality control.</p>
+            <p class="text-gray-700">
+              We verify notable pieces with independent gem labs and maintain strict quality control.
+            </p>
           </div>
         </div>
       </div>
@@ -218,10 +192,18 @@
     <div class="container mx-auto max-w-4xl text-center fade-in">
       <div class="bg-white p-8 card">
         <h3 class="text-2xl font-bold section-title">Ready to explore our collection?</h3>
-        <p class="text-gray-700 mt-3">Browse hand-selected gemstones or contact us for custom sourcing.</p>
+        <p class="text-gray-700 mt-3">
+          Browse hand-selected gemstones or contact us for custom sourcing.
+        </p>
         <div class="mt-6 flex justify-center gap-4">
-          <a href="shop.html" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full font-semibold">Explore Collections</a>
-          <a href="contact.html" class="border border-emerald-600 text-emerald-600 px-6 py-3 rounded-full hover:bg-emerald-600 hover:text-white transition">Contact Us</a>
+          <a href="shop.html"
+             class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full font-semibold">
+            Explore Collections
+          </a>
+          <a href="contact.html"
+             class="border border-emerald-600 text-emerald-600 px-6 py-3 rounded-full hover:bg-emerald-600 hover:text-white transition">
+            Contact Us
+          </a>
         </div>
       </div>
     </div>
@@ -232,71 +214,31 @@
     <div class="container mx-auto px-6 text-center max-w-2xl">
       <h3 class="text-lg font-semibold text-emerald-800 mb-2">Join our mailing list</h3>
       <p class="text-sm text-gray-600 mb-4">Receive updates and special offers.</p>
-      <form action="https://formspree.io/f/mzzybgop" method="POST" class="flex flex-col sm:flex-row gap-3 justify-center">
-  <input type="email" name="email" required placeholder="Enter your email"
-         class="border border-gray-300 rounded-lg px-4 py-2 w-full sm:w-auto flex-1 focus:outline-none focus:ring-2 focus:ring-emerald-400">
-  <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">Subscribe</button>
-</form>
-
+      <form action="https://formspree.io/f/mzzybgop" method="POST"
+            class="flex flex-col sm:flex-row gap-3 justify-center">
+        <input type="email" name="email" required placeholder="Enter your email"
+               class="border border-gray-300 rounded-lg px-4 py-2 w-full sm:w-auto flex-1
+                      focus:outline-none focus:ring-2 focus:ring-emerald-400">
+        <button type="submit"
+                class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+          Subscribe
+        </button>
+      </form>
     </div>
   </section>
 
-  <!-- FOOTER -->
-<footer class="bg-emerald-900 text-white py-6 mt-12">
-  <div class="max-w-7xl mx-auto footer-inner flex flex-col md:flex-row items-center justify-between gap-4 px-6">
+  <!-- Footer placeholder (filled by js/layout.js) -->
+  <div id="footer"></div>
 
-    <!-- Copyright -->
-    <div class="text-sm footer-nowrap">
-      &copy; 2025 <strong>Gems of Nature</strong>. All rights reserved.
-    </div>
+  <!-- WhatsApp Floating Chat Button -->
+  <a href="https://wa.me/917827491801?text=Hi%20Gems%20of%20Nature,%20I%20need%20help%20with%20a%20gemstone."
+     class="fixed bottom-20 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-sm font-semibold transition-all z-50"
+     target="_blank" rel="noopener">
+    <img src="images/social/whatsapp.png" class="w-6 h-6" alt="WhatsApp">
+    Chat with Us
+  </a>
 
-    <!-- Tagline -->
-    <div class="text-sm text-emerald-100 font-medium text-center">
-      100% natural stones • Secure payments • Fast shipping • 7-day returns
-    </div>
-
-    <!-- Social Links (PNG icons + labels) -->
-<div class="flex items-center justify-center gap-8 ml-2">
-      <!-- Facebook -->
-      <a
-        href="https://www.facebook.com/profile.php?id=61581929357076"
-        target="_blank" rel="noopener noreferrer"
-        class="flex items-center gap-2 hover:opacity-90 transition"
-      >
-        <img src="images/social/facebook.png" alt="Facebook" class="w-6 h-6 rounded-full shadow-md">
-        <span class="text-sm font-medium">Facebook</span>
-      </a>
-
-      <!-- Instagram -->
-      <a
-        href="https://www.instagram.com/gemsofnatureshop"
-        target="_blank" rel="noopener noreferrer"
-        class="flex items-center gap-2 hover:opacity-90 transition"
-      >
-        <img src="images/social/instagram.png" alt="Instagram" class="w-6 h-6 rounded-md shadow-md">
-        <span class="text-sm font-medium">Instagram</span>
-      </a>
-
-      <!-- LinkedIn -->
-      <a
-        href="https://www.linkedin.com/company/gems-of-nature"
-        target="_blank" rel="noopener noreferrer"
-        class="flex items-center gap-2 hover:opacity-90 transition"
-      >
-        <img src="images/social/linkedin.png" alt="LinkedIn" class="w-6 h-6 rounded-md shadow-md">
-        <span class="text-sm font-medium">LinkedIn</span>
-      </a>
-    </div>
-  </div>
-</footer>
-
-<!-- WhatsApp Floating Chat Button -->
-<a href="https://wa.me/917827491801?text=Hi%20Gems%20of%20Nature,%20I%20need%20help%20with%20a%20gemstone."
-   class="fixed bottom-20 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-sm font-semibold transition-all z-50"
-   target="_blank" rel="noopener">
-  <img src="images/social/whatsapp.png" class="w-6 h-6" alt="WhatsApp">
-  Chat with Us
-</a>
+  <!-- Shared layout script (injects header + footer, handles mobile menu, highlights active page) -->
+  <script src="js/layout.js"></script>
 </body>
 </html>
-

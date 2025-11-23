@@ -34,7 +34,10 @@
     /* Make main fill remaining space so footer sits at bottom */
     main { flex: 1 0 auto; }
 
-    body, button, input, textarea { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    body, button, input, textarea {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
     /* Fade-in animation */
     .fade-in {
@@ -104,1078 +107,1106 @@
 
 <body class="bg-white text-gray-800 antialiased">
 
-<!-- Navbar -->
-<header class="bg-emerald-900 text-white shadow-md">
-  <nav class="max-w-7xl mx-auto flex justify-between items-center py-4 px-6">
-    <!-- Logo -->
-    <a href="index.html" class="flex items-center shrink-0">
-      <img src="images/logo.png" alt="Gems of Nature Logo" class="h-12 w-auto" loading="lazy">
-      <span class="ml-3 text-2xl font-bold">Gems of Nature</span>
-    </a>
+  <!-- Shared Header placeholder -->
+  <div id="header"></div>
 
-    <!-- Navigation links -->
-    <ul class="hidden md:flex gap-6 text-lg">
-      <li><a href="index.html" class="hover:text-emerald-300 transition">Home</a></li>
-      <li><a href="about.html" class="hover:text-emerald-300 transition">About Us</a></li>
-      <li><a href="shop.html" class="hover:text-emerald-300 transition">Collections</a></li>
-      <li><a href="contact.html" class="hover:text-emerald-300 transition">Contact</a></li>
-      <li><a href="astrology.consultation.html" class="hover:text-emerald-300 transition">Astrology & Consultation</a></li>
-    </ul>
+  <!-- MAIN: page content -->
+  <main class="flex-1">
 
-    <!-- Right side: Buy Online + Cart -->
-    <div class="flex items-center gap-4">
-      <a href="shop-ecom.html" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold hidden md:inline-block transition-colors">
-        Buy Online
-      </a>
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-cover bg-center min-h-[55vh] fade-in"
+      style="background-image: url('images/hero-bg.jpg');">
+      <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60
+                  flex flex-col justify-center items-center text-center text-white px-6">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Discover the Healing Power of Nature</h1>
+        <p class="text-lg md:text-xl mb-6 max-w-2xl">
+          Pure gemstones and crystals that balance your energy, attract prosperity, and enhance your inner glow.
+        </p>
 
-      <a href="shop-ecom.html" class="text-2xl cursor-pointer" aria-label="Open Cart">🛒</a>
-
-      <!-- Mobile menu button -->
-      <button id="mobile-menu-button" class="text-2xl md:hidden focus:outline-none" aria-expanded="false" aria-controls="mobile-menu">☰</button>
-    </div>
-  </nav>
-
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden bg-emerald-800 md:hidden" aria-hidden="true">
-    <ul class="flex flex-col gap-4 px-6 py-4">
-      <li><a href="index.html" class="block hover:text-emerald-300 transition">Home</a></li>
-      <li><a href="about.html" class="block hover:text-emerald-300 transition">About Us</a></li>
-      <li><a href="shop.html" class="block hover:text-emerald-300 transition">Collections</a></li>
-      <li><a href="shop-ecom.html" class="block hover:text-emerald-300 transition font-semibold">Buy Online</a></li>
-      <li><a href="contact.html" class="block hover:text-emerald-300 transition">Contact</a></li>
-      <li><a href="astrology.consultation.html" class="hover:text-emerald-300 transition">Astrology & Consultation</a></li>
-    </ul>
-  </div>
-</header>
-
-<script>
-  const mobileMenuButton = document.getElementById('mobile-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
-  if (mobileMenuButton) {
-    mobileMenuButton.addEventListener('click', () => {
-      const hidden = mobileMenu.classList.toggle('hidden');
-      mobileMenuButton.setAttribute('aria-expanded', String(!hidden));
-      mobileMenu.setAttribute('aria-hidden', String(hidden));
-    });
-  }
-</script>
-
-<!-- MAIN: page content grows -->
-<main>
-
-  <!-- Hero Section -->
-  <section id="home" class="relative bg-cover bg-center min-h-[55vh] fade-in" style="background-image: url('images/hero-bg.jpg');">
-    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60 flex flex-col justify-center items-center text-center text-white px-6">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4">Discover the Healing Power of Nature</h1>
-      <p class="text-lg md:text-xl mb-6 max-w-2xl">
-        Pure gemstones and crystals that balance your energy, attract prosperity, and enhance your inner glow.
-      </p>
-
-      <div class="flex flex-col sm:flex-row gap-3">
-        <a href="shop-ecom.html" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-full transition-colors duration-300">Shop Now</a>
-        <a href="shop.html" class="border border-white/40 text-white font-semibold px-6 py-3 rounded-full hover:bg-white/5 transition duration-300 hidden sm:inline-block">Explore Collections</a>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a href="shop-ecom.html"
+             class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-full transition-colors duration-300">
+            Shop Now
+          </a>
+          <a href="shop.html"
+             class="border border-white/40 text-white font-semibold px-6 py-3 rounded-full hover:bg-white/5 transition duration-300 hidden sm:inline-block">
+            Explore Collections
+          </a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- 🔮 GEM RECOMMENDATION QUIZ WIDGET -->
-  <section id="recommendation-widget" class="container mx-auto px-4 py-8">
-    <div class="bg-white rounded-2xl shadow-lg p-4 border border-emerald-100">
-      <h2 class="text-2xl font-bold text-emerald-700 mb-3">
-        Find Your Perfect Gemstone 🔍✨
-      </h2>
-      <p class="text-gray-600 mb-3 text-sm">
-        Answer 3 quick questions and get 3 personalized recommendations.
-      </p>
-      <div id="rec-quiz" class="mt-2 grid gap-2"></div>
-      <div id="rec-results" class="mt-2"></div>
-    </div>
-  </section>
+    <!-- 🔮 GEM RECOMMENDATION QUIZ WIDGET -->
+    <section id="recommendation-widget" class="container mx-auto px-4 py-8">
+      <div class="bg-white rounded-2xl shadow-lg p-4 border border-emerald-100">
+        <h2 class="text-2xl font-bold text-emerald-700 mb-3">
+          Find Your Perfect Gemstone 🔍✨
+        </h2>
+        <p class="text-gray-600 mb-3 text-sm">
+          Answer 3 quick questions and get 3 personalized recommendations.
+        </p>
+        <div id="rec-quiz" class="mt-2 grid gap-2"></div>
+        <div id="rec-results" class="mt-2"></div>
+      </div>
+    </section>
 
-  <!-- Collections Section -->
-  <section id="collections" class="py-20 bg-gray-50 text-center fade-in">
-    <div class="max-w-7xl mx-auto px-6">
-      <h2 class="text-3xl font-bold mb-10 text-gray-800">Our Collections</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        <!-- Card 1 -->
-        <div class="bg-white p-6 rounded-2xl card-base group overflow-hidden">
-          <div class="relative mb-4">
-            <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto bg-white/0">
-              <img src="images/products/amethyst.jpg" alt="Amethyst - Healing Stones" loading="lazy" class="w-full h-full object-cover block">
+    <!-- Collections Section -->
+    <section id="collections" class="py-20 bg-gray-50 text-center fade-in">
+      <div class="max-w-7xl mx-auto px-6">
+        <h2 class="text-3xl font-bold mb-10 text-gray-800">Our Collections</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Card 1 -->
+          <div class="bg-white p-6 rounded-2xl card-base group overflow-hidden">
+            <div class="relative mb-4">
+              <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto bg-white/0">
+                <img src="images/products/amethyst.jpg" alt="Amethyst - Healing Stones"
+                     loading="lazy" class="w-full h-full object-cover block">
+              </div>
+              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
             </div>
-            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
+            <h3 class="text-xl font-semibold mb-2 text-emerald-700">Healing Stones</h3>
+            <p class="text-sm text-gray-600">Crystals like Amethyst & Rose Quartz to cleanse your energy.</p>
           </div>
-          <h3 class="text-xl font-semibold mb-2 text-emerald-700">Healing Stones</h3>
-          <p class="text-sm text-gray-600">Crystals like Amethyst & Rose Quartz to cleanse your energy.</p>
-        </div>
 
-        <!-- Card 2 -->
-        <div class="bg-white p-6 rounded-2xl card-base group overflow-hidden">
-          <div class="relative mb-4">
-            <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto bg-white/0">
-              <img src="images/products/emerald.jpg" alt="Zodiac Gems" loading="lazy" class="w-full h-full object-cover block">
+          <!-- Card 2 -->
+          <div class="bg-white p-6 rounded-2xl card-base group overflow-hidden">
+            <div class="relative mb-4">
+              <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto bg-white/0">
+                <img src="images/products/emerald.jpg" alt="Zodiac Gems"
+                     loading="lazy" class="w-full h-full object-cover block">
+              </div>
+              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
             </div>
-            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
+            <h3 class="text-xl font-semibold mb-2 text-emerald-700">Zodiac Gems</h3>
+            <p class="text-sm text-gray-600">Find your birthstone and attract cosmic harmony aligned to your sign.</p>
           </div>
-          <h3 class="text-xl font-semibold mb-2 text-emerald-700">Zodiac Gems</h3>
-          <p class="text-sm text-gray-600">Find your birthstone and attract cosmic harmony aligned to your sign.</p>
-        </div>
 
-        <!-- Card 3 -->
-        <div class="bg-white p-6 rounded-2xl card-base group overflow-hidden">
-          <div class="relative mb-4">
-            <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto bg-white/0">
-              <img src="images/products/bracelets.jpg" alt="Bracelets" loading="lazy" class="w-full h-full object-cover block">
+          <!-- Card 3 -->
+          <div class="bg-white p-6 rounded-2xl card-base group overflow-hidden">
+            <div class="relative mb-4">
+              <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto bg-white/0">
+                <img src="images/products/bracelets.jpg" alt="Bracelets"
+                     loading="lazy" class="w-full h-full object-cover block">
+              </div>
+              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
             </div>
-            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
+            <h3 class="text-xl font-semibold mb-2 text-emerald-700">Bracelets</h3>
+            <p class="text-sm text-gray-600">Handcrafted gemstone bracelets for energy balance & style.</p>
           </div>
-          <h3 class="text-xl font-semibold mb-2 text-emerald-700">Bracelets</h3>
-          <p class="text-sm text-gray-600">Handcrafted gemstone bracelets for energy balance & style.</p>
-        </div>
 
-        <!-- Card 4 -->
-        <div class="bg-white p-6 rounded-2xl card-base group overflow-hidden">
-          <div class="relative mb-4">
-            <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto bg-white/0">
-              <img src="images/products/raw-stone.jpg" alt="Raw Stones" loading="lazy" class="w-full h-full object-cover block">
+          <!-- Card 4 -->
+          <div class="bg-white p-6 rounded-2xl card-base group overflow-hidden">
+            <div class="relative mb-4">
+              <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto bg-white/0">
+                <img src="images/products/raw-stone.jpg" alt="Raw Stones"
+                     loading="lazy" class="w-full h-full object-cover block">
+              </div>
+              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
             </div>
-            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
+            <h3 class="text-xl font-semibold mb-2 text-emerald-700">Raw Stones</h3>
+            <p class="text-sm text-gray-600">Natural, unpolished stones charged with divine vibrations.</p>
           </div>
-          <h3 class="text-xl font-semibold mb-2 text-emerald-700">Raw Stones</h3>
-          <p class="text-sm text-gray-600">Natural, unpolished stones charged with divine vibrations.</p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Rudraksha Products Section -->
-  <section id="featured" class="py-20 px-6 bg-gradient-to-b from-white to-emerald-50 text-center fade-in">
-    <div class="max-w-7xl mx-auto">
-      <h2 class="text-3xl font-bold mb-6 text-[#034C3C]">
-        100% Pure & Certified <span class="text-[#D4AF37]">Nepali Rudraksha</span>
-      </h2>
-      <p class="text-gray-700 mb-12">Customized, Energised & Delivered with Divine Intent</p>
+    <!-- Rudraksha Products Section -->
+    <section id="featured" class="py-20 px-6 bg-gradient-to-b from-white to-emerald-50 text-center fade-in">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-3xl font-bold mb-6 text-[#034C3C]">
+          100% Pure & Certified <span class="text-[#D4AF37]">Nepali Rudraksha</span>
+        </h2>
+        <p class="text-gray-700 mb-12">Customized, Energised & Delivered with Divine Intent</p>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 px-4">
-        <!-- 1 Mukhi -->
-        <div class="bg-white p-6 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
-          <img src="images/products/rudraksha-1.jpg" alt="1 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
-          <h3 class="text-lg font-semibold text-[#034C3C]">1 Mukhi Rudraksha</h3>
-          <p class="text-sm text-gray-600">Represents Lord Shiva, brings moksha and supreme focus.</p>
-        </div>
-
-        <!-- 2 Mukhi -->
-        <div class="bg-white p-6 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
-          <img src="images/products/rudraksha-2.jpg" alt="2 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
-          <h3 class="text-lg font-semibold text-[#034C3C]">2 Mukhi Rudraksha</h3>
-          <p class="text-sm text-gray-600">Symbol of Ardhanarishvara — unity, peace & harmony.</p>
-        </div>
-
-        <!-- 3 Mukhi -->
-        <div class="bg-white p-6 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
-          <img src="images/products/rudraksha-3.jpg" alt="3 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
-          <h3 class="text-lg font-semibold text-[#034C3C]">3 Mukhi Rudraksha</h3>
-          <p class="text-sm text-gray-600">Removes past karma, brings purity and confidence.</p>
-        </div>
-
-        <!-- 4 Mukhi -->
-        <div class="bg-white p-6 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
-          <img src="images/products/rudraksha-4.jpg" alt="4 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
-          <h3 class="text-lg font-semibold text-[#034C3C]">4 Mukhi Rudraksha</h3>
-          <p class="text-sm text-gray-600">Linked to Lord Brahma — enhances creativity & learning.</p>
-        </div>
-
-        <!-- 5 Mukhi -->
-        <div class="bg-white p-6 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
-          <img src="images/products/rudraksha-5.jpg" alt="5 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
-          <h3 class="text-lg font-semibold text-[#034C3C]">5 Mukhi Rudraksha</h3>
-          <p class="text-sm text-gray-600">Most common bead — brings calm, focus & spiritual upliftment.</p>
-        </div>
-
-        <!-- 6 Mukhi -->
-        <div class="bg-white p-6 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
-          <img src="images/products/rudraksha-6.jpg" alt="6 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
-          <h3 class="text-lg font-semibold text-[#034C3C]">6 Mukhi Rudraksha</h3>
-          <p class="text-sm text-gray-600">Blessed by Kartikeya — boosts vitality, charm & self-control.</p>
-        </div>
-
-        <!-- 7 Mukhi -->
-        <div class="bg-white p-6 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
-          <img src="images/products/rudraksha-7.jpg" alt="7 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
-          <h3 class="text-lg font-semibold text-[#034C3C]">7 Mukhi Rudraksha</h3>
-          <p class="text-sm text-gray-600">Symbol of Goddess Lakshmi — attracts wealth & abundance.</p>
-        </div>
-
-        <!-- 8 Mukhi -->
-        <div class="bg-white p-6 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
-          <img src="images/products/rudraksha-8.jpg" alt="8 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
-          <h3 class="text-lg font-semibold text-[#034C3C]">8 Mukhi Rudraksha</h3>
-          <p class="text-sm text-gray-600">Removes obstacles, linked to Lord Ganesha’s blessings.</p>
-        </div>
-
-        <!-- 9 Mukhi -->
-        <div class="bg-white p-6 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
-          <img src="images/products/rudraksha-9.jpg" alt="9 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
-          <h3 class="text-lg font-semibold text-[#034C3C]">9 Mukhi Rudraksha</h3>
-          <p class="text-sm text-gray-600">Goddess Durga’s power — grants courage & victory over fear.</p>
-        </div>
-
-        <!-- 10 Mukhi -->
-        <div class="bg-white p-6 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
-          <img src="images/products/rudraksha-10.jpg" alt="10 Mukhi Rudraksha" loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
-          <h3 class="text-lg font-semibold text-[#034C3C]">10 Mukhi Rudraksha</h3>
-          <p class="text-sm text-gray-600">Protects from evil & negative energies, symbol of Vishnu.</p>
-        </div>
-      </div>
-
-      <!-- Additional Spiritual Products -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 mt-16 px-4">
-        <!-- Rudraksha Mala -->
-        <div class="bg-white p-8 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
-          <img src="images/products/rudraksha-mala.jpg" alt="Rudraksha Mala" loading="lazy" class="mx-auto w-56 h-56 object-contain mb-4">
-          <h3 class="text-xl font-semibold text-[#034C3C]">Rudraksha Beads & Mala</h3>
-          <p class="text-sm text-gray-600">Handcrafted & Energised for Daily Spiritual Practice.</p>
-        </div>
-
-        <!-- Rudraksha Locket -->
-        <div class="bg-white p-8 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
-          <img src="images/products/rudraksha-accessories.jpg" alt="Rudraksha Locket" loading="lazy" class="mx-auto w-56 h-56 object-contain mb-4">
-          <h3 class="text-xl font-semibold text-[#034C3C]">Rudraksha Locket</h3>
-          <p class="text-sm text-gray-600">Powerful talisman combining Rudraksha with sacred metals.</p>
-        </div>
-
-        <!-- Rudraksha Bracelet -->
-        <div class="bg-white p-8 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
-          <img src="images/products/rudraksha-bracelet.jpg" alt="Rudraksha Bracelet" loading="lazy" class="mx-auto w-56 h-56 object-contain mb-4">
-          <h3 class="text-xl font-semibold text-[#034C3C]">Rudraksha Bracelet</h3>
-          <p class="text-sm text-gray-600">Balances energy, enhances strength & attracts divine grace.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Newsletter (above footer) -->
-</main>
-
-<!-- MAIN bottom widgets: recommender, chat, authenticity, modals -->
-<!-- Minimal products + cart helpers -->
-<script>
-/*
-  recProducts = list used by the homepage recommender.
-
-  Priority:
-  1) If window.products (from shop-ecom) exists and has items, use that.
-  2) Otherwise use fallback list (some key gemstones + rudraksha).
-*/
-
-const fallbackRecProducts = [
-  /* ⭐ Gemstones */
-  {
-    id: 'p14',
-    name: 'Amethyst',
-    category: 'Semi-Precious',
-    price: 800,
-    image: 'images/products/amethyst.jpg',
-    type: 'gemstone',
-    intentions: ['healing', 'spiritual', 'protection'],
-    chakras: ['third', 'crown'],
-    zodiacs: ['pisces', 'virgo', 'aquarius'],
-    description: 'Soothing crystal for stress relief, sleep, and spiritual connection.'
-  },
-  {
-    id: 'p15',
-    name: 'Citrine',
-    category: 'Semi-Precious',
-    price: 1200,
-    image: 'images/products/citrine.jpg',
-    type: 'gemstone',
-    intentions: ['wealth', 'career', 'confidence'],
-    chakras: ['solar'],
-    zodiacs: ['leo', 'gemini', 'aries'],
-    description: '“Merchant’s stone” – supports money flow, confidence, and willpower.'
-  },
-  {
-    id: 'p33',
-    name: 'Green Aventurine',
-    category: 'Semi-Precious',
-    price: 350,
-    image: 'images/products/aventurine.jpg',
-    type: 'gemstone',
-    intentions: ['wealth', 'luck', 'healing'],
-    chakras: ['heart'],
-    zodiacs: ['taurus', 'libra'],
-    description: 'Stone of opportunity – attracts new chances, prosperity, and gentle heart healing.'
-  },
-  {
-    id: 'p61',
-    name: 'Clear Quartz',
-    category: 'Healing',
-    price: 250,
-    image: 'images/products/clear-quartz.jpg',
-    type: 'gemstone',
-    intentions: ['spiritual', 'healing', 'amplify'],
-    chakras: ['crown', 'third'],
-    zodiacs: [],
-    description: 'Master healer – amplifies intentions and other crystals, clears energetic blockages.'
-  },
-  {
-    id: 'p62',
-    name: 'Black Tourmaline',
-    category: 'Healing',
-    price: 400,
-    image: 'images/products/black-tourmaline.jpg',
-    type: 'gemstone',
-    intentions: ['protection', 'grounding'],
-    chakras: ['root'],
-    zodiacs: ['capricorn'],
-    description: 'Powerful protection stone – shields from negativity and EMF, deeply grounding.'
-  },
-  {
-    id: 'p40',
-    name: 'Morganite',
-    category: 'Semi-Precious',
-    price: 4500,
-    image: 'images/products/morganite.jpg',
-    type: 'gemstone',
-    intentions: ['love', 'heart-healing', 'relationships'],
-    chakras: ['heart'],
-    zodiacs: ['libra', 'cancer'],
-    description: 'High-vibration love stone – emotional healing and soul-level relationships.'
-  },
-  {
-    id: 'p3',
-    name: 'Blue Sapphire',
-    category: 'Precious',
-    price: 42500,
-    image: 'images/products/blue-sapphire.jpg',
-    type: 'gemstone',
-    intentions: ['career', 'focus', 'authority', 'spiritual'],
-    chakras: ['third', 'throat'],
-    zodiacs: ['capricorn', 'aquarius', 'libra'],
-    description: 'Strong Saturn stone – discipline, career growth, authority, and deep insight.'
-  },
-
-  /* 🔱 Rudraksha (fallback, in case not defined in window.products) */
-  {
-    id: 'r1',
-    name: '1 Mukhi Rudraksha',
-    category: 'Rudraksha',
-    price: 21000,
-    image: 'images/products/rudraksha-1.jpg',
-    type: 'rudraksha',
-    mukhi: 1,
-    zodiacs: ['leo'],
-    description: 'Represents Lord Shiva, linked with Leo and spiritual authority.'
-  },
-  {
-    id: 'r2',
-    name: '2 Mukhi Rudraksha',
-    category: 'Rudraksha',
-    price: 3500,
-    image: 'images/products/rudraksha-2.jpg',
-    type: 'rudraksha',
-    mukhi: 2,
-    zodiacs: ['cancer', 'pisces'],
-    description: 'Ardhanarishvara energy – harmony in relationships, good for Cancer & Pisces.'
-  },
-  {
-    id: 'r3',
-    name: '3 Mukhi Rudraksha',
-    category: 'Rudraksha',
-    price: 2500,
-    image: 'images/products/rudraksha-3.jpg',
-    type: 'rudraksha',
-    mukhi: 3,
-    zodiacs: ['aries', 'scorpio'],
-    description: 'Burns past karma and boosts courage, often advised for Aries and Scorpio.'
-  },
-  {
-    id: 'r4',
-    name: '4 Mukhi Rudraksha',
-    category: 'Rudraksha',
-    price: 2200,
-    image: 'images/products/rudraksha-4.jpg',
-    type: 'rudraksha',
-    mukhi: 4,
-    zodiacs: ['gemini', 'virgo'],
-    description: 'Linked to intellect and communication, suitable for Gemini & Virgo.'
-  },
-  {
-    id: 'r5',
-    name: '5 Mukhi Rudraksha',
-    category: 'Rudraksha',
-    price: 600,
-    image: 'images/products/rudraksha-5.jpg',
-    type: 'rudraksha',
-    mukhi: 5,
-    zodiacs: ['sagittarius', 'pisces'],
-    description: 'Common, safe bead – general spiritual growth, often given to Sagittarius & Pisces.'
-  },
-  {
-    id: 'r6',
-    name: '6 Mukhi Rudraksha',
-    category: 'Rudraksha',
-    price: 1800,
-    image: 'images/products/rudraksha-6.jpg',
-    type: 'rudraksha',
-    mukhi: 6,
-    zodiacs: ['taurus', 'libra'],
-    description: 'Connected to Venus – comfort, attraction, and material harmony.'
-  },
-  {
-    id: 'r7',
-    name: '7 Mukhi Rudraksha',
-    category: 'Rudraksha',
-    price: 2600,
-    image: 'images/products/rudraksha-7.jpg',
-    type: 'rudraksha',
-    mukhi: 7,
-    zodiacs: ['capricorn'],
-    description: 'Linked with Saturn and wealth, often recommended for Capricorn.'
-  },
-  {
-    id: 'r8',
-    name: '8 Mukhi Rudraksha',
-    category: 'Rudraksha',
-    price: 3500,
-    image: 'images/products/rudraksha-8.jpg',
-    type: 'rudraksha',
-    mukhi: 8,
-    zodiacs: ['aquarius'],
-    description: 'Removes obstacles, good for Aquarius and people facing heavy obstacles.'
-  },
-  {
-    id: 'r9',
-    name: '9 Mukhi Rudraksha',
-    category: 'Rudraksha',
-    price: 4200,
-    image: 'images/products/rudraksha-9.jpg',
-    type: 'rudraksha',
-    mukhi: 9,
-    zodiacs: ['aries', 'scorpio'],
-    description: 'Durga energy – courage and victory, also used for Mars-related issues.'
-  },
-  {
-    id: 'r10',
-    name: '10 Mukhi Rudraksha',
-    category: 'Rudraksha',
-    price: 5500,
-    image: 'images/products/rudraksha-10.jpg',
-    type: 'rudraksha',
-    mukhi: 10,
-    zodiacs: ['all'],
-    description: 'Vishnu energy – protection from negative influences, generally safe for all.'
-  }
-];
-
-// Prefer your main shop product list if available:
-let recProducts = (Array.isArray(window.products) && window.products.length)
-  ? window.products
-  : fallbackRecProducts;
-
-// Normalise helper: if your main product list doesn’t have intentions/chakras/zodiacs,
-// we can still try to infer a little from the name.
-recProducts = recProducts.map(p => {
-  const copy = { ...p };
-  const name = (copy.name || '').toLowerCase();
-
-  if (!copy.type) {
-    copy.type = name.includes('rudraksha') ? 'rudraksha' : 'gemstone';
-  }
-  copy.intentions = copy.intentions || [];
-  copy.chakras = copy.chakras || [];
-  copy.zodiacs = (copy.zodiacs || []).map(z => String(z).toLowerCase());
-
-  return copy;
-});
-
-window.recProducts = recProducts;
-
-/* Cart stored under 'gon_cart' so same cart works across pages */
-let cart = JSON.parse(localStorage.getItem('gon_cart') || '{}');
-function saveCart() {
-  localStorage.setItem('gon_cart', JSON.stringify(cart));
-  try {
-    if (typeof renderCart === 'function') renderCart();
-  } catch(e) {}
-}
-</script>
-
-
-<!-- 🔮 GEM RECOMMENDER SCRIPT — gemstones + rudraksha by zodiac -->
-<script>
-(function () {
-  const quizContainer = document.getElementById("rec-quiz");
-  const resultsEl = document.getElementById("rec-results");
-  if (!quizContainer || !resultsEl) return;
-
-  // Build quiz UI (same fields, but logic changed)
-  quizContainer.innerHTML = `
-    <div class="grid gap-3 sm:grid-cols-2">
-      <div>
-        <label class="block text-sm font-medium">What is your intention?</label>
-        <select id="rec-purpose" class="border rounded px-3 py-2 w-full">
-          <option value="wealth">Wealth & Prosperity</option>
-          <option value="love">Love & Relationships</option>
-          <option value="protection">Protection</option>
-          <option value="healing">Healing</option>
-          <option value="career">Career & Success</option>
-          <option value="spiritual">Spiritual Growth</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Zodiac Sign (for gemstone & Rudraksha)</label>
-        <select id="rec-zodiac" class="border rounded px-3 py-2 w-full">
-          <option value="">— Select —</option>
-          <option value="aries">Aries</option>
-          <option value="taurus">Taurus</option>
-          <option value="gemini">Gemini</option>
-          <option value="cancer">Cancer</option>
-          <option value="leo">Leo</option>
-          <option value="virgo">Virgo</option>
-          <option value="libra">Libra</option>
-          <option value="scorpio">Scorpio</option>
-          <option value="sagittarius">Sagittarius</option>
-          <option value="capricorn">Capricorn</option>
-          <option value="aquarius">Aquarius</option>
-          <option value="pisces">Pisces</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Budget</label>
-        <select id="rec-budget" class="border rounded px-3 py-2 w-full">
-          <option value="low">Under ₹1,000</option>
-          <option value="mid">₹1,000 — ₹10,000</option>
-          <option value="high">Above ₹10,000</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Chakra Focus (optional)</label>
-        <select id="rec-chakra" class="border rounded px-3 py-2 w-full">
-          <option value="">— Any —</option>
-          <option value="root">Root</option>
-          <option value="sacral">Sacral</option>
-          <option value="solar">Solar Plexus</option>
-          <option value="heart">Heart</option>
-          <option value="throat">Throat</option>
-          <option value="third">Third Eye</option>
-          <option value="crown">Crown</option>
-        </select>
-      </div>
-    </div>
-    <div class="mt-4 flex gap-3">
-      <button id="rec-run" class="bg-emerald-600 text-white px-4 py-2 rounded font-semibold">Find My Gem & Rudraksha</button>
-      <button id="rec-reset" class="border px-4 py-2 rounded">Reset</button>
-    </div>
-  `;
-
-  function prettyBudget(b) {
-    if (b === 'low') return 'Under ₹1,000';
-    if (b === 'mid') return '₹1,000 — ₹10,000';
-    if (b === 'high') return 'Above ₹10,000';
-    return '';
-  }
-
-  const gemstoneProducts = window.recProducts.filter(p => (p.type || '').toLowerCase() !== 'rudraksha');
-  const rudrakshaProducts = window.recProducts.filter(p => (p.type || '').toLowerCase() === 'rudraksha');
-
-  // ⭐ GEMSTONE scoring: intention + chakra + zodiac + budget
-  function scoreGemstones(answers) {
-    return gemstoneProducts.map(p => {
-      let score = 0;
-
-      const intentions = (p.intentions || []).map(x => String(x).toLowerCase());
-      const chakras   = (p.chakras || []).map(x => String(x).toLowerCase());
-      const zodiacs   = (p.zodiacs || []).map(x => String(x).toLowerCase());
-      const name      = (p.name || '').toLowerCase();
-      const price     = Number(p.price || 0);
-
-      // Intention is king
-      if (answers.purpose && intentions.includes(answers.purpose)) score += 14;
-
-      // Chakra match
-      if (answers.chakra && chakras.includes(answers.chakra)) score += 8;
-
-      // Zodiac match
-      if (answers.zodiac && zodiacs.includes(answers.zodiac)) score += 5;
-
-      // Budget match
-      if (answers.budget === 'low' && price > 0 && price < 1000) score += 4;
-      if (answers.budget === 'mid' && price >= 1000 && price <= 10000) score += 4;
-      if (answers.budget === 'high' && price > 10000) score += 4;
-
-      // Soft name-based extras
-      if (answers.purpose === 'healing' && name.includes('quartz')) score += 2;
-      if (answers.purpose === 'spiritual' && (name.includes('amethyst') || name.includes('sapphire'))) score += 2;
-      if (answers.purpose === 'wealth' && (name.includes('citrine') || name.includes('aventurine'))) score += 2;
-
-      return { product: p, score };
-    }).sort((a, b) => b.score - a.score);
-  }
-
-  // 🔱 Rudraksha recommendation purely by zodiac (with mild budget weight)
-  function getRudrakshaForZodiac(zodiac, budget) {
-    if (!zodiac) return [];
-
-    const z = zodiac.toLowerCase();
-
-    // Basic mapping zodiac → preferred mukhi numbers
-    const map = {
-      aries:        [3, 9],
-      taurus:       [6],
-      gemini:       [4],
-      cancer:       [2],
-      leo:          [1],
-      virgo:        [4],
-      libra:        [6],
-      scorpio:      [3, 9],
-      sagittarius:  [5],
-      capricorn:    [7],
-      aquarius:     [8],
-      pisces:       [2, 5]
-    };
-
-    const preferredMukhi = map[z] || [];
-
-    // Filter products that are rudraksha + matching mukhi
-    let candidates = rudrakshaProducts.map(p => {
-      const mukhi = Number(p.mukhi || (p.name || '').match(/^(\d+)\s*mukhi/i)?.[1] || 0);
-      let score = 0;
-
-      if (preferredMukhi.includes(mukhi)) score += 10;
-      if ((p.zodiacs || []).map(x => String(x).toLowerCase()).includes(z)) score += 6;
-
-      const price = Number(p.price || 0);
-      if (budget === 'low' && price > 0 && price < 1500) score += 3;
-      if (budget === 'mid' && price >= 1500 && price <= 8000) score += 3;
-      if (budget === 'high' && price > 8000) score += 3;
-
-      return { product: { ...p, mukhi }, score };
-    }).filter(x => x.score > 0);
-
-    candidates.sort((a, b) => b.score - a.score);
-
-    // Return top 1–2 rudraksha recommendations
-    return candidates.slice(0, 2);
-  }
-
-  function buildMatchTags(p, answers) {
-    const tags = [];
-
-    if (answers.purpose && (p.intentions || []).includes(answers.purpose)) {
-      const labelMap = {
-        wealth: 'Wealth',
-        love: 'Love',
-        protection: 'Protection',
-        healing: 'Healing',
-        career: 'Career',
-        spiritual: 'Spiritual'
-      };
-      tags.push(labelMap[answers.purpose] || answers.purpose);
-    }
-
-    if (answers.chakra && (p.chakras || []).includes(answers.chakra)) {
-      const chakraLabelMap = {
-        root: 'Root Chakra',
-        sacral: 'Sacral Chakra',
-        solar: 'Solar Plexus',
-        heart: 'Heart Chakra',
-        throat: 'Throat Chakra',
-        third: 'Third Eye',
-        crown: 'Crown Chakra'
-      };
-      tags.push(chakraLabelMap[answers.chakra] || answers.chakra);
-    }
-
-    if (answers.zodiac && (p.zodiacs || []).includes(answers.zodiac)) {
-      tags.push(answers.zodiac.charAt(0).toUpperCase() + answers.zodiac.slice(1));
-    }
-
-    return tags;
-  }
-
-  function renderResults(answers) {
-    resultsEl.innerHTML = "";
-
-    const gemstones = scoreGemstones(answers);
-    const topGemstones = gemstones.filter(x => x.score > 0).slice(0, 6); // 🔁 up to 6, not fixed 3
-
-    const summaryParts = [];
-    if (answers.purpose) summaryParts.push(`intention: <strong>${answers.purpose.replace(/^\w/, c => c.toUpperCase())}</strong>`);
-    if (answers.chakra) summaryParts.push(`chakra: <strong>${answers.chakra.replace(/^\w/, c => c.toUpperCase())}</strong>`);
-    if (answers.zodiac) summaryParts.push(`zodiac: <strong>${answers.zodiac.replace(/^\w/, c => c.toUpperCase())}</strong>`);
-    if (answers.budget) summaryParts.push(`budget: <strong>${prettyBudget(answers.budget)}</strong>`);
-
-    if (summaryParts.length) {
-      resultsEl.innerHTML = `
-        <div class="mb-3 text-sm text-gray-700">
-          Based on your ${summaryParts.join(' • ')}, here are your recommendations:
-        </div>
-      `;
-    }
-
-    const container = document.createElement('div');
-    container.className = "space-y-6";
-
-    /* GEMSTONE BLOCK */
-    if (topGemstones.length) {
-      const gemSection = document.createElement('div');
-      gemSection.innerHTML = `<h3 class="text-lg font-semibold text-emerald-700 mb-2">Recommended Gemstones</h3>`;
-      const grid = document.createElement('div');
-      grid.className = "grid gap-4 md:grid-cols-3";
-
-      topGemstones.forEach(item => {
-        const p = item.product;
-        const tags = buildMatchTags(p, answers);
-        const description = p.description || 'Powerful stone for your current intention.';
-
-        const card = document.createElement("div");
-        card.className = "p-4 border rounded-xl shadow bg-white flex flex-col h-full";
-
-        card.innerHTML = `
-          <div class="flex flex-col items-center text-center">
-            <img src="${p.image || 'images/placeholder.jpg'}" class="w-24 h-24 object-cover rounded mb-3" alt="${p.name}">
-            <h4 class="text-base font-semibold text-emerald-700">${p.name}</h4>
-            <p class="text-sm text-gray-600 mt-1">Price: ₹${(p.price || 0).toLocaleString('en-IN')}</p>
-            <p class="text-xs text-gray-500 mt-2">${description}</p>
-            ${
-              tags.length
-                ? `<div class="flex flex-wrap justify-center gap-1 mt-3">
-                    ${tags.map(t => `<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs border border-emerald-100">${t}</span>`).join('')}
-                   </div>`
-                : ''
-            }
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 px-4">
+          <!-- 1–10 Mukhi cards -->
+          <!-- 1 Mukhi -->
+          <div class="bg-white p-6 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
+            <img src="images/products/rudraksha-1.jpg" alt="1 Mukhi Rudraksha"
+                 loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
+            <h3 class="text-lg font-semibold text-[#034C3C]">1 Mukhi Rudraksha</h3>
+            <p class="text-sm text-gray-600">Represents Lord Shiva, brings moksha and supreme focus.</p>
           </div>
-          <div class="mt-4 flex flex-col gap-2">
-            <button
-              class="bg-emerald-600 text-white px-3 py-2 rounded text-sm font-medium add-rec"
-              data-id="${p.id}">
-              Add to Cart
-            </button>
-            <a
-              href="shop-ecom.html?product=${encodeURIComponent(p.id)}"
-              class="border border-emerald-600 text-emerald-700 px-3 py-2 rounded text-sm font-medium text-center">
-              View in Shop
-            </a>
+
+          <!-- 2 Mukhi -->
+          <div class="bg-white p-6 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
+            <img src="images/products/rudraksha-2.jpg" alt="2 Mukhi Rudraksha"
+                 loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
+            <h3 class="text-lg font-semibold text-[#034C3C]">2 Mukhi Rudraksha</h3>
+            <p class="text-sm text-gray-600">Symbol of Ardhanarishvara — unity, peace & harmony.</p>
           </div>
-        `;
-        grid.appendChild(card);
-      });
 
-      gemSection.appendChild(grid);
-      container.appendChild(gemSection);
-    } else {
-      const noGem = document.createElement('div');
-      noGem.className = "p-4 bg-white border rounded text-gray-600";
-      noGem.textContent = "No clear gemstone matches for these options yet — try changing budget or chakra focus.";
-      container.appendChild(noGem);
-    }
+          <!-- 3 Mukhi -->
+          <div class="bg-white p-6 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
+            <img src="images/products/rudraksha-3.jpg" alt="3 Mukhi Rudraksha"
+                 loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
+            <h3 class="text-lg font-semibold text-[#034C3C]">3 Mukhi Rudraksha</h3>
+            <p class="text-sm text-gray-600">Removes past karma, brings purity and confidence.</p>
+          </div>
 
-    /* RUDRAKSHA BLOCK (BY ZODIAC) */
-    if (answers.zodiac) {
-      const rudraMatches = getRudrakshaForZodiac(answers.zodiac, answers.budget);
-      const rudraSection = document.createElement('div');
-      rudraSection.innerHTML = `<h3 class="text-lg font-semibold text-emerald-700 mb-2">Rudraksha for your Zodiac</h3>`;
+          <!-- 4 Mukhi -->
+          <div class="bg-white p-6 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
+            <img src="images/products/rudraksha-4.jpg" alt="4 Mukhi Rudraksha"
+                 loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
+            <h3 class="text-lg font-semibold text-[#034C3C]">4 Mukhi Rudraksha</h3>
+            <p class="text-sm text-gray-600">Linked to Lord Brahma — enhances creativity & learning.</p>
+          </div>
 
-      if (rudraMatches.length) {
-        const gridR = document.createElement('div');
-        gridR.className = "grid gap-4 md:grid-cols-2";
-        rudraMatches.forEach(item => {
-          const p = item.product;
-          const desc = p.description || 'Suggested Rudraksha for your zodiac sign.';
+          <!-- 5 Mukhi -->
+          <div class="bg-white p-6 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
+            <img src="images/products/rudraksha-5.jpg" alt="5 Mukhi Rudraksha"
+                 loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
+            <h3 class="text-lg font-semibold text-[#034C3C]">5 Mukhi Rudraksha</h3>
+            <p class="text-sm text-gray-600">Most common bead — brings calm, focus & spiritual upliftment.</p>
+          </div>
 
-          const card = document.createElement("div");
-          card.className = "p-4 border rounded-xl shadow bg-white flex flex-col h-full";
+          <!-- 6 Mukhi -->
+          <div class="bg-white p-6 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
+            <img src="images/products/rudraksha-6.jpg" alt="6 Mukhi Rudraksha"
+                 loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
+            <h3 class="text-lg font-semibold text-[#034C3C]">6 Mukhi Rudraksha</h3>
+            <p class="text-sm text-gray-600">Blessed by Kartikeya — boosts vitality, charm & self-control.</p>
+          </div>
 
-          card.innerHTML = `
-            <div class="flex flex-col items-center text-center">
-              <img src="${p.image || 'images/placeholder.jpg'}" class="w-24 h-24 object-contain rounded mb-3" alt="${p.name}">
-              <h4 class="text-base font-semibold text-emerald-700">${p.name}</h4>
-              <p class="text-sm text-gray-600 mt-1">Price: ₹${(p.price || 0).toLocaleString('en-IN')}</p>
-              <p class="text-xs text-gray-500 mt-2">${desc}</p>
-              <div class="flex flex-wrap justify-center gap-1 mt-3">
-                <span class="px-2 py-0.5 rounded-full bg-orange-50 text-orange-700 text-xs border border-orange-100">
-                  Zodiac: ${answers.zodiac.charAt(0).toUpperCase() + answers.zodiac.slice(1)}
-                </span>
-                ${p.mukhi ? `<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs border border-emerald-100">${p.mukhi} Mukhi</span>` : ''}
+          <!-- 7 Mukhi -->
+          <div class="bg-white p-6 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
+            <img src="images/products/rudraksha-7.jpg" alt="7 Mukhi Rudraksha"
+                 loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
+            <h3 class="text-lg font-semibold text-[#034C3C]">7 Mukhi Rudraksha</h3>
+            <p class="text-sm text-gray-600">Symbol of Goddess Lakshmi — attracts wealth & abundance.</p>
+          </div>
+
+          <!-- 8 Mukhi -->
+          <div class="bg-white p-6 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
+            <img src="images/products/rudraksha-8.jpg" alt="8 Mukhi Rudraksha"
+                 loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
+            <h3 class="text-lg font-semibold text-[#034C3C]">8 Mukhi Rudraksha</h3>
+            <p class="text-sm text-gray-600">Removes obstacles, linked to Lord Ganesha’s blessings.</p>
+          </div>
+
+          <!-- 9 Mukhi -->
+          <div class="bg-white p-6 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
+            <img src="images/products/rudraksha-9.jpg" alt="9 Mukhi Rudraksha"
+                 loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
+            <h3 class="text-lg font-semibold text-[#034C3C]">9 Mukhi Rudraksha</h3>
+            <p class="text-sm text-gray-600">Goddess Durga’s power — grants courage & victory over fear.</p>
+          </div>
+
+          <!-- 10 Mukhi -->
+          <div class="bg-white p-6 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
+            <img src="images/products/rudraksha-10.jpg" alt="10 Mukhi Rudraksha"
+                 loading="lazy" class="w-36 h-36 mx-auto object-contain mb-4">
+            <h3 class="text-lg font-semibold text-[#034C3C]">10 Mukhi Rudraksha</h3>
+            <p class="text-sm text-gray-600">Protects from evil & negative energies, symbol of Vishnu.</p>
+          </div>
+        </div>
+
+        <!-- Additional Spiritual Products -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 mt-16 px-4">
+          <!-- Rudraksha Mala -->
+          <div class="bg-white p-8 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
+            <img src="images/products/rudraksha-mala.jpg" alt="Rudraksha Mala"
+                 loading="lazy" class="mx-auto w-56 h-56 object-contain mb-4">
+            <h3 class="text-xl font-semibold text-[#034C3C]">Rudraksha Beads & Mala</h3>
+            <p class="text-sm text-gray-600">Handcrafted & Energised for Daily Spiritual Practice.</p>
+          </div>
+
+          <!-- Rudraksha Locket -->
+          <div class="bg-white p-8 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
+            <img src="images/products/rudraksha-accessories.jpg" alt="Rudraksha Locket"
+                 loading="lazy" class="mx-auto w-56 h-56 object-contain mb-4">
+            <h3 class="text-xl font-semibold text-[#034C3C]">Rudraksha Locket</h3>
+            <p class="text-sm text-gray-600">Powerful talisman combining Rudraksha with sacred metals.</p>
+          </div>
+
+          <!-- Rudraksha Bracelet -->
+          <div class="bg-white p-8 rounded-2xl shadow-lg group cursor-pointer js-link-to-shop">
+            <img src="images/products/rudraksha-bracelet.jpg" alt="Rudraksha Bracelet"
+                 loading="lazy" class="mx-auto w-56 h-56 object-contain mb-4">
+            <h3 class="text-xl font-semibold text-[#034C3C]">Rudraksha Bracelet</h3>
+            <p class="text-sm text-gray-600">Balances energy, enhances strength & attracts divine grace.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gemstone Authenticity Section -->
+    <section id="authenticity" class="py-6 bg-white">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="flex flex-col lg:flex-row items-start gap-6">
+          <div class="flex-shrink-0">
+            <div class="bg-emerald-50 border border-emerald-100 rounded-lg p-4 text-center">
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" class="mx-auto mb-1">
+                <path d="M12 2l3 6 6 3-6 3-3 6-3-6-6-3 6-3 3-6z" fill="#10B981" opacity="0.12"/>
+                <path d="M12 6l1.6 3.2L17 10l-3 2 1 3-3-2-3 2 1-3-3-2 3.4-.8L12 6z" fill="#059669"/>
+              </svg>
+              <div class="text-sm font-semibold text-emerald-700">100% Genuine</div>
+              <div class="text-xs text-gray-500">Verified by Gemologist</div>
+            </div>
+          </div>
+
+          <div class="flex-1">
+            <h2 class="text-2xl font-bold text-emerald-700">Gemstone Authenticity & Lab Reports</h2>
+            <p class="text-gray-600 mt-2 max-w-3xl">
+              We guarantee natural gemstones — no synthetic stones sold as natural.
+              High-value items are inspected by a certified gemologist and can be issued an independent lab report on request.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
+              <div class="bg-gray-50 p-3 rounded-lg border">
+                <h4 class="font-semibold text-gray-800">How to identify natural gems</h4>
+                <ul class="text-sm text-gray-600 mt-2 space-y-1">
+                  <li>Look for natural inclusions and growth lines (perfect clarity is suspicious).</li>
+                  <li>Ask for origin & treatment disclosure (heat, coating, irradiation).</li>
+                  <li>Request photos under different light to check color & flash.</li>
+                </ul>
+              </div>
+
+              <div class="bg-gray-50 p-3 rounded-lg border">
+                <h4 class="font-semibold text-gray-800">Lab report & certificate</h4>
+                <p class="text-sm text-gray-600 mt-2">
+                  Independent lab reports available for premium items. View/download a sample report.
+                </p>
+                <div class="mt-3">
+                  <button id="open-sample-report"
+                          class="bg-emerald-600 text-white px-3 py-2 rounded">
+                    View sample report
+                  </button>
+                  <a href="/files/sample-lab-report.pdf"
+                     class="ml-3 text-sm text-gray-600 underline" download>
+                    Download PDF
+                  </a>
+                </div>
+              </div>
+
+              <div class="bg-gray-50 p-3 rounded-lg border">
+                <h4 class="font-semibold text-gray-800">Quality Guarantee</h4>
+                <p class="text-sm text-gray-600 mt-2">
+                  7-day inspection & return for authenticity disputes, or we buy back (terms apply).
+                  Lab-certificate option for high-value purchases.
+                </p>
               </div>
             </div>
-            <div class="mt-4 flex flex-col gap-2">
-              <button
-                class="bg-emerald-600 text-white px-3 py-2 rounded text-sm font-medium add-rec"
-                data-id="${p.id}">
-                Add to Cart
+
+            <div class="mt-6 flex gap-3">
+              <button id="request-certificate"
+                      class="bg-emerald-600 text-white px-4 py-2 rounded font-semibold">
+                Request Certificate
               </button>
-              <a
-                href="shop-ecom.html?product=${encodeURIComponent(p.id)}"
-                class="border border-emerald-600 text-emerald-700 px-3 py-2 rounded text-sm font-medium text-center">
-                View in Shop
-              </a>
+              <button onclick="openConsult()"
+                      class="border px-4 py-2 rounded text-gray-700">
+                Book Consultation
+              </button>
             </div>
-          `;
-          gridR.appendChild(card);
-        });
-        rudraSection.appendChild(gridR);
-      } else {
-        rudraSection.innerHTML += `
-          <div class="p-4 bg-white border rounded text-gray-600 text-sm">
-            We don’t have a specific Rudraksha in the online list yet for this sign,
-            but you can still check our <a href="#featured" class="text-emerald-700 underline">Rudraksha section</a> below
-            or contact us for a personalised suggestion.
           </div>
-        `;
+        </div>
+
+        <div class="mt-8 border-t pt-6 text-sm text-gray-600">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <strong>Q:</strong> Are all stones natural?<br/>
+              <strong>A:</strong> Yes — we only list natural stones. Lab-grown or treated pieces are clearly labelled.
+            </div>
+            <div>
+              <strong>Q:</strong> How do I request a certificate?<br/>
+              <strong>A:</strong> Click Request Certificate or contact us and we’ll share the steps and cost (if any).
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sample report modal -->
+    <div id="sample-report-modal"
+         class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+      <div class="bg-white max-w-3xl w-full rounded-lg p-6 mx-4">
+        <div class="flex justify-between items-start">
+          <h4 class="text-lg font-semibold">Sample Lab Report — Gems of Nature</h4>
+          <button id="close-sample-report" class="text-gray-600">✕</button>
+        </div>
+
+        <div class="mt-4 text-sm text-gray-700">
+          <p>
+            <strong>Report includes:</strong> Gem identification, weight, dimensions, origin (if known),
+            treatment disclosure, and gemologist remarks with authenticated stamp.
+          </p>
+          <p class="mt-3">
+            Your item’s report will include high-resolution photos of the tested area and precise measurements.
+          </p>
+          <div class="mt-4">
+            <a href="/files/sample-lab-report.pdf"
+               class="text-emerald-600 underline" download>
+              Download full sample report (PDF)
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-6 text-right">
+          <button id="modal-request-cert"
+                  class="bg-emerald-600 text-white px-4 py-2 rounded">
+            Request Certificate
+          </button>
+          <button id="modal-close" class="ml-2 border px-3 py-2 rounded">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Consultation modal -->
+    <div id="consult-modal"
+         class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+      <div class="bg-white rounded-lg max-w-2xl w-full p-6 mx-4">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xl font-semibold text-emerald-700">
+            Rudraksha & Astrology Consultation
+          </h3>
+          <button id="close-consult" class="text-gray-500">✕</button>
+        </div>
+
+        <p class="text-sm text-gray-600 mt-2">
+          Choose a free quick recommendation, or book a paid 30-minute session for detailed guidance
+          including Rudraksha matching and gemstone prescription.
+        </p>
+
+        <form id="consult-form" class="mt-4 grid gap-3">
+          <div class="grid sm:grid-cols-2 gap-3">
+            <input type="text" id="c-name" name="name" placeholder="Full name" required
+                   class="border rounded px-3 py-2" />
+            <input type="email" id="c-email" name="email" placeholder="Email" required
+                   class="border rounded px-3 py-2" />
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-3">
+            <input type="date" id="c-dob" name="dob" placeholder="Date of birth" required
+                   class="border rounded px-3 py-2" />
+            <input type="time" id="c-tob" name="tob" placeholder="Time of birth (if known)"
+                   class="border rounded px-3 py-2" />
+          </div>
+
+          <textarea id="c-notes" name="notes"
+                    placeholder="Short note: what do you want? (gemstone, rudraksha, career, marriage)"
+                    class="border rounded px-3 py-2" rows="3"></textarea>
+
+          <div class="flex gap-3 items-center mt-2">
+            <label class="flex items-center gap-2">
+              <input type="radio" name="mode" value="free" checked /> Free Recommendation
+            </label>
+            <label class="flex items-center gap-2 ml-4">
+              <input type="radio" name="mode" value="paid" /> 30-min Paid Consultation
+            </label>
+          </div>
+
+          <div id="consult-actions" class="mt-3">
+            <button id="consult-submit" type="submit"
+                    class="bg-emerald-600 text-white px-4 py-2 rounded">
+              Submit
+            </button>
+          </div>
+        </form>
+
+        <div class="mt-4 text-xs text-gray-500">
+          <strong>Note:</strong> For paid consultations we recommend Calendly + a payment gateway
+          (Razorpay/Stripe). If you prefer manual scheduling we will respond with times and payment link.
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- WhatsApp Floating Chat Button -->
+  <a href="https://wa.me/917827491801?text=Hi%20Gems%20of%20Nature,%20I%20need%20help%20with%20a%20gemstone."
+     class="fixed bottom-20 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-lg
+            flex items-center gap-2 text-sm font-semibold transition-all z-50"
+     target="_blank" rel="noopener">
+    <img src="images/social/whatsapp.png" class="w-6 h-6" alt="WhatsApp">
+    Chat with Us
+  </a>
+
+  <!-- Shared Footer placeholder -->
+  <div id="footer"></div>
+
+  <!-- MAIN bottom widgets: recommender, cart, data (kept inline as requested) -->
+  <script>
+    /*
+      recProducts = list used by the homepage recommender.
+
+      Priority:
+      1) If window.products (from shop-ecom) exists and has items, use that.
+      2) Otherwise use fallback list (some key gemstones + rudraksha).
+    */
+
+    const fallbackRecProducts = [
+      /* ⭐ Gemstones */
+      {
+        id: 'p14',
+        name: 'Amethyst',
+        category: 'Semi-Precious',
+        price: 800,
+        image: 'images/products/amethyst.jpg',
+        type: 'gemstone',
+        intentions: ['healing', 'spiritual', 'protection'],
+        chakras: ['third', 'crown'],
+        zodiacs: ['pisces', 'virgo', 'aquarius'],
+        description: 'Soothing crystal for stress relief, sleep, and spiritual connection.'
+      },
+      {
+        id: 'p15',
+        name: 'Citrine',
+        category: 'Semi-Precious',
+        price: 1200,
+        image: 'images/products/citrine.jpg',
+        type: 'gemstone',
+        intentions: ['wealth', 'career', 'confidence'],
+        chakras: ['solar'],
+        zodiacs: ['leo', 'gemini', 'aries'],
+        description: '“Merchant’s stone” – supports money flow, confidence, and willpower.'
+      },
+      {
+        id: 'p33',
+        name: 'Green Aventurine',
+        category: 'Semi-Precious',
+        price: 350,
+        image: 'images/products/aventurine.jpg',
+        type: 'gemstone',
+        intentions: ['wealth', 'luck', 'healing'],
+        chakras: ['heart'],
+        zodiacs: ['taurus', 'libra'],
+        description: 'Stone of opportunity – attracts new chances, prosperity, and gentle heart healing.'
+      },
+      {
+        id: 'p61',
+        name: 'Clear Quartz',
+        category: 'Healing',
+        price: 250,
+        image: 'images/products/clear-quartz.jpg',
+        type: 'gemstone',
+        intentions: ['spiritual', 'healing', 'amplify'],
+        chakras: ['crown', 'third'],
+        zodiacs: [],
+        description: 'Master healer – amplifies intentions and other crystals, clears energetic blockages.'
+      },
+      {
+        id: 'p62',
+        name: 'Black Tourmaline',
+        category: 'Healing',
+        price: 400,
+        image: 'images/products/black-tourmaline.jpg',
+        type: 'gemstone',
+        intentions: ['protection', 'grounding'],
+        chakras: ['root'],
+        zodiacs: ['capricorn'],
+        description: 'Powerful protection stone – shields from negativity and EMF, deeply grounding.'
+      },
+      {
+        id: 'p40',
+        name: 'Morganite',
+        category: 'Semi-Precious',
+        price: 4500,
+        image: 'images/products/morganite.jpg',
+        type: 'gemstone',
+        intentions: ['love', 'heart-healing', 'relationships'],
+        chakras: ['heart'],
+        zodiacs: ['libra', 'cancer'],
+        description: 'High-vibration love stone – emotional healing and soul-level relationships.'
+      },
+      {
+        id: 'p3',
+        name: 'Blue Sapphire',
+        category: 'Precious',
+        price: 42500,
+        image: 'images/products/blue-sapphire.jpg',
+        type: 'gemstone',
+        intentions: ['career', 'focus', 'authority', 'spiritual'],
+        chakras: ['third', 'throat'],
+        zodiacs: ['capricorn', 'aquarius', 'libra'],
+        description: 'Strong Saturn stone – discipline, career growth, authority, and deep insight.'
+      },
+
+      /* 🔱 Rudraksha */
+      {
+        id: 'r1',
+        name: '1 Mukhi Rudraksha',
+        category: 'Rudraksha',
+        price: 21000,
+        image: 'images/products/rudraksha-1.jpg',
+        type: 'rudraksha',
+        mukhi: 1,
+        zodiacs: ['leo'],
+        description: 'Represents Lord Shiva, linked with Leo and spiritual authority.'
+      },
+      {
+        id: 'r2',
+        name: '2 Mukhi Rudraksha',
+        category: 'Rudraksha',
+        price: 3500,
+        image: 'images/products/rudraksha-2.jpg',
+        type: 'rudraksha',
+        mukhi: 2,
+        zodiacs: ['cancer', 'pisces'],
+        description: 'Ardhanarishvara energy – harmony in relationships, good for Cancer & Pisces.'
+      },
+      {
+        id: 'r3',
+        name: '3 Mukhi Rudraksha',
+        category: 'Rudraksha',
+        price: 2500,
+        image: 'images/products/rudraksha-3.jpg',
+        type: 'rudraksha',
+        mukhi: 3,
+        zodiacs: ['aries', 'scorpio'],
+        description: 'Burns past karma and boosts courage, often advised for Aries and Scorpio.'
+      },
+      {
+        id: 'r4',
+        name: '4 Mukhi Rudraksha',
+        category: 'Rudraksha',
+        price: 2200,
+        image: 'images/products/rudraksha-4.jpg',
+        type: 'rudraksha',
+        mukhi: 4,
+        zodiacs: ['gemini', 'virgo'],
+        description: 'Linked to intellect and communication, suitable for Gemini & Virgo.'
+      },
+      {
+        id: 'r5',
+        name: '5 Mukhi Rudraksha',
+        category: 'Rudraksha',
+        price: 600,
+        image: 'images/products/rudraksha-5.jpg',
+        type: 'rudraksha',
+        mukhi: 5,
+        zodiacs: ['sagittarius', 'pisces'],
+        description: 'Common, safe bead – general spiritual growth, often given to Sagittarius & Pisces.'
+      },
+      {
+        id: 'r6',
+        name: '6 Mukhi Rudraksha',
+        category: 'Rudraksha',
+        price: 1800,
+        image: 'images/products/rudraksha-6.jpg',
+        type: 'rudraksha',
+        mukhi: 6,
+        zodiacs: ['taurus', 'libra'],
+        description: 'Connected to Venus – comfort, attraction, and material harmony.'
+      },
+      {
+        id: 'r7',
+        name: '7 Mukhi Rudraksha',
+        category: 'Rudraksha',
+        price: 2600,
+        image: 'images/products/rudraksha-7.jpg',
+        type: 'rudraksha',
+        mukhi: 7,
+        zodiacs: ['capricorn'],
+        description: 'Linked with Saturn and wealth, often recommended for Capricorn.'
+      },
+      {
+        id: 'r8',
+        name: '8 Mukhi Rudraksha',
+        category: 'Rudraksha',
+        price: 3500,
+        image: 'images/products/rudraksha-8.jpg',
+        type: 'rudraksha',
+        mukhi: 8,
+        zodiacs: ['aquarius'],
+        description: 'Removes obstacles, good for Aquarius and people facing heavy obstacles.'
+      },
+      {
+        id: 'r9',
+        name: '9 Mukhi Rudraksha',
+        category: 'Rudraksha',
+        price: 4200,
+        image: 'images/products/rudraksha-9.jpg',
+        type: 'rudraksha',
+        mukhi: 9,
+        zodiacs: ['aries', 'scorpio'],
+        description: 'Durga energy – courage and victory, also used for Mars-related issues.'
+      },
+      {
+        id: 'r10',
+        name: '10 Mukhi Rudraksha',
+        category: 'Rudraksha',
+        price: 5500,
+        image: 'images/products/rudraksha-10.jpg',
+        type: 'rudraksha',
+        mukhi: 10,
+        zodiacs: ['all'],
+        description: 'Vishnu energy – protection from negative influences, generally safe for all.'
+      }
+    ];
+
+    // Prefer your main shop product list if available:
+    let recProducts = (Array.isArray(window.products) && window.products.length)
+      ? window.products
+      : fallbackRecProducts;
+
+    // Normalise helper
+    recProducts = recProducts.map(p => {
+      const copy = { ...p };
+      const name = (copy.name || '').toLowerCase();
+
+      if (!copy.type) {
+        copy.type = name.includes('rudraksha') ? 'rudraksha' : 'gemstone';
+      }
+      copy.intentions = copy.intentions || [];
+      copy.chakras = copy.chakras || [];
+      copy.zodiacs = (copy.zodiacs || []).map(z => String(z).toLowerCase());
+
+      return copy;
+    });
+
+    window.recProducts = recProducts;
+
+    /* Cart stored under 'gon_cart' so same cart works across pages */
+    let cart = JSON.parse(localStorage.getItem('gon_cart') || '{}');
+    function saveCart() {
+      localStorage.setItem('gon_cart', JSON.stringify(cart));
+      try {
+        if (typeof renderCart === 'function') renderCart();
+      } catch(e) {}
+    }
+  </script>
+
+  <!-- 🔮 GEM RECOMMENDER SCRIPT — gemstones + rudraksha by zodiac -->
+  <script>
+    (function () {
+      const quizContainer = document.getElementById("rec-quiz");
+      const resultsEl = document.getElementById("rec-results");
+      if (!quizContainer || !resultsEl) return;
+
+      // Build quiz UI
+      quizContainer.innerHTML = `
+        <div class="grid gap-3 sm:grid-cols-2">
+          <div>
+            <label class="block text-sm font-medium">What is your intention?</label>
+            <select id="rec-purpose" class="border rounded px-3 py-2 w-full">
+              <option value="wealth">Wealth & Prosperity</option>
+              <option value="love">Love & Relationships</option>
+              <option value="protection">Protection</option>
+              <option value="healing">Healing</option>
+              <option value="career">Career & Success</option>
+              <option value="spiritual">Spiritual Growth</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium">Zodiac Sign (for gemstone & Rudraksha)</label>
+            <select id="rec-zodiac" class="border rounded px-3 py-2 w-full">
+              <option value="">— Select —</option>
+              <option value="aries">Aries</option>
+              <option value="taurus">Taurus</option>
+              <option value="gemini">Gemini</option>
+              <option value="cancer">Cancer</option>
+              <option value="leo">Leo</option>
+              <option value="virgo">Virgo</option>
+              <option value="libra">Libra</option>
+              <option value="scorpio">Scorpio</option>
+              <option value="sagittarius">Sagittarius</option>
+              <option value="capricorn">Capricorn</option>
+              <option value="aquarius">Aquarius</option>
+              <option value="pisces">Pisces</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium">Budget</label>
+            <select id="rec-budget" class="border rounded px-3 py-2 w-full">
+              <option value="low">Under ₹1,000</option>
+              <option value="mid">₹1,000 — ₹10,000</option>
+              <option value="high">Above ₹10,000</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium">Chakra Focus (optional)</label>
+            <select id="rec-chakra" class="border rounded px-3 py-2 w-full">
+              <option value="">— Any —</option>
+              <option value="root">Root</option>
+              <option value="sacral">Sacral</option>
+              <option value="solar">Solar Plexus</option>
+              <option value="heart">Heart</option>
+              <option value="throat">Throat</option>
+              <option value="third">Third Eye</option>
+              <option value="crown">Crown</option>
+            </select>
+          </div>
+        </div>
+        <div class="mt-4 flex gap-3">
+          <button id="rec-run" class="bg-emerald-600 text-white px-4 py-2 rounded font-semibold">
+            Find My Gem & Rudraksha
+          </button>
+          <button id="rec-reset" class="border px-4 py-2 rounded">Reset</button>
+        </div>
+      `;
+
+      function prettyBudget(b) {
+        if (b === 'low') return 'Under ₹1,000';
+        if (b === 'mid') return '₹1,000 — ₹10,000';
+        if (b === 'high') return 'Above ₹10,000';
+        return '';
       }
 
-      container.appendChild(rudraSection);
-    }
+      const gemstoneProducts = window.recProducts.filter(
+        p => (p.type || '').toLowerCase() !== 'rudraksha'
+      );
+      const rudrakshaProducts = window.recProducts.filter(
+        p => (p.type || '').toLowerCase() === 'rudraksha'
+      );
 
-    resultsEl.appendChild(container);
+      // GEMSTONE scoring
+      function scoreGemstones(answers) {
+        return gemstoneProducts.map(p => {
+          let score = 0;
 
-    // Attach add-to-cart handlers
-    resultsEl.querySelectorAll(".add-rec").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const id = btn.dataset.id;
-        cart[id] = (cart[id] || 0) + 1;
-        saveCart();
-        btn.textContent = "Added!";
-        setTimeout(() => (btn.textContent = "Add to Cart"), 800);
-      });
-    });
-  }
+          const intentions = (p.intentions || []).map(x => String(x).toLowerCase());
+          const chakras   = (p.chakras || []).map(x => String(x).toLowerCase());
+          const zodiacs   = (p.zodiacs || []).map(x => String(x).toLowerCase());
+          const name      = (p.name || '').toLowerCase();
+          const price     = Number(p.price || 0);
 
-  document.getElementById("rec-run").addEventListener("click", () => {
-    const answers = {
-      purpose: document.getElementById("rec-purpose").value,
-      zodiac:  document.getElementById("rec-zodiac").value,
-      budget:  document.getElementById("rec-budget").value,
-      chakra:  document.getElementById("rec-chakra").value
-    };
-    renderResults(answers);
-  });
+          // Intention
+          if (answers.purpose && intentions.includes(answers.purpose)) score += 14;
 
-  document.getElementById("rec-reset").addEventListener("click", () => {
-    resultsEl.innerHTML = "";
-  });
-})();
-</script>
+          // Chakra
+          if (answers.chakra && chakras.includes(answers.chakra)) score += 8;
 
-<!-- WhatsApp Floating Chat Button -->
-<a href="https://wa.me/917827491801?text=Hi%20Gems%20of%20Nature,%20I%20need%20help%20with%20a%20gemstone."
-   class="fixed bottom-20 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-sm font-semibold transition-all z-50"
-   target="_blank" rel="noopener">
-  <img src="images/social/whatsapp.png" class="w-6 h-6" alt="WhatsApp">
-  Chat with Us
-</a>
+          // Zodiac
+          if (answers.zodiac && zodiacs.includes(answers.zodiac)) score += 5;
 
-<!-- Gemstone Authenticity Section -->
-<section id="authenticity" class="py-6 bg-white">
-  <div class="max-w-6xl mx-auto px-6">
-    <div class="flex flex-col lg:flex-row items-start gap-6">
-      <div class="flex-shrink-0">
-        <div class="bg-emerald-50 border border-emerald-100 rounded-lg p-4 text-center">
-          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" class="mx-auto mb-1">
-            <path d="M12 2l3 6 6 3-6 3-3 6-3-6-6-3 6-3 3-6z" fill="#10B981" opacity="0.12"/>
-            <path d="M12 6l1.6 3.2L17 10l-3 2 1 3-3-2-3 2 1-3-3-2 3.4-.8L12 6z" fill="#059669"/>
-          </svg>
-          <div class="text-sm font-semibold text-emerald-700">100% Genuine</div>
-          <div class="text-xs text-gray-500">Verified by Gemologist</div>
-        </div>
-      </div>
+          // Budget
+          if (answers.budget === 'low' && price > 0 && price < 1000) score += 4;
+          if (answers.budget === 'mid' && price >= 1000 && price <= 10000) score += 4;
+          if (answers.budget === 'high' && price > 10000) score += 4;
 
-      <div class="flex-1">
-        <h2 class="text-2xl font-bold text-emerald-700">Gemstone Authenticity & Lab Reports</h2>
-        <p class="text-gray-600 mt-2 max-w-3xl">We guarantee natural gemstones — no synthetic stones sold as natural. High-value items are inspected by a certified gemologist and can be issued an independent lab report on request.</p>
+          // Extras
+          if (answers.purpose === 'healing' && name.includes('quartz')) score += 2;
+          if (answers.purpose === 'spiritual' && (name.includes('amethyst') || name.includes('sapphire'))) score += 2;
+          if (answers.purpose === 'wealth' && (name.includes('citrine') || name.includes('aventurine'))) score += 2;
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
-          <div class="bg-gray-50 p-3 rounded-lg border">
-            <h4 class="font-semibold text-gray-800">How to identify natural gems</h4>
-            <ul class="text-sm text-gray-600 mt-2 space-y-1">
-              <li>Look for natural inclusions and growth lines (perfect clarity is suspicious).</li>
-              <li>Ask for origin & treatment disclosure (heat, coating, irradiation).</li>
-              <li>Request photos under different light to check color & flash.</li>
-            </ul>
-          </div>
+          return { product: p, score };
+        }).sort((a, b) => b.score - a.score);
+      }
 
-          <div class="bg-gray-50 p-3 rounded-lg border">
-            <h4 class="font-semibold text-gray-800">Lab report & certificate</h4>
-            <p class="text-sm text-gray-600 mt-2">Independent lab reports available for premium items. View/download a sample report.</p>
-            <div class="mt-3">
-              <button id="open-sample-report" class="bg-emerald-600 text-white px-3 py-2 rounded">View sample report</button>
-              <a href="/files/sample-lab-report.pdf" class="ml-3 text-sm text-gray-600 underline" download>Download PDF</a>
+      // Rudraksha recommendation
+      function getRudrakshaForZodiac(zodiac, budget) {
+        if (!zodiac) return [];
+        const z = zodiac.toLowerCase();
+
+        const map = {
+          aries:        [3, 9],
+          taurus:       [6],
+          gemini:       [4],
+          cancer:       [2],
+          leo:          [1],
+          virgo:        [4],
+          libra:        [6],
+          scorpio:      [3, 9],
+          sagittarius:  [5],
+          capricorn:    [7],
+          aquarius:     [8],
+          pisces:       [2, 5]
+        };
+
+        const preferredMukhi = map[z] || [];
+
+        let candidates = rudrakshaProducts.map(p => {
+          const mukhi = Number(
+            p.mukhi || (p.name || '').match(/^(\d+)\s*mukhi/i)?.[1] || 0
+          );
+          let score = 0;
+
+          if (preferredMukhi.includes(mukhi)) score += 10;
+          if ((p.zodiacs || []).map(x => String(x).toLowerCase()).includes(z)) score += 6;
+
+          const price = Number(p.price || 0);
+          if (budget === 'low' && price > 0 && price < 1500) score += 3;
+          if (budget === 'mid' && price >= 1500 && price <= 8000) score += 3;
+          if (budget === 'high' && price > 8000) score += 3;
+
+          return { product: { ...p, mukhi }, score };
+        }).filter(x => x.score > 0);
+
+        candidates.sort((a, b) => b.score - a.score);
+        return candidates.slice(0, 2);
+      }
+
+      function buildMatchTags(p, answers) {
+        const tags = [];
+
+        if (answers.purpose && (p.intentions || []).includes(answers.purpose)) {
+          const labelMap = {
+            wealth: 'Wealth',
+            love: 'Love',
+            protection: 'Protection',
+            healing: 'Healing',
+            career: 'Career',
+            spiritual: 'Spiritual'
+          };
+          tags.push(labelMap[answers.purpose] || answers.purpose);
+        }
+
+        if (answers.chakra && (p.chakras || []).includes(answers.chakra)) {
+          const chakraLabelMap = {
+            root: 'Root Chakra',
+            sacral: 'Sacral Chakra',
+            solar: 'Solar Plexus',
+            heart: 'Heart Chakra',
+            throat: 'Throat Chakra',
+            third: 'Third Eye',
+            crown: 'Crown Chakra'
+          };
+          tags.push(chakraLabelMap[answers.chakra] || answers.chakra);
+        }
+
+        if (answers.zodiac && (p.zodiacs || []).includes(answers.zodiac)) {
+          tags.push(answers.zodiac.charAt(0).toUpperCase() + answers.zodiac.slice(1));
+        }
+
+        return tags;
+      }
+
+      function renderResults(answers) {
+        resultsEl.innerHTML = "";
+
+        const gemstones = scoreGemstones(answers);
+        const topGemstones = gemstones.filter(x => x.score > 0).slice(0, 6);
+
+        const summaryParts = [];
+        if (answers.purpose) summaryParts.push(`intention: <strong>${answers.purpose.replace(/^\w/, c => c.toUpperCase())}</strong>`);
+        if (answers.chakra) summaryParts.push(`chakra: <strong>${answers.chakra.replace(/^\w/, c => c.toUpperCase())}</strong>`);
+        if (answers.zodiac) summaryParts.push(`zodiac: <strong>${answers.zodiac.replace(/^\w/, c => c.toUpperCase())}</strong>`);
+        if (answers.budget) summaryParts.push(`budget: <strong>${prettyBudget(answers.budget)}</strong>`);
+
+        if (summaryParts.length) {
+          resultsEl.innerHTML = `
+            <div class="mb-3 text-sm text-gray-700">
+              Based on your ${summaryParts.join(' • ')}, here are your recommendations:
             </div>
-          </div>
+          `;
+        }
 
-          <div class="bg-gray-50 p-3 rounded-lg border">
-            <h4 class="font-semibold text-gray-800">Quality Guarantee</h4>
-            <p class="text-sm text-gray-600 mt-2">7-day inspection & return for authenticity disputes, or we buy back (terms apply). Lab-certificate option for high-value purchases.</p>
-          </div>
-        </div>
+        const container = document.createElement('div');
+        container.className = "space-y-6";
 
-        <div class="mt-6 flex gap-3">
-          <button id="request-certificate" class="bg-emerald-600 text-white px-4 py-2 rounded font-semibold">Request Certificate</button>
-          <button onclick="openConsult()" class="border px-4 py-2 rounded text-gray-700">Book Consultation</button>
-        </div>
-      </div>
-    </div>
+        // GEMSTONE block
+        if (topGemstones.length) {
+          const gemSection = document.createElement('div');
+          gemSection.innerHTML = `<h3 class="text-lg font-semibold text-emerald-700 mb-2">Recommended Gemstones</h3>`;
+          const grid = document.createElement('div');
+          grid.className = "grid gap-4 md:grid-cols-3";
 
-    <div class="mt-8 border-t pt-6 text-sm text-gray-600">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div><strong>Q:</strong> Are all stones natural?<br/><strong>A:</strong> Yes — we only list natural stones. Lab-grown or treated pieces are clearly labelled.</div>
-        <div><strong>Q:</strong> How do I request a certificate?<br/><strong>A:</strong> Click Request Certificate or contact us and we’ll share the steps and cost (if any).</div>
-      </div>
-    </div>
-  </div>
-</section>
+          topGemstones.forEach(item => {
+            const p = item.product;
+            const tags = buildMatchTags(p, answers);
+            const description = p.description || 'Powerful stone for your current intention.';
 
-<!-- Sample report modal -->
-<div id="sample-report-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
-  <div class="bg-white max-w-3xl w-full rounded-lg p-6 mx-4">
-    <div class="flex justify-between items-start">
-      <h4 class="text-lg font-semibold">Sample Lab Report — Gems of Nature</h4>
-      <button id="close-sample-report" class="text-gray-600">✕</button>
-    </div>
+            const card = document.createElement("div");
+            card.className = "p-4 border rounded-xl shadow bg-white flex flex-col h-full";
 
-    <div class="mt-4 text-sm text-gray-700">
-      <p><strong>Report includes:</strong> Gem identification, weight, dimensions, origin (if known), treatment disclosure, and gemologist remarks with authenticated stamp.</p>
-      <p class="mt-3">Your item’s report will include high-resolution photos of the tested area and precise measurements.</p>
-      <div class="mt-4">
-        <a href="/files/sample-lab-report.pdf" class="text-emerald-600 underline" download>Download full sample report (PDF)</a>
-      </div>
-    </div>
+            card.innerHTML = `
+              <div class="flex flex-col items-center text-center">
+                <img src="${p.image || 'images/placeholder.jpg'}"
+                     class="w-24 h-24 object-cover rounded mb-3" alt="${p.name}">
+                <h4 class="text-base font-semibold text-emerald-700">${p.name}</h4>
+                <p class="text-sm text-gray-600 mt-1">Price: ₹${(p.price || 0).toLocaleString('en-IN')}</p>
+                <p class="text-xs text-gray-500 mt-2">${description}</p>
+                ${
+                  tags.length
+                    ? `<div class="flex flex-wrap justify-center gap-1 mt-3">
+                        ${tags.map(t =>
+                          `<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs border border-emerald-100">${t}</span>`
+                        ).join('')}
+                       </div>`
+                    : ''
+                }
+              </div>
+              <div class="mt-4 flex flex-col gap-2">
+                <button
+                  class="bg-emerald-600 text-white px-3 py-2 rounded text-sm font-medium add-rec"
+                  data-id="${p.id}">
+                  Add to Cart
+                </button>
+                <a
+                  href="shop-ecom.html?product=${encodeURIComponent(p.id)}"
+                  class="border border-emerald-600 text-emerald-700 px-3 py-2 rounded text-sm font-medium text-center">
+                  View in Shop
+                </a>
+              </div>
+            `;
+            grid.appendChild(card);
+          });
 
-    <div class="mt-6 text-right">
-      <button id="modal-request-cert" class="bg-emerald-600 text-white px-4 py-2 rounded">Request Certificate</button>
-      <button id="modal-close" class="ml-2 border px-3 py-2 rounded">Close</button>
-    </div>
-  </div>
-</div>
+          gemSection.appendChild(grid);
+          container.appendChild(gemSection);
+        } else {
+          const noGem = document.createElement('div');
+          noGem.className = "p-4 bg-white border rounded text-gray-600";
+          noGem.textContent = "No clear gemstone matches for these options yet — try changing budget or chakra focus.";
+          container.appendChild(noGem);
+        }
 
-<!-- Consultation modal -->
-<div id="consult-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
-  <div class="bg-white rounded-lg max-w-2xl w-full p-6 mx-4">
-    <div class="flex items-center justify-between">
-      <h3 class="text-xl font-semibold text-emerald-700">Rudraksha & Astrology Consultation</h3>
-      <button id="close-consult" class="text-gray-500">✕</button>
-    </div>
+        // RUDRAKSHA block
+        if (answers.zodiac) {
+          const rudraMatches = getRudrakshaForZodiac(answers.zodiac, answers.budget);
+          const rudraSection = document.createElement('div');
+          rudraSection.innerHTML = `<h3 class="text-lg font-semibold text-emerald-700 mb-2">Rudraksha for your Zodiac</h3>`;
 
-    <p class="text-sm text-gray-600 mt-2">Choose a free quick recommendation, or book a paid 30-minute session for detailed guidance including Rudraksha matching and gemstone prescription.</p>
+          if (rudraMatches.length) {
+            const gridR = document.createElement('div');
+            gridR.className = "grid gap-4 md:grid-cols-2";
+            rudraMatches.forEach(item => {
+              const p = item.product;
+              const desc = p.description || 'Suggested Rudraksha for your zodiac sign.';
 
-    <form id="consult-form" class="mt-4 grid gap-3">
-      <div class="grid sm:grid-cols-2 gap-3">
-        <input type="text" id="c-name" name="name" placeholder="Full name" required class="border rounded px-3 py-2" />
-        <input type="email" id="c-email" name="email" placeholder="Email" required class="border rounded px-3 py-2" />
-      </div>
+              const card = document.createElement("div");
+              card.className = "p-4 border rounded-xl shadow bg-white flex flex-col h-full";
 
-      <div class="grid sm:grid-cols-2 gap-3">
-        <input type="date" id="c-dob" name="dob" placeholder="Date of birth" required class="border rounded px-3 py-2" />
-        <input type="time" id="c-tob" name="tob" placeholder="Time of birth (if known)" class="border rounded px-3 py-2" />
-      </div>
+              card.innerHTML = `
+                <div class="flex flex-col items-center text-center">
+                  <img src="${p.image || 'images/placeholder.jpg'}"
+                       class="w-24 h-24 object-contain rounded mb-3" alt="${p.name}">
+                  <h4 class="text-base font-semibold text-emerald-700">${p.name}</h4>
+                  <p class="text-sm text-gray-600 mt-1">Price: ₹${(p.price || 0).toLocaleString('en-IN')}</p>
+                  <p class="text-xs text-gray-500 mt-2">${desc}</p>
+                  <div class="flex flex-wrap justify-center gap-1 mt-3">
+                    <span class="px-2 py-0.5 rounded-full bg-orange-50 text-orange-700 text-xs border border-orange-100">
+                      Zodiac: ${answers.zodiac.charAt(0).toUpperCase() + answers.zodiac.slice(1)}
+                    </span>
+                    ${p.mukhi
+                      ? `<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs border border-emerald-100">
+                           ${p.mukhi} Mukhi
+                         </span>`
+                      : ''
+                    }
+                  </div>
+                </div>
+                <div class="mt-4 flex flex-col gap-2">
+                  <button
+                    class="bg-emerald-600 text-white px-3 py-2 rounded text-sm font-medium add-rec"
+                    data-id="${p.id}">
+                    Add to Cart
+                  </button>
+                  <a
+                    href="shop-ecom.html?product=${encodeURIComponent(p.id)}"
+                    class="border border-emerald-600 text-emerald-700 px-3 py-2 rounded text-sm font-medium text-center">
+                    View in Shop
+                  </a>
+                </div>
+              `;
+              gridR.appendChild(card);
+            });
+            rudraSection.appendChild(gridR);
+          } else {
+            rudraSection.innerHTML += `
+              <div class="p-4 bg-white border rounded text-gray-600 text-sm">
+                We don’t have a specific Rudraksha in the online list yet for this sign,
+                but you can still check our <a href="#featured" class="text-emerald-700 underline">Rudraksha section</a> below
+                or contact us for a personalised suggestion.
+              </div>
+            `;
+          }
 
-      <textarea id="c-notes" name="notes" placeholder="Short note: what do you want? (gemstone, rudraksha, career, marriage)" class="border rounded px-3 py-2" rows="3"></textarea>
+          container.appendChild(rudraSection);
+        }
 
-      <div class="flex gap-3 items-center mt-2">
-        <label class="flex items-center gap-2"><input type="radio" name="mode" value="free" checked /> Free Recommendation</label>
-        <label class="flex items-center gap-2 ml-4"><input type="radio" name="mode" value="paid" /> 30-min Paid Consultation</label>
-      </div>
+        resultsEl.appendChild(container);
 
-      <div id="consult-actions" class="mt-3">
-        <button id="consult-submit" type="submit" class="bg-emerald-600 text-white px-4 py-2 rounded">Submit</button>
-      </div>
-    </form>
-
-    <div class="mt-4 text-xs text-gray-500">
-      <strong>Note:</strong> For paid consultations we recommend Calendly + a payment gateway (Razorpay/Stripe). If you prefer manual scheduling we will respond with times and payment link.
-    </div>
-  </div>
-</div>
-
-<!-- Footer -->
-<footer class="bg-emerald-900 text-white py-6 mt-12">
-  <div class="max-w-7xl mx-auto footer-inner flex flex-col md:flex-row items-center justify-between gap-4 px-6">
-    <div class="text-sm footer-nowrap">&copy; 2025 <strong>Gems of Nature</strong>. All rights reserved.</div>
-    <div class="text-sm text-emerald-100 font-medium text-center">100% natural stones • Secure payments • Fast shipping • 7-day returns</div>
-    <div class="flex items-center justify-center gap-8 ml-2">
-      <a href="https://www.facebook.com/profile.php?id=61581929357076" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:opacity-90 transition">
-        <img src="images/social/facebook.png" alt="Facebook" class="w-6 h-6 rounded-full shadow-md"><span class="text-sm font-medium">Facebook</span>
-      </a>
-      <a href="https://www.instagram.com/gemsofnatureshop" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:opacity-90 transition">
-        <img src="images/social/instagram.png" alt="Instagram" class="w-6 h-6 rounded-md shadow-md"><span class="text-sm font-medium">Instagram</span>
-      </a>
-      <a href="https://www.linkedin.com/company/gems-of-nature" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:opacity-90 transition">
-        <img src="images/social/linkedin.png" alt="LinkedIn" class="w-6 h-6 rounded-md shadow-md"><span class="text-sm font-medium">LinkedIn</span>
-      </a>
-    </div>
-  </div>
-</footer>
-
-<!-- Modal & consult wiring (script) -->
-<script>
-  // helper opens/closes
-  function openConsult(){ const m=document.getElementById('consult-modal'); if(!m) return; m.classList.remove('hidden'); m.classList.add('flex'); }
-  function closeConsult(){ const m=document.getElementById('consult-modal'); if(!m) return; m.classList.add('hidden'); m.classList.remove('flex'); }
-
-  function openSampleReport(){ const s=document.getElementById('sample-report-modal'); if(!s) return; s.classList.remove('hidden'); s.classList.add('flex'); }
-  function closeSampleReport(){ const s=document.getElementById('sample-report-modal'); if(!s) return; s.classList.add('hidden'); s.classList.remove('flex'); }
-
-  document.getElementById('close-consult')?.addEventListener('click', closeConsult);
-  document.getElementById('close-sample-report')?.addEventListener('click', closeSampleReport);
-  document.getElementById('modal-close')?.addEventListener('click', closeSampleReport);
-
-  document.getElementById('open-sample-report')?.addEventListener('click', openSampleReport);
-  document.getElementById('request-certificate')?.addEventListener('click', function(){
-    // default behaviour: open sample modal. Change to redirect if needed:
-    openSampleReport();
-  });
-
-  // Consult form submit (Formspree fallback)
-  document.getElementById('consult-form')?.addEventListener('submit', async function(e){
-    e.preventDefault();
-    const mode = document.querySelector('input[name="mode"]:checked').value;
-    const data = {
-      name: document.getElementById('c-name').value || '',
-      email: document.getElementById('c-email').value || '',
-      dob: document.getElementById('c-dob').value || '',
-      tob: document.getElementById('c-tob').value || '',
-      notes: document.getElementById('c-notes').value || '',
-      mode
-    };
-
-    if (mode === 'free') {
-      // replace with your Formspree endpoint or your backend API
-      try {
-        await fetch('https://formspree.io/f/your_form_id', {
-          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
+        // Attach add-to-cart handlers
+        resultsEl.querySelectorAll(".add-rec").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const id = btn.dataset.id;
+            cart[id] = (cart[id] || 0) + 1;
+            saveCart();
+            btn.textContent = "Added!";
+            setTimeout(() => (btn.textContent = "Add to Cart"), 800);
+          });
         });
-      } catch (err) { console.warn('Form submit failed', err); }
-      alert('Thank you — we will email you a short recommendation within 24 hours.');
-      closeConsult();
-      return;
+      }
+
+      document.getElementById("rec-run").addEventListener("click", () => {
+        const answers = {
+          purpose: document.getElementById("rec-purpose").value,
+          zodiac:  document.getElementById("rec-zodiac").value,
+          budget:  document.getElementById("rec-budget").value,
+          chakra:  document.getElementById("rec-chakra").value
+        };
+        renderResults(answers);
+      });
+
+      document.getElementById("rec-reset").addEventListener("click", () => {
+        resultsEl.innerHTML = "";
+      });
+    })();
+  </script>
+
+  <!-- Shared header/footer + page widgets -->
+  <script src="js/layout.js"></script>
+
+  <!-- Home-page specific UI (modals, link-to-shop, etc.) -->
+  <script>
+    // Open consultation modal from inline onclick
+    function openConsult() {
+      const m = document.getElementById('consult-modal');
+      if (m) {
+        m.classList.remove('hidden');
+        m.classList.add('flex');
+      }
     }
 
-    // Paid consultations -> redirect to Calendly (replace link)
-    const calendlyLink = 'https://calendly.com/YOUR_CALENDLY_ID/30min';
-    if (confirm('You will be redirected to booking & payment. Proceed?')) {
-      window.location.href = calendlyLink;
-    }
-  });
+    (function() {
+      // Rudraksha cards → link to shop
+      document.querySelectorAll('.js-link-to-shop').forEach(card => {
+        card.addEventListener('click', () => {
+          window.location.href = 'shop-ecom.html#rudraksha';
+        });
+      });
 
-  // Modal close when pressing ESC
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeConsult();
-      closeSampleReport();
-    }
-  });
+      // Sample report modal
+      const sampleModal = document.getElementById('sample-report-modal');
+      const openSample = document.getElementById('open-sample-report');
+      const closeSample1 = document.getElementById('close-sample-report');
+      const closeSample2 = document.getElementById('modal-close');
+      const requestFromModal = document.getElementById('modal-request-cert');
+      const requestBtn = document.getElementById('request-certificate');
 
-  // Make homepage product cards link to shop-ecom
-  document.querySelectorAll('.js-link-to-shop').forEach(card => {
-    card.addEventListener('click', () => {
-      window.location.href = 'shop-ecom.html';
-    });
-  });
+      function showSample() {
+        if (sampleModal) {
+          sampleModal.classList.remove('hidden');
+          sampleModal.classList.add('flex');
+        }
+      }
+      function hideSample() {
+        if (sampleModal) {
+          sampleModal.classList.add('hidden');
+          sampleModal.classList.remove('flex');
+        }
+      }
 
-  console.log('Widgets loaded');
-</script>
+      openSample?.addEventListener('click', showSample);
+      closeSample1?.addEventListener('click', hideSample);
+      closeSample2?.addEventListener('click', hideSample);
+      requestFromModal?.addEventListener('click', () => {
+        hideSample();
+        if (requestBtn) requestBtn.scrollIntoView({ behavior: 'smooth' });
+      });
+
+      // Consultation modal close + simple submit handler
+      const consultModal = document.getElementById('consult-modal');
+      const closeConsultBtn = document.getElementById('close-consult');
+      const consultForm = document.getElementById('consult-form');
+
+      function hideConsult() {
+        if (consultModal) {
+          consultModal.classList.add('hidden');
+          consultModal.classList.remove('flex');
+        }
+      }
+      closeConsultBtn?.addEventListener('click', hideConsult);
+
+      consultForm?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Thanks! We will contact you shortly to confirm your free/paid consultation.');
+        hideConsult();
+        consultForm.reset();
+      });
+    })();
+  </script>
 
 </body>
 </html>

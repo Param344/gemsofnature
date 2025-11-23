@@ -59,1442 +59,1034 @@
     #order-confirm.open { display:flex; }
   </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-montserrat">
 
-<!-- NAVBAR (replace existing header with this) -->
-<header class="sticky top-0 z-50">
-  <nav id="mainNav" class="bg-emerald-900/95 backdrop-blur-sm text-white shadow-md transition-colors">
-    <div class="container mx-auto flex justify-between items-center py-4 px-6">
-      <a href="index.html" class="flex items-center" aria-label="Gems of Nature - Home">
-        <img src="images/logo.png" alt="Gems of Nature Logo" class="h-12 w-auto" loading="lazy">
-        <span class="ml-2 text-2xl font-bold font-montserrat">Gems of Nature</span>
-      </a>
+<body class="bg-gray-50 text-gray-800 font-montserrat" data-page="shop-ecom">
+  <!-- Shared header (injected by layout.js) -->
+  <div id="header"></div>
 
-      <!-- Desktop links -->
-      <ul class="hidden md:flex gap-6 text-lg font-montserrat items-center">
-        <li><a href="index.html" class="hover:text-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-300 rounded">Home</a></li>
-        <li><a href="about.html" class="hover:text-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-300 rounded">About</a></li>
-        <li><a href="shop.html" class="text-emerald-300 font-semibold" aria-current="page">Collections</a></li>
-        <li><a href="contact.html" class="hover:text-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-300 rounded">Contact</a></li>
-      <li><a href="astrology.consultation.html" class="hover:text-emerald-300 transition">Astrology & Consultation</a></li>
-
-      </ul>
-
-      <!-- Right controls -->
-      <div class="flex items-center gap-4">
-        <a href="shop-ecom.html"
-           class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold hidden md:inline-block focus:outline-none focus:ring-2 focus:ring-emerald-300"
-           aria-label="Buy online - Gems of Nature">
-          Buy Online
-        </a>
-
-        <a href="shop-ecom.html" class="text-2xl cursor-pointer" aria-label="Open cart">🛒</a>
-
-        <!-- Mobile menu button -->
-        <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu"
-                class="text-2xl md:hidden p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-300"
-                aria-label="Open mobile menu">☰</button>
+  <!-- HERO -->
+  <section class="relative bg-cover bg-center h-52 md:h-64 fade-in" style="background-image:url('images/hero-bg.jpg')">
+    <div class="absolute inset-0 bg-black/45 flex items-center justify-center">
+      <div class="text-center text-white px-6">
+        <h1 class="text-2xl md:text-4xl font-bold">Shop & Buy — Gems of Nature</h1>
+        <p class="mt-2">Authentic gemstones for healing, jewellery & collectors.</p>
       </div>
     </div>
+  </section>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden bg-emerald-800 md:hidden">
-      <ul class="flex flex-col gap-4 px-6 py-4">
-        <li><a href="index.html" class="block py-2 px-1 rounded hover:text-emerald-200">Home</a></li>
-        <li><a href="about.html" class="block py-2 px-1 rounded hover:text-emerald-200">About</a></li>
-        <li><a href="shop.html" class="block py-2 px-1 rounded hover:text-emerald-200 font-semibold text-emerald-300">Collections</a></li>
-        <li><a href="shop-ecom.html" class="block py-2 px-1 rounded hover:text-emerald-200">Buy Online</a></li>
-        <li><a href="contact.html" class="block py-2 px-1 rounded hover:text-emerald-200">Contact</a></li>
-        <li><a href="astrology.consultation.html" class="hover:text-emerald-300 transition">Astrology & Consultation</a></li>
-      </ul>
-    </div>
-  </nav>
-</header>
+  <!-- MAIN -->
+  <main class="container mx-auto px-4 py-10 fade-in">
+    <div class="lg:flex lg:gap-8">
 
-<!-- Mobile menu toggle script (place once near bottom of page) -->
-<script>
-  (function () {
-    const btn = document.getElementById('mobile-menu-button');
-    const mobile = document.getElementById('mobile-menu');
+      <!-- LEFT: Filters + Grid -->
+      <div class="flex-1">
+        <!-- Filters bar -->
+        <div class="bg-white rounded-2xl shadow p-4 mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <input id="search-input" type="search" placeholder="Search stones, rudraksha or qualities" class="border rounded px-3 py-2 w-72" />
 
-    function setAria(open) {
-      btn.setAttribute('aria-expanded', String(open));
-    }
+            <select id="category-filter" class="border rounded px-2 py-2 text-sm">
+              <option value="all">All categories</option>
+              <option value="Precious">Precious</option>
+              <option value="Semi-Precious">Semi-Precious</option>
+              <option value="Healing">Healing</option>
+              <option value="Rudraksha">Rudraksha</option>
+              <option value="Raw Stones">Raw Stones</option>
+            </select>
 
-    btn && btn.addEventListener('click', () => {
-      const open = mobile.classList.toggle('hidden') === false;
-      setAria(open);
-      // move focus into mobile menu for accessibility when opened
-      if (open) {
-        const firstLink = mobile.querySelector('a');
-        firstLink && firstLink.focus();
-      } else {
-        btn.focus();
-      }
-    });
-
-    // Close mobile menu when any link inside is clicked (nice UX)
-    mobile && mobile.addEventListener('click', (e) => {
-      if (e.target.tagName === 'A') {
-        mobile.classList.add('hidden');
-        setAria(false);
-      }
-    });
-
-    // Close on Esc
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !mobile.classList.contains('hidden')) {
-        mobile.classList.add('hidden');
-        setAria(false);
-        btn && btn.focus();
-      }
-    });
-  })();
-</script>
-
-
-<!-- HERO -->
-<section class="relative bg-cover bg-center h-52 md:h-64 fade-in" style="background-image:url('images/hero-bg.jpg')">
-  <div class="absolute inset-0 bg-black/45 flex items-center justify-center">
-    <div class="text-center text-white px-6">
-      <h1 class="text-2xl md:text-4xl font-bold">Shop & Buy — Gems of Nature</h1>
-      <p class="mt-2">Authentic gemstones for healing, jewellery & collectors.</p>
-    </div>
-  </div>
-</section>
-
-<!-- MAIN -->
-<main class="container mx-auto px-4 py-10 fade-in">
-  <div class="lg:flex lg:gap-8">
-
-    <!-- LEFT: Filters + Grid -->
-    <div class="flex-1">
-      <!-- Filters bar -->
-      <div class="bg-white rounded-2xl shadow p-4 mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-        <div class="flex items-center gap-3">
-          <input id="search-input" type="search" placeholder="Search stones, rudraksha or qualities" class="border rounded px-3 py-2 w-72" />
-
-          <select id="category-filter" class="border rounded px-2 py-2 text-sm">
-  <option value="all">All categories</option>
-  <option value="Precious">Precious</option>
-  <option value="Semi-Precious">Semi-Precious</option>
-  <option value="Healing">Healing</option>
-  <option value="Rudraksha">Rudraksha</option>
-  <option value="Raw Stones">Raw Stones</option>
-</select>
-
-
-          <select id="sort-select" class="border rounded px-2 py-2 text-sm">
-            <option value="default">Sort: Featured</option>
-            <option value="price-asc">Price: Low → High</option>
-            <option value="price-desc">Price: High → Low</option>
-          </select>
-        </div>
-
-        <div class="flex items-center gap-3">
-          <label class="text-sm text-gray-600">Currency</label>
-          <select id="currency-select" class="border rounded px-2 py-1 text-sm">
-            <option value="INR">₹ INR</option>
-            <option value="USD">$ USD</option>
-            <option value="EUR">€ EUR</option>
-            <option value="GBP">£ GBP</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Products grid -->
-      <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6"></div>
-
-      <!-- pagination -->
-      <div id="pagination" class="mt-6 flex items-center justify-center gap-2"></div>
-    </div>
-
-    <!-- RIGHT: Cart -->
-    <aside id="cart-sidebar" class="w-full lg:w-96 bg-white rounded-2xl shadow-md p-6 mt-6 lg:mt-0">
-      <h3 class="text-xl font-semibold text-emerald-700">
-  Your Cart <span id="cart-count" class="ml-2 inline-block bg-emerald-100 text-emerald-700 text-sm px-2 py-0.5 rounded">0</span>
-</h3>
-      <div id="cart-items" class="mt-4 space-y-4 max-h-72 overflow-auto">
-        <!-- cart items injected here -->
-      </div>
-
-      <div class="mt-4 border-t pt-4">
-        <div class="flex justify-between text-gray-700">
-          <span class="font-medium">Subtotal</span>
-          <span id="cart-subtotal">₹0</span>
-        </div>
-        <div class="flex justify-between text-gray-700 mt-2">
-          <span class="font-medium">Shipping</span>
-          <span id="cart-shipping">₹50</span>
-        </div>
-        <div class="flex justify-between text-lg font-semibold text-emerald-800 mt-3">
-          <span>Total</span>
-          <span id="cart-total">₹0</span>
-        </div>
-
-        <button id="checkout-button" class="mt-4 w-full bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg">Checkout</button>
-        <button id="clear-cart" class="mt-3 w-full border border-gray-200 text-gray-700 px-4 py-2 rounded-lg">Clear Cart</button>
-      </div>
-    </aside>
-  </div>
-</main>
-
-<!-- PRODUCT DETAIL (slides in) -->
-<aside id="product-detail" class="fixed right-4 top-12 w-full md:w-1/2 bg-white rounded-2xl shadow-lg p-6 detail-panel z-50 hidden" aria-hidden="true">
-  <div class="flex gap-4">
-    <img id="detail-image" src="images/placeholder.jpg" alt="" class="w-40 h-40 object-cover rounded" />
-    <div class="flex-1">
-      <div class="flex items-start justify-between">
-        <h3 id="detail-title" class="text-xl font-semibold text-emerald-700"></h3>
-        <button id="close-detail" class="text-gray-500">✕</button>
-      </div>
-      <div id="detail-meta" class="text-sm text-gray-600 mt-2"></div>
-      <div id="detail-desc" class="text-sm text-gray-700 mt-3"></div>
-      <div id="detail-mukhi" class="mt-3 text-sm text-gray-700"></div>
-      <div id="detail-deity" class="mt-1 text-sm text-gray-700"></div>
-      <div id="detail-mantra" class="mt-1 text-sm text-gray-700"></div>
-      <div class="mt-4 flex items-center gap-3">
-        <div id="detail-price" class="text-lg font-semibold text-emerald-800"></div>
-        <button id="detail-add" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg">Add to Cart</button>
-      </div>
-    </div>
-  </div>
-</aside>
-
-<!-- CHECKOUT MODAL -->
-<div id="checkout-modal"
-     class="modal-center fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm"
-     role="dialog" aria-modal="true" aria-hidden="true">
-  <div
-    class="checkout-panel w-full max-w-5xl mx-4 bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden"
-    role="document">
-
-    <!-- Top gradient bar -->
-    <div class="h-1 w-full bg-gradient-to-r from-emerald-500 via-teal-500 to-sky-500"></div>
-
-    <!-- Header -->
-    <div class="checkout-header flex items-start justify-between gap-3 px-6 md:px-8 pt-5 pb-4">
-      <div>
-        <h3 class="text-2xl font-semibold text-slate-900">Checkout</h3>
-        <div class="muted text-sm mt-1">
-          Complete your order — we will contact you for shipping &amp; dispatch.
-        </div>
-
-        <div class="flex items-center gap-2 text-xs mt-3 text-slate-500">
-          <span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-emerald-700">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-            Secure order
-          </span>
-          <span>→</span>
-          <span>Confirmation via call / WhatsApp</span>
-        </div>
-      </div>
-      <div>
-        <button id="close-checkout"
-                class="modal-close rounded-full p-1.5 hover:bg-slate-100 text-slate-500"
-                aria-label="Close checkout">✕</button>
-      </div>
-    </div>
-
-    <!-- Body -->
-    <div class="checkout-body grid md:grid-cols-[1.8fr_1.2fr] gap-0 border-t border-slate-100">
-      <!-- Left: buyer details -->
-      <div class="checkout-left px-6 md:px-8 py-5">
-        <form id="checkout-form" class="grid gap-4">
-          <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label for="co-name" class="block text-xs font-medium text-slate-600 mb-1">
-                Full name
-              </label>
-              <input id="co-name" name="name" required placeholder="Full name"
-                     class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
-                            focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
-            </div>
-            <div>
-              <label for="co-email" class="block text-xs font-medium text-slate-600 mb-1">
-                Email address
-              </label>
-              <input id="co-email" name="email" type="email" required placeholder="Email address"
-                     class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
-                            focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
-            </div>
+            <select id="sort-select" class="border rounded px-2 py-2 text-sm">
+              <option value="default">Sort: Featured</option>
+              <option value="price-asc">Price: Low → High</option>
+              <option value="price-desc">Price: High → Low</option>
+            </select>
           </div>
 
-          <div>
-            <label for="co-phone" class="block text-xs font-medium text-slate-600 mb-1">
-              Phone / WhatsApp
-            </label>
-            <input id="co-phone" name="phone" placeholder="Phone number"
-                   class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
-                          focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
+          <div class="flex items-center gap-3">
+            <label class="text-sm text-gray-600">Currency</label>
+            <select id="currency-select" class="border rounded px-2 py-1 text-sm">
+              <option value="INR">₹ INR</option>
+              <option value="USD">$ USD</option>
+              <option value="EUR">€ EUR</option>
+              <option value="GBP">£ GBP</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Products grid -->
+        <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6"></div>
+
+        <!-- pagination -->
+        <div id="pagination" class="mt-6 flex items-center justify-center gap-2"></div>
+      </div>
+
+      <!-- RIGHT: Cart -->
+      <aside id="cart-sidebar" class="w-full lg:w-96 bg-white rounded-2xl shadow-md p-6 mt-6 lg:mt-0">
+        <h3 class="text-xl font-semibold text-emerald-700">
+          Your Cart <span id="cart-count" class="ml-2 inline-block bg-emerald-100 text-emerald-700 text-sm px-2 py-0.5 rounded">0</span>
+        </h3>
+        <div id="cart-items" class="mt-4 space-y-4 max-h-72 overflow-auto">
+          <!-- cart items injected here -->
+        </div>
+
+        <div class="mt-4 border-t pt-4">
+          <div class="flex justify-between text-gray-700">
+            <span class="font-medium">Subtotal</span>
+            <span id="cart-subtotal">₹0</span>
+          </div>
+          <div class="flex justify-between text-gray-700 mt-2">
+            <span class="font-medium">Shipping</span>
+            <span id="cart-shipping">₹50</span>
+          </div>
+          <div class="flex justify-between text-lg font-semibold text-emerald-800 mt-3">
+            <span>Total</span>
+            <span id="cart-total">₹0</span>
           </div>
 
-          <div>
-            <label for="co-address" class="block text-xs font-medium text-slate-600 mb-1">
-              Shipping address
-            </label>
-            <textarea id="co-address" name="address" placeholder="Full address with city &amp; pincode"
-                      class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
-                             focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none"
-                      rows="3"></textarea>
+          <button id="checkout-button" class="mt-4 w-full bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg">Checkout</button>
+          <button id="clear-cart" class="mt-3 w-full border border-gray-200 text-gray-700 px-4 py-2 rounded-lg">Clear Cart</button>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- PRODUCT DETAIL (slides in) -->
+  <aside id="product-detail" class="fixed right-4 top-12 w-full md:w-1/2 bg-white rounded-2xl shadow-lg p-6 detail-panel z-50 hidden" aria-hidden="true">
+    <div class="flex gap-4">
+      <img id="detail-image" src="images/placeholder.jpg" alt="" class="w-40 h-40 object-cover rounded" />
+      <div class="flex-1">
+        <div class="flex items-start justify-between">
+          <h3 id="detail-title" class="text-xl font-semibold text-emerald-700"></h3>
+          <button id="close-detail" class="text-gray-500">✕</button>
+        </div>
+        <div id="detail-meta" class="text-sm text-gray-600 mt-2"></div>
+        <div id="detail-desc" class="text-sm text-gray-700 mt-3"></div>
+        <div id="detail-mukhi" class="mt-3 text-sm text-gray-700"></div>
+        <div id="detail-deity" class="mt-1 text-sm text-gray-700"></div>
+        <div id="detail-mantra" class="mt-1 text-sm text-gray-700"></div>
+        <div class="mt-4 flex items-center gap-3">
+          <div id="detail-price" class="text-lg font-semibold text-emerald-800"></div>
+          <button id="detail-add" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CHECKOUT MODAL -->
+  <div id="checkout-modal"
+       class="modal-center fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm"
+       role="dialog" aria-modal="true" aria-hidden="true">
+    <div
+      class="checkout-panel w-full max-w-5xl mx-4 bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden"
+      role="document">
+
+      <!-- Top gradient bar -->
+      <div class="h-1 w-full bg-gradient-to-r from-emerald-500 via-teal-500 to-sky-500"></div>
+
+      <!-- Header -->
+      <div class="checkout-header flex items-start justify-between gap-3 px-6 md:px-8 pt-5 pb-4">
+        <div>
+          <h3 class="text-2xl font-semibold text-slate-900">Checkout</h3>
+          <div class="muted text-sm mt-1">
+            Complete your order — we will contact you for shipping &amp; dispatch.
           </div>
 
-          <!-- Payment method -->
-          <div class="mt-1">
-            <label class="block mb-2 text-xs font-semibold text-slate-600 uppercase tracking-wide">
-              Payment method
-            </label>
-            <div class="grid gap-3 sm:grid-cols-2">
-              <label
-                class="flex items-start gap-2 rounded-xl border border-emerald-500/60 bg-emerald-50 px-3.5 py-3 text-sm cursor-pointer">
-                <input type="radio" name="payment_method" value="cod" checked class="mt-1" />
-                <span>
-                  <span class="font-medium text-slate-900 block">Cash on Delivery</span>
-                  <span class="muted text-xs">
-                    Pay on delivery. Ideal for high-value gemstones.
-                  </span>
-                </span>
-              </label>
-              <label
-                class="flex items-start gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-3 text-sm cursor-pointer">
-                <input type="radio" name="payment_method" value="online" class="mt-1" />
-                <span>
-                  <span class="font-medium text-slate-900 block">Pay Online</span>
-                  <span class="muted text-xs">
-                    Secure UPI / card link shared after confirmation.
-                  </span>
-                </span>
-              </label>
-            </div>
+          <div class="flex items-center gap-2 text-xs mt-3 text-slate-500">
+            <span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-emerald-700">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              Secure order
+            </span>
+            <span>→</span>
+            <span>Confirmation via call / WhatsApp</span>
           </div>
+        </div>
+        <div>
+          <button id="close-checkout"
+                  class="modal-close rounded-full p-1.5 hover:bg-slate-100 text-slate-500"
+                  aria-label="Close checkout">✕</button>
+        </div>
+      </div>
 
-          <!-- online options (UPI + Card UI) -->
-          <div id="online-options" class="hidden mt-3 border border-slate-200 rounded-2xl p-4 bg-slate-50/70">
-            <div class="flex items-center justify-between gap-3">
+      <!-- Body -->
+      <div class="checkout-body grid md:grid-cols-[1.8fr_1.2fr] gap-0 border-t border-slate-100">
+        <!-- Left: buyer details -->
+        <div class="checkout-left px-6 md:px-8 py-5">
+          <form id="checkout-form" class="grid gap-4">
+            <div class="grid sm:grid-cols-2 gap-4">
               <div>
-                <p class="text-xs font-semibold text-slate-600 tracking-wide uppercase">
-                  Online payment
-                </p>
-                <p class="text-[11px] text-slate-500 mt-1">
-                  Choose UPI or card. This flow is simulated – actual payment happens via link/UPI app.
-                </p>
-              </div>
-              <span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-[11px] text-emerald-700">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                Secure
-              </span>
-            </div>
-
-            <!-- Choice: UPI / Card -->
-            <div class="flex flex-wrap gap-3 mt-4 text-sm">
-              <label
-                class="flex items-center gap-2 rounded-2xl border border-emerald-500/70 bg-emerald-50 px-3.5 py-2 cursor-pointer">
-                <input type="radio" name="online_option" value="upi" checked />
-                <div>
-                  <div class="font-medium text-slate-900">UPI</div>
-                  <div class="text-[11px] text-slate-600">
-                    Scan or open with any UPI app.
-                  </div>
-                </div>
-              </label>
-
-              <label
-                class="flex items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 px-3.5 py-2 cursor-pointer">
-                <input type="radio" name="online_option" value="card" />
-                <div>
-                  <div class="font-medium text-slate-900">Card (simulated)</div>
-                  <div class="text-[11px] text-slate-600">
-                    Enter card details for demo only.
-                  </div>
-                </div>
-              </label>
-            </div>
-
-            <!-- UPI panel -->
-            <div id="upi-panel" class="mt-5">
-              <p class="text-xs text-slate-600">
-                Scan the QR / open in your UPI app. You’ll also receive this link by WhatsApp/SMS after order confirmation.
-              </p>
-
-              <div class="mt-3 flex flex-col gap-2">
-                <label class="text-[11px] font-medium text-slate-500">
-                  UPI intent link / string
+                <label for="co-name" class="block text-xs font-medium text-slate-600 mb-1">
+                  Full name
                 </label>
-                <div class="flex gap-2">
-                  <input id="upi-string"
-                         class="border border-slate-200 rounded-2xl px-3.5 py-2.5 w-full text-[13px] bg-slate-50 shadow-inner"
-                         readonly />
-                  <button id="copy-upi" type="button"
-                          class="px-3.5 py-2.5 rounded-2xl text-xs font-semibold bg-emerald-600 text-white hover:bg-emerald-700">
-                    Copy
-                  </button>
-                </div>
-                <p class="text-[11px] text-slate-500">
-                  Paste this directly inside your UPI app if auto-opening doesn’t work.
-                </p>
+                <input id="co-name" name="name" required placeholder="Full name"
+                       class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
+                              focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
+              </div>
+              <div>
+                <label for="co-email" class="block text-xs font-medium text-slate-600 mb-1">
+                  Email address
+                </label>
+                <input id="co-email" name="email" type="email" required placeholder="Email address"
+                       class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
+                              focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
               </div>
             </div>
 
-            <!-- Card panel -->
-            <div id="card-panel" class="mt-5 hidden">
-              <p class="text-xs text-slate-600 mb-3">
-                Enter card details – this is a <span class="font-semibold">simulated</span> payment flow.
-                No real charge will be made.
-              </p>
+            <div>
+              <label for="co-phone" class="block text-xs font-medium text-slate-600 mb-1">
+                Phone / WhatsApp
+              </label>
+              <input id="co-phone" name="phone" placeholder="Phone number"
+                     class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
+                            focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
+            </div>
 
-              <div class="grid gap-3 text-sm">
-                <!-- Card number -->
+            <div>
+              <label for="co-address" class="block text-xs font-medium text-slate-600 mb-1">
+                Shipping address
+              </label>
+              <textarea id="co-address" name="address" placeholder="Full address with city &amp; pincode"
+                        class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
+                               focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none"
+                        rows="3"></textarea>
+            </div>
+
+            <!-- Payment method -->
+            <div class="mt-1">
+              <label class="block mb-2 text-xs font-semibold text-slate-600 uppercase tracking-wide">
+                Payment method
+              </label>
+              <div class="grid gap-3 sm:grid-cols-2">
+                <label
+                  class="flex items-start gap-2 rounded-xl border border-emerald-500/60 bg-emerald-50 px-3.5 py-3 text-sm cursor-pointer">
+                  <input type="radio" name="payment_method" value="cod" checked class="mt-1" />
+                  <span>
+                    <span class="font-medium text-slate-900 block">Cash on Delivery</span>
+                    <span class="muted text-xs">
+                      Pay on delivery. Ideal for high-value gemstones.
+                    </span>
+                  </span>
+                </label>
+                <label
+                  class="flex items-start gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-3 text-sm cursor-pointer">
+                  <input type="radio" name="payment_method" value="online" class="mt-1" />
+                  <span>
+                    <span class="font-medium text-slate-900 block">Pay Online</span>
+                    <span class="muted text-xs">
+                      Secure UPI / card link shared after confirmation.
+                    </span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- online options (UPI + Card UI) -->
+            <div id="online-options" class="hidden mt-3 border border-slate-200 rounded-2xl p-4 bg-slate-50/70">
+              <div class="flex items-center justify-between gap-3">
                 <div>
-                  <label class="text-[11px] font-medium text-slate-500">Card number</label>
-                  <div class="relative mt-1">
-                    <input id="card-number" inputmode="numeric" autocomplete="cc-number" maxlength="19"
-                           placeholder="1234-5678-9012-3456"
-                           class="border border-slate-200 rounded-2xl px-3.5 py-2.5 w-full pr-24 text-sm shadow-inner
-                                  focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
-                    <div id="card-brand"
-                         class="absolute right-3 top-2.5 text-[11px] flex items-center gap-2 text-slate-500">
-                      <img id="card-brand-img" src="" alt="" class="h-5 hidden" />
-                      <span id="card-brand-text" class="hidden"></span>
+                  <p class="text-xs font-semibold text-slate-600 tracking-wide uppercase">
+                    Online payment
+                  </p>
+                  <p class="text-[11px] text-slate-500 mt-1">
+                    Choose UPI or card. This flow is simulated – actual payment happens via link/UPI app.
+                  </p>
+                </div>
+                <span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-[11px] text-emerald-700">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  Secure
+                </span>
+              </div>
+
+              <!-- Choice: UPI / Card -->
+              <div class="flex flex-wrap gap-3 mt-4 text-sm">
+                <label
+                  class="flex items-center gap-2 rounded-2xl border border-emerald-500/70 bg-emerald-50 px-3.5 py-2 cursor-pointer">
+                  <input type="radio" name="online_option" value="upi" checked />
+                  <div>
+                    <div class="font-medium text-slate-900">UPI</div>
+                    <div class="text-[11px] text-slate-600">
+                      Scan or open with any UPI app.
                     </div>
                   </div>
-                </div>
+                </label>
 
-                <!-- Name on card -->
-                <div>
-                  <label class="text-[11px] font-medium text-slate-500">Name on card</label>
-                  <input id="card-name" autocomplete="cc-name" placeholder="Full name as on card"
-                         class="mt-1 border border-slate-200 rounded-2xl px-3.5 py-2.5 w-full text-sm shadow-inner
-                                focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
-                </div>
+                <label
+                  class="flex items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 px-3.5 py-2 cursor-pointer">
+                  <input type="radio" name="online_option" value="card" />
+                  <div>
+                    <div class="font-medium text-slate-900">Card (simulated)</div>
+                    <div class="text-[11px] text-slate-600">
+                      Enter card details for demo only.
+                    </div>
+                  </div>
+                </label>
+              </div>
 
-                <!-- Expiry + CVV -->
-                <div class="flex gap-3">
-                  <div class="flex-1">
-                    <label class="text-[11px] font-medium text-slate-500">Expiry (MM/YY)</label>
-                    <input id="card-expiry" inputmode="numeric" maxlength="5" placeholder="MM/YY"
+              <!-- UPI panel -->
+              <div id="upi-panel" class="mt-5">
+                <p class="text-xs text-slate-600">
+                  Scan the QR / open in your UPI app. You’ll also receive this link by WhatsApp/SMS after order confirmation.
+                </p>
+
+                <div class="mt-3 flex flex-col gap-2">
+                  <label class="text-[11px] font-medium text-slate-500">
+                    UPI intent link / string
+                  </label>
+                  <div class="flex gap-2">
+                    <input id="upi-string"
+                           class="border border-slate-200 rounded-2xl px-3.5 py-2.5 w-full text-[13px] bg-slate-50 shadow-inner"
+                           readonly />
+                    <button id="copy-upi" type="button"
+                            class="px-3.5 py-2.5 rounded-2xl text-xs font-semibold bg-emerald-600 text-white hover:bg-emerald-700">
+                      Copy
+                    </button>
+                  </div>
+                  <p class="text-[11px] text-slate-500">
+                    Paste this directly inside your UPI app if auto-opening doesn’t work.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Card panel -->
+              <div id="card-panel" class="mt-5 hidden">
+                <p class="text-xs text-slate-600 mb-3">
+                  Enter card details – this is a <span class="font-semibold">simulated</span> payment flow.
+                  No real charge will be made.
+                </p>
+
+                <div class="grid gap-3 text-sm">
+                  <!-- Card number -->
+                  <div>
+                    <label class="text-[11px] font-medium text-slate-500">Card number</label>
+                    <div class="relative mt-1">
+                      <input id="card-number" inputmode="numeric" autocomplete="cc-number" maxlength="19"
+                             placeholder="1234-5678-9012-3456"
+                             class="border border-slate-200 rounded-2xl px-3.5 py-2.5 w-full pr-24 text-sm shadow-inner
+                                    focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
+                      <div id="card-brand"
+                           class="absolute right-3 top-2.5 text-[11px] flex items-center gap-2 text-slate-500">
+                        <img id="card-brand-img" src="" alt="" class="h-5 hidden" />
+                        <span id="card-brand-text" class="hidden"></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Name on card -->
+                  <div>
+                    <label class="text-[11px] font-medium text-slate-500">Name on card</label>
+                    <input id="card-name" autocomplete="cc-name" placeholder="Full name as on card"
                            class="mt-1 border border-slate-200 rounded-2xl px-3.5 py-2.5 w-full text-sm shadow-inner
                                   focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
                   </div>
-                  <div class="w-32">
-                    <label class="text-[11px] font-medium text-slate-500">CVV</label>
-                    <input id="card-cvv" inputmode="numeric" maxlength="4" placeholder="CVV"
-                           class="mt-1 border border-slate-200 rounded-2xl px-3.5 py-2.5 w-full text-sm shadow-inner
-                                  focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
+
+                  <!-- Expiry + CVV -->
+                  <div class="flex gap-3">
+                    <div class="flex-1">
+                      <label class="text-[11px] font-medium text-slate-500">Expiry (MM/YY)</label>
+                      <input id="card-expiry" inputmode="numeric" maxlength="5" placeholder="MM/YY"
+                             class="mt-1 border border-slate-200 rounded-2xl px-3.5 py-2.5 w-full text-sm shadow-inner
+                                    focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
+                    </div>
+                    <div class="w-32">
+                      <label class="text-[11px] font-medium text-slate-500">CVV</label>
+                      <input id="card-cvv" inputmode="numeric" maxlength="4" placeholder="CVV"
+                             class="mt-1 border border-slate-200 rounded-2xl px-3.5 py-2.5 w-full text-sm shadow-inner
+                                    focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
+                    </div>
                   </div>
-                </div>
 
-                <div id="card-error" class="text-[11px] text-red-600 hidden">
-                  Invalid card details. Please check and try again.
-                </div>
+                  <div id="card-error" class="text-[11px] text-red-600 hidden">
+                    Invalid card details. Please check and try again.
+                  </div>
 
-                <p class="text-[11px] text-slate-500">
-                  We only simulate card payments here. To accept real payments, connect a live gateway
-                  (Razorpay, Stripe, etc.).
-                </p>
+                  <p class="text-[11px] text-slate-500">
+                    We only simulate card payments here. To accept real payments, connect a live gateway
+                    (Razorpay, Stripe, etc.).
+                  </p>
 
-                <p class="text-[11px] text-slate-500 mt-1">
-                  After submitting your card details, you can continue with the main
-                  <span class="font-semibold">“Place Order”</span> button in the checkout.
-                </p>
+                  <p class="text-[11px] text-slate-500 mt-1">
+                    After submitting your card details, you can continue with the main
+                    <span class="font-semibold">“Place Order”</span> button in the checkout.
+                  </p>
 
-                <!-- Submit button inside card panel -->
-                <div class="mt-2 flex justify-end">
-                  <button id="card-submit" type="button"
-                          class="rounded-2xl bg-emerald-600 text-white text-xs font-semibold px-5 py-2
-                                 shadow-md hover:bg-emerald-700">
-                    Submit
-                  </button>
+                  <!-- Submit button inside card panel -->
+                  <div class="mt-2 flex justify-end">
+                    <button id="card-submit" type="button"
+                            class="rounded-2xl bg-emerald-600 text-white text-xs font-semibold px-5 py-2
+                                   shadow-md hover:bg-emerald-700">
+                      Submit
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Order summary (items list) -->
-          <div class="mt-4">
-            <h4 class="font-semibold text-slate-800 text-sm">Order Summary</h4>
-            <div id="checkout-summary"
-                 class="order-summary mt-2 text-sm bg-slate-50 border border-slate-200 rounded-2xl p-3 max-h-44 overflow-auto">
-              <!-- items injected by JS -->
+            <!-- Order summary (items list) -->
+            <div class="mt-4">
+              <h4 class="font-semibold text-slate-800 text-sm">Order Summary</h4>
+              <div id="checkout-summary"
+                   class="order-summary mt-2 text-sm bg-slate-50 border border-slate-200 rounded-2xl p-3 max-h-44 overflow-auto">
+                <!-- items injected by JS -->
+              </div>
+            </div>
+
+            <p class="text-[11px] text-slate-500 mt-3 leading-relaxed">
+              By placing the order, you agree to be contacted via phone / WhatsApp / email
+              for confirmation and final shipping charges for high-value stones.
+            </p>
+          </form>
+        </div>
+
+        <!-- Right: totals & actions -->
+        <div class="checkout-right bg-slate-50 border-l border-slate-200 px-6 md:px-7 py-5 flex flex-col">
+          <div class="muted text-xs font-semibold tracking-wide uppercase mb-3">Order totals</div>
+
+          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 text-sm">
+            <div class="flex justify-between mb-2 text-slate-700">
+              <span>Subtotal</span><strong id="co-subtotal">—</strong>
+            </div>
+            <div class="flex justify-between mb-2 text-slate-700">
+              <span>Shipping</span><strong id="co-shipping">—</strong>
+            </div>
+            <div class="flex justify-between items-center mt-3 pt-3 border-t border-dashed border-slate-200 text-base">
+              <span class="font-semibold text-slate-900">Total</span>
+              <strong id="co-total" class="text-xl font-bold text-emerald-700">—</strong>
             </div>
           </div>
 
-          <p class="text-[11px] text-slate-500 mt-3 leading-relaxed">
-            By placing the order, you agree to be contacted via phone / WhatsApp / email
-            for confirmation and final shipping charges for high-value stones.
-          </p>
-        </form>
-      </div>
-
-      <!-- Right: totals & actions -->
-      <div class="checkout-right bg-slate-50 border-l border-slate-200 px-6 md:px-7 py-5 flex flex-col">
-        <div class="muted text-xs font-semibold tracking-wide uppercase mb-3">Order totals</div>
-
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 text-sm">
-          <div class="flex justify-between mb-2 text-slate-700">
-            <span>Subtotal</span><strong id="co-subtotal">—</strong>
+          <div class="summary-footer mt-5 space-y-3">
+            <button id="place-order" disabled
+                    class="w-full bg-emerald-600 disabled:opacity-60 disabled:cursor-not-allowed
+                           text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow-md hover:bg-emerald-700">
+              Place Order
+            </button>
+            <button id="cancel-checkout"
+                    class="mt-0 w-full border border-slate-300 bg-white px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-100">
+              Cancel
+            </button>
           </div>
-          <div class="flex justify-between mb-2 text-slate-700">
-            <span>Shipping</span><strong id="co-shipping">—</strong>
-          </div>
-          <div class="flex justify-between items-center mt-3 pt-3 border-t border-dashed border-slate-200 text-base">
-            <span class="font-semibold text-slate-900">Total</span>
-            <strong id="co-total" class="text-xl font-bold text-emerald-700">—</strong>
-          </div>
-        </div>
 
-        <div class="summary-footer mt-5 space-y-3">
-          <button id="place-order" disabled
-                  class="w-full bg-emerald-600 disabled:opacity-60 disabled:cursor-not-allowed
-                         text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow-md hover:bg-emerald-700">
-            Place Order
-          </button>
-          <button id="cancel-checkout"
-                  class="mt-0 w-full border border-slate-300 bg-white px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-100">
-            Cancel
-          </button>
-        </div>
-
-        <div class="muted text-[11px] mt-4 flex items-start gap-2">
-          <span class="mt-0.5">🔒</span>
-          <span>
-            We’ll contact you on the phone/email to confirm shipping cost and dispatch details
-            for high-value stones. Your details are never shared with third parties.
-          </span>
+          <div class="muted text-[11px] mt-4 flex items-start gap-2">
+            <span class="mt-0.5">🔒</span>
+            <span>
+              We’ll contact you on the phone/email to confirm shipping cost and dispatch details
+              for high-value stones. Your details are never shared with third parties.
+            </span>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- JS for online options + card formatting -->
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  // Toggle COD / Online block
-  const paymentRadios = document.querySelectorAll('input[name="payment_method"]');
-  const onlineOptions = document.getElementById('online-options');
+  <!-- ORDER CONFIRM (single copy, fixed) -->
+  <div id="order-confirm" class="" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="bg-white rounded-xl p-6 max-w-lg text-center">
+      <h3 class="text-2xl font-semibold text-emerald-700">Thank you!</h3>
+      <p id="order-message" class="mt-3 text-gray-700">Your order has been placed.</p>
+      <button id="close-order" class="mt-6 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg">Close</button>
+    </div>
+  </div>
 
-  paymentRadios.forEach(radio => {
-    radio.addEventListener('change', () => {
-      if (radio.value === 'online' && radio.checked) {
-        onlineOptions.classList.remove('hidden');
-      } else if (radio.value === 'cod' && radio.checked) {
-        onlineOptions.classList.add('hidden');
-      }
+  <!-- Shared footer (injected by layout.js) -->
+  <div id="footer"></div>
+
+  <!-- Shared layout (header + footer) -->
+  <script src="js/layout.js"></script>
+
+  <!-- shared product data -->
+  <script src="js/products.js"></script>
+
+  <!-- Main ecommerce logic -->
+  <script>
+  // compute a display price (midpoint) for each product if not present
+  products.forEach(p => { if (!p.price) p.price = Math.round(((p.price_min || 0) + (p.price_max || 0)) / 2); });
+
+  const ITEMS_PER_PAGE = 12; // 3 columns × 4 rows per page
+  let currentPage = 1;
+  let currentCurrency = 'INR';
+  const currencyRates = { INR:1, USD:1/83, EUR:1/95, GBP:1/110 };
+  let cart = JSON.parse(localStorage.getItem('gon_cart') || '{}');
+  const SHIPPING = 50;
+
+  function formatCurrency(value, currency='INR'){
+    if (value==null) return '';
+    if (currency==='INR') return '₹'+Number(value).toLocaleString('en-IN');
+    return (currency==='USD'? '$': currency==='EUR'? '€': '£') + (value*currencyRates[currency]).toFixed(2);
+  }
+
+  function renderProductCard(p){
+    const div = document.createElement('div');
+    div.className = 'bg-white rounded-2xl shadow-md product-card';
+    div.setAttribute('data-id', p.id);
+    div.innerHTML = `
+      <div class="relative h-48">
+        <img src="${p.image}" onerror="this.src='images/placeholder.jpg'" alt="${p.name}" class="w-full h-full object-cover transition-transform duration-500" />
+        <div class="product-overlay">
+          <div class="w-full text-sm text-white line-clamp-3">${p.description || ''}</div>
+        </div>
+      </div>
+      <div class="p-4">
+        <h4 class="text-md font-semibold text-emerald-700">${p.name}</h4>
+        <div class="text-xs text-gray-600">${p.category || ''}</div>
+        <div class="mt-3 flex items-center justify-between">
+          <div class="font-semibold text-gray-800">${formatCurrency(p.price, currentCurrency)}</div>
+          <div class="flex items-center gap-2">
+            <button class="view-detail bg-white border border-gray-200 text-gray-700 px-3 py-2 rounded-lg" data-id="${p.id}">View</button>
+            <button class="add-to-cart bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-2 rounded-lg" data-id="${p.id}">Add</button>
+          </div>
+        </div>
+      </div>
+    `;
+    return div;
+  }
+
+  function applyFilters(){
+    const q = (document.getElementById('search-input').value || '').toLowerCase();
+    const cat = document.getElementById('category-filter').value;
+    const sort = document.getElementById('sort-select').value;
+    let out = products.filter(p => {
+      if (cat!=='all' && p.category!==cat) return false;
+      if (q && !(p.name.toLowerCase().includes(q) || (p.description||'').toLowerCase().includes(q) || (p.category||'').toLowerCase().includes(q))) return false;
+      return true;
     });
-  });
+    if (sort==='price-asc') out.sort((a,b)=>a.price-b.price);
+    if (sort==='price-desc') out.sort((a,b)=>b.price-a.price);
+    return out;
+  }
 
-  // Inside online: UPI / Card toggle
-  const upiRadio   = document.querySelector('input[name="online_option"][value="upi"]');
-  const cardRadio  = document.querySelector('input[name="online_option"][value="card"]');
-  const upiPanel   = document.getElementById('upi-panel');
-  const cardPanel  = document.getElementById('card-panel');
-
-  function updateOnlinePanels() {
-    if (upiRadio.checked) {
-      upiPanel.classList.remove('hidden');
-      cardPanel.classList.add('hidden');
-    } else {
-      cardPanel.classList.remove('hidden');
-      upiPanel.classList.add('hidden');
+  function renderPagination(pages){
+    const el = document.getElementById('pagination');
+    el.innerHTML = '';
+    if (pages<=1) return;
+    for(let i=1;i<=pages;i++){
+      const btn = document.createElement('button');
+      btn.className = `px-3 py-1 rounded ${i===currentPage? 'bg-emerald-600 text-white' : 'bg-white border'}`;
+      btn.textContent = i;
+      btn.onclick = ()=>{ currentPage=i; renderProducts(); window.scrollTo({top:200,behavior:'smooth'}); };
+      el.appendChild(btn);
     }
   }
-  upiRadio.addEventListener('change', updateOnlinePanels);
-  cardRadio.addEventListener('change', updateOnlinePanels);
-  updateOnlinePanels();
 
-  // UPI copy button
-  const copyUpiBtn = document.getElementById('copy-upi');
-  const upiInput   = document.getElementById('upi-string');
-  if (copyUpiBtn && upiInput) {
-    copyUpiBtn.addEventListener('click', () => {
-      upiInput.select();
-      document.execCommand('copy');
-    });
+  function renderProducts(){
+    const grid = document.getElementById('products-grid');
+    grid.innerHTML = '';
+    const filtered = applyFilters();
+    const start = (currentPage-1)*ITEMS_PER_PAGE;
+    const pageItems = filtered.slice(start, start+ITEMS_PER_PAGE);
+    pageItems.forEach(p=> grid.appendChild(renderProductCard(p)));
+    renderPagination(Math.ceil(filtered.length/ITEMS_PER_PAGE));
   }
 
-  // Card number formatting + brand detection
-  const cardNumberInput = document.getElementById("card-number");
-  const cardBrandText   = document.getElementById("card-brand-text");
-  const cardBrandImg    = document.getElementById("card-brand-img");
-
-  if (cardNumberInput) {
-    cardNumberInput.addEventListener("input", () => {
-      let value = cardNumberInput.value.replace(/\D/g, ""); // digits only
-      value = value.substring(0, 16); // 16 max
-
-      const groups = value.match(/.{1,4}/g);
-      cardNumberInput.value = groups ? groups.join("-") : "";
-
-      // brand
-      if (value.startsWith("4")) {
-        cardBrandText.innerText = "VISA";
-        cardBrandImg.src = "https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg";
-        cardBrandImg.classList.remove("hidden");
-        cardBrandText.classList.remove("hidden");
-      } else if (/^5[1-5]/.test(value)) {
-        cardBrandText.innerText = "Mastercard";
-        cardBrandImg.src = "https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png";
-        cardBrandImg.classList.remove("hidden");
-        cardBrandText.classList.remove("hidden");
-      } else {
-        cardBrandImg.classList.add("hidden");
-        cardBrandText.classList.add("hidden");
-      }
-    });
-  }
-
-  // Card submit demo validation
-  const cardSubmitBtn   = document.getElementById("card-submit");
-  const cardNameInput   = document.getElementById("card-name");
-  const cardExpiryInput = document.getElementById("card-expiry");
-  const cardCvvInput    = document.getElementById("card-cvv");
-  const cardErrorBox    = document.getElementById("card-error");
-
-  if (cardSubmitBtn) {
-    cardSubmitBtn.addEventListener("click", () => {
-      const rawNumber = cardNumberInput.value.replace(/\D/g, "");
-      const name   = cardNameInput.value.trim();
-      const expiry = cardExpiryInput.value.trim();
-      const cvv    = cardCvvInput.value.trim();
-
-      let errorMsg = "";
-
-      if (rawNumber.length !== 16) {
-        errorMsg = "Please enter a valid 16-digit card number.";
-      } else if (!/^\d{2}\/\d{2}$/.test(expiry)) {
-        errorMsg = "Expiry must be in MM/YY format.";
-      } else {
-        const month = parseInt(expiry.slice(0, 2), 10);
-        if (month < 1 || month > 12) {
-          errorMsg = "Expiry month must be between 01 and 12.";
-        }
-      }
-
-      if (!errorMsg && !/^\d{3,4}$/.test(cvv)) {
-        errorMsg = "Please enter a valid 3–4 digit CVV.";
-      }
-
-      if (!errorMsg && !name) {
-        errorMsg = "Please enter the name on card.";
-      }
-
-      if (errorMsg) {
-        cardErrorBox.textContent = errorMsg;
-        cardErrorBox.classList.remove("hidden");
-      } else {
-        cardErrorBox.classList.add("hidden");
-        alert("Card details submitted successfully for this demo.\n\nOn the real checkout, you would now click the main 'Place Order' button to continue.");
-      }
-    });
-  }
-});
-</script>
-
-
-<!-- ORDER CONFIRM (single copy, fixed) -->
-<div id="order-confirm" class="" role="dialog" aria-modal="true" aria-hidden="true">
-  <div class="bg-white rounded-xl p-6 max-w-lg text-center">
-    <h3 class="text-2xl font-semibold text-emerald-700">Thank you!</h3>
-    <p id="order-message" class="mt-3 text-gray-700">Your order has been placed.</p>
-    <button id="close-order" class="mt-6 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg">Close</button>
-  </div>
-</div>
-
-<!-- FOOTER -->
-<footer class="bg-emerald-900 text-white py-6 mt-12">
-  <div class="max-w-7xl mx-auto footer-inner flex flex-col md:flex-row items-center justify-between gap-4 px-6">
-
-    <!-- Copyright -->
-    <div class="text-sm footer-nowrap">
-      &copy; 2025 <strong>Gems of Nature</strong>. All rights reserved.
-    </div>
-
-    <!-- Tagline -->
-    <div class="text-sm text-emerald-100 font-medium text-center">
-      100% natural stones • Secure payments • Fast shipping • 7-day returns
-    </div>
-
-    <!-- Social Links (PNG icons + labels) -->
-<div class="flex items-center justify-center gap-8 ml-2">
-      <!-- Facebook -->
-      <a
-        href="https://www.facebook.com/profile.php?id=61581929357076"
-        target="_blank" rel="noopener noreferrer"
-        class="flex items-center gap-2 hover:opacity-90 transition"
-      >
-        <img src="images/social/facebook.png" alt="Facebook" class="w-6 h-6 rounded-full shadow-md">
-        <span class="text-sm font-medium">Facebook</span>
-      </a>
-
-      <!-- Instagram -->
-      <a
-        href="https://www.instagram.com/gemsofnatureshop"
-        target="_blank" rel="noopener noreferrer"
-        class="flex items-center gap-2 hover:opacity-90 transition"
-      >
-        <img src="images/social/instagram.png" alt="Instagram" class="w-6 h-6 rounded-md shadow-md">
-        <span class="text-sm font-medium">Instagram</span>
-      </a>
-
-      <!-- LinkedIn -->
-      <a
-        href="https://www.linkedin.com/company/gems-of-nature"
-        target="_blank" rel="noopener noreferrer"
-        class="flex items-center gap-2 hover:opacity-90 transition"
-      >
-        <img src="images/social/linkedin.png" alt="LinkedIn" class="w-6 h-6 rounded-md shadow-md">
-        <span class="text-sm font-medium">LinkedIn</span>
-      </a>
-    </div>
-  </div>
-</footer>
-
-
-
-<!-- SCRIPTS: full product dataset + filtering, pagination, hover overlay, currency -->
-<script>
-// --- products: 110 items ---
-const products = [
- {"id":"p1","name":"Diamond (D)","category":"Precious","description":"Investment-grade brilliant-cut stone; luxury jewellery & heirloom.","image":"images/products/diamond.jpg","price_min":40000,"price_max":200000},
- {"id":"p2","name":"Ruby","category":"Precious","description":"Vitality, leadership, passion; high astrology demand.","image":"images/products/ruby.jpg","price_min":40000,"price_max":600000},
- {"id":"p3","name":"Blue Sapphire","category":"Precious","description":"Powerful astrological gemstone for Saturn; clarity, discipline and career focus.","image":"images/products/blue-sapphire.jpg","price_min":5000,"price_max":80000},
- {"id":"p4","name":"Rubellite","category":"Precious","description":"Royal gemstone for strength, leadership and vitality.","image":"images/products/rubellite.jpg","price_min":40000,"price_max":600000},
- {"id":"p5","name":"Emerald","category":"Precious","description":"Heart-centred gemstone that enhances love, memory and communication.","image":"images/products/emerald.jpg","price_min":8000,"price_max":150000},
- {"id":"p6","name":"Padparadscha Sapphire","category":"Precious","description":"Rare salmon-pink, high collector & jewellery value.","image":"images/products/padparadscha.jpg","price_min":25000,"price_max":200000},
- {"id":"p7","name":"Alexandrite","category":"Precious","description":"Colour-change rarity — transformative & luck stone.","image":"images/products/alexandrite.jpg","price_min":30000,"price_max":300000},
- {"id":"p8","name":"Paraiba Tourmaline","category":"Precious","description":"Electric blue-green, high demand for jewellery.","image":"images/products/paraiba.jpg","price_min":20000,"price_max":250000},
- {"id":"p9","name":"Spinel","category":"Precious","description":"Durable, good value alternative to ruby/sapphire.","image":"images/products/spinel.jpg","price_min":6000,"price_max":60000},
- {"id":"p10","name":"Natural Pearl","category":"Precious","description":"Classic pearl for bridal astrology and jewellery.","image":"images/products/pearl.jpg","price_min":1500,"price_max":60000},
- {"id":"p11","name":"Black Opal","category":"Precious","description":"Collector’s gem with striking play-of-color.","image":"images/products/black-opal.jpg","price_min":10000,"price_max":250000},
- {"id":"p12","name":"Jadeite (Imperial)","category":"Precious","description":"High-end jade for collectors & talismans.","image":"images/products/jadeite.jpg","price_min":20000,"price_max":200000},
- {"id":"p13","name":"Golden Beryl / Beryl varieties","category":"Precious","description":"Rarity & investment-grade beryl varieties.","image":"images/products/beryl.jpg","price_min":8000,"price_max":200000},
- {"id":"p14","name":"Amethyst","category":"Semi-Precious","description":"Calming stone that aids sleep, intuition and spiritual growth.","image":"images/products/amethyst.jpg","price_min":400,"price_max":5000},
- {"id":"p15","name":"Citrine","category":"Semi-Precious","description":"Abundance and manifestation stone; prosperity and willpower.","image":"images/products/citrine.jpg","price_min":300,"price_max":4000},
- {"id":"p16","name":"Garnet (Almandine/Hessonite)","category":"Semi-Precious","description":"Energising stone for vitality; hessonite used for Rahu remedies.","image":"images/products/garnet.jpg","price_min":200,"price_max":8000},
- {"id":"p17","name":"Topaz","category":"Semi-Precious","description":"Clarity, confidence, luck.","image":"images/products/topaz.jpg","price_min":500,"price_max":15000},
- {"id":"p18","name":"Tourmaline","category":"Semi-Precious","description":"Protection, energy balancing; many colours available.","image":"images/products/tourmaline.jpg","price_min":300,"price_max":20000},
- {"id":"p19","name":"Peridot","category":"Semi-Precious","description":"Renewal, vitality and prosperity.","image":"images/products/peridot.jpg","price_min":400,"price_max":6000},
- {"id":"p20","name":"Aquamarine","category":"Semi-Precious","description":"Calming sea-blue stone for courage and travel protection.","image":"images/products/aquamarine.jpg","price_min":800,"price_max":15000},
- {"id":"p21","name":"Moonstone (White/Rainbow)","category":"Semi-Precious","description":"Intuition, feminine cycles & calming energy.","image":"images/products/moonstone.jpg","price_min":300,"price_max":6000},
- {"id":"p22","name":"Lapis Lazuli","category":"Semi-Precious","description":"Wisdom, throat chakra activation and psychic awareness.","image":"images/products/lapis.jpg","price_min":300,"price_max":5000},
- {"id":"p23","name":"Turquoise","category":"Semi-Precious","description":"Protector stone; healing & communication.","image":"images/products/turquoise.jpg","price_min":400,"price_max":8000},
- {"id":"p24","name":"Malachite","category":"Semi-Precious","description":"Transformation and emotional healing.","image":"images/products/malachite.jpg","price_min":200,"price_max":6000},
- {"id":"p25","name":"Black Onyx","category":"Semi-Precious","description":"Grounding, stability & protection.","image":"images/products/onyx.jpg","price_min":100,"price_max":2000},
- {"id":"p26","name":"Jasper (Red/Picture)","category":"Semi-Precious","description":"Grounding and nurture; earth energy.","image":"images/products/jasper.jpg","price_min":150,"price_max":2500},
- {"id":"p27","name":"Carnelian","category":"Semi-Precious","description":"Energy, motivation and creativity.","image":"images/products/carnelian.jpg","price_min":100,"price_max":2500},
- {"id":"p28","name":"Chrysoprase","category":"Semi-Precious","description":"Joy, optimism and heart healing.","image":"images/products/chrysoprase.jpg","price_min":400,"price_max":7000},
- {"id":"p29","name":"Kunzite","category":"Semi-Precious","description":"Heart-opening, gentle emotional healing.","image":"images/products/kunzite.jpg","price_min":500,"price_max":20000},
- {"id":"p30","name":"Iolite","category":"Semi-Precious","description":"Vision, inner guidance and mediation aid.","image":"images/products/iolite.jpg","price_min":300,"price_max":4000},
- {"id":"p31","name":"Smoky Quartz","category":"Semi-Precious","description":"Grounding, protection and negativity removal.","image":"images/products/smoky-quartz.jpg","price_min":150,"price_max":3000},
- {"id":"p32","name":"Amazonite","category":"Semi-Precious","description":"Soothing, communication and calming nerves.","image":"images/products/amazonite.jpg","price_min":200,"price_max":3500},
- {"id":"p33","name":"Aventurine","category":"Semi-Precious","description":"Luck, prosperity and heart healing.","image":"images/products/aventurine.jpg","price_min":150,"price_max":3000},
- {"id":"p34","name":"Sodalite","category":"Semi-Precious","description":"Logic, communication and intuition balance.","image":"images/products/sodalite.jpg","price_min":150,"price_max":2500},
- {"id":"p35","name":"Bloodstone","category":"Semi-Precious","description":"Courage, detox and vitality.","image":"images/products/bloodstone.jpg","price_min":150,"price_max":2000},
- {"id":"p36","name":"Zoisite/Tanzanite family","category":"Semi-Precious","description":"Spiritual uplift and higher vision.","image":"images/products/zoisite.jpg","price_min":800,"price_max":30000},
- {"id":"p37","name":"Sunstone","category":"Semi-Precious","description":"Joy, leadership and personal power.","image":"images/products/sunstone.jpg","price_min":200,"price_max":4000},
- {"id":"p38","name":"Chalcedony","category":"Semi-Precious","description":"Soothing, social harmony and calm communication.","image":"images/products/chalcedony.jpg","price_min":150,"price_max":3000},
- {"id":"p39","name":"Blue Lace Agate","category":"Semi-Precious","description":"Gentle communication and throat support.","image":"images/products/blue-lace-agate.jpg","price_min":200,"price_max":3500},
- {"id":"p40","name":"Morganite","category":"Semi-Precious","description":"Divine love, compassion and emotional healing.","image":"images/products/morganite.jpg","price_min":1000,"price_max":25000},
- {"id":"p41","name":"Rhodochrosite","category":"Semi-Precious","description":"Heart-healing, self-love and compassion.","image":"images/products/rhodochrosite.jpg","price_min":300,"price_max":6000},
- {"id":"p42","name":"Rhodonite","category":"Semi-Precious","description":"Emotional healing and forgiveness.","image":"images/products/rhodonite.jpg","price_min":200,"price_max":4000},
- {"id":"p43","name":"Larimar","category":"Semi-Precious","description":"Soothing oceanic calm and throat healing.","image":"images/products/larimar.jpg","price_min":1000,"price_max":12000},
- {"id":"p44","name":"Serpentine","category":"Semi-Precious","description":"Kundalini support and energetic cleansing.","image":"images/products/serpentine.jpg","price_min":150,"price_max":2500},
- {"id":"p45","name":"Iridescent Labradorite","category":"Semi-Precious","description":"Psychic protection and awakening (high flash).","image":"images/products/labradorite.jpg","price_min":400,"price_max":8000},
- {"id":"p46","name":"Apatite","category":"Semi-Precious","description":"Focus, manifestation and clarity.","image":"images/products/apatite.jpg","price_min":200,"price_max":3500},
- {"id":"p47","name":"Chromium Diopside","category":"Semi-Precious","description":"Bright green alternative to emerald.","image":"images/products/diopside.jpg","price_min":800,"price_max":8000},
- {"id":"p48","name":"Hematite","category":"Semi-Precious","description":"Grounding and strength.","image":"images/products/hematite.jpg","price_min":100,"price_max":2000},
- {"id":"p49","name":"Pietersite","category":"Semi-Precious","description":"Spiritual insight and transformation.","image":"images/products/pietersite.jpg","price_min":800,"price_max":12000},
- {"id":"p50","name":"Fire Agate","category":"Semi-Precious","description":"Protective and energizing with internal fire.","image":"images/products/fire-agate.jpg","price_min":400,"price_max":7000},
- {"id":"p51","name":"Chrysocolla","category":"Semi-Precious","description":"Calming communication and creativity.","image":"images/products/chrysocolla.jpg","price_min":150,"price_max":4000},
- {"id":"p52","name":"Brazilian Topaz","category":"Semi-Precious","description":"Clarity and prosperity.","image":"images/products/brazilian-topaz.jpg","price_min":1000,"price_max":15000},
- {"id":"p53","name":"Tsavorite (Green Garnet)","category":"Semi-Precious","description":"Heart energy with luxury demand.","image":"images/products/tsavorite.jpg","price_min":4000,"price_max":50000},
- {"id":"p54","name":"Spinel Varieties","category":"Semi-Precious","description":"Durable jewellery favorite in many colours.","image":"images/products/spinel-var.jpg","price_min":800,"price_max":25000},
- {"id":"p55","name":"Opal (Fire/White)","category":"Semi-Precious","description":"Emotional healing and creativity (play-of-color).","image":"images/products/opal.jpg","price_min":400,"price_max":30000},
- {"id":"p56","name":"Heliodor (Golden Beryl)","category":"Semi-Precious","description":"Vitality, focus and courage.","image":"images/products/heliodor.jpg","price_min":700,"price_max":8000},
- {"id":"p57","name":"Zircon (Natural)","category":"Semi-Precious","description":"Sparkle similar to diamond; natural zircon.","image":"images/products/zircon.jpg","price_min":300,"price_max":6000},
- {"id":"p58","name":"White Sapphire (Natural)","category":"Semi-Precious","description":"Alternative to diamond for durability & affordability.","image":"images/products/white-sapphire.jpg","price_min":800,"price_max":10000},
- {"id":"p59","name":"Blue Chalcedony","category":"Semi-Precious","description":"Soothing communication and creativity.","image":"images/products/blue-chalcedony.jpg","price_min":150,"price_max":4000},
- {"id":"p60","name":"Blue Florite","category":"Semi-Precious","description":"Healing and focus stone in blue shades.","image":"images/products/blue-florite.jpg","price_min":200,"price_max":4000},
- {"id":"p61","name":"Clear Quartz (Sphatik)","category":"Healing","description":"Master healer; amplifies intentions and all chakras.","image":"images/products/clear-quartz.jpg","price_min":100,"price_max":5000},
- {"id":"p62","name":"Black Tourmaline","category":"Healing","description":"Strong protection and grounding.","image":"images/products/black-tourmaline.jpg","price_min":150,"price_max":6000},
- {"id":"p63","name":"Shungite","category":"Healing","description":"EMF protection and purification.","image":"images/products/shungite.jpg","price_min":500,"price_max":8000},
- {"id":"p64","name":"Moldavite","category":"Healing","description":"Transformation and spiritual acceleration (high demand).","image":"images/products/moldavite.jpg","price_min":5000,"price_max":150000},
- {"id":"p65","name":"Selenite","category":"Healing","description":"Energy clearing and high-frequency wands.","image":"images/products/selenite.jpg","price_min":150,"price_max":6000},
- {"id":"p66","name":"Tektite","category":"Healing","description":"Psychic opening and transformational energy.","image":"images/products/tektite.jpg","price_min":1000,"price_max":20000},
- {"id":"p67","name":"Shiva Lingam (Narmada)","category":"Healing","description":"Kundalini & transformational ritual stone.","image":"images/products/shiva-lingam.jpg","price_min":200,"price_max":8000},
- {"id":"p68","name":"Crystal Spheres (combo)","category":"Healing","description":"Meditation aids & energy anchors for rooms.","image":"images/products/spheres.jpg","price_min":300,"price_max":6000},
- {"id":"p69","name":"Fuchsite","category":"Healing","description":"Heart healing and gentle uplift.","image":"images/products/fuchsite.jpg","price_min":200,"price_max":4000},
- {"id":"p70","name":"Petrified Wood","category":"Healing","description":"Grounding and Earth wisdom.","image":"images/products/petrified-wood.jpg","price_min":200,"price_max":5000},
- {"id":"p71","name":"Cats Eye / Shiva Eye","category":"Healing","description":"Insight, protection and astral clarity.","image":"images/products/cats-eye.jpg","price_min":400,"price_max":10000},
- {"id":"p72","name":"Crystal Clusters (Amethyst/Quartz)","category":"Healing","description":"Energy anchors for rooms & altars.","image":"images/products/clusters.jpg","price_min":500,"price_max":40000},
- {"id":"p73","name":"Aura Quartz","category":"Healing","description":"Treated quartz with intense colour for décor & ritual.","image":"images/products/aura-quartz.jpg","price_min":500,"price_max":6000},
- {"id":"p74","name":"Ocean Jasper","category":"Healing","description":"Emotional balance and grounding.","image":"images/products/ocean-jasper.jpg","price_min":200,"price_max":6000},
- {"id":"p75","name":"Angelite","category":"Healing","description":"Soothing and connection to higher guidance.","image":"images/products/angelite.jpg","price_min":400,"price_max":6000},
- {"id":"p76","name":"Blue Kyanite","category":"Healing","description":"Alignment and clears energy pathways.","image":"images/products/kyanite.jpg","price_min":400,"price_max":8000},
- {"id":"p77","name":"Bronzite","category":"Healing","description":"Protection and focus for action.","image":"images/products/bronzite.jpg","price_min":150,"price_max":3500},
- {"id":"p78","name":"Merlinite (Gabbro)","category":"Healing","description":"Shadow work and deep inner transformation.","image":"images/products/merlinite.jpg","price_min":300,"price_max":6000},
- {"id":"p79","name":"Palo Santo Bundles","category":"Healing","description":"Cleansing smoke for rituals (accessory).","image":"images/products/palo-santo.jpg","price_min":150,"price_max":800},
- {"id":"p80","name":"Spathik Mala","category":"Healing","description":"Beginner-friendly chakra & protection.","image":"images/products/spatik-mala.jpg","price_min":400,"price_max":4000},
- {"id":"p81","name":"1 Mukhi Rudraksha","category":"Rudraksha","description":"Extremely rare; highest spiritual attainment & siddhis.","image":"images/products/rudraksha-1.jpg","price_min":20000,"price_max":500000,"mukhi":1},
- {"id":"p82","name":"2 Mukhi Rudraksha","category":"Rudraksha","description":"Harmony and relationship balance.","image":"images/products/rudraksha-2.jpg","price_min":500,"price_max":6000,"mukhi":2},
- {"id":"p83","name":"3 Mukhi Rudraksha","category":"Rudraksha","description":"Courage, willpower and karmic purification.","image":"images/products/rudraksha-3.jpg","price_min":400,"price_max":3000,"mukhi":3},
- {"id":"p84","name":"4 Mukhi Rudraksha","category":"Rudraksha","description":"Creative energy & learning (Brahma).","image":"images/products/rudraksha-4.jpg","price_min":400,"price_max":3500,"mukhi":4},
- {"id":"p85","name":"5 Mukhi Rudraksha","category":"Rudraksha","description":"Common & protective; health & concentration.","image":"images/products/rudraksha-5.jpg","price_min":500,"price_max":2000,"mukhi":5},
- {"id":"p86","name":"6 Mukhi Rudraksha","category":"Rudraksha","description":"Discipline & stability (Kartikey/Skanda).","image":"images/products/rudraksha-6.jpg","price_min":600,"price_max":3000,"mukhi":6},
- {"id":"p87","name":"7 Mukhi Rudraksha","category":"Rudraksha","description":"Prosperity & leadership (Lakshmi).","image":"images/products/rudraksha-7.jpg","price_min":700,"price_max":4000,"mukhi":7},
- {"id":"p88","name":"8 Mukhi Rudraksha","category":"Rudraksha","description":"Removes obstacles & supports new beginnings.","image":"images/products/rudraksha-8.jpg","price_min":800,"price_max":4500,"mukhi":8},
- {"id":"p89","name":"9 Mukhi Rudraksha","category":"Rudraksha","description":"Authority, vitality & leadership (Surya).","image":"images/products/rudraksha-9.jpg","price_min":1200,"price_max":6000,"mukhi":9},
- {"id":"p90","name":"10 Mukhi Rudraksha","category":"Rudraksha","description":"Strength, protection & discipline (Vishnu).","image":"images/products/rudraksha-10.jpg","price_min":1000,"price_max":5500,"mukhi":10},
- {"id":"p91","name":"11 Mukhi Rudraksha","category":"Rudraksha","description":"Spiritual insight and increased intuition.","image":"images/products/rudraksha-11.jpg","price_min":1500,"price_max":7000,"mukhi":11},
- {"id":"p92","name":"12 Mukhi Rudraksha","category":"Rudraksha","description":"Higher meditation & spiritual evolution.","image":"images/products/rudraksha-12.jpg","price_min":1800,"price_max":8000,"mukhi":12},
- {"id":"p93","name":"13 Mukhi Rudraksha","category":"Rudraksha","description":"Mastery over senses and focused sadhana.","image":"images/products/rudraksha-13.jpg","price_min":2000,"price_max":9000,"mukhi":13},
- {"id":"p94","name":"14 Mukhi Rudraksha","category":"Rudraksha","description":"Advanced stability in meditation & guidance.","image":"images/products/rudraksha-14.jpg","price_min":2500,"price_max":10000,"mukhi":14},
- {"id":"p95","name":"15 Mukhi Rudraksha","category":"Rudraksha","description":"Dharma & social harmony (family/community).","image":"images/products/rudraksha-15.jpg","price_min":2500,"price_max":9500,"mukhi":15},
- {"id":"p96","name":"Gauri Shankar Rudraksha","category":"Rudraksha","description":"Twin bead for family unity and marriage harmony.","image":"images/products/gauri-shankar.jpg","price_min":3000,"price_max":25000},
- {"id":"p97","name":"Ganesh Rudraksha","category":"Rudraksha","description":"Removes obstacles and supports auspicious starts.","image":"images/products/ganesh-rd.jpg","price_min":3000,"price_max":25000},
- {"id":"p98","name":"Trijuti / Trinayan Rudraksha","category":"Rudraksha","description":"Powerful combined effects; rare cluster beads.","image":"images/products/trijuti.jpg","price_min":5000,"price_max":60000},
- {"id":"p99","name":"Rudraksha Mala (108 beads)","category":"Rudraksha","description":"Handcrafted energised mala for daily japa & ritual.","image":"images/products/rudraksha-mala.jpg","price_min":1200,"price_max":25000},
-{"id":"p100","name":"Rudraksha Accessories","category":"Rudraksha","description":"Bracelets, lockets & malas for daily wear.","image":"images/products/rudraksha-accessories.jpg","price_min":300,"price_max":25000},
-{"id":"p101","name":"Raw Amethyst Cluster","category":"Raw Stones","description":"Uncut amethyst crystal cluster — ideal for meditation or room energy clearing.","image":"images/products/raw-amethyst.jpg","price_min":500,"price_max":6000},
-{"id":"p102","name":"Raw Citrine Point","category":"Raw Stones","description":"Natural citrine point for wealth and manifestation energy.","image":"images/products/raw-citrine.jpg","price_min":400,"price_max":5500},
-{"id":"p103","name":"Raw Rose Quartz Chunk","category":"Raw Stones","description":"Heart chakra raw stone for unconditional love and emotional healing.","image":"images/products/raw-rosequartz.jpg","price_min":300,"price_max":4000},
-{"id":"p104","name":"Raw Clear Quartz","category":"Raw Stones","description":"Amplifies energy and intentions; perfect for grids or altars.","image":"images/products/raw-clearquartz.jpg","price_min":200,"price_max":5000},
-{"id":"p105","name":"Raw Black Tourmaline","category":"Raw Stones","description":"Powerful EMF and negativity protection crystal.","image":"images/products/raw-blacktourmaline.jpg","price_min":250,"price_max":4000},
-{"id":"p106","name":"Raw Green Aventurine","category":"Raw Stones","description":"Prosperity and abundance magnet; keeps environment positive.","image":"images/products/raw-aventurine.jpg","price_min":300,"price_max":3500},
-{"id":"p107","name":"Raw Pyrite","category":"Raw Stones","description":"Known as ‘Fool’s Gold’; enhances luck, wealth, and strength.","image":"images/products/raw-pyrite.jpg","price_min":400,"price_max":7000},
-{"id":"p108","name":"Raw Lapis Lazuli","category":"Raw Stones","description":"Intuition and higher wisdom stone; ideal for altar placement.","image":"images/products/raw-lapis.jpg","price_min":500,"price_max":8000},
-{"id":"p109","name":"Raw Fluorite Octahedron","category":"Raw Stones","description":"Cleanses aura and stabilises energy flow.","image":"images/products/raw-fluorite.jpg","price_min":350,"price_max":6500},
-{"id":"p110","name":"Raw Carnelian","category":"Raw Stones","description":"Boosts energy, creativity and motivation.","image":"images/products/raw-carnelian.jpg","price_min":200,"price_max":3500}
-];
-
-// compute a display price (midpoint) for each product if not present
-products.forEach(p=>{ if (!p.price) p.price = Math.round(((p.price_min||0)+(p.price_max||0))/2); });
-
-const ITEMS_PER_PAGE = 12; // 3 columns × 4 rows per page — nicer on desktop
-let currentPage = 1;
-let currentCurrency = 'INR';
-const currencyRates = { INR:1, USD:1/83, EUR:1/95, GBP:1/110 };
-let cart = JSON.parse(localStorage.getItem('gon_cart')||'{}');
-const SHIPPING = 50;
-
-function formatCurrency(value, currency='INR'){
-  if (value==null) return '';
-  if (currency==='INR') return '₹'+Number(value).toLocaleString('en-IN');
-  return (currency==='USD'? '$': currency==='EUR'? '€': '£') + (value*currencyRates[currency]).toFixed(2);
-}
-
-function renderProductCard(p){
-  const div = document.createElement('div');
-  div.className = 'bg-white rounded-2xl shadow-md product-card';
-  div.setAttribute('data-id', p.id);
-  div.innerHTML = `
-    <div class="relative h-48">
-      <img src="${p.image}" onerror="this.src='images/placeholder.jpg'" alt="${p.name}" class="w-full h-full object-cover transition-transform duration-500" />
-      <div class="product-overlay">
-        <div class="w-full text-sm text-white line-clamp-3">${p.description || ''}</div>
-      </div>
-    </div>
-    <div class="p-4">
-      <h4 class="text-md font-semibold text-emerald-700">${p.name}</h4>
-      <div class="text-xs text-gray-600">${p.category || ''}</div>
-      <div class="mt-3 flex items-center justify-between">
-        <div class="font-semibold text-gray-800">${formatCurrency(p.price, currentCurrency)}</div>
-        <div class="flex items-center gap-2">
-          <button class="view-detail bg-white border border-gray-200 text-gray-700 px-3 py-2 rounded-lg" data-id="${p.id}">View</button>
-          <button class="add-to-cart bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-2 rounded-lg" data-id="${p.id}">Add</button>
-        </div>
-      </div>
-    </div>
-  `;
-  return div;
-}
-
-
-function renderProducts(){
-  const grid = document.getElementById('products-grid');
-  grid.innerHTML = '';
-  const filtered = applyFilters();
-  const start = (currentPage-1)*ITEMS_PER_PAGE;
-  const pageItems = filtered.slice(start, start+ITEMS_PER_PAGE);
-  pageItems.forEach(p=> grid.appendChild(renderProductCard(p)));
-  renderPagination(Math.ceil(filtered.length/ITEMS_PER_PAGE));
-}
-
-function applyFilters(){
-  const q = (document.getElementById('search-input').value||'').toLowerCase();
-  const cat = document.getElementById('category-filter').value;
-  const sort = document.getElementById('sort-select').value;
-  let out = products.filter(p=>{
-    if (cat!=='all' && p.category!==cat) return false;
-    if (q && !(p.name.toLowerCase().includes(q) || (p.description||'').toLowerCase().includes(q) || (p.category||'').toLowerCase().includes(q))) return false;
-    return true;
+  // product card interactions
+  document.getElementById('products-grid').addEventListener('click',(e)=>{
+    if (e.target.closest('.add-to-cart')){
+      const id = e.target.closest('[data-id]').getAttribute('data-id');
+      cart[id] = (cart[id]||0)+1;
+      saveCart();
+      e.target.textContent = 'Added';
+      setTimeout(()=> e.target.textContent='Add',800);
+    } else if (e.target.closest('.view-detail')){
+      const id = e.target.closest('[data-id]').getAttribute('data-id');
+      openProductDetail(id);
+    } else {
+      const card = e.target.closest('[data-id]');
+      if (card) openProductDetail(card.getAttribute('data-id'));
+    }
   });
-  if (sort==='price-asc') out.sort((a,b)=>a.price-b.price);
-  if (sort==='price-desc') out.sort((a,b)=>b.price-a.price);
-  return out;
-}
 
-function renderPagination(pages){
-  const el = document.getElementById('pagination');
-  el.innerHTML = '';
-  if (pages<=1) return;
-  for(let i=1;i<=pages;i++){
-    const btn = document.createElement('button');
-    btn.className = `px-3 py-1 rounded ${i===currentPage? 'bg-emerald-600 text-white' : 'bg-white border'}`;
-    btn.textContent = i;
-    btn.onclick = ()=>{ currentPage=i; renderProducts(); window.scrollTo({top:200,behavior:'smooth'}); };
-    el.appendChild(btn);
+  // detail panel
+  const detailPanel = document.getElementById('product-detail');
+  const detailImage = document.getElementById('detail-image');
+  const detailTitle = document.getElementById('detail-title');
+  const detailMeta = document.getElementById('detail-meta');
+  const detailDesc = document.getElementById('detail-desc');
+  const detailMukhi = document.getElementById('detail-mukhi');
+  const detailDeity = document.getElementById('detail-deity');
+  const detailMantra = document.getElementById('detail-mantra');
+  const detailPrice = document.getElementById('detail-price');
+  const detailAdd = document.getElementById('detail-add');
+
+  function openProductDetail(id){
+    const p = products.find(x=>x.id===id);
+    if(!p) return;
+    detailImage.src = p.image||'images/placeholder.jpg';
+    detailTitle.textContent = p.name;
+    detailMeta.textContent = p.category||'';
+    detailDesc.textContent = p.description||'';
+    detailMukhi.textContent = p.mukhi? ('Mukhi: '+p.mukhi) : '';
+    detailDeity.textContent = p.deity? ('Deity: '+p.deity) : '';
+    detailMantra.textContent = p.mantra? ('Mantra: '+p.mantra) : '';
+    detailPrice.textContent = formatCurrency(p.price,currentCurrency);
+    detailAdd.dataset.id = p.id;
+    detailPanel.classList.remove('hidden');
+    setTimeout(()=> detailPanel.classList.add('open'),10);
+    detailPanel.setAttribute('aria-hidden','false');
   }
-}
 
-// product card interactions
-document.getElementById('products-grid').addEventListener('click',(e)=>{
-  if (e.target.closest('.add-to-cart')){
-    const id = e.target.closest('[data-id]').getAttribute('data-id');
-    cart[id] = (cart[id]||0)+1;
+  document.getElementById('close-detail').addEventListener('click', ()=>{
+    detailPanel.classList.remove('open');
+    setTimeout(()=> detailPanel.classList.add('hidden'),280);
+  });
+
+  detailAdd && detailAdd.addEventListener('click', ()=>{
+    const id=detailAdd.dataset.id;
+    cart[id]=(cart[id]||0)+1;
     saveCart();
-    e.target.textContent = 'Added';
-    setTimeout(()=> e.target.textContent='Add',800);
-  } else if (e.target.closest('.view-detail')){
-    const id = e.target.closest('[data-id]').getAttribute('data-id');
-    openProductDetail(id);
-  } else {
-    const card = e.target.closest('[data-id]');
-    if (card) openProductDetail(card.getAttribute('data-id'));
-  }
-});
+    detailAdd.textContent='Added';
+    setTimeout(()=> detailAdd.textContent='Add to Cart',900);
+  });
 
-// detail panel
-const detailPanel = document.getElementById('product-detail');
-const detailImage = document.getElementById('detail-image');
-const detailTitle = document.getElementById('detail-title');
-const detailMeta = document.getElementById('detail-meta');
-const detailDesc = document.getElementById('detail-desc');
-const detailMukhi = document.getElementById('detail-mukhi');
-const detailDeity = document.getElementById('detail-deity');
-const detailMantra = document.getElementById('detail-mantra');
-const detailPrice = document.getElementById('detail-price');
-const detailAdd = document.getElementById('detail-add');
+  // cart functions
+  const cartItemsEl = document.getElementById('cart-items');
+  const cartCountEl = document.getElementById('cart-count');
+  const cartSubtotalEl = document.getElementById('cart-subtotal');
+  const cartShippingEl = document.getElementById('cart-shipping');
+  const cartTotalEl = document.getElementById('cart-total');
 
-function openProductDetail(id){
-  const p = products.find(x=>x.id===id);
-  if(!p) return;
-  detailImage.src = p.image||'images/placeholder.jpg';
-  detailTitle.textContent = p.name;
-  detailMeta.textContent = p.category||'';
-  detailDesc.textContent = p.description||'';
-  detailMukhi.textContent = p.mukhi? ('Mukhi: '+p.mukhi) : '';
-  detailDeity.textContent = p.deity? ('Deity: '+p.deity) : '';
-  detailMantra.textContent = p.mantra? ('Mantra: '+p.mantra) : '';
-  detailPrice.textContent = formatCurrency(p.price,currentCurrency);
-  detailAdd.dataset.id = p.id;
-  detailPanel.classList.remove('hidden'); setTimeout(()=> detailPanel.classList.add('open'),10); detailPanel.setAttribute('aria-hidden','false');
-}
-
-document.getElementById('close-detail').addEventListener('click', ()=>{ detailPanel.classList.remove('open'); setTimeout(()=> detailPanel.classList.add('hidden'),280); });
-
-detailAdd && detailAdd.addEventListener('click', ()=>{ const id=detailAdd.dataset.id; cart[id]=(cart[id]||0)+1; saveCart(); detailAdd.textContent='Added'; setTimeout(()=> detailAdd.textContent='Add to Cart',900); });
-
-// cart functions
-const cartItemsEl = document.getElementById('cart-items');
-const cartCountEl = document.getElementById('cart-count');
-const cartSubtotalEl = document.getElementById('cart-subtotal');
-const cartShippingEl = document.getElementById('cart-shipping');
-const cartTotalEl = document.getElementById('cart-total');
-
-function saveCart(){ localStorage.setItem('gon_cart', JSON.stringify(cart)); renderCart(); }
-
-function renderCart(){
-  // defensive: ensure cartItemsEl exists
-  if (typeof cartItemsEl === 'undefined' || !cartItemsEl) {
-    // try to find it by id (in case variable wasn't set earlier)
-    const fallback = document.getElementById('cart-items');
-    if (!fallback) return; // nothing to render into
-    // eslint-disable-next-line no-unused-vars
-    cartItemsEl = fallback; // only works if cartItemsEl is `var` or `let`; if const, the earlier declaration should exist
+  function saveCart(){
+    localStorage.setItem('gon_cart', JSON.stringify(cart));
+    renderCart();
   }
 
-  cartItemsEl.innerHTML = '';
-  const entries = Object.entries(cart || {});
-  let subtotal = 0;
+  function renderCart(){
+    cartItemsEl.innerHTML = '';
+    const entries = Object.entries(cart || {});
+    let subtotal = 0;
 
-  if (entries.length === 0) {
-    cartItemsEl.innerHTML = '<p class="text-gray-600">Your cart is empty.</p>';
-    if (typeof cartCountEl !== 'undefined' && cartCountEl) cartCountEl.textContent = '0';
-  } else {
-    entries.forEach(([pid, qty]) => {
-      const prod = products.find(p => p.id === pid) || { name: pid, price: 0, image: 'images/placeholder.jpg' };
-      const price = prod.price || 0;
-      subtotal += price * qty;
+    if (entries.length === 0) {
+      cartItemsEl.innerHTML = '<p class="text-gray-600">Your cart is empty.</p>';
+      cartCountEl.textContent = '0';
+    } else {
+      entries.forEach(([pid, qty]) => {
+        const prod = products.find(p => p.id === pid) || { name: pid, price: 0, image: 'images/placeholder.jpg' };
+        const price = prod.price || 0;
+        subtotal += price * qty;
 
-      const item = document.createElement('div');
-      item.className = 'flex items-center gap-3 py-2';
-      item.innerHTML = `
-        <div class="h-14 w-14 flex-shrink-0">
-          <img src="${prod.image || 'images/placeholder.jpg'}" onerror="this.src='images/placeholder.jpg'" class="h-14 w-14 object-cover rounded"/>
-        </div>
-        <div class="flex-1">
-          <div class="text-sm font-medium">${prod.name || pid}</div>
-          <div class="text-xs text-gray-500">${formatCurrency(price, currentCurrency)} × <span class="qty-num" data-id="${pid}">${qty}</span></div>
-          <div class="mt-1 flex items-center gap-2">
-            <button class="decrease text-sm px-2 py-1 border rounded" data-id="${pid}" aria-label="Decrease quantity">-</button>
-            <button class="increase text-sm px-2 py-1 border rounded" data-id="${pid}" aria-label="Increase quantity">+</button>
-            <button class="remove ml-3 text-xs text-red-600" data-id="${pid}" aria-label="Remove item">Remove</button>
+        const item = document.createElement('div');
+        item.className = 'flex items-center gap-3 py-2';
+        item.innerHTML = `
+          <div class="h-14 w-14 flex-shrink-0">
+            <img src="${prod.image || 'images/placeholder.jpg'}" onerror="this.src='images/placeholder.jpg'" class="h-14 w-14 object-cover rounded"/>
           </div>
-        </div>
-        <div class="text-sm font-semibold">${formatCurrency(price * qty, currentCurrency)}</div>
-      `;
-      cartItemsEl.appendChild(item);
-    });
+          <div class="flex-1">
+            <div class="text-sm font-medium">${prod.name || pid}</div>
+            <div class="text-xs text-gray-500">${formatCurrency(price, currentCurrency)} × <span class="qty-num" data-id="${pid}">${qty}</span></div>
+            <div class="mt-1 flex items-center gap-2">
+              <button class="decrease text-sm px-2 py-1 border rounded" data-id="${pid}" aria-label="Decrease quantity">-</button>
+              <button class="increase text-sm px-2 py-1 border rounded" data-id="${pid}" aria-label="Increase quantity">+</button>
+              <button class="remove ml-3 text-xs text-red-600" data-id="${pid}" aria-label="Remove item">Remove</button>
+            </div>
+          </div>
+          <div class="text-sm font-semibold">${formatCurrency(price * qty, currentCurrency)}</div>
+        `;
+        cartItemsEl.appendChild(item);
+      });
 
-    if (typeof cartCountEl !== 'undefined' && cartCountEl) {
       const count = entries.reduce((s, [, q]) => s + Number(q || 0), 0);
       cartCountEl.textContent = String(count);
     }
-  }
 
-  if (typeof cartSubtotalEl !== 'undefined' && cartSubtotalEl) cartSubtotalEl.textContent = formatCurrency(subtotal, currentCurrency);
-  if (typeof cartShippingEl !== 'undefined' && cartShippingEl) cartShippingEl.textContent = entries.length ? formatCurrency(SHIPPING, currentCurrency) : formatCurrency(0, currentCurrency);
-  if (typeof cartTotalEl !== 'undefined' && cartTotalEl) cartTotalEl.textContent = formatCurrency(entries.length ? subtotal + SHIPPING : 0, currentCurrency);
+    cartSubtotalEl.textContent = formatCurrency(subtotal, currentCurrency);
+    cartShippingEl.textContent = entries.length ? formatCurrency(SHIPPING, currentCurrency) : formatCurrency(0, currentCurrency);
+    cartTotalEl.textContent = formatCurrency(entries.length ? subtotal + SHIPPING : 0, currentCurrency);
 
-  // attach handlers (re-bind each render to keep listeners consistent)
-  document.querySelectorAll('.increase').forEach(btn => {
-    btn.onclick = () => {
-      const id = btn.dataset.id;
-      cart[id] = (cart[id] || 0) + 1;
-      saveCart();
-    };
-  });
-
-  document.querySelectorAll('.decrease').forEach(btn => {
-    btn.onclick = () => {
-      const id = btn.dataset.id;
-      cart[id] = Math.max(0, (cart[id] || 0) - 1);
-      if (cart[id] === 0) delete cart[id];
-      saveCart();
-    };
-  });
-
-  document.querySelectorAll('.remove').forEach(btn => {
-    btn.onclick = () => {
-      const id = btn.dataset.id;
-      delete cart[id];
-      saveCart();
-    };
-  });
-}
-
-// search / filter events (guarded)
-['search-input','category-filter','sort-select'].forEach(id => {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.addEventListener('input', () => { currentPage = 1; renderProducts(); });
-});
-
-// currency change (guarded)
-const currencySelectEl = document.getElementById('currency-select');
-if (currencySelectEl) {
-  currencySelectEl.addEventListener('change', (e) => {
-    currentCurrency = e.target.value;
-    renderProducts();
-    // renderCart may rely on globals; call if available
-    try { renderCart(); } catch (err) { console.warn('renderCart failed after currency change', err); }
-  });
-}
-
-// pagination initial (guarded startup)
-currentPage = 1;
-try { renderProducts(); } catch (err) { console.warn('renderProducts failed on init', err); }
-try { renderCart(); } catch (err) { console.warn('renderCart failed on init', err); }
-
-
-// misc interactions: cart button
-const cartButton = document.getElementById('cart-button');
-if (cartButton) {
-  cartButton.addEventListener('click', () => {
-    const sidebar = document.getElementById('cart-sidebar');
-    if (sidebar) sidebar.scrollIntoView({ behavior: 'smooth' });
-  });
-}
-
-// mobile menu toggle (kept simple)
-document.getElementById('mobile-menu-button').addEventListener('click', ()=> alert('Open navigation on mobile — implement as needed'));
-
-// close on escape
-document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ if(!detailPanel.classList.contains('hidden')){ detailPanel.classList.remove('open'); setTimeout(()=> detailPanel.classList.add('hidden'),280); } } });
-
-/* ---------- Improved checkout wiring (replace old checkout JS) ---------- */
-
-const checkoutModal = document.getElementById('checkout-modal');
-const checkoutForm = document.getElementById('checkout-form');
-const checkoutSummary = document.getElementById('checkout-summary');
-const closeCheckout = document.getElementById('close-checkout');
-const cancelCheckout = document.getElementById('cancel-checkout');
-const checkoutButton = document.getElementById('checkout-button');
-const placeOrderBtn = document.getElementById('place-order');
-const orderConfirm = document.getElementById('order-confirm');
-const orderMessage = document.getElementById('order-message');
-const closeOrderBtn = document.getElementById('close-order');
-const copyUpiBtn = document.getElementById('copy-upi');
-const upiInput = document.getElementById('upi-string');
-
-function showCheckout(){ checkoutModal.classList.add('open'); checkoutModal.setAttribute('aria-hidden','false'); }
-function hideCheckout(){ checkoutModal.classList.remove('open'); checkoutModal.setAttribute('aria-hidden','true'); }
-function showOrderConfirm(){ orderConfirm.classList.add('open'); orderConfirm.setAttribute('aria-hidden','false'); }
-function hideOrderConfirm(){ orderConfirm.classList.remove('open'); orderConfirm.setAttribute('aria-hidden','true'); }
-
-function computeTotals(){
-  const entries = Object.entries(cart || {});
-  let subtotal = 0;
-  entries.forEach(([pid, qty]) => {
-    const prod = products.find(p => p.id === pid);
-    if (!prod) return;
-    subtotal += (prod.price || 0) * qty;
-  });
-  const shipping = entries.length ? SHIPPING : 0;
-  const total = subtotal + shipping;
-  return { subtotal, shipping, total };
-}
-
-function renderCheckoutSummary(){
-  if (!checkoutSummary) return;
-  const entries = Object.entries(cart || {});
-  if (entries.length === 0) {
-    checkoutSummary.innerHTML = '<div class="muted">No items in cart.</div>';
-  } else {
-    let html = '';
-    entries.forEach(([pid, qty]) => {
-      const prod = products.find(p => p.id === pid) || { name: pid, price: 0 };
-      html += `<div class="summary-line"><div><div class="font-medium">${prod.name}</div><div class="muted text-xs">${qty} × ${formatCurrency(prod.price, currentCurrency)}</div></div><div class="font-medium">${formatCurrency((prod.price||0)*qty, currentCurrency)}</div></div>`;
+    // attach handlers (re-bind each render)
+    document.querySelectorAll('.increase').forEach(btn => {
+      btn.onclick = () => {
+        const id = btn.dataset.id;
+        cart[id] = (cart[id] || 0) + 1;
+        saveCart();
+      };
     });
-    checkoutSummary.innerHTML = html;
+
+    document.querySelectorAll('.decrease').forEach(btn => {
+      btn.onclick = () => {
+        const id = btn.dataset.id;
+        cart[id] = Math.max(0, (cart[id] || 0) - 1);
+        if (cart[id] === 0) delete cart[id];
+        saveCart();
+      };
+    });
+
+    document.querySelectorAll('.remove').forEach(btn => {
+      btn.onclick = () => {
+        const id = btn.dataset.id;
+        delete cart[id];
+        saveCart();
+      };
+    });
   }
 
-  const totals = computeTotals();
-  document.getElementById('co-subtotal').textContent = formatCurrency(totals.subtotal, currentCurrency);
-  document.getElementById('co-shipping').textContent = formatCurrency(totals.shipping, currentCurrency);
-  document.getElementById('co-total').textContent = formatCurrency(totals.total, currentCurrency);
-
-  // prepare UPI string for exact INR amount (PAYEE_UPI & PAYEE_NAME should be set in your site config)
-  if (upiInput) {
-    const total = computeTotals().total;
-    upiInput.value = `upi://pay?pa=${encodeURIComponent(window.PAYEE_UPI || 'yourupi@bank')}&pn=${encodeURIComponent(window.PAYEE_NAME || 'Gems of Nature')}&tn=${encodeURIComponent('Gems of Nature Order')}&am=${encodeURIComponent((total).toFixed(2))}&cu=INR`;
-  }
-}
-
-// Open checkout button
-checkoutButton && checkoutButton.addEventListener('click', () => {
-  if (!cart || Object.keys(cart).length === 0) { alert('Your cart is empty.'); return; }
-  // reset / prepare fields
-  checkoutForm?.reset();
-  hideOnlineSubPanels();
-  renderCheckoutSummary();
-  showCheckout();
-
-  // ensure place button initial state
-  placeOrderBtn.disabled = true;
-});
-
-// Close handlers
-closeCheckout && closeCheckout.addEventListener('click', hideCheckout);
-cancelCheckout && cancelCheckout.addEventListener('click', hideCheckout);
-closeOrderBtn && closeOrderBtn.addEventListener('click', hideOrderConfirm);
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    if (checkoutModal && checkoutModal.classList.contains('open')) hideCheckout();
-    if (orderConfirm && orderConfirm.classList.contains('open')) hideOrderConfirm();
-  }
-});
-
-// Payment option toggles inside modal
-checkoutForm && checkoutForm.querySelectorAll('[name="payment_method"]').forEach(el => {
-  el.addEventListener('change', (e) => {
-    const onlinePanel = document.getElementById('online-options');
-    if (!onlinePanel) return;
-    if (e.target.value === 'online') onlinePanel.classList.remove('hidden'); else { onlinePanel.classList.add('hidden'); hideOnlineSubPanels(); }
+  // search / filter events
+  ['search-input','category-filter','sort-select'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('input', () => { currentPage = 1; renderProducts(); });
   });
-});
 
-/* ---------- realistic card UI & validation ---------- */
-
-// utility: detect card brand by BIN prefix
-function detectCardBrand(number){
-  const num = (number||'').replace(/\s+/g,'');
-  if (/^4[0-9]{0,}$/.test(num)) return 'visa';
-  if (/^(5[1-5][0-9]{0,}|2(2[2-9]|[3-6][0-9]|7[0-1])[0-9]{0,})/.test(num)) return 'mastercard';
-  if (/^3[47][0-9]{0,}$/.test(num)) return 'amex';
-  return 'unknown';
-}
-
-// format card number while typing (grouping)
-function formatCardNumber(value){
-  const v = (value||'').replace(/\D/g,'');
-  let out = '';
-  if (v.startsWith('34') || v.startsWith('37')) {
-    // Amex 4-6-5 grouping
-    const a = v.slice(0,4), b = v.slice(4,10), c = v.slice(10,15);
-    out = [a,b,c].filter(Boolean).join(' ');
-  } else {
-    // default 4-4-4-4 grouping
-    out = (v.match(/.{1,4}/g) || []).join(' ');
+  // currency change
+  const currencySelectEl = document.getElementById('currency-select');
+  if (currencySelectEl) {
+    currencySelectEl.addEventListener('change', (e) => {
+      currentCurrency = e.target.value;
+      renderProducts();
+      renderCart();
+    });
   }
-  return out;
-}
 
-// Luhn algorithm
-function luhnCheck(num){
-  const s = (num||'').replace(/\D/g,'');
-  let sum = 0, alt = false;
-  for (let i = s.length - 1; i >= 0; i--) {
-    let n = parseInt(s.charAt(i), 10);
-    if (alt) { n *= 2; if (n > 9) n -= 9; }
-    sum += n; alt = !alt;
+  // initial render
+  currentPage = 1;
+  renderProducts();
+  renderCart();
+
+  // close detail on escape
+  document.addEventListener('keydown', (e)=> {
+    if(e.key==='Escape'){
+      if(!detailPanel.classList.contains('hidden')){
+        detailPanel.classList.remove('open');
+        setTimeout(()=> detailPanel.classList.add('hidden'),280);
+      }
+    }
+  });
+
+  /* ---------- Improved checkout wiring ---------- */
+
+  const checkoutModal = document.getElementById('checkout-modal');
+  const checkoutForm = document.getElementById('checkout-form');
+  const checkoutSummary = document.getElementById('checkout-summary');
+  const closeCheckout = document.getElementById('close-checkout');
+  const cancelCheckout = document.getElementById('cancel-checkout');
+  const checkoutButton = document.getElementById('checkout-button');
+  const placeOrderBtn = document.getElementById('place-order');
+  const orderConfirm = document.getElementById('order-confirm');
+  const orderMessage = document.getElementById('order-message');
+  const closeOrderBtn = document.getElementById('close-order');
+  const copyUpiBtn = document.getElementById('copy-upi');
+  const upiInput = document.getElementById('upi-string');
+
+  function showCheckout(){ checkoutModal.classList.add('open'); checkoutModal.setAttribute('aria-hidden','false'); }
+  function hideCheckout(){ checkoutModal.classList.remove('open'); checkoutModal.setAttribute('aria-hidden','true'); }
+  function showOrderConfirm(){ orderConfirm.classList.add('open'); orderConfirm.setAttribute('aria-hidden','false'); }
+  function hideOrderConfirm(){ orderConfirm.classList.remove('open'); orderConfirm.setAttribute('aria-hidden','true'); }
+
+  function computeTotals(){
+    const entries = Object.entries(cart || {});
+    let subtotal = 0;
+    entries.forEach(([pid, qty]) => {
+      const prod = products.find(p => p.id === pid);
+      if (!prod) return;
+      subtotal += (prod.price || 0) * qty;
+    });
+    const shipping = entries.length ? SHIPPING : 0;
+    const total = subtotal + shipping;
+    return { subtotal, shipping, total };
   }
-  return s.length > 0 && sum % 10 === 0;
-}
 
-// expiry validation (MM/YY)
-function expiryValid(exp){
-  if (!/^\d{2}\/\d{2}$/.test(exp)) return false;
-  const [mm, yy] = exp.split('/').map(x=>parseInt(x,10));
-  if (isNaN(mm) || isNaN(yy)) return false;
-  if (mm < 1 || mm > 12) return false;
-  const now = new Date();
-  const currentYY = now.getFullYear() % 100;
-  const currentMM = now.getMonth() + 1;
-  if (yy < currentYY) return false;
-  if (yy === currentYY && mm < currentMM) return false;
-  return true;
-}
+  function renderCheckoutSummary(){
+    if (!checkoutSummary) return;
+    const entries = Object.entries(cart || {});
+    if (entries.length === 0) {
+      checkoutSummary.innerHTML = '<div class="muted">No items in cart.</div>';
+    } else {
+      let html = '';
+      entries.forEach(([pid, qty]) => {
+        const prod = products.find(p => p.id === pid) || { name: pid, price: 0 };
+        html += `<div class="summary-line"><div><div class="font-medium">${prod.name}</div><div class="muted text-xs">${qty} × ${formatCurrency(prod.price, currentCurrency)}</div></div><div class="font-medium">${formatCurrency((prod.price||0)*qty, currentCurrency)}</div></div>`;
+      });
+      checkoutSummary.innerHTML = html;
+    }
 
-// DOM refs for card UI
-const cardPanel = document.getElementById('card-panel');
-const upiPanel = document.getElementById('upi-panel');
-const cardNumberInput = document.getElementById('card-number');
-const cardNameInput = document.getElementById('card-name');
-const cardExpiryInput = document.getElementById('card-expiry');
-const cardCvvInput = document.getElementById('card-cvv');
-const cardError = document.getElementById('card-error');
-const cardBrandImg = document.getElementById('card-brand-img');
-const cardBrandText = document.getElementById('card-brand-text');
+    const totals = computeTotals();
+    document.getElementById('co-subtotal').textContent = formatCurrency(totals.subtotal, currentCurrency);
+    document.getElementById('co-shipping').textContent = formatCurrency(totals.shipping, currentCurrency);
+    document.getElementById('co-total').textContent = formatCurrency(totals.total, currentCurrency);
 
-// enhanced hide panels clears card UI state
-function hideOnlineSubPanels(){
-  document.getElementById('upi-panel')?.classList.add('hidden');
-  document.getElementById('card-panel')?.classList.add('hidden');
-  if (cardError) { cardError.classList.add('hidden'); cardError.textContent = ''; }
-  if (cardBrandImg) { cardBrandImg.classList.add('hidden'); cardBrandImg.src=''; }
-  if (cardBrandText) { cardBrandText.classList.add('hidden'); cardBrandText.textContent=''; }
-}
+    // prepare UPI string
+    if (upiInput) {
+      const total = computeTotals().total;
+      upiInput.value = `upi://pay?pa=${encodeURIComponent(window.PAYEE_UPI || 'yourupi@bank')}&pn=${encodeURIComponent(window.PAYEE_NAME || 'Gems of Nature')}&tn=${encodeURIComponent('Gems of Nature Order')}&am=${encodeURIComponent((total).toFixed(2))}&cu=INR`;
+    }
+  }
 
-// wire online_option radios (UPI vs Card)
-checkoutForm && checkoutForm.querySelectorAll('[name="online_option"]').forEach(el => {
-  el.addEventListener('change', (e) => {
+  // Open checkout button
+  checkoutButton && checkoutButton.addEventListener('click', () => {
+    if (!cart || Object.keys(cart).length === 0) { alert('Your cart is empty.'); return; }
+    checkoutForm?.reset();
     hideOnlineSubPanels();
-    if (e.target.value === 'upi') {
-      document.getElementById('upi-panel')?.classList.remove('hidden');
-    } else if (e.target.value === 'card') {
-      document.getElementById('card-panel')?.classList.remove('hidden');
-      setTimeout(()=> cardNumberInput?.focus(), 50);
+    renderCheckoutSummary();
+    showCheckout();
+    placeOrderBtn.disabled = true;
+  });
+
+  // Close handlers
+  closeCheckout && closeCheckout.addEventListener('click', hideCheckout);
+  cancelCheckout && cancelCheckout.addEventListener('click', hideCheckout);
+  closeOrderBtn && closeOrderBtn.addEventListener('click', hideOrderConfirm);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (checkoutModal && checkoutModal.classList.contains('open')) hideCheckout();
+      if (orderConfirm && orderConfirm.classList.contains('open')) hideOrderConfirm();
     }
   });
-});
 
-// card input formatting & brand detection
-if (cardNumberInput) {
-  cardNumberInput.addEventListener('input', (ev) => {
-    const formatted = formatCardNumber(ev.target.value);
-    ev.target.value = formatted;
+  // Payment option toggles inside modal
+  checkoutForm && checkoutForm.querySelectorAll('[name="payment_method"]').forEach(el => {
+    el.addEventListener('change', (e) => {
+      const onlinePanel = document.getElementById('online-options');
+      if (!onlinePanel) return;
+      if (e.target.value === 'online') onlinePanel.classList.remove('hidden');
+      else { onlinePanel.classList.add('hidden'); hideOnlineSubPanels(); }
+    });
+  });
 
-    const brand = detectCardBrand(formatted);
-    if (cardBrandImg) { cardBrandImg.classList.add('hidden'); }
-    if (cardBrandText) { cardBrandText.classList.add('hidden'); }
+  // utility: detect card brand by BIN prefix
+  function detectCardBrand(number){
+    const num = (number||'').replace(/\s+/g,'');
+    if (/^4[0-9]{0,}$/.test(num)) return 'visa';
+    if (/^(5[1-5][0-9]{0,}|2(2[2-9]|[3-6][0-9]|7[0-1])[0-9]{0,})/.test(num)) return 'mastercard';
+    if (/^3[47][0-9]{0,}$/.test(num)) return 'amex';
+    return 'unknown';
+  }
 
-    if (brand === 'visa') {
-      if (cardBrandText) { cardBrandText.textContent = 'Visa'; cardBrandText.classList.remove('hidden'); }
-      if (cardBrandImg) { cardBrandImg.src = 'images/cards/visa.png'; cardBrandImg.classList.remove('hidden'); }
-    } else if (brand === 'mastercard') {
-      if (cardBrandText) { cardBrandText.textContent = 'Mastercard'; cardBrandText.classList.remove('hidden'); }
-      if (cardBrandImg) { cardBrandImg.src = 'images/cards/mastercard.png'; cardBrandImg.classList.remove('hidden'); }
-    } else if (brand === 'amex') {
-      if (cardBrandText) { cardBrandText.textContent = 'Amex'; cardBrandText.classList.remove('hidden'); }
-      if (cardBrandImg) { cardBrandImg.src = 'images/cards/amex.png'; cardBrandImg.classList.remove('hidden'); }
+  function formatCardNumber(value){
+    const v = (value||'').replace(/\D/g,'');
+    let out = '';
+    if (v.startsWith('34') || v.startsWith('37')) {
+      const a = v.slice(0,4), b = v.slice(4,10), c = v.slice(10,15);
+      out = [a,b,c].filter(Boolean).join(' ');
+    } else {
+      out = (v.match(/.{1,4}/g) || []).join(' ');
     }
+    return out;
+  }
 
-    // live basic Luhn feedback (only when enough digits)
-    const digits = formatted.replace(/\s+/g,'');
-    if (digits.length >= 12) {
-      if (!luhnCheck(digits) && cardError) {
-        cardError.textContent = 'Card number appears invalid (Luhn check failed).';
-        cardError.classList.remove('hidden');
+  function luhnCheck(num){
+    const s = (num||'').replace(/\D/g,'');
+    let sum = 0, alt = false;
+    for (let i = s.length - 1; i >= 0; i--) {
+      let n = parseInt(s.charAt(i), 10);
+      if (alt) { n *= 2; if (n > 9) n -= 9; }
+      sum += n; alt = !alt;
+    }
+    return s.length > 0 && sum % 10 === 0;
+  }
+
+  function expiryValid(exp){
+    if (!/^\d{2}\/\d{2}$/.test(exp)) return false;
+    const [mm, yy] = exp.split('/').map(x=>parseInt(x,10));
+    if (isNaN(mm) || isNaN(yy)) return false;
+    if (mm < 1 || mm > 12) return false;
+    const now = new Date();
+    const currentYY = now.getFullYear() % 100;
+    const currentMM = now.getMonth() + 1;
+    if (yy < currentYY) return false;
+    if (yy === currentYY && mm < currentMM) return false;
+    return true;
+  }
+
+  const cardPanel = document.getElementById('card-panel');
+  const upiPanel = document.getElementById('upi-panel');
+  const cardNumberInput = document.getElementById('card-number');
+  const cardNameInput = document.getElementById('card-name');
+  const cardExpiryInput = document.getElementById('card-expiry');
+  const cardCvvInput = document.getElementById('card-cvv');
+  const cardError = document.getElementById('card-error');
+  const cardBrandImg = document.getElementById('card-brand-img');
+  const cardBrandText = document.getElementById('card-brand-text');
+
+  function hideOnlineSubPanels(){
+    upiPanel?.classList.add('hidden');
+    cardPanel?.classList.add('hidden');
+    if (cardError) { cardError.classList.add('hidden'); cardError.textContent = ''; }
+    if (cardBrandImg) { cardBrandImg.classList.add('hidden'); cardBrandImg.src=''; }
+    if (cardBrandText) { cardBrandText.classList.add('hidden'); cardBrandText.textContent=''; }
+  }
+
+  // online_option radios (UPI vs Card)
+  checkoutForm && checkoutForm.querySelectorAll('[name="online_option"]').forEach(el => {
+    el.addEventListener('change', (e) => {
+      hideOnlineSubPanels();
+      if (e.target.value === 'upi') {
+        upiPanel?.classList.remove('hidden');
+      } else if (e.target.value === 'card') {
+        cardPanel?.classList.remove('hidden');
+        setTimeout(()=> cardNumberInput?.focus(), 50);
+      }
+    });
+  });
+
+  // card input formatting & brand detection
+  if (cardNumberInput) {
+    cardNumberInput.addEventListener('input', (ev) => {
+      const formatted = formatCardNumber(ev.target.value);
+      ev.target.value = formatted;
+
+      const brand = detectCardBrand(formatted);
+      if (cardBrandImg) cardBrandImg.classList.add('hidden');
+      if (cardBrandText) cardBrandText.classList.add('hidden');
+
+      if (brand === 'visa') {
+        if (cardBrandText) { cardBrandText.textContent = 'Visa'; cardBrandText.classList.remove('hidden'); }
+        if (cardBrandImg) { cardBrandImg.src = 'images/cards/visa.png'; cardBrandImg.classList.remove('hidden'); }
+      } else if (brand === 'mastercard') {
+        if (cardBrandText) { cardBrandText.textContent = 'Mastercard'; cardBrandText.classList.remove('hidden'); }
+        if (cardBrandImg) { cardBrandImg.src = 'images/cards/mastercard.png'; cardBrandImg.classList.remove('hidden'); }
+      } else if (brand === 'amex') {
+        if (cardBrandText) { cardBrandText.textContent = 'Amex'; cardBrandText.classList.remove('hidden'); }
+        if (cardBrandImg) { cardBrandImg.src = 'images/cards/amex.png'; cardBrandImg.classList.remove('hidden'); }
+      }
+
+      const digits = formatted.replace(/\s+/g,'');
+      if (digits.length >= 12) {
+        if (!luhnCheck(digits) && cardError) {
+          cardError.textContent = 'Card number appears invalid (Luhn check failed).';
+          cardError.classList.remove('hidden');
+        } else if (cardError) {
+          cardError.classList.add('hidden');
+        }
       } else if (cardError) {
         cardError.classList.add('hidden');
       }
-    } else if (cardError) {
-      cardError.classList.add('hidden');
-    }
-  });
-}
-
-// expiry input auto-insert slash
-if (cardExpiryInput) {
-  cardExpiryInput.addEventListener('input', (e) => {
-    let v = (e.target.value||'').replace(/\D/g,'').slice(0,4);
-    if (v.length >= 3) v = v.slice(0,2) + '/' + v.slice(2);
-    e.target.value = v;
-  });
-}
-
-// CVV max length depending on brand
-if (cardCvvInput) {
-  cardCvvInput.addEventListener('input', () => {
-    const brand = detectCardBrand(cardNumberInput?.value || '');
-    if (brand === 'amex') cardCvvInput.maxLength = 4; else cardCvvInput.maxLength = 3;
-  });
-}
-
-// card validation before simulated processing
-function validateCardFields(){
-  const num = (cardNumberInput?.value||'').replace(/\s+/g,'');
-  const name = (cardNameInput?.value||'').trim();
-  const exp = (cardExpiryInput?.value||'').trim();
-  const cvv = (cardCvvInput?.value||'').trim();
-  const brand = detectCardBrand(cardNumberInput?.value||'');
-
-  if (!num || num.length < 12) { if(cardError){ cardError.textContent = 'Enter a valid card number.'; cardError.classList.remove('hidden'); } return false; }
-  if (!luhnCheck(num)) { if(cardError){ cardError.textContent = 'Card number failed validation (Luhn).'; cardError.classList.remove('hidden'); } return false; }
-  if (!name) { if(cardError){ cardError.textContent = 'Enter the name on the card.'; cardError.classList.remove('hidden'); } return false; }
-  if (!expiryValid(exp)) { if(cardError){ cardError.textContent = 'Enter a valid expiry date (MM/YY) that is not expired.'; cardError.classList.remove('hidden'); } return false; }
-
-  if (brand === 'amex' && cvv.length !== 4) { if(cardError){ cardError.textContent = 'AMEX CVV must be 4 digits.'; cardError.classList.remove('hidden'); } return false; }
-  if ((brand === 'visa' || brand === 'mastercard' || brand === 'unknown') && cvv.length !== 3) { if(cardError){ cardError.textContent = 'CVV must be 3 digits.'; cardError.classList.remove('hidden'); } return false; }
-
-  // all good
-  if (cardError) cardError.classList.add('hidden');
-  return true;
-}
-
-// copy UPI with fallback
-copyUpiBtn && copyUpiBtn.addEventListener('click', () => {
-  const upi = upiInput?.value || '';
-  if (!upi) { alert('UPI link missing — open checkout first.'); return; }
-
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(upi).then(()=> alert('UPI link copied. Open it in your UPI app.')).catch(()=> fallbackCopy(upi));
-  } else fallbackCopy(upi);
-
-  function fallbackCopy(text){
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    try { document.execCommand('copy'); alert('UPI link copied. Open it in your UPI app.'); } catch(err){ alert('Copy failed — paste manually.'); }
-    ta.remove();
-  }
-});
-
-// enable Place Order only when name+email filled
-const nameField = document.getElementById('co-name');
-const emailField = document.getElementById('co-email');
-function validatePlaceBtn(){ placeOrderBtn.disabled = !(nameField?.value?.trim() && emailField?.value?.trim()); }
-nameField?.addEventListener('input', validatePlaceBtn);
-emailField?.addEventListener('input', validatePlaceBtn);
-
-// ensure Place Order triggers the form submit
-placeOrderBtn && placeOrderBtn.addEventListener('click', ()=>{ if (!checkoutForm) return; if (typeof checkoutForm.requestSubmit === 'function') checkoutForm.requestSubmit(); else checkoutForm.dispatchEvent(new Event('submit',{cancelable:true})); });
-
-// submit checkout (simulated)
-checkoutForm && checkoutForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  if (!cart || Object.keys(cart).length === 0) { alert('Cart empty.'); hideCheckout(); return; }
-
-  // collect details
-  const formData = new FormData(checkoutForm);
-  const name = formData.get('name') || 'Customer';
-  const email = formData.get('email') || '';
-  const phone = formData.get('phone') || '';
-  const address = formData.get('address') || '';
-  const payment = formData.get('payment_method') || 'cod';
-  const onlineOption = formData.get('online_option') || '';
-
-  // prepare order object
-  const items = Object.entries(cart).map(([pid, qty]) => {
-    const prod = products.find(p => p.id === pid) || { name: pid, price: 0 };
-    return { id: pid, name: prod.name, qty, unitPrice: prod.price||0, lineTotal: (prod.price||0)*qty };
-  });
-  const subtotal = items.reduce((s,i)=>s+i.lineTotal,0);
-  const shipping = Object.keys(cart).length? SHIPPING:0;
-  const order = { orderId: 'GON' + Date.now(), name, email, phone, address, payment, onlineOption, items, subtotal, shipping, total: subtotal + shipping };
-
-  // simulate online card processing or UPI flow
-  if (payment === 'online' && onlineOption === 'card') {
-    // validate card fields before processing
-    if (!validateCardFields()) { return; }
-    placeOrderBtn.disabled = true;
-    placeOrderBtn.textContent = 'Processing...';
-    setTimeout(()=> finalizeOrder(order), 1200);
-  } else if (payment === 'online' && onlineOption === 'upi') {
-    if (!confirm('Open your UPI app and send the exact amount using the copied UPI link/URI. Click OK after finishing payment to confirm order.')) return;
-    finalizeOrder(order);
-  } else {
-    finalizeOrder(order);
-  }
-});
-
-function finalizeOrder(order){
-  // show order confirm
-  orderMessage.innerHTML = `<div>Order <strong>${order.orderId}</strong> received.</div>
-    <div class="muted text-sm mt-2">Name: ${order.name}<br/>Total: ${formatCurrency(order.total, currentCurrency)}</div>`;
-  hideCheckout();
-  showOrderConfirm();
-}
-// ===============================
-// FINAL CLEAR CART FUNCTION (WORKING)
-// ===============================
-function clearCart() {
-  cart = {};         // empty cart object
-  localStorage.setItem('gon_cart', JSON.stringify({}));
-
-  renderCart();      // rebuild cart UI
-  updateCheckoutTotals(); // optional if you want
-
-  // update checkout form if open
-  const checkoutForm = document.getElementById('checkout-form');
-  if (checkoutForm) checkoutForm.reset();
-}
-
-// refresh totals on right side checkout (optional)
-function updateCheckoutTotals() {
-  const subtotalEl = document.getElementById('cart-subtotal');
-  const shippingEl = document.getElementById('cart-shipping');
-  const totalEl = document.getElementById('cart-total');
-
-  subtotalEl.textContent = '₹0';
-  shippingEl.textContent = '₹0';
-  totalEl.textContent = '₹0';
-}
-
-// ===============================
-// ATTACH CLEAR CART BUTTON
-// ===============================
-document.addEventListener("DOMContentLoaded", function () {
-  const clearBtn = document.getElementById("clear-cart");
-  if (clearBtn) {
-    clearBtn.addEventListener("click", function () {
-      if (!confirm("Clear your cart?")) return;
-      clearCart();
     });
   }
-});
 
-</script>
-<!-- WhatsApp Floating Chat Button -->
-<a href="https://wa.me/917827491801?text=Hi%20Gems%20of%20Nature,%20I%20need%20help%20with%20a%20gemstone."
-   class="fixed bottom-20 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-sm font-semibold transition-all z-50"
-   target="_blank" rel="noopener">
-  <img src="images/social/whatsapp.png" class="w-6 h-6" alt="WhatsApp">
-  Chat with Us
-</a>
+  if (cardExpiryInput) {
+    cardExpiryInput.addEventListener('input', (e) => {
+      let v = (e.target.value||'').replace(/\D/g,'').slice(0,4);
+      if (v.length >= 3) v = v.slice(0,2) + '/' + v.slice(2);
+      e.target.value = v;
+    });
+  }
 
+  if (cardCvvInput) {
+    cardCvvInput.addEventListener('input', () => {
+      const brand = detectCardBrand(cardNumberInput?.value || '');
+      if (brand === 'amex') cardCvvInput.maxLength = 4;
+      else cardCvvInput.maxLength = 3;
+    });
+  }
+
+  function validateCardFields(){
+    const num = (cardNumberInput?.value||'').replace(/\s+/g,'');
+    const name = (cardNameInput?.value||'').trim();
+    const exp = (cardExpiryInput?.value||'').trim();
+    const cvv = (cardCvvInput?.value||'').trim();
+    const brand = detectCardBrand(cardNumberInput?.value||'');
+
+    if (!num || num.length < 12) { if(cardError){ cardError.textContent = 'Enter a valid card number.'; cardError.classList.remove('hidden'); } return false; }
+    if (!luhnCheck(num)) { if(cardError){ cardError.textContent = 'Card number failed validation (Luhn).'; cardError.classList.remove('hidden'); } return false; }
+    if (!name) { if(cardError){ cardError.textContent = 'Enter the name on the card.'; cardError.classList.remove('hidden'); } return false; }
+    if (!expiryValid(exp)) { if(cardError){ cardError.textContent = 'Enter a valid expiry date (MM/YY) that is not expired.'; cardError.classList.remove('hidden'); } return false; }
+
+    if (brand === 'amex' && cvv.length !== 4) { if(cardError){ cardError.textContent = 'AMEX CVV must be 4 digits.'; cardError.classList.remove('hidden'); } return false; }
+    if ((brand === 'visa' || brand === 'mastercard' || brand === 'unknown') && cvv.length !== 3) { if(cardError){ cardError.textContent = 'CVV must be 3 digits.'; cardError.classList.remove('hidden'); } return false; }
+
+    if (cardError) cardError.classList.add('hidden');
+    return true;
+  }
+
+  // copy UPI with fallback
+  copyUpiBtn && copyUpiBtn.addEventListener('click', () => {
+    const upi = upiInput?.value || '';
+    if (!upi) { alert('UPI link missing — open checkout first.'); return; }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(upi).then(()=> alert('UPI link copied. Open it in your UPI app.')).catch(()=> fallbackCopy(upi));
+    } else fallbackCopy(upi);
+
+    function fallbackCopy(text){
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); alert('UPI link copied. Open it in your UPI app.'); } catch(err){ alert('Copy failed — paste manually.'); }
+      ta.remove();
+    }
+  });
+
+  const nameField = document.getElementById('co-name');
+  const emailField = document.getElementById('co-email');
+  function validatePlaceBtn(){ placeOrderBtn.disabled = !(nameField?.value?.trim() && emailField?.value?.trim()); }
+  nameField?.addEventListener('input', validatePlaceBtn);
+  emailField?.addEventListener('input', validatePlaceBtn);
+
+  placeOrderBtn && placeOrderBtn.addEventListener('click', ()=>{
+    if (!checkoutForm) return;
+    if (typeof checkoutForm.requestSubmit === 'function') checkoutForm.requestSubmit();
+    else checkoutForm.dispatchEvent(new Event('submit',{cancelable:true}));
+  });
+
+  checkoutForm && checkoutForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!cart || Object.keys(cart).length === 0) { alert('Cart empty.'); hideCheckout(); return; }
+
+    const formData = new FormData(checkoutForm);
+    const name = formData.get('name') || 'Customer';
+    const email = formData.get('email') || '';
+    const phone = formData.get('phone') || '';
+    const address = formData.get('address') || '';
+    const payment = formData.get('payment_method') || 'cod';
+    const onlineOption = formData.get('online_option') || '';
+
+    const items = Object.entries(cart).map(([pid, qty]) => {
+      const prod = products.find(p => p.id === pid) || { name: pid, price: 0 };
+      return { id: pid, name: prod.name, qty, unitPrice: prod.price||0, lineTotal: (prod.price||0)*qty };
+    });
+    const subtotal = items.reduce((s,i)=>s+i.lineTotal,0);
+    const shipping = Object.keys(cart).length? SHIPPING:0;
+    const order = { orderId: 'GON' + Date.now(), name, email, phone, address, payment, onlineOption, items, subtotal, shipping, total: subtotal + shipping };
+
+    if (payment === 'online' && onlineOption === 'card') {
+      if (!validateCardFields()) { return; }
+      placeOrderBtn.disabled = true;
+      placeOrderBtn.textContent = 'Processing...';
+      setTimeout(()=> finalizeOrder(order), 1200);
+    } else if (payment === 'online' && onlineOption === 'upi') {
+      if (!confirm('Open your UPI app and send the exact amount using the copied UPI link/URI. Click OK after finishing payment to confirm order.')) return;
+      finalizeOrder(order);
+    } else {
+      finalizeOrder(order);
+    }
+  });
+
+  function finalizeOrder(order){
+    orderMessage.innerHTML = `<div>Order <strong>${order.orderId}</strong> received.</div>
+      <div class="muted text-sm mt-2">Name: ${order.name}<br/>Total: ${formatCurrency(order.total, currentCurrency)}</div>`;
+    hideCheckout();
+    showOrderConfirm();
+  }
+
+  // clear cart
+  function clearCart() {
+    cart = {};
+    localStorage.setItem('gon_cart', JSON.stringify({}));
+    renderCart();
+    updateCheckoutTotals();
+    const form = document.getElementById('checkout-form');
+    if (form) form.reset();
+  }
+
+  function updateCheckoutTotals() {
+    cartSubtotalEl.textContent = '₹0';
+    cartShippingEl.textContent = '₹0';
+    cartTotalEl.textContent = '₹0';
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const clearBtn = document.getElementById("clear-cart");
+    if (clearBtn) {
+      clearBtn.addEventListener("click", function () {
+        if (!confirm("Clear your cart?")) return;
+        clearCart();
+      });
+    }
+  });
+  </script>
+
+  <!-- WhatsApp Floating Chat Button -->
+  <a href="https://wa.me/917827491801?text=Hi%20Gems%20of%20Nature,%20I%20need%20help%20with%20a%20gemstone."
+     class="fixed bottom-20 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-sm font-semibold transition-all z-50"
+     target="_blank" rel="noopener">
+    <img src="images/social/whatsapp.png" class="w-6 h-6" alt="WhatsApp">
+    Chat with Us
+  </a>
 </body>
 </html>

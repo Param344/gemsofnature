@@ -38,7 +38,7 @@
 
     /* --- NEW: consistent centered content wrapper used across sections --- */
     .content-inner {
-      max-width: 1080px;        /* central column width */
+      max-width: 1080px;
       margin-left: auto;
       margin-right: auto;
       padding-left: 20px;
@@ -46,10 +46,9 @@
       box-sizing: border-box;
     }
 
-    /* Slightly tighter vertical rhythm for the page */
-    .glass { padding: 20px; }            /* hero left card smaller */
-    .hero-right { padding: 16px; }       /* hero right card smaller */
-    .card-compact { padding: 14px; }     /* smaller card padding for consistency */
+    .glass { padding: 20px; }
+    .hero-right { padding: 16px; }
+    .card-compact { padding: 14px; }
 
     /* Buying guide (scoped) */
     .buying-guide {
@@ -66,12 +65,13 @@
     .buying-guide p, .buying-guide li { color:#475569; font-size:0.95rem; }
     .buying-guide h2, .buying-guide h3 { margin-top:0; }
 
-    /* Make main fill remaining space so footer sits at bottom */
     main { flex: 1 0 auto; }
 
-    body, button, input, textarea { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    body, button, input, textarea {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-    /* Fade-in animation */
     .fade-in {
       opacity: 0;
       transform: translateY(12px);
@@ -81,7 +81,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Card shadow & hover (single source) */
     .card-base {
       box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
       transition: transform 320ms cubic-bezier(.2,.9,.2,1), box-shadow 320ms cubic-bezier(.2,.9,.2,1);
@@ -92,14 +91,20 @@
       box-shadow: 0 12px 28px rgba(15, 23, 42, 0.09);
     }
 
-    /* Images: ensure block-level, no background bleed and consistent cover */
     img { background: transparent; display: block; max-width:100%; height:auto; }
 
-    /* Header — matches site style */
+    /* Old header/footer classes (safe even if not used) */
     header.site-header { background:#0b5a49; }
-    header .site-inner { max-width:1200px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    header .site-inner {
+      max-width:1200px; margin:0 auto; padding:14px 20px;
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+    }
     .site-logo { display:flex; align-items:center; gap:12px; color:#fff; text-decoration:none; }
-    .site-logo .mark{ width:44px; height:44px; border-radius:6px; background:linear-gradient(180deg,#063e2f,#0f6b4f); display:flex; align-items:center; justify-content:center; font-weight:800; color:#fff; }
+    .site-logo .mark{
+      width:44px; height:44px; border-radius:6px;
+      background:linear-gradient(180deg,#063e2f,#0f6b4f);
+      display:flex; align-items:center; justify-content:center; font-weight:800; color:#fff;
+    }
     nav.primary { display:flex; gap:22px; align-items:center; justify-content:center; flex:1; }
     nav.primary a { color:#e6fff7; text-decoration:none; font-weight:600; }
     nav.primary a:hover{ opacity:0.95; }
@@ -108,18 +113,21 @@
     .btn-buy { background:#06b58a; color:#fff; box-shadow:0 6px 18px rgba(6,101,78,0.12); }
     .btn-ghost { background:transparent; border:1px solid rgba(255,255,255,0.08); color:#e9fff6; }
 
-    /* Footer: keep pinned without negative margin hacks */
     footer {
       margin-top: 0;
       padding-top: 22px;
       flex-shrink: 0;
-      background-color: #065f46; /* emerald-900 */
+      background-color: #065f46;
       width: 100%;
       color: #fff;
     }
-    .footer-inner { padding-left: 24px; padding-right: 24px; max-width:1200px; margin:0 auto; display:flex; gap:16px; align-items:center; justify-content:space-between; }
+    .footer-inner {
+      padding-left: 24px; padding-right: 24px;
+      max-width:1200px; margin:0 auto;
+      display:flex; gap:16px; align-items:center; justify-content:space-between;
+    }
 
-    /* Consultation embed styles (scoped & tightened) */
+    /* Consultation embed styles */
     #gn-consultation-embed {
       max-width: 1080px;
       margin: 18px auto;
@@ -132,35 +140,71 @@
       color:#0f1724;
       box-sizing: border-box;
     }
-    #gn-consultation-embed h3{ margin:0; font-size:1.15rem; color:var(--site-accent); font-weight:800; }
-    #gn-consultation-embed p.lead{ margin:6px 0 0 0; color:var(--muted); font-size:0.95rem; }
+    #gn-consultation-embed h3{
+      margin:0; font-size:1.15rem; color:var(--site-accent); font-weight:800;
+    }
+    #gn-consultation-embed p.lead{
+      margin:6px 0 0 0; color:var(--muted); font-size:0.95rem;
+    }
 
-    .gn-auth-grid{ display:grid; grid-template-columns:1fr 260px; gap:12px; margin-top:12px; align-items:start; }
+    .gn-auth-grid{
+      display:grid; grid-template-columns:1fr 260px;
+      gap:12px; margin-top:12px; align-items:start;
+    }
     @media (max-width:920px){ .gn-auth-grid{ grid-template-columns:1fr; } }
 
     .gn-auth-card{ padding:8px; border-radius:8px; }
-    .gn-auth-card .t{ font-weight:700; color:#0b5f46; margin-bottom:6px; font-size:0.98rem; }
-    .gn-auth-card ul{ margin:0; padding-left:1rem; color:var(--muted); font-size:0.92rem; line-height:1.45; }
+    .gn-auth-card .t{
+      font-weight:700; color:#0b5f46;
+      margin-bottom:6px; font-size:0.98rem;
+    }
+    .gn-auth-card ul{
+      margin:0; padding-left:1rem; color:var(--muted);
+      font-size:0.92rem; line-height:1.45;
+    }
     .gn-quick { display:flex; flex-direction:column; gap:8px; }
-    .gn-btn { display:inline-flex; align-items:center; justify-content:center; padding:10px 12px; border-radius:999px; font-weight:700; font-size:0.95rem; cursor:pointer; text-decoration:none; }
-    .gn-btn-strong { background:var(--site-accent); color:#fff; box-shadow:0 6px 18px rgba(11,95,70,0.12); border:none; }
+    .gn-btn {
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 12px; border-radius:999px;
+      font-weight:700; font-size:0.95rem;
+      cursor:pointer; text-decoration:none;
+    }
+    .gn-btn-strong {
+      background:var(--site-accent); color:#fff;
+      box-shadow:0 6px 18px rgba(11,95,70,0.12); border:none;
+    }
     .gn-btn-ghost { background:transparent; border:1px solid #e6e6e6; color:var(--site-accent); }
-    #gn-consultation-embed input, #gn-consultation-embed select, #gn-consultation-embed textarea {
-      width:100%; padding:9px 10px; border-radius:8px; border:1px solid #eef6f0; font-family:inherit; font-size:0.92rem;
+
+    #gn-consultation-embed input,
+    #gn-consultation-embed select,
+    #gn-consultation-embed textarea {
+      width:100%; padding:9px 10px; border-radius:8px;
+      border:1px solid #eef6f0; font-family:inherit; font-size:0.92rem;
     }
     .gn-row-2{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
     @media (max-width:520px){ .gn-row-2{ grid-template-columns:1fr; } }
-    #gn-embed-result{ margin-top:8px; padding:8px; border-radius:8px; background:#f0fff6; color:#074f2f; display:none; font-weight:600; }
+    #gn-embed-result{
+      margin-top:8px; padding:8px; border-radius:8px;
+      background:#f0fff6; color:#074f2f;
+      display:none; font-weight:600;
+    }
 
-    /* Floating WhatsApp bubble (site-like) */
-    .gn-float-wa{ position:fixed; right:18px; bottom:18px; z-index:99999; display:flex; align-items:center; gap:10px; background:var(--accent-2); color:#fff; padding:10px 14px; border-radius:999px; box-shadow:0 8px 30px rgba(7,101,81,0.18); text-decoration:none; font-weight:800; font-size:0.95rem; }
-    .gn-float-wa img{ width:20px; height:20px; display:inline-block; vertical-align:middle; filter:brightness(120%); }
+    .gn-float-wa{
+      position:fixed; right:18px; bottom:18px; z-index:99999;
+      display:flex; align-items:center; gap:10px;
+      background:var(--accent-2); color:#fff;
+      padding:10px 14px; border-radius:999px;
+      box-shadow:0 8px 30px rgba(7,101,81,0.18);
+      text-decoration:none; font-weight:800; font-size:0.95rem;
+    }
+    .gn-float-wa img{
+      width:20px; height:20px; display:inline-block;
+      vertical-align:middle; filter:brightness(120%);
+    }
 
-    /* Prevent accidental horizontal overflow */
     * { box-sizing: border-box; }
     .no-overflow { overflow-wrap: break-word; word-break: break-word; }
 
-    /* Small screens: reduce hero padding for compact layout */
     @media (max-width: 900px) {
       .glass { padding: 14px; }
       .hero-right { padding: 12px; }
@@ -186,460 +230,500 @@
 
 <body class="bg-white text-gray-800 antialiased">
 
-<!-- NAVBAR (replace existing header with this) -->
-<header class="sticky top-0 z-50">
-  <nav id="mainNav" class="bg-emerald-900/95 backdrop-blur-sm text-white shadow-md transition-colors">
-    <div class="content-inner flex justify-between items-center py-4 px-0">
-      <a href="index.html" class="flex items-center" aria-label="Gems of Nature - Home">
-        <img src="images/logo.png" alt="Gems of Nature Logo" class="h-12 w-auto" loading="lazy">
-        <span class="ml-2 text-2xl font-bold font-montserrat">Gems of Nature</span>
-      </a>
+  <!-- Shared Header placeholder -->
+  <div id="header"></div>
 
-      <!-- Desktop links -->
-      <ul class="hidden md:flex gap-6 text-lg font-montserrat items-center">
-        <li><a href="index.html" class="hover:text-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-300 rounded">Home</a></li>
-        <li><a href="about.html" class="hover:text-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-300 rounded">About</a></li>
-        <li><a href="shop.html" class="text-emerald-300 font-semibold" aria-current="page">Collections</a></li>
-        <li><a href="contact.html" class="hover:text-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-300 rounded">Contact</a></li>
-      <li><a href="astrology.consultation.html" class="hover:text-emerald-300 transition">Astrology & Consultation</a></li>
+  <!-- HERO -->
+  <section class="hero-gradient py-10" style="
+    background: linear-gradient(180deg, rgba(0,140,120,0.35) 0%, rgba(0,90,65,0.55) 100%),
+                url('/images/hero.jpg');
+    background-size: cover;
+    background-position: center;">
+    <div class="content-inner px-0 grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+      <div class="glass rounded-2xl shadow-lg card-base bg-emerald-900/80 text-white">
+        <h2 class="text-3xl font-extrabold">Rudraksha + Astrological Gem Consultation</h2>
+        <p class="mt-3 text-white/90">
+          Free gemstone recommendation (based on DOB) + paid 30-min personalized consultation.
+          We match natural gemstones &amp; Rudraksha with your astrology, dosha, and life goals.
+        </p>
 
-      </ul>
+        <ul class="mt-4 space-y-2 text-sm text-white/90">
+          <li>✅ Free automatic gem recommendation by date of birth</li>
+          <li>✅ Expert Rudraksha matching and mala recommendations</li>
+          <li>✅ 30-minute paid consultation (voice/video) — INR / USD options</li>
+          <li>✅ Certification guidance &amp; stone authenticity tips</li>
+        </ul>
 
-      <!-- Right controls -->
-      <div class="flex items-center gap-4">
-        <a href="shop-ecom.html"
-           class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold hidden md:inline-block focus:outline-none focus:ring-2 focus:ring-emerald-300"
-           aria-label="Buy online - Gems of Nature">
-          Buy Online
-        </a>
-
-        <a href="shop-ecom.html" class="text-2xl cursor-pointer" aria-label="Open cart">🛒</a>
-
-        <!-- Mobile menu button -->
-        <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu"
-                class="text-2xl md:hidden p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-300"
-                aria-label="Open mobile menu">☰</button>
+        <div class="mt-4 flex gap-3">
+          <a href="#consultation" class="inline-block bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-md font-semibold">
+            Get Free Recommendation
+          </a>
+          <a href="#pricing" class="inline-block border border-white/30 text-white px-4 py-2 rounded-md">
+            Book 30-min
+          </a>
+        </div>
       </div>
-    </div>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden bg-emerald-800 md:hidden">
-      <ul class="flex flex-col gap-4 px-6 py-4">
-        <li><a href="index.html" class="block py-2 px-1 rounded hover:text-emerald-200">Home</a></li>
-        <li><a href="about.html" class="block py-2 px-1 rounded hover:text-emerald-200">About</a></li>
-        <li><a href="shop.html" class="block py-2 px-1 rounded hover:text-emerald-200 font-semibold text-emerald-300">Collections</a></li>
-        <li><a href="shop-ecom.html" class="block py-2 px-1 rounded hover:text-emerald-200">Buy Online</a></li>
-        <li><a href="contact.html" class="block py-2 px-1 rounded hover:text-emerald-200">Contact</a></li>
-        <li><a href="astrology.consultation.html" class="hover:text-emerald-300 transition">Astrology & Consultation</a></li>
-      </ul>
-    </div>
-  </nav>
-</header>
+      <div class="hero-right card-base rounded-2xl bg-white">
+        <div class="p-4 card-compact">
+          <h3 class="font-semibold">Quick Booking</h3>
+          <p class="text-sm text-slate-600">Fill your birth details — get a recommendation instantly.</p>
 
-<script>
-  // mobile menu toggle (safe)
-  (function(){
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (mobileMenuButton && mobileMenu) {
-      mobileMenuButton.addEventListener('click', () => {
-        const isHidden = mobileMenu.classList.toggle('hidden');
-        mobileMenuButton.setAttribute('aria-expanded', String(!isHidden));
-        mobileMenu.setAttribute('aria-hidden', String(isHidden));
-      });
-    }
-  })();
-</script>
-
-<!-- HERO -->
-<section class="hero-gradient py-10" style="background:
-  linear-gradient(180deg, rgba(0,140,120,0.35) 0%, rgba(0,90,65,0.55) 100%),
-  url('/images/hero.jpg');
-background-size: cover;
-background-position: center;">
-
-  <!-- Use the single .content-inner so left/right align with the rest of page -->
-  <div class="content-inner px-0 grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
-    <div class="glass rounded-2xl shadow-lg card-base">
-      <h2 class="text-3xl font-extrabold text-white">Rudraksha + Astrological Gem Consultation</h2>
-      <p class="mt-3 text-white/90">Free gemstone recommendation (based on DOB) + paid 30-min personalized consultation. We match natural gemstones & Rudraksha with your astrology, dosha, and life goals.</p>
-
-      <ul class="mt-4 space-y-2 text-sm text-white/90">
-        <li>✅ Free automatic gem recommendation by date of birth</li>
-        <li>✅ Expert Rudraksha matching and mala recommendations</li>
-        <li>✅ 30-minute paid consultation (voice/video) — INR / USD options</li>
-        <li>✅ Certification guidance & stone authenticity tips</li>
-      </ul>
-
-      <div class="mt-4 flex gap-3">
-        <a href="#consultation" class="inline-block bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-md font-semibold">Get Free Recommendation</a>
-        <a href="#pricing" class="inline-block border border-white/30 text-white px-4 py-2 rounded-md">Book 30-min</a>
-      </div>
-    </div>
-
-    <div class="hero-right card-base rounded-2xl bg-white">
-      <div class="p-4 card-compact">
-        <h3 class="font-semibold">Quick Booking</h3>
-        <p class="text-sm text-slate-600">Fill your birth details — get a recommendation instantly.</p>
-        <form id="quick-form" class="mt-3 space-y-3">
-          <div>
-            <label for="q-name" class="text-xs text-slate-600">Full name</label>
-            <input required id="q-name" name="name" class="w-full mt-1 p-2 border rounded" placeholder="Paramjeet Singh" />
-          </div>
-          <div class="grid grid-cols-2 gap-2">
+          <form id="quick-form" class="mt-3 space-y-3">
             <div>
-              <label for="q-dob" class="text-xs text-slate-600">Date of Birth</label>
-              <input required id="q-dob" name="dob" type="date" class="w-full mt-1 p-2 border rounded" />
+              <label for="q-name" class="text-xs text-slate-600">Full name</label>
+              <input required id="q-name" name="name"
+                     class="w-full mt-1 p-2 border rounded"
+                     placeholder="Paramjeet Singh" />
             </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label for="q-dob" class="text-xs text-slate-600">Date of Birth</label>
+                <input required id="q-dob" name="dob"
+                       type="date"
+                       class="w-full mt-1 p-2 border rounded" />
+              </div>
+              <div>
+                <label for="q-tob" class="text-xs text-slate-600">Time of Birth (optional)</label>
+                <input id="q-tob" name="tob"
+                       type="time"
+                       class="w-full mt-1 p-2 border rounded" />
+              </div>
+            </div>
+
             <div>
-              <label for="q-tob" class="text-xs text-slate-600">Time of Birth (optional)</label>
-              <input id="q-tob" name="tob" type="time" class="w-full mt-1 p-2 border rounded" />
+              <label for="q-pob" class="text-xs text-slate-600">Place of Birth</label>
+              <input id="q-pob" name="pob"
+                     class="w-full mt-1 p-2 border rounded"
+                     placeholder="Delhi, India" />
             </div>
-          </div>
-          <div>
-            <label for="q-pob" class="text-xs text-slate-600">Place of Birth</label>
-            <input id="q-pob" name="pob" class="w-full mt-1 p-2 border rounded" placeholder="Delhi, India" />
-          </div>
-          <div>
-            <label for="q-goal" class="text-xs text-slate-600">Main concern / goal</label>
-            <select id="q-goal" name="goal" class="w-full mt-1 p-2 border rounded">
-              <option value="wealth">Wealth & career</option>
-              <option value="health">Health & wellbeing</option>
-              <option value="relationship">Relationships</option>
-              <option value="protection">Protection / spirituality</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-          <div class="flex items-center gap-2 pt-2">
-            <button type="submit" class="bg-emerald-500 px-3 py-2 rounded text-white font-semibold">Get Recommendation</button>
-            <button id="wa-btn-quick" type="button" class="border px-3 py-2 rounded">Chat on WhatsApp</button>
-          </div>
-        </form>
-        <div id="quick-result" role="status" aria-live="polite" class="mt-3 hidden bg-amber-50 border border-amber-100 p-3 rounded text-sm"></div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<main class="content-inner space-y-8 py-6">
-  <!-- Consultation Embed -->
-  <div id="gn-consultation-embed" class="card-base fade-in">
-    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
-      <div>
-        <h3>Find Your Perfect Gemstone — Consultation</h3>
-        <p class="lead">Free DOB recommendation + paid 30-minute personalized reading. Rudraksha & gem pairing guided by astrology and authenticity checks.</p>
-      </div>
-      <div style="display:flex; gap:10px; align-items:center;">
-        <a href="#consultation" class="gn-btn gn-btn-strong btn-pill" style="background:var(--site-accent); color:#fff;">Get Free</a>
-        <a href="#pricing" class="gn-btn gn-btn-ghost btn-pill">Book</a>
-      </div>
-    </div>
+            <div>
+              <label for="q-goal" class="text-xs text-slate-600">Main concern / goal</label>
+              <select id="q-goal" name="goal" class="w-full mt-1 p-2 border rounded">
+                <option value="wealth">Wealth &amp; career</option>
+                <option value="health">Health &amp; wellbeing</option>
+                <option value="relationship">Relationships</option>
+                <option value="protection">Protection / spirituality</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
 
-    <div class="gn-auth-grid" role="group" aria-label="authenticity and actions">
-      <div class="gn-auth-card">
-        <div class="t">Quick authenticity tips</div>
-        <ul>
-          <li>Request lab certificates (IGI / GIA / SSEF) for faceted gems.</li>
-          <li>Watch for bubbles (glass) and unrealistic even color (dyed).</li>
-          <li>Compare weight/size vs price — unusually cheap often means treated.</li>
-          <li>For Rudraksha: clear mukhi-count photos, origin, and hole condition.</li>
-        </ul>
-      </div>
+            <div class="flex items-center gap-2 pt-2">
+              <button type="submit"
+                      class="bg-emerald-500 px-3 py-2 rounded text-white font-semibold">
+                Get Recommendation
+              </button>
+              <button id="wa-btn-quick" type="button"
+                      class="border px-3 py-2 rounded">
+                Chat on WhatsApp
+              </button>
+            </div>
+          </form>
 
-      <div class="gn-quick" role="group" aria-label="Quick actions">
-        <button id="gn-embed-reco" class="gn-btn gn-btn-strong" style="width:100%;">Get Free DOB Reco</button>
-        <button id="gn-embed-book" class="gn-btn gn-btn-ghost" style="width:100%;">Book 30-min (₹999)</button>
-        <button id="gn-embed-wa" class="gn-btn gn-btn-ghost" style="width:100%;">Chat on WhatsApp</button>
-      </div>
-    </div>
-
-    <form id="gn-embed-form" style="margin-top:12px;">
-      <div class="gn-row-2">
-        <input id="gn-e-name" name="name" placeholder="Full name" />
-        <input id="gn-e-phone" name="phone" placeholder="WhatsApp +91..." />
-      </div>
-
-      <div class="gn-row-2" style="margin-top:8px;">
-        <input id="gn-e-dob" name="dob" type="date" />
-        <select id="gn-e-goal" name="goal"><option value="wealth">Wealth</option><option value="health">Health</option><option value="other">Other</option></select>
-      </div>
-
-      <textarea id="gn-e-note" name="note" rows="2" placeholder="Short note... (optional)" style="margin-top:8px;"></textarea>
-
-      <div style="display:flex; gap:10px; margin-top:10px;">
-        <button type="submit" class="gn-btn gn-btn-strong btn-pill">Get Free Reco</button>
-        <button id="gn-embed-pay" type="button" class="gn-btn gn-btn-ghost btn-pill">Book 30-min (₹999)</button>
-      </div>
-
-      <div id="gn-embed-result" role="status" aria-live="polite"></div>
-    </form>
-  </div>
-
-  <!-- Services / Cards -->
-  <section id="services" class="space-y-4">
-    <h2 class="text-2xl font-bold">Our Consultation Services</h2>
-    <p class="text-slate-600 mt-1">Choose a service — each includes a written recommendation and gemstone pairing guide.</p>
-
-    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
-      <article class="p-4 bg-white rounded-xl shadow card-compact">
-        <h3 class="font-semibold">Free DOB Recommendation</h3>
-        <p class="text-sm text-slate-600 mt-2">Instant automated suggestion of 1–3 suitable gemstones (and Rudraksha if relevant) based on your date of birth.</p>
-        <ul class="mt-3 text-sm space-y-1">
-          <li>• Gem suggestions & analogs</li>
-          <li>• Notes on authenticity & certification</li>
-        </ul>
-        <div class="mt-3">
-          <a href="#consultation" class="inline-block text-amber-600 text-sm">Start free</a>
-        </div>
-      </article>
-
-      <article class="p-4 bg-white rounded-xl shadow card-compact">
-        <h3 class="font-semibold">30-min Personal Consultation</h3>
-        <p class="text-sm text-slate-600 mt-2">Personal voice/video call covering full birth-chart based gem & Rudraksha prescription. Includes follow-up notes.</p>
-        <ul class="mt-3 text-sm space-y-1">
-          <li>• Live recommendations</li>
-          <li>• Mala / bead size, mukhi selection</li>
-          <li>• Wearing & cleansing procedure</li>
-        </ul>
-        <div class="mt-3">
-          <a href="#pricing" class="inline-block text-amber-600 text-sm">Book a session</a>
-        </div>
-      </article>
-
-      <article class="p-4 bg-white rounded-xl shadow card-compact md:col-span-2">
-        <h3 class="font-semibold">Gemstone + Rudraksha Audit</h3>
-        <p class="text-sm text-slate-600 mt-2">Send images/certificates; we’ll audit authenticity, origin likelihood, and valuation tips.</p>
-        <ul class="mt-3 text-sm space-y-1">
-          <li>• Lab certificate check</li>
-          <li>• Visual authenticity checklist</li>
-        </ul>
-        <div class="mt-3">
-          <a href="#contact" class="inline-block text-amber-600 text-sm">Send audit request</a>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- Buying Guide (final aligned version) -->
-  <section id="buying-guide" class="buying-guide no-overflow">
-    <h2 class="text-2xl font-bold text-emerald-800">Gemstone Buying Guide — What to check</h2>
-    <p class="text-slate-600 mt-2">A short checklist to verify authenticity, suitability and the right metal/setting for astrological use.</p>
-
-    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div>
-        <h3 class="font-semibold text-lg">1. Which gemstone is ideal for you?</h3>
-        <p class="text-sm text-gray-600 mt-2">Each gemstone corresponds to a ruling planet. Use the free DOB recommendation tool or consult an astrologer to find your suitable gemstones.</p>
-      </div>
-
-      <div>
-        <h3 class="font-semibold text-lg">2. How to select quality (Cut • Color • Clarity • Carat • Origin)</h3>
-        <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc pl-5">
-          <li><strong>Cut:</strong> Well-cut stones give proper brilliance.</li>
-          <li><strong>Color:</strong> Natural, balanced color. Avoid overly uniform/dyed stones.</li>
-          <li><strong>Clarity:</strong> Normal inclusions okay; bubbles = synthetic.</li>
-          <li><strong>Carat vs Price:</strong> Too cheap → usually treated/synthetic.</li>
-          <li><strong>Origin:</strong> Provenance adds value (e.g., Burma Ruby, Colombian Emerald).</li>
-        </ul>
-      </div>
-
-      <div class="md:col-span-2">
-        <h3 class="font-semibold text-lg">3. Certification & labs</h3>
-        <p class="text-sm text-gray-600 mt-2">Always request third-party lab certificates. Trusted labs include GIA, IGI, GRS, Gubelin, SSEF.</p>
-        <div class="flex items-center gap-4 mt-3 flex-wrap">
-          <img src="images/gia.png" class="h-9" alt="GIA" />
-          <img src="images/igi.png" class="h-9" alt="IGI" />
-          <img src="images/grs.png" class="h-9" alt="GRS" />
-        </div>
-      </div>
-
-      <div>
-        <h3 class="font-semibold text-lg">4. Metals & mounting — what to choose</h3>
-        <p class="text-sm text-gray-600 mt-2">Gold, silver, or panchdhatu depending on gemstone and planet.</p>
-
-        <div class="flex gap-3 mt-3">
-          <div class="text-center border rounded-lg p-2 w-24">
-            <img src="images/metal-gold.png" class="h-8 mx-auto" />
-            <p class="text-sm mt-1">Gold</p>
-          </div>
-          <div class="text-center border rounded-lg p-2 w-24">
-            <img src="images/metal-silver.png" class="h-8 mx-auto" />
-            <p class="text-sm mt-1">Silver</p>
-          </div>
-          <div class="text-center border rounded-lg p-2 w-24">
-            <img src="images/metal-panchdhatu.png" class="h-8 mx-auto" />
-            <p class="text-sm mt-1">Panchdhatu</p>
-          </div>
-          <div class="text-center border rounded-lg p-2 w-24">
-            <img src="images/metal-copper.png" class="h-8 mx-auto" />
-            <p class="text-sm mt-1">Copper</p>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <h3 class="font-semibold text-lg">5. Where to purchase & red flags</h3>
-        <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc pl-5">
-          <li>Always purchase from a gemstone expert with certification.</li>
-          <li>Be cautious if seller refuses lab report or hides treatments.</li>
-          <li>Red flags: Too cheap, no returns, no certificate.</li>
-        </ul>
-      </div>
-
-      <div class="md:col-span-2">
-        <h3 class="font-semibold text-lg">6. Acceptance & preparation</h3>
-        <p class="text-sm text-gray-600 mt-2">Prefer untreated stones for astrology. Emeralds may be oiled and still acceptable.</p>
-
-        <div class="flex gap-3 mt-3">
-          <a href="#consultation" class="bg-emerald-600 text-white px-4 py-2 rounded-md font-semibold">Get Free DOB Recommendation</a>
-          <a href="downloads/gemstone-buying-checklist.pdf" download class="border border-emerald-600 text-emerald-700 px-4 py-2 rounded-md font-semibold">Download Checklist (PDF)</a>
+          <div id="quick-result"
+               role="status"
+               aria-live="polite"
+               class="mt-3 hidden bg-amber-50 border border-amber-100 p-3 rounded text-sm"></div>
         </div>
       </div>
     </div>
   </section>
 
-</main>
+  <main class="content-inner space-y-8 py-6">
 
-<!-- WhatsApp Floating Chat Button -->
-<a href="https://wa.me/917827491801?text=Hi%20Gems%20of%20Nature,%20I%20need%20help%20with%20a%20gemstone."
-   class="fixed bottom-20 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-sm font-semibold transition-all z-50"
-   target="_blank" rel="noopener">
-  <img src="images/social/whatsapp.png" class="w-6 h-6" alt="WhatsApp">
-  Chat with Us
-</a>
+    <!-- Consultation Embed -->
+    <div id="gn-consultation-embed" class="card-base fade-in">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+        <div>
+          <h3>Find Your Perfect Gemstone — Consultation</h3>
+          <p class="lead">
+            Free DOB recommendation + paid 30-minute personalized reading.
+            Rudraksha &amp; gem pairing guided by astrology and authenticity checks.
+          </p>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <a href="#consultation"
+             class="gn-btn gn-btn-strong btn-pill"
+             style="background:var(--site-accent); color:#fff;">
+            Get Free
+          </a>
+          <a href="#pricing"
+             class="gn-btn gn-btn-ghost btn-pill">
+            Book
+          </a>
+        </div>
+      </div>
 
-<!-- FOOTER -->
-<footer class="bg-emerald-900 text-white py-6 mt-12">
-  <div class="content-inner footer-inner flex flex-col md:flex-row items-center justify-between gap-4 px-0">
+      <div class="gn-auth-grid" role="group" aria-label="authenticity and actions">
+        <div class="gn-auth-card">
+          <div class="t">Quick authenticity tips</div>
+          <ul>
+            <li>Request lab certificates (IGI / GIA / SSEF) for faceted gems.</li>
+            <li>Watch for bubbles (glass) and unrealistic even color (dyed).</li>
+            <li>Compare weight/size vs price — unusually cheap often means treated.</li>
+            <li>For Rudraksha: clear mukhi-count photos, origin, and hole condition.</li>
+          </ul>
+        </div>
 
-    <!-- Copyright -->
-    <div class="text-sm footer-nowrap">
-      &copy; 2025 <strong>Gems of Nature</strong>. All rights reserved.
+        <div class="gn-quick" role="group" aria-label="Quick actions">
+          <button id="gn-embed-reco" class="gn-btn gn-btn-strong" style="width:100%;">Get Free DOB Reco</button>
+          <button id="gn-embed-book" class="gn-btn gn-btn-ghost" style="width:100%;">Book 30-min (₹999)</button>
+          <button id="gn-embed-wa" class="gn-btn gn-btn-ghost" style="width:100%;">Chat on WhatsApp</button>
+        </div>
+      </div>
+
+      <form id="gn-embed-form" style="margin-top:12px;">
+        <div class="gn-row-2">
+          <input id="gn-e-name" name="name" placeholder="Full name" />
+          <input id="gn-e-phone" name="phone" placeholder="WhatsApp +91..." />
+        </div>
+
+        <div class="gn-row-2" style="margin-top:8px;">
+          <input id="gn-e-dob" name="dob" type="date" />
+          <select id="gn-e-goal" name="goal">
+            <option value="wealth">Wealth</option>
+            <option value="health">Health</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <textarea id="gn-e-note" name="note" rows="2"
+                  placeholder="Short note... (optional)"
+                  style="margin-top:8px;"></textarea>
+
+        <div style="display:flex; gap:10px; margin-top:10px;">
+          <button type="submit" class="gn-btn gn-btn-strong btn-pill">Get Free Reco</button>
+          <button id="gn-embed-pay" type="button" class="gn-btn gn-btn-ghost btn-pill">
+            Book 30-min (₹999)
+          </button>
+        </div>
+
+        <div id="gn-embed-result" role="status" aria-live="polite"></div>
+      </form>
     </div>
 
-    <!-- Tagline -->
-    <div class="text-sm text-emerald-100 font-medium text-center">
-      100% natural stones • Secure payments • Fast shipping • 7-day returns
-    </div>
+    <!-- Services / Cards -->
+    <section id="services" class="space-y-4">
+      <h2 class="text-2xl font-bold">Our Consultation Services</h2>
+      <p class="text-slate-600 mt-1">
+        Choose a service — each includes a written recommendation and gemstone pairing guide.
+      </p>
 
-    <!-- Social Links (PNG icons + labels) -->
-    <div class="flex items-center justify-center gap-8 ml-2">
-      <a href="https://www.facebook.com/profile.php?id=61581929357076" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:opacity-90 transition">
-        <img src="images/social/facebook.png" alt="Facebook" class="w-6 h-6 rounded-full shadow-md">
-        <span class="text-sm font-medium">Facebook</span>
-      </a>
+      <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <article class="p-4 bg-white rounded-xl shadow card-compact">
+          <h3 class="font-semibold">Free DOB Recommendation</h3>
+          <p class="text-sm text-slate-600 mt-2">
+            Instant automated suggestion of 1–3 suitable gemstones (and Rudraksha if relevant)
+            based on your date of birth.
+          </p>
+          <ul class="mt-3 text-sm space-y-1">
+            <li>• Gem suggestions &amp; analogs</li>
+            <li>• Notes on authenticity &amp; certification</li>
+          </ul>
+          <div class="mt-3">
+            <a href="#consultation" class="inline-block text-amber-600 text-sm">Start free</a>
+          </div>
+        </article>
 
-      <a href="https://www.instagram.com/gemsofnatureshop" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:opacity-90 transition">
-        <img src="images/social/instagram.png" alt="Instagram" class="w-6 h-6 rounded-md shadow-md">
-        <span class="text-sm font-medium">Instagram</span>
-      </a>
+        <article class="p-4 bg-white rounded-xl shadow card-compact">
+          <h3 class="font-semibold">30-min Personal Consultation</h3>
+          <p class="text-sm text-slate-600 mt-2">
+            Personal voice/video call covering full birth-chart based gem &amp; Rudraksha prescription.
+            Includes follow-up notes.
+          </p>
+          <ul class="mt-3 text-sm space-y-1">
+            <li>• Live recommendations</li>
+            <li>• Mala / bead size, mukhi selection</li>
+            <li>• Wearing &amp; cleansing procedure</li>
+          </ul>
+          <div class="mt-3">
+            <a href="#pricing" class="inline-block text-amber-600 text-sm">Book a session</a>
+          </div>
+        </article>
 
-      <a href="https://www.linkedin.com/company/gems-of-nature" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:opacity-90 transition">
-        <img src="images/social/linkedin.png" alt="LinkedIn" class="w-6 h-6 rounded-md shadow-md">
-        <span class="text-sm font-medium">LinkedIn</span>
-      </a>
-    </div>
-  </div>
-</footer>
+        <article class="p-4 bg-white rounded-xl shadow card-compact md:col-span-2">
+          <h3 class="font-semibold">Gemstone + Rudraksha Audit</h3>
+          <p class="text-sm text-slate-600 mt-2">
+            Send images/certificates; we’ll audit authenticity, origin likelihood, and valuation tips.
+          </p>
+          <ul class="mt-3 text-sm space-y-1">
+            <li>• Lab certificate check</li>
+            <li>• Visual authenticity checklist</li>
+          </ul>
+          <div class="mt-3">
+            <a href="#contact" class="inline-block text-amber-600 text-sm">Send audit request</a>
+          </div>
+        </article>
+      </div>
+    </section>
 
-<script>
-  // Centralized WA phone variable — change here to update all WA links
-  const BUSINESS_WA = '917827491801'; // <-- replace with your desired number (no +)
+    <!-- Buying Guide -->
+    <section id="buying-guide" class="buying-guide no-overflow">
+      <h2 class="text-2xl font-bold text-emerald-800">Gemstone Buying Guide — What to check</h2>
+      <p class="text-slate-600 mt-2">
+        A short checklist to verify authenticity, suitability and the right metal/setting for astrological use.
+      </p>
 
-  const $id = id => document.getElementById(id) || null;
+      <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <h3 class="font-semibold text-lg">1. Which gemstone is ideal for you?</h3>
+          <p class="text-sm text-gray-600 mt-2">
+            Each gemstone corresponds to a ruling planet. Use the free DOB recommendation tool or consult an
+            astrologer to find your suitable gemstones.
+          </p>
+        </div>
 
-  (function(){
-    const quickForm = $id('quick-form');
-    if (quickForm) {
-      quickForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const name = ($id('q-name')?.value) || 'User';
-        const dob = $id('q-dob')?.value;
-        const goal = $id('q-goal')?.value || 'other';
-        let gem = 'Moonstone';
-        if (!dob) gem = 'Clear Quartz';
-        if (goal === 'wealth') gem = 'Citrine';
-        if (goal === 'health') gem = 'Hessonite';
-        const res = $id('quick-result');
-        if (res) {
-          res.innerHTML = `<strong>Hi ${name} — suggested:</strong> <div style="margin-top:8px;"><b>${gem}</b> — short note: Suitable for ${goal} goals. We recommend audit before purchase.</div>`;
-          res.classList.remove('hidden');
-        } else {
-          alert(`Suggested: ${gem}`);
+        <div>
+          <h3 class="font-semibold text-lg">
+            2. How to select quality (Cut • Color • Clarity • Carat • Origin)
+          </h3>
+          <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc pl-5">
+            <li><strong>Cut:</strong> Well-cut stones give proper brilliance.</li>
+            <li><strong>Color:</strong> Natural, balanced color. Avoid overly uniform/dyed stones.</li>
+            <li><strong>Clarity:</strong> Normal inclusions okay; bubbles = synthetic.</li>
+            <li><strong>Carat vs Price:</strong> Too cheap → usually treated/synthetic.</li>
+            <li><strong>Origin:</strong> Provenance adds value (e.g., Burma Ruby, Colombian Emerald).</li>
+          </ul>
+        </div>
+
+        <div class="md:col-span-2">
+          <h3 class="font-semibold text-lg">3. Certification & labs</h3>
+          <p class="text-sm text-gray-600 mt-2">
+            Always request third-party lab certificates. Trusted labs include GIA, IGI, GRS, Gubelin, SSEF.
+          </p>
+          <div class="flex items-center gap-4 mt-3 flex-wrap">
+            <img src="images/gia.png" class="h-9" alt="GIA" />
+            <img src="images/igi.png" class="h-9" alt="IGI" />
+            <img src="images/grs.png" class="h-9" alt="GRS" />
+          </div>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-lg">4. Metals & mounting — what to choose</h3>
+          <p class="text-sm text-gray-600 mt-2">
+            Gold, silver, or panchdhatu depending on gemstone and planet.
+          </p>
+
+          <div class="flex gap-3 mt-3">
+            <div class="text-center border rounded-lg p-2 w-24">
+              <img src="images/metal-gold.png" class="h-8 mx-auto" alt="Gold" />
+              <p class="text-sm mt-1">Gold</p>
+            </div>
+            <div class="text-center border rounded-lg p-2 w-24">
+              <img src="images/metal-silver.png" class="h-8 mx-auto" alt="Silver" />
+              <p class="text-sm mt-1">Silver</p>
+            </div>
+            <div class="text-center border rounded-lg p-2 w-24">
+              <img src="images/metal-panchdhatu.png" class="h-8 mx-auto" alt="Panchdhatu" />
+              <p class="text-sm mt-1">Panchdhatu</p>
+            </div>
+            <div class="text-center border rounded-lg p-2 w-24">
+              <img src="images/metal-copper.png" class="h-8 mx-auto" alt="Copper" />
+              <p class="text-sm mt-1">Copper</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-lg">5. Where to purchase & red flags</h3>
+          <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc pl-5">
+            <li>Always purchase from a gemstone expert with certification.</li>
+            <li>Be cautious if seller refuses lab report or hides treatments.</li>
+            <li>Red flags: Too cheap, no returns, no certificate.</li>
+          </ul>
+        </div>
+
+        <div class="md:col-span-2">
+          <h3 class="font-semibold text-lg">6. Acceptance & preparation</h3>
+          <p class="text-sm text-gray-600 mt-2">
+            Prefer untreated stones for astrology. Emeralds may be oiled and still acceptable.
+          </p>
+
+          <div class="flex gap-3 mt-3">
+            <a href="#consultation"
+               class="bg-emerald-600 text-white px-4 py-2 rounded-md font-semibold">
+              Get Free DOB Recommendation
+            </a>
+            <a href="downloads/gemstone-buying-checklist.pdf" download
+               class="border border-emerald-600 text-emerald-700 px-4 py-2 rounded-md font-semibold">
+              Download Checklist (PDF)
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer placeholder (shared) -->
+  <div id="footer"></div>
+
+  <!-- WhatsApp Floating Chat Button -->
+  <a href="https://wa.me/917827491801?text=Hi%20Gems%20of%20Nature,%20I%20need%20help%20with%20a%20gemstone."
+     class="fixed bottom-20 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-sm font-semibold transition-all z-50"
+     target="_blank" rel="noopener">
+    <img src="images/social/whatsapp.png" class="w-6 h-6" alt="WhatsApp">
+    Chat with Us
+  </a>
+
+  <!-- Shared layout script (injects header + footer, highlights active nav) -->
+  <script src="js/layout.js"></script>
+
+  <!-- Page-specific JS -->
+  <script>
+    // Centralized WA phone variable — change here to update all WA links
+    const BUSINESS_WA = '917827491801';
+    const $id = id => document.getElementById(id) || null;
+
+    // Quick form gem suggestion + WA button
+    (function(){
+      const quickForm = $id('quick-form');
+      if (quickForm) {
+        quickForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const name = ($id('q-name')?.value) || 'User';
+          const dob = $id('q-dob')?.value;
+          const goal = $id('q-goal')?.value || 'other';
+
+          let gem = 'Moonstone';
+          if (!dob) gem = 'Clear Quartz';
+          if (goal === 'wealth') gem = 'Citrine';
+          if (goal === 'health') gem = 'Hessonite';
+
+          const res = $id('quick-result');
+          if (res) {
+            res.innerHTML =
+              '<strong>Hi ' + name + ' — suggested:</strong>' +
+              '<div style="margin-top:8px;"><b>' + gem +
+              '</b> — Suitable for ' + goal +
+              ' goals. We recommend audit before purchase.</div>';
+            res.classList.remove('hidden');
+          } else {
+            alert('Suggested: ' + gem);
+          }
+        });
+      }
+
+      const waQuick = $id('wa-btn-quick');
+      if (waQuick) {
+        waQuick.addEventListener('click', function () {
+          const text = encodeURIComponent('Hello, I want a gemstone/rudraksha consultation.');
+          window.open('https://wa.me/' + BUSINESS_WA + '?text=' + text, '_blank', 'noopener');
+        });
+      }
+    })();
+
+    // (Optional) Booking / audit handlers - safe even if elements missing
+    (function(){
+      const bookBtn1 = $id('book-30');
+      const bookBtn2 = $id('book-30b');
+      const modal = $id('modal');
+
+      function openModal() {
+        if (modal) {
+          modal.classList.remove('hidden');
+          modal.style.display = 'flex';
         }
-      });
-    }
+      }
+      function closeModal() {
+        if (modal) {
+          modal.classList.add('hidden');
+          modal.style.display = 'none';
+        }
+      }
 
-    const waQuick = $id('wa-btn-quick');
-    if (waQuick) {
-      waQuick.addEventListener('click', function () {
-        const text = encodeURIComponent('Hello, I want a gemstone/rudraksha consultation.');
-        window.open(`https://wa.me/${BUSINESS_WA}?text=${text}`, '_blank', 'noopener');
-      });
-    }
-  })();
+      if (bookBtn1) bookBtn1.addEventListener('click', openModal);
+      if (bookBtn2) bookBtn2.addEventListener('click', openModal);
+      if ($id('modal-cancel')) {
+        $id('modal-cancel').addEventListener('click', closeModal);
+      }
+      if ($id('modal-form')) {
+        $id('modal-form').addEventListener('submit', function (e) {
+          e.preventDefault();
+          alert('Placeholder: proceed to payment gateway.');
+          closeModal();
+        });
+      }
+    })();
 
-  (function(){
-    const bookBtn1 = $id('book-30');
-    const bookBtn2 = $id('book-30b');
-    const modal = $id('modal');
-    function openModal() { if (modal) { modal.classList.remove('hidden'); modal.style.display = 'flex'; } }
-    function closeModal() { if (modal) { modal.classList.add('hidden'); modal.style.display = 'none'; } }
-    if (bookBtn1) bookBtn1.addEventListener('click', openModal);
-    if (bookBtn2) bookBtn2.addEventListener('click', openModal);
-    if ($id('modal-cancel')) $id('modal-cancel').addEventListener('click', closeModal);
+    (function(){
+      const sendAudit = $id('send-audit');
+      if (sendAudit) {
+        sendAudit.addEventListener('click', function () {
+          const f = $id('file-upload');
+          if (!f || !f.files || f.files.length === 0) {
+            alert('Please choose files to upload.');
+            return;
+          }
+          alert('Files queued for audit. (Implement server upload endpoint to receive files.)');
+        });
+      }
 
-    if ($id('modal-form')) {
-      $id('modal-form').addEventListener('submit', function (e) {
-        e.preventDefault();
-        alert('Placeholder: proceed to payment gateway. Implement payment integration (Razorpay/Stripe/PayPal).');
-        closeModal();
-      });
-    }
-  })();
+      const waUpload = $id('wa-upload');
+      if (waUpload) {
+        waUpload.addEventListener('click', function () {
+          const text = encodeURIComponent('Hi, I want to send photos for a gem audit.');
+          window.open('https://wa.me/' + BUSINESS_WA + '?text=' + text, '_blank', 'noopener');
+        });
+      }
 
-  (function(){
-    const sendAudit = $id('send-audit');
-    if (sendAudit) {
-      sendAudit.addEventListener('click', function () {
-        const f = $id('file-upload');
-        if (!f || !f.files || f.files.length === 0) { alert('Please choose files to upload.'); return; }
-        alert('Files queued for audit. (Implement server upload endpoint to receive files.)');
-      });
-    }
-    const waUpload = $id('wa-upload');
-    if (waUpload) {
-      waUpload.addEventListener('click', function () {
-        const text = encodeURIComponent('Hi, I want to send photos for a gem audit.');
-        window.open(`https://wa.me/${BUSINESS_WA}?text=${text}`, '_blank', 'noopener');
-      });
-    }
-    const waBtn = $id('wa-btn');
-    if (waBtn) {
-      waBtn.addEventListener('click', function () {
-        const text = encodeURIComponent('Hello, I would like to book a gemstone consultation.');
-        window.open(`https://wa.me/${BUSINESS_WA}?text=${text}`, '_blank', 'noopener');
-      });
-    }
-  })();
+      const waBtn = $id('wa-btn');
+      if (waBtn) {
+        waBtn.addEventListener('click', function () {
+          const text = encodeURIComponent('Hello, I would like to book a gemstone consultation.');
+          window.open('https://wa.me/' + BUSINESS_WA + '?text=' + text, '_blank', 'noopener');
+        });
+      }
+    })();
 
-  (function(){
-    const gnForm = $id('gn-embed-form');
-    if (gnForm) {
-      gnForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const name = ($id('gn-e-name')?.value || 'Friend').trim();
-        const res = $id('gn-embed-result');
-        if (res) { res.innerHTML = `Thanks <strong>${name}</strong>. Your free recommendation will be sent via WhatsApp/Email.`; res.style.display = 'block'; }
-      });
-    }
-    $id('gn-embed-reco')?.addEventListener('click', function () { $id('gn-e-dob')?.focus(); });
-    $id('gn-embed-book')?.addEventListener('click', function () { alert('Open booking modal or redirect to checkout.'); });
-    $id('gn-embed-wa')?.addEventListener('click', function () {
-      const text = encodeURIComponent('Hi, I want a gem consultation from Gems of Nature');
-      window.open(`https://wa.me/${BUSINESS_WA}?text=${text}`, '_blank', 'noopener');
-    });
-    $id('gn-embed-pay')?.addEventListener('click', function () { $id('gn-embed-book')?.click(); });
-  })();
-</script>
+    // Embedded form free reco + booking
+    (function(){
+      const gnForm = $id('gn-embed-form');
+      if (gnForm) {
+        gnForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const name = ($id('gn-e-name')?.value || 'Friend').trim();
+          const res = $id('gn-embed-result');
+          if (res) {
+            res.innerHTML =
+              'Thanks <strong>' + name + '</strong>. Your free recommendation will be sent via WhatsApp/Email.';
+            res.style.display = 'block';
+          }
+        });
+      }
+
+      const recoBtn = $id('gn-embed-reco');
+      if (recoBtn) {
+        recoBtn.addEventListener('click', function () {
+          const dobInput = $id('gn-e-dob');
+          if (dobInput) dobInput.focus();
+        });
+      }
+
+      const bookBtn = $id('gn-embed-book');
+      if (bookBtn) {
+        bookBtn.addEventListener('click', function () {
+          alert('Open booking modal or redirect to checkout.');
+        });
+      }
+
+      const waBtn = $id('gn-embed-wa');
+      if (waBtn) {
+        waBtn.addEventListener('click', function () {
+          const text = encodeURIComponent('Hi, I want a gem consultation from Gems of Nature');
+          window.open('https://wa.me/' + BUSINESS_WA + '?text=' + text, '_blank', 'noopener');
+        });
+      }
+
+      const payBtn = $id('gn-embed-pay');
+      if (payBtn) {
+        payBtn.addEventListener('click', function () {
+          if (bookBtn) bookBtn.click();
+        });
+      }
+    })();
+  </script>
 </body>
 </html>

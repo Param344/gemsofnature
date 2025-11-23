@@ -5,270 +5,240 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Shop gemstones, crystals, and Rudraksha — Gems of Nature unified collection." />
   <title>Shop | Gems of Nature</title>
+
+  <!-- Tailwind + Fonts (keep consistent with other pages) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    .font-montserrat{font-family:'Montserrat',sans-serif}
-    .fade-in{opacity:0;transform:translateY(20px);animation:fadeInUp .8s ease forwards}
-    @keyframes fadeInUp{to{opacity:1;transform:translateY(0)}}
-    .tab-btn:focus{outline:3px solid rgba(16,185,129,.15);outline-offset:2px}
-    .product-tile a{transition:all .25s ease-in-out}
-    .product-tile a:hover{transform:translateY(-1px)}
+    .font-montserrat { font-family: 'Montserrat', sans-serif }
+    .fade-in { opacity: 0; transform: translateY(20px); animation: fadeInUp .8s ease forwards }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0) } }
+    .tab-btn:focus { outline: 3px solid rgba(16,185,129,.15); outline-offset: 2px }
+    .product-tile a { transition: all .25s ease-in-out }
+    .product-tile a:hover { transform: translateY(-1px) }
   </style>
 </head>
 
-<body class="bg-gray-50 text-gray-800 font-montserrat">
+<body class="bg-gray-50 text-gray-800 font-montserrat" data-page="shop">
+  <!-- Shared Header injected by layout.js -->
+  <div id="header"></div>
 
-<!-- NAVBAR -->
-<header class="bg-emerald-900 text-white shadow-md">
-  <nav class="container mx-auto flex justify-between items-center py-4 px-6">
-    <a href="index.html" class="flex items-center">
-      <img src="images/logo.png" alt="Gems of Nature Logo" class="h-12 w-auto" loading="lazy">
-      <span class="ml-2 text-2xl font-bold font-montserrat">Gems of Nature</span>
-    </a>
-    <ul class="hidden md:flex gap-6 text-lg font-montserrat">
-      <li><a href="index.html" class="hover:text-emerald-300">Home</a></li>
-      <li><a href="about.html" class="hover:text-emerald-300">About</a></li>
-      <li><a href="shop.html" class="text-emerald-300 font-semibold">Collections</a></li>
-      <li><a href="contact.html" class="hover:text-emerald-300">Contact</a></li>
-      <li><a href="astrology.consultation.html" class="hover:text-emerald-300 transition">Astrology & Consultation</a></li>
-    </ul>
-    <div class="flex items-center gap-4">
-      <a href="shop-ecom.html" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold hidden md:inline-block">Buy Online</a>
-      <a href="shop-ecom.html" class="text-2xl cursor-pointer">🛒</a>
-      <button id="mobile-menu-button" class="text-2xl md:hidden">☰</button>
-    </div>
-  </nav>
-  <div id="mobile-menu" class="hidden bg-emerald-800 md:hidden">
-    <ul class="flex flex-col gap-4 px-6 py-4">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="shop.html" class="font-semibold text-emerald-300">Collections</a></li>
-      <li><a href="shop-ecom.html">Buy Online</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="astrology.consultation.html" class="hover:text-emerald-300 transition">Astrology & Consultation</a></li>
-    </ul>
-  </div>
-</header>
+  <main>
+    <!-- HERO -->
+    <section class="relative bg-cover bg-center h-[28rem] fade-in" style="background-image:url('images/hero-bg.jpg');">
+      <img src="images/hero-bg.jpg" alt="Healing gemstones and crystals background" loading="lazy" class="hidden">
+      <div class="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-center text-white px-6">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Shop Our Gemstones</h1>
+        <p class="text-lg md:text-xl max-w-2xl">Find your perfect stone for healing, prosperity, and inner harmony</p>
+        <a href="shop-ecom.html" class="mt-6 inline-block bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full shadow transition">Buy Online</a>
+      </div>
+    </section>
 
-<script>
-const mobileMenuButton=document.getElementById('mobile-menu-button');
-const mobileMenu=document.getElementById('mobile-menu');
-if(mobileMenuButton){mobileMenuButton.addEventListener('click',()=>mobileMenu.classList.toggle('hidden'));}
-</script>
-
-<!-- HERO -->
-<section class="relative bg-cover bg-center h-[28rem] fade-in" style="background-image:url('images/hero-bg.jpg');">
-  <img src="images/hero-bg.jpg" alt="Healing gemstones and crystals background" loading="lazy" class="hidden">
-  <div class="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-center text-white px-6">
-    <h1 class="text-4xl md:text-5xl font-bold mb-4">Shop Our Gemstones</h1>
-    <p class="text-lg md:text-xl max-w-2xl">Find your perfect stone for healing, prosperity, and inner harmony</p>
-    <a href="shop-ecom.html" class="mt-6 inline-block bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full shadow transition">Buy Online</a>
-  </div>
-</section>
-
-<!-- FILTERS -->
-<section class="py-8 container mx-auto px-6">
-  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-    <div class="overflow-auto"><div id="categoryTabs" class="inline-flex gap-2"></div></div>
-    <div class="flex items-center gap-2">
-      <input id="shopSearch" type="search" placeholder="Search within category..." class="px-4 py-2 rounded-lg border w-64">
-      <button id="clearFilters" class="px-3 py-2 bg-white border rounded-lg hover:bg-gray-50">Clear</button>
-    </div>
-    <div class="flex items-center gap-3">
-  <select id="sortSelect" class="px-3 py-2 rounded-lg border">
-    <option value="">Sort</option>
-    <option value="low">Price: Low to High</option>
-    <option value="high">Price: High to Low</option>
-    <option value="az">A–Z</option>
-  </select>
-
-  <select id="chakraSelect" class="px-3 py-2 rounded-lg border">
-    <option value="">Chakra</option>
-    <option value="root">Root</option>
-    <option value="sacral">Sacral</option>
-    <option value="solar">Solar</option>
-    <option value="heart">Heart</option>
-    <option value="throat">Throat</option>
-    <option value="third">Third Eye</option>
-    <option value="crown">Crown</option>
-  </select>
-
-  <select id="zodiacSelect" class="px-3 py-2 rounded-lg border">
-    <option value="">Zodiac</option>
-    <option value="aries">Aries</option>
-    <option value="taurus">Taurus</option>
-    <option value="gemini">Gemini</option>
-    <option value="cancer">Cancer</option>
-    <option value="leo">Leo</option>
-    <option value="virgo">Virgo</option>
-    <option value="libra">Libra</option>
-    <option value="scorpio">Scorpio</option>
-    <option value="sagittarius">Sagittarius</option>
-    <option value="capricorn">Capricorn</option>
-    <option value="aquarius">Aquarius</option>
-    <option value="pisces">Pisces</option>
-  </select>
-</div>
-  </div>
-</section>
-
-<!-- PRODUCT GRID -->
-<section class="py-6 container mx-auto px-6 fade-in">
-  <div id="productGrid" class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-8"></div>
-  <div id="noResults" class="hidden text-center py-12 text-gray-500">No products found — try clearing filters or select another category.</div>
-</section>
-
-<!-- FOOTER -->
-<footer class="bg-emerald-900 text-white py-6 mt-12">
-  <div class="max-w-7xl mx-auto footer-inner flex flex-col md:flex-row items-center justify-between gap-4 px-6">
-
-    <!-- Copyright -->
-    <div class="text-sm footer-nowrap">
-      &copy; 2025 <strong>Gems of Nature</strong>. All rights reserved.
-    </div>
-
-    <!-- Tagline -->
-    <div class="text-sm text-emerald-100 font-medium text-center">
-      100% natural stones • Secure payments • Fast shipping • 7-day returns
-    </div>
-
-    <!-- Social Links (PNG icons + labels) -->
-<div class="flex items-center justify-center gap-8 ml-2">
-      <!-- Facebook -->
-      <a
-        href="https://www.facebook.com/profile.php?id=61581929357076"
-        target="_blank" rel="noopener noreferrer"
-        class="flex items-center gap-2 hover:opacity-90 transition"
-      >
-        <img src="images/social/facebook.png" alt="Facebook" class="w-6 h-6 rounded-full shadow-md">
-        <span class="text-sm font-medium">Facebook</span>
-      </a>
-
-      <!-- Instagram -->
-      <a
-        href="https://www.instagram.com/gemsofnatureshop"
-        target="_blank" rel="noopener noreferrer"
-        class="flex items-center gap-2 hover:opacity-90 transition"
-      >
-        <img src="images/social/instagram.png" alt="Instagram" class="w-6 h-6 rounded-md shadow-md">
-        <span class="text-sm font-medium">Instagram</span>
-      </a>
-
-      <!-- LinkedIn -->
-      <a
-        href="https://www.linkedin.com/company/gems-of-nature"
-        target="_blank" rel="noopener noreferrer"
-        class="flex items-center gap-2 hover:opacity-90 transition"
-      >
-        <img src="images/social/linkedin.png" alt="LinkedIn" class="w-6 h-6 rounded-md shadow-md">
-        <span class="text-sm font-medium">LinkedIn</span>
-      </a>
-    </div>
-  </div>
-</footer>
-
-
-<!-- shared product data -->
-<script src="js/products.js"></script>
-
-<!-- Dynamic Rendering -->
-<script>
-const productGrid=document.getElementById('productGrid');
-const tabsContainer=document.getElementById('categoryTabs');
-const searchInput=document.getElementById('shopSearch');
-const clearBtn=document.getElementById('clearFilters');
-const noResults=document.getElementById('noResults');
-
-const categories=[...new Set(window.products.map(p=>p.category))];
-let activeTab='All';
-
-function renderTabs(){
-  tabsContainer.innerHTML='';
-  ['All',...categories].forEach(tab=>{
-    const btn=document.createElement('button');
-    btn.textContent=tab;
-    btn.className=`tab-btn px-4 py-2 rounded-full border border-gray-200 bg-white text-sm shadow-sm hover:bg-emerald-50 ${tab===activeTab?'bg-emerald-600 text-white border-emerald-600':''}`;
-    btn.addEventListener('click',()=>{activeTab=tab;render();});
-    tabsContainer.appendChild(btn);
-  });
-}
-
-function render(){
-  productGrid.innerHTML='';
-  const q=(searchInput.value||'').toLowerCase();
-
-  // sort selection
-  const sortVal = document.getElementById("sortSelect").value;
-  const chakraVal = document.getElementById("chakraSelect").value;
-  const zodiacVal = document.getElementById("zodiacSelect").value;
-
-  let data = [...window.products];
-
-  // ---- FILTER ----
-  data = data.filter(p => {
-    const matchCat = activeTab==='All' || p.category===activeTab;
-    const matchSearch = p.name.toLowerCase().includes(q) || (p.description||'').toLowerCase().includes(q);
-    const matchChakra = !chakraVal || (p.chakra && p.chakra.toLowerCase() === chakraVal);
-    const matchZodiac = !zodiacVal || (p.zodiac && p.zodiac.toLowerCase().includes(zodiacVal));
-    return matchCat && matchSearch && matchChakra && matchZodiac;
-  });
-
-  // ---- SORT ----
-  if(sortVal==='low') data.sort((a,b)=>a.price_min-b.price_min);
-  if(sortVal==='high') data.sort((a,b)=>b.price_min-a.price_min);
-  if(sortVal==='az') data.sort((a,b)=>a.name.localeCompare(b.name));
-
-  // ---- RENDER ----
-  let count=0;
-  data.forEach(p=>{
-    const tile=document.createElement('div');
-    tile.className='product-tile bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden cursor-pointer';
-    tile.innerHTML=`
-      <div onclick="openModal('${p.id}')">
-        <img src="${p.image}" class="w-full h-56 object-cover">
-        <div class="p-6">
-          <h3 class="text-xl font-semibold text-emerald-700">${p.name}</h3>
-          <p class="text-sm text-gray-600 mt-2">${p.description}</p>
-          <p class="text-sm text-gray-800 mt-2 font-semibold">₹${p.price_min.toLocaleString()} - ₹${p.price_max.toLocaleString()}</p>
+    <!-- FILTERS -->
+    <section class="py-8 container mx-auto px-6">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="overflow-auto">
+          <div id="categoryTabs" class="inline-flex gap-2"></div>
         </div>
-      </div>`;
-    productGrid.appendChild(tile);
-    count++;
-  });
 
-  noResults.classList.toggle('hidden',count>0);
-  renderTabs();
-}
-render();
-</script>
+        <div class="flex items-center gap-2">
+          <input id="shopSearch" type="search" placeholder="Search within category..." class="px-4 py-2 rounded-lg border w-64">
+          <button id="clearFilters" class="px-3 py-2 bg-white border rounded-lg hover:bg-gray-50">Clear</button>
+        </div>
 
-<!-- WhatsApp Floating Chat Button -->
-<a href="https://wa.me/917827491801?text=Hi%20Gems%20of%20Nature,%20I%20need%20help%20with%20a%20gemstone."
-   class="fixed bottom-20 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-sm font-semibold transition-all z-50"
-   target="_blank" rel="noopener">
-  <img src="images/social/whatsapp.png" class="w-6 h-6" alt="WhatsApp">
-  Chat with Us
-</a>
-<div id="quickModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden justify-center items-center z-50">
-  <div id="modalContent" class="bg-white rounded-xl p-6 w-[90%] max-w-lg shadow-xl"></div>
-</div>
+        <div class="flex items-center gap-3">
+          <select id="sortSelect" class="px-3 py-2 rounded-lg border">
+            <option value="">Sort</option>
+            <option value="low">Price: Low to High</option>
+            <option value="high">Price: High to Low</option>
+            <option value="az">A–Z</option>
+          </select>
 
-<script>
-function openModal(id){
-  const p = window.products.find(x=>x.id===id);
-  document.getElementById("modalContent").innerHTML = `
-    <img src="${p.image}" class="w-full h-72 object-cover rounded-lg mb-4">
-    <h2 class="text-2xl font-bold text-emerald-700">${p.name}</h2>
-    <p class="text-gray-700 mt-2 mb-2">${p.description}</p>
-    <p class="font-semibold text-lg">₹${p.price_min.toLocaleString()} - ₹${p.price_max.toLocaleString()}</p>
-    <a href="shop-ecom.html?product=${p.id}" class="mt-4 inline-block bg-emerald-600 text-white px-4 py-2 rounded-lg">Buy Now</a>
-    <button onclick="closeModal()" class="mt-3 text-sm text-gray-500 underline w-full">Close</button>
-  `;
-  document.getElementById("quickModal").classList.remove("hidden");
-}
-function closeModal(){ document.getElementById("quickModal").classList.add("hidden"); }
-</script>
+          <select id="chakraSelect" class="px-3 py-2 rounded-lg border">
+            <option value="">Chakra</option>
+            <option value="root">Root</option>
+            <option value="sacral">Sacral</option>
+            <option value="solar">Solar</option>
+            <option value="heart">Heart</option>
+            <option value="throat">Throat</option>
+            <option value="third">Third Eye</option>
+            <option value="crown">Crown</option>
+          </select>
 
+          <select id="zodiacSelect" class="px-3 py-2 rounded-lg border">
+            <option value="">Zodiac</option>
+            <option value="aries">Aries</option>
+            <option value="taurus">Taurus</option>
+            <option value="gemini">Gemini</option>
+            <option value="cancer">Cancer</option>
+            <option value="leo">Leo</option>
+            <option value="virgo">Virgo</option>
+            <option value="libra">Libra</option>
+            <option value="scorpio">Scorpio</option>
+            <option value="sagittarius">Sagittarius</option>
+            <option value="capricorn">Capricorn</option>
+            <option value="aquarius">Aquarius</option>
+            <option value="pisces">Pisces</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCT GRID -->
+    <section class="py-6 container mx-auto px-6 fade-in">
+      <div id="productGrid" class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-8"></div>
+      <div id="noResults" class="hidden text-center py-12 text-gray-500">
+        No products found — try clearing filters or select another category.
+      </div>
+    </section>
+
+    <!-- WhatsApp Floating Chat Button -->
+    <a href="https://wa.me/917827491801?text=Hi%20Gems%20of%20Nature,%20I%20need%20help%20with%20a%20gemstone."
+       class="fixed bottom-20 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-sm font-semibold transition-all z-50"
+       target="_blank" rel="noopener">
+      <img src="images/social/whatsapp.png" class="w-6 h-6" alt="WhatsApp">
+      Chat with Us
+    </a>
+
+    <!-- Quick View Modal -->
+    <div id="quickModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden justify-center items-center z-50">
+      <div id="modalContent" class="bg-white rounded-xl p-6 w-[90%] max-w-lg shadow-xl"></div>
+    </div>
+  </main>
+
+  <!-- Shared Footer injected by layout.js -->
+  <div id="footer"></div>
+
+  <!-- Shared layout (header + footer) -->
+  <script src="js/layout.js"></script>
+
+  <!-- shared product data -->
+  <script src="js/products.js"></script>
+
+  <!-- Dynamic Rendering -->
+  <script>
+    const productGrid   = document.getElementById('productGrid');
+    const tabsContainer = document.getElementById('categoryTabs');
+    const searchInput   = document.getElementById('shopSearch');
+    const clearBtn      = document.getElementById('clearFilters');
+    const noResults     = document.getElementById('noResults');
+
+    const sortSelect    = document.getElementById('sortSelect');
+    const chakraSelect  = document.getElementById('chakraSelect');
+    const zodiacSelect  = document.getElementById('zodiacSelect');
+
+    const categories = [...new Set(window.products.map(p => p.category))];
+    let activeTab = 'All';
+
+    function renderTabs() {
+      tabsContainer.innerHTML = '';
+      ['All', ...categories].forEach(tab => {
+        const btn = document.createElement('button');
+        btn.textContent = tab;
+        btn.className = `tab-btn px-4 py-2 rounded-full border border-gray-200 bg-white text-sm shadow-sm hover:bg-emerald-50 ${
+          tab === activeTab ? 'bg-emerald-600 text-white border-emerald-600' : ''
+        }`;
+        btn.addEventListener('click', () => {
+          activeTab = tab;
+          render();
+        });
+        tabsContainer.appendChild(btn);
+      });
+    }
+
+    function render() {
+      productGrid.innerHTML = '';
+      const q = (searchInput.value || '').toLowerCase();
+
+      const sortVal   = sortSelect.value;
+      const chakraVal = chakraSelect.value;
+      const zodiacVal = zodiacSelect.value;
+
+      let data = [...window.products];
+
+      // FILTER
+      data = data.filter(p => {
+        const matchCat    = activeTab === 'All' || p.category === activeTab;
+        const matchSearch = p.name.toLowerCase().includes(q) || (p.description || '').toLowerCase().includes(q);
+        const matchChakra = !chakraVal || (p.chakra && p.chakra.toLowerCase() === chakraVal);
+        const matchZodiac = !zodiacVal || (p.zodiac && p.zodiac.toLowerCase().includes(zodiacVal));
+        return matchCat && matchSearch && matchChakra && matchZodiac;
+      });
+
+      // SORT
+      if (sortVal === 'low')  data.sort((a, b) => a.price_min - b.price_min);
+      if (sortVal === 'high') data.sort((a, b) => b.price_min - a.price_min);
+      if (sortVal === 'az')   data.sort((a, b) => a.name.localeCompare(b.name));
+
+      // RENDER
+      let count = 0;
+      data.forEach(p => {
+        const tile = document.createElement('div');
+        tile.className = 'product-tile bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden cursor-pointer';
+        tile.innerHTML = `
+          <div onclick="openModal('${p.id}')">
+            <img src="${p.image}" class="w-full h-56 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-emerald-700">${p.name}</h3>
+              <p class="text-sm text-gray-600 mt-2">${p.description}</p>
+              <p class="text-sm text-gray-800 mt-2 font-semibold">
+                ₹${p.price_min.toLocaleString()} - ₹${p.price_max.toLocaleString()}
+              </p>
+            </div>
+          </div>
+        `;
+        productGrid.appendChild(tile);
+        count++;
+      });
+
+      noResults.classList.toggle('hidden', count > 0);
+      renderTabs();
+    }
+
+    // Wire filters/search to re-render
+    searchInput.addEventListener('input', render);
+    sortSelect.addEventListener('change', render);
+    chakraSelect.addEventListener('change', render);
+    zodiacSelect.addEventListener('change', render);
+
+    clearBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      sortSelect.value = '';
+      chakraSelect.value = '';
+      zodiacSelect.value = '';
+      activeTab = 'All';
+      render();
+    });
+
+    // Initial render
+    render();
+  </script>
+
+  <!-- Quick View Modal Logic -->
+  <script>
+    function openModal(id) {
+      const p = window.products.find(x => x.id === id);
+      if (!p) return;
+
+      document.getElementById("modalContent").innerHTML = `
+        <img src="${p.image}" class="w-full h-72 object-cover rounded-lg mb-4">
+        <h2 class="text-2xl font-bold text-emerald-700">${p.name}</h2>
+        <p class="text-gray-700 mt-2 mb-2">${p.description}</p>
+        <p class="font-semibold text-lg">
+          ₹${p.price_min.toLocaleString()} - ₹${p.price_max.toLocaleString()}
+        </p>
+        <a href="shop-ecom.html?product=${p.id}" class="mt-4 inline-block bg-emerald-600 text-white px-4 py-2 rounded-lg">
+          Buy Now
+        </a>
+        <button onclick="closeModal()" class="mt-3 text-sm text-gray-500 underline w-full">Close</button>
+      `;
+      document.getElementById("quickModal").classList.remove("hidden");
+    }
+
+    function closeModal() {
+      document.getElementById("quickModal").classList.add("hidden");
+    }
+  </script>
 </body>
 </html>
