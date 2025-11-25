@@ -53,34 +53,7 @@
             <option value="low">Price: Low to High</option>
             <option value="high">Price: High to Low</option>
             <option value="az">A–Z</option>
-          </select>
-
-          <select id="chakraSelect" class="px-3 py-2 rounded-lg border">
-            <option value="">Chakra</option>
-            <option value="root">Root</option>
-            <option value="sacral">Sacral</option>
-            <option value="solar">Solar</option>
-            <option value="heart">Heart</option>
-            <option value="throat">Throat</option>
-            <option value="third">Third Eye</option>
-            <option value="crown">Crown</option>
-          </select>
-
-          <select id="zodiacSelect" class="px-3 py-2 rounded-lg border">
-            <option value="">Zodiac</option>
-            <option value="aries">Aries</option>
-            <option value="taurus">Taurus</option>
-            <option value="gemini">Gemini</option>
-            <option value="cancer">Cancer</option>
-            <option value="leo">Leo</option>
-            <option value="virgo">Virgo</option>
-            <option value="libra">Libra</option>
-            <option value="scorpio">Scorpio</option>
-            <option value="sagittarius">Sagittarius</option>
-            <option value="capricorn">Capricorn</option>
-            <option value="aquarius">Aquarius</option>
-            <option value="pisces">Pisces</option>
-          </select>
+          </select
         </div>
       </div>
     </section>
@@ -117,103 +90,100 @@
   <script src="js/products.js"></script>
 
   <!-- Dynamic Rendering -->
-  <script>
-    const productGrid   = document.getElementById('productGrid');
-    const tabsContainer = document.getElementById('categoryTabs');
-    const searchInput   = document.getElementById('shopSearch');
-    const clearBtn      = document.getElementById('clearFilters');
-    const noResults     = document.getElementById('noResults');
+<script>
+  const productGrid   = document.getElementById('productGrid');
+  const tabsContainer = document.getElementById('categoryTabs');
+  const searchInput   = document.getElementById('shopSearch');
+  const clearBtn      = document.getElementById('clearFilters');
+  const noResults     = document.getElementById('noResults');
 
-    const sortSelect    = document.getElementById('sortSelect');
-    const chakraSelect  = document.getElementById('chakraSelect');
-    const zodiacSelect  = document.getElementById('zodiacSelect');
+  const sortSelect    = document.getElementById('sortSelect');
 
-    const categories = [...new Set(window.products.map(p => p.category))];
-    let activeTab = 'All';
+  const categories = [...new Set(window.products.map(p => p.category))];
+  let activeTab = 'All';
 
-    function renderTabs() {
-      tabsContainer.innerHTML = '';
-      ['All', ...categories].forEach(tab => {
-        const btn = document.createElement('button');
-        btn.textContent = tab;
-        btn.className = `tab-btn px-4 py-2 rounded-full border border-gray-200 bg-white text-sm shadow-sm hover:bg-emerald-50 ${
-          tab === activeTab ? 'bg-emerald-600 text-white border-emerald-600' : ''
-        }`;
-        btn.addEventListener('click', () => {
-          activeTab = tab;
-          render();
-        });
-        tabsContainer.appendChild(btn);
+  function renderTabs() {
+    tabsContainer.innerHTML = '';
+    ['All', ...categories].forEach(tab => {
+      const btn = document.createElement('button');
+      btn.textContent = tab;
+      btn.className =
+        'tab-btn px-4 py-2 rounded-full border border-gray-200 bg-white text-sm shadow-sm hover:bg-emerald-50 ' +
+        (tab === activeTab ? 'bg-emerald-600 text-black border-emerald-600' : '');
+      btn.addEventListener('click', () => {
+        activeTab = tab;
+        render();
       });
-    }
+      tabsContainer.appendChild(btn);
+    });
+  }
 
-    function render() {
-      productGrid.innerHTML = '';
-      const q = (searchInput.value || '').toLowerCase();
+  function render() {
+    productGrid.innerHTML = '';
+    const q = (searchInput.value || '').toLowerCase().trim();
 
-      const sortVal   = sortSelect.value;
-      const chakraVal = chakraSelect.value;
-      const zodiacVal = zodiacSelect.value;
+    const sortVal = sortSelect.value;
 
-      let data = [...window.products];
+    let data = [...window.products];
 
-      // FILTER
-      data = data.filter(p => {
-        const matchCat    = activeTab === 'All' || p.category === activeTab;
-        const matchSearch = p.name.toLowerCase().includes(q) || (p.description || '').toLowerCase().includes(q);
-        const matchChakra = !chakraVal || (p.chakra && p.chakra.toLowerCase() === chakraVal);
-        const matchZodiac = !zodiacVal || (p.zodiac && p.zodiac.toLowerCase().includes(zodiacVal));
-        return matchCat && matchSearch && matchChakra && matchZodiac;
-      });
+    // FILTER by category + search
+    data = data.filter(p => {
+      const cat   = p.category || '';
+      const name  = (p.name || '').toLowerCase();
+      const desc  = (p.description || '').toLowerCase();
 
-      // SORT
-      if (sortVal === 'low')  data.sort((a, b) => a.price_min - b.price_min);
-      if (sortVal === 'high') data.sort((a, b) => b.price_min - a.price_min);
-      if (sortVal === 'az')   data.sort((a, b) => a.name.localeCompare(b.name));
+      const matchCat    = activeTab === 'All' || cat === activeTab;
+      const matchSearch = !q || name.includes(q) || desc.includes(q);
 
-      // RENDER
-      let count = 0;
-      data.forEach(p => {
-        const tile = document.createElement('div');
-        tile.className = 'product-tile bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden cursor-pointer';
-        tile.innerHTML = `
-          <div onclick="openModal('${p.id}')">
-            <img src="${p.image}" class="w-full h-56 object-cover">
-            <div class="p-6">
-              <h3 class="text-xl font-semibold text-emerald-700">${p.name}</h3>
-              <p class="text-sm text-gray-600 mt-2">${p.description}</p>
-              <p class="text-sm text-gray-800 mt-2 font-semibold">
-                ₹${p.price_min.toLocaleString()} - ₹${p.price_max.toLocaleString()}
-              </p>
-            </div>
-          </div>
-        `;
-        productGrid.appendChild(tile);
-        count++;
-      });
-
-      noResults.classList.toggle('hidden', count > 0);
-      renderTabs();
-    }
-
-    // Wire filters/search to re-render
-    searchInput.addEventListener('input', render);
-    sortSelect.addEventListener('change', render);
-    chakraSelect.addEventListener('change', render);
-    zodiacSelect.addEventListener('change', render);
-
-    clearBtn.addEventListener('click', () => {
-      searchInput.value = '';
-      sortSelect.value = '';
-      chakraSelect.value = '';
-      zodiacSelect.value = '';
-      activeTab = 'All';
-      render();
+      return matchCat && matchSearch;
     });
 
-    // Initial render
+    // SORT
+    if (sortVal === 'low')  data.sort((a, b) => a.price_min - b.price_min);
+    if (sortVal === 'high') data.sort((a, b) => b.price_min - a.price_min);
+    if (sortVal === 'az')   data.sort((a, b) => a.name.localeCompare(b.name));
+
+    // RENDER
+    let count = 0;
+    data.forEach(p => {
+      const tile = document.createElement('div');
+      tile.className =
+        'product-tile bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden cursor-pointer';
+      tile.innerHTML = `
+        <div onclick="openModal('${p.id}')">
+          <img src="${p.image}" class="w-full h-56 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-emerald-700">${p.name}</h3>
+            <p class="text-sm text-gray-600 mt-2">${p.description}</p>
+            <p class="text-sm text-gray-800 mt-2 font-semibold">
+              ₹${p.price_min.toLocaleString()} - ₹${p.price_max.toLocaleString()}
+            </p>
+          </div>
+        </div>
+      `;
+      productGrid.appendChild(tile);
+      count++;
+    });
+
+    noResults.classList.toggle('hidden', count > 0);
+    renderTabs();
+  }
+
+  // Wire filters/search to re-render
+  searchInput.addEventListener('input', render);
+  sortSelect.addEventListener('change', render);
+
+  clearBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    sortSelect.value = '';
+    activeTab = 'All';
     render();
-  </script>
+  });
+
+  // Initial render
+  render();
+</script>
+
 
   <!-- Quick View Modal Logic -->
   <script>
