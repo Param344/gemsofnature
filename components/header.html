@@ -1,0 +1,50 @@
+<!-- Navbar -->
+<header class="bg-emerald-900 text-white shadow-md">
+  <nav class="container mx-auto flex justify-between items-center py-4 px-6">
+    <!-- Logo -->
+    <a href="index.html" class="flex items-center">
+      <img src="images/logo.png" alt="Gems of Nature Logo" class="h-12 w-auto" loading="lazy">
+      <span class="ml-3 text-2xl font-bold">Gems of Nature</span>
+    </a>
+
+    <!-- Desktop Links -->
+    <ul class="hidden md:flex gap-6 text-lg">
+      <li><a href="index.html" class="hover:text-emerald-300 transition">Home</a></li>
+      <li><a href="about.html" class="hover:text-emerald-300 transition">About Us</a></li>
+      <li><a href="shop.html" class="hover:text-emerald-300 transition">Collections</a></li>
+      <li><a href="contact.html" class="hover:text-emerald-300 transition">Contact</a></li>
+      <li><a href="astrology.consultation.html" class="hover:text-emerald-300 transition">Astrology & Consultation</a></li>
+    </ul>
+
+    <!-- Right: Buy Online + Cart + Mobile -->
+<div class="flex items-center gap-4">
+  <a href="shop-ecom.html"
+     class="hidden md:inline-block bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold">
+    Buy Online
+  </a>
+
+  <!-- Single cart icon with badge, goes to full cart page -->
+  <a href="cart.html" aria-label="Cart" class="relative text-2xl">
+    <span>🛒</span>
+    <span id="cartCount"
+      class="absolute -top-2 -right-3 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+      0
+    </span>
+  </a>
+
+  <button id="mobile-menu-button" class="text-2xl md:hidden focus:outline-none">☰</button>
+</div>
+  </nav>
+  
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden bg-emerald-800 md:hidden">
+    <ul class="flex flex-col gap-4 px-6 py-4">
+      <li><a href="index.html" class="block hover:text-emerald-300 transition">Home</a></li>
+      <li><a href="about.html" class="block hover:text-emerald-300 transition">About Us</a></li>
+      <li><a href="shop.html" class="block hover:text-emerald-300 transition">Collections</a></li>
+      <li><a href="shop-ecom.html" class="block hover:text-emerald-300 transition">Buy Online</a></li>
+      <li><a href="contact.html" class="block hover:text-emerald-300 transition">Contact</a></li>
+      <li><a href="astrology.consultation.html" class="block hover:text-emerald-300 transition">Astrology & Consultation</a></li>
+    </ul>
+  </div>
+</header>

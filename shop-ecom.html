@@ -39,24 +39,7 @@
     /* small utility for truncated text */
     .line-clamp-3 { overflow:hidden; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; }
 
-    /* Modal tweaks: fixed overlay so it does not affect page flow */
-    .modal-center { display: none; position: fixed; inset: 0; align-items: center; justify-content: center; z-index: 60; }
-    .modal-center.open { display: flex; }
-    .checkout-panel { width: 100%; max-width: 920px; background: white; border-radius: 12px; box-shadow: 0 30px 80px rgba(2,6,23,0.35); overflow: hidden; display: flex; flex-direction: column; max-height: calc(100vh - 80px); }
-    .checkout-header { padding: 20px 24px; border-bottom: 1px solid #eef2f4; display:flex; align-items:center; justify-content:space-between; gap:12px; }
-    .checkout-body { display:flex; gap:16px; padding: 18px; overflow:auto; }
-    .checkout-left { flex:1; min-width:260px; max-width:520px; }
-    .checkout-right { width:360px; min-width:240px; border-left:1px solid #f1f5f9; padding-left:16px; display:flex; flex-direction:column; }
-    .order-summary { overflow:auto; max-height: 48vh; padding-right:8px; }
-    .summary-line { display:flex; justify-content:space-between; padding:10px 6px; border-bottom:1px dashed #eef2f4; }
-    .summary-footer { margin-top:auto; padding-top:12px; border-top:1px solid #eef2f4; }
-    .modal-close { background:transparent;border:0;font-size:20px;cursor:pointer;color:#475569; }
-    @media (max-width:900px){ .checkout-body{ flex-direction:column } .checkout-right{ width:100%; border-left:0; border-top:1px solid #f1f5f9; padding-left:0; padding-top:12px } }
     .muted { color:#6b7280; font-size:0.95rem; }
-
-    /* Order confirm modal fixed as well */
-    #order-confirm { display: none; position: fixed; inset: 0; z-index: 70; align-items: center; justify-content: center; }
-    #order-confirm.open { display:flex; }
   </style>
 </head>
 
@@ -171,320 +154,6 @@
     </div>
   </aside>
 
-  <!-- CHECKOUT MODAL -->
-  <div id="checkout-modal"
-       class="modal-center fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm"
-       role="dialog" aria-modal="true" aria-hidden="true">
-    <div
-      class="checkout-panel w-full max-w-5xl mx-4 bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden"
-      role="document">
-
-      <!-- Top gradient bar -->
-      <div class="h-1 w-full bg-gradient-to-r from-emerald-500 via-teal-500 to-sky-500"></div>
-
-      <!-- Header -->
-      <div class="checkout-header flex items-start justify-between gap-3 px-6 md:px-8 pt-5 pb-4">
-        <div>
-          <h3 class="text-2xl font-semibold text-slate-900">Checkout</h3>
-          <div class="muted text-sm mt-1">
-            Complete your order — we will contact you for shipping &amp; dispatch.
-          </div>
-
-          <div class="flex items-center gap-2 text-xs mt-3 text-slate-500">
-            <span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-emerald-700">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-              Secure order
-            </span>
-            <span>→</span>
-            <span>Confirmation via call / WhatsApp</span>
-          </div>
-        </div>
-        <div>
-          <button id="close-checkout"
-                  class="modal-close rounded-full p-1.5 hover:bg-slate-100 text-slate-500"
-                  aria-label="Close checkout">✕</button>
-        </div>
-      </div>
-
-      <!-- Body -->
-      <div class="checkout-body grid md:grid-cols-[1.8fr_1.2fr] gap-0 border-t border-slate-100">
-        <!-- Left: buyer details -->
-        <div class="checkout-left px-6 md:px-8 py-5">
-          <form id="checkout-form" class="grid gap-4">
-            <div class="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label for="co-name" class="block text-xs font-medium text-slate-600 mb-1">
-                  Full name
-                </label>
-                <input id="co-name" name="name" required placeholder="Full name"
-                       class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
-                              focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
-              </div>
-              <div>
-                <label for="co-email" class="block text-xs font-medium text-slate-600 mb-1">
-                  Email address
-                </label>
-                <input id="co-email" name="email" type="email" required placeholder="Email address"
-                       class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
-                              focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
-              </div>
-            </div>
-
-            <div>
-              <label for="co-phone" class="block text-xs font-medium text-slate-600 mb-1">
-                Phone / WhatsApp
-              </label>
-              <input id="co-phone" name="phone" placeholder="Phone number"
-                     class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
-                            focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
-            </div>
-
-            <div>
-              <label for="co-address" class="block text-xs font-medium text-slate-600 mb-1">
-                Shipping address
-              </label>
-              <textarea id="co-address" name="address" placeholder="Full address with city &amp; pincode"
-                        class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
-                               focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none"
-                        rows="3"></textarea>
-            </div>
-
-            <!-- Payment method -->
-            <div class="mt-1">
-              <label class="block mb-2 text-xs font-semibold text-slate-600 uppercase tracking-wide">
-                Payment method
-              </label>
-              <div class="grid gap-3 sm:grid-cols-2">
-                <label
-                  class="flex items-start gap-2 rounded-xl border border-emerald-500/60 bg-emerald-50 px-3.5 py-3 text-sm cursor-pointer">
-                  <input type="radio" name="payment_method" value="cod" checked class="mt-1" />
-                  <span>
-                    <span class="font-medium text-slate-900 block">Cash on Delivery</span>
-                    <span class="muted text-xs">
-                      Pay on delivery. Ideal for high-value gemstones.
-                    </span>
-                  </span>
-                </label>
-                <label
-                  class="flex items-start gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-3 text-sm cursor-pointer">
-                  <input type="radio" name="payment_method" value="online" class="mt-1" />
-                  <span>
-                    <span class="font-medium text-slate-900 block">Pay Online</span>
-                    <span class="muted text-xs">
-                      Secure UPI / card link shared after confirmation.
-                    </span>
-                  </span>
-                </label>
-              </div>
-            </div>
-
-            <!-- online options (UPI + Card UI) -->
-            <div id="online-options" class="hidden mt-3 border border-slate-200 rounded-2xl p-4 bg-slate-50/70">
-              <div class="flex items-center justify-between gap-3">
-                <div>
-                  <p class="text-xs font-semibold text-slate-600 tracking-wide uppercase">
-                    Online payment
-                  </p>
-                  <p class="text-[11px] text-slate-500 mt-1">
-                    Choose UPI or card. This flow is simulated – actual payment happens via link/UPI app.
-                  </p>
-                </div>
-                <span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-[11px] text-emerald-700">
-                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                  Secure
-                </span>
-              </div>
-
-              <!-- Choice: UPI / Card -->
-              <div class="flex flex-wrap gap-3 mt-4 text-sm">
-                <label
-                  class="flex items-center gap-2 rounded-2xl border border-emerald-500/70 bg-emerald-50 px-3.5 py-2 cursor-pointer">
-                  <input type="radio" name="online_option" value="upi" checked />
-                  <div>
-                    <div class="font-medium text-slate-900">UPI</div>
-                    <div class="text-[11px] text-slate-600">
-                      Scan or open with any UPI app.
-                    </div>
-                  </div>
-                </label>
-
-                <label
-                  class="flex items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 px-3.5 py-2 cursor-pointer">
-                  <input type="radio" name="online_option" value="card" />
-                  <div>
-                    <div class="font-medium text-slate-900">Card (simulated)</div>
-                    <div class="text-[11px] text-slate-600">
-                      Enter card details for demo only.
-                    </div>
-                  </div>
-                </label>
-              </div>
-
-              <!-- UPI panel -->
-              <div id="upi-panel" class="mt-5">
-                <p class="text-xs text-slate-600">
-                  Scan the QR / open in your UPI app. You’ll also receive this link by WhatsApp/SMS after order confirmation.
-                </p>
-
-                <div class="mt-3 flex flex-col gap-2">
-                  <label class="text-[11px] font-medium text-slate-500">
-                    UPI intent link / string
-                  </label>
-                  <div class="flex gap-2">
-                    <input id="upi-string"
-                           class="border border-slate-200 rounded-2xl px-3.5 py-2.5 w-full text-[13px] bg-slate-50 shadow-inner"
-                           readonly />
-                    <button id="copy-upi" type="button"
-                            class="px-3.5 py-2.5 rounded-2xl text-xs font-semibold bg-emerald-600 text-white hover:bg-emerald-700">
-                      Copy
-                    </button>
-                  </div>
-                  <p class="text-[11px] text-slate-500">
-                    Paste this directly inside your UPI app if auto-opening doesn’t work.
-                  </p>
-                </div>
-              </div>
-
-              <!-- Card panel -->
-              <div id="card-panel" class="mt-5 hidden">
-                <p class="text-xs text-slate-600 mb-3">
-                  Enter card details – this is a <span class="font-semibold">simulated</span> payment flow.
-                  No real charge will be made.
-                </p>
-
-                <div class="grid gap-3 text-sm">
-                  <!-- Card number -->
-                  <div>
-                    <label class="text-[11px] font-medium text-slate-500">Card number</label>
-                    <div class="relative mt-1">
-                      <input id="card-number" inputmode="numeric" autocomplete="cc-number" maxlength="19"
-                             placeholder="1234-5678-9012-3456"
-                             class="border border-slate-200 rounded-2xl px-3.5 py-2.5 w-full pr-24 text-sm shadow-inner
-                                    focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
-                      <div id="card-brand"
-                           class="absolute right-3 top-2.5 text-[11px] flex items-center gap-2 text-slate-500">
-                        <img id="card-brand-img" src="" alt="" class="h-5 hidden" />
-                        <span id="card-brand-text" class="hidden"></span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Name on card -->
-                  <div>
-                    <label class="text-[11px] font-medium text-slate-500">Name on card</label>
-                    <input id="card-name" autocomplete="cc-name" placeholder="Full name as on card"
-                           class="mt-1 border border-slate-200 rounded-2xl px-3.5 py-2.5 w-full text-sm shadow-inner
-                                  focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
-                  </div>
-
-                  <!-- Expiry + CVV -->
-                  <div class="flex gap-3">
-                    <div class="flex-1">
-                      <label class="text-[11px] font-medium text-slate-500">Expiry (MM/YY)</label>
-                      <input id="card-expiry" inputmode="numeric" maxlength="5" placeholder="MM/YY"
-                             class="mt-1 border border-slate-200 rounded-2xl px-3.5 py-2.5 w-full text-sm shadow-inner
-                                    focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
-                    </div>
-                    <div class="w-32">
-                      <label class="text-[11px] font-medium text-slate-500">CVV</label>
-                      <input id="card-cvv" inputmode="numeric" maxlength="4" placeholder="CVV"
-                             class="mt-1 border border-slate-200 rounded-2xl px-3.5 py-2.5 w-full text-sm shadow-inner
-                                    focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
-                    </div>
-                  </div>
-
-                  <div id="card-error" class="text-[11px] text-red-600 hidden">
-                    Invalid card details. Please check and try again.
-                  </div>
-
-                  <p class="text-[11px] text-slate-500">
-                    We only simulate card payments here. To accept real payments, connect a live gateway
-                    (Razorpay, Stripe, etc.).
-                  </p>
-
-                  <p class="text-[11px] text-slate-500 mt-1">
-                    After submitting your card details, you can continue with the main
-                    <span class="font-semibold">“Place Order”</span> button in the checkout.
-                  </p>
-
-                  <!-- Submit button inside card panel -->
-                  <div class="mt-2 flex justify-end">
-                    <button id="card-submit" type="button"
-                            class="rounded-2xl bg-emerald-600 text-white text-xs font-semibold px-5 py-2
-                                   shadow-md hover:bg-emerald-700">
-                      Submit
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Order summary (items list) -->
-            <div class="mt-4">
-              <h4 class="font-semibold text-slate-800 text-sm">Order Summary</h4>
-              <div id="checkout-summary"
-                   class="order-summary mt-2 text-sm bg-slate-50 border border-slate-200 rounded-2xl p-3 max-h-44 overflow-auto">
-                <!-- items injected by JS -->
-              </div>
-            </div>
-
-            <p class="text-[11px] text-slate-500 mt-3 leading-relaxed">
-              By placing the order, you agree to be contacted via phone / WhatsApp / email
-              for confirmation and final shipping charges for high-value stones.
-            </p>
-          </form>
-        </div>
-
-        <!-- Right: totals & actions -->
-        <div class="checkout-right bg-slate-50 border-l border-slate-200 px-6 md:px-7 py-5 flex flex-col">
-          <div class="muted text-xs font-semibold tracking-wide uppercase mb-3">Order totals</div>
-
-          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 text-sm">
-            <div class="flex justify-between mb-2 text-slate-700">
-              <span>Subtotal</span><strong id="co-subtotal">—</strong>
-            </div>
-            <div class="flex justify-between mb-2 text-slate-700">
-              <span>Shipping</span><strong id="co-shipping">—</strong>
-            </div>
-            <div class="flex justify-between items-center mt-3 pt-3 border-t border-dashed border-slate-200 text-base">
-              <span class="font-semibold text-slate-900">Total</span>
-              <strong id="co-total" class="text-xl font-bold text-emerald-700">—</strong>
-            </div>
-          </div>
-
-          <div class="summary-footer mt-5 space-y-3">
-            <button id="place-order" disabled
-                    class="w-full bg-emerald-600 disabled:opacity-60 disabled:cursor-not-allowed
-                           text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow-md hover:bg-emerald-700">
-              Place Order
-            </button>
-            <button id="cancel-checkout"
-                    class="mt-0 w-full border border-slate-300 bg-white px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-100">
-              Cancel
-            </button>
-          </div>
-
-          <div class="muted text-[11px] mt-4 flex items-start gap-2">
-            <span class="mt-0.5">🔒</span>
-            <span>
-              We’ll contact you on the phone/email to confirm shipping cost and dispatch details
-              for high-value stones. Your details are never shared with third parties.
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ORDER CONFIRM (single copy, fixed) -->
-  <div id="order-confirm" class="" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="bg-white rounded-xl p-6 max-w-lg text-center">
-      <h3 class="text-2xl font-semibold text-emerald-700">Thank you!</h3>
-      <p id="order-message" class="mt-3 text-gray-700">Your order has been placed.</p>
-      <button id="close-order" class="mt-6 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg">Close</button>
-    </div>
-  </div>
-
   <!-- Shared footer (injected by layout.js) -->
   <div id="footer"></div>
 
@@ -512,6 +181,17 @@
     return (currency==='USD'? '$': currency==='EUR'? '€': '£') + (value*currencyRates[currency]).toFixed(2);
   }
 
+  // Helper: pick a usable price for any product
+  function getProductPrice(prod) {
+    if (!prod) return 0;
+    if (typeof prod.price === 'number') return prod.price;
+    if (typeof prod.price_min === 'number') return prod.price_min;
+    if (typeof prod.price_max === 'number') return prod.price_max;
+    const raw = String(prod.price || prod.price_min || prod.price_max || '');
+    const num = parseFloat(raw.replace(/[^0-9.-]/g, ''));
+    return isNaN(num) ? 0 : num;
+  }
+
   function renderProductCard(p){
     const div = document.createElement('div');
     div.className = 'bg-white rounded-2xl shadow-md product-card';
@@ -527,10 +207,15 @@
         <h4 class="text-md font-semibold text-emerald-700">${p.name}</h4>
         <div class="text-xs text-gray-600">${p.category || ''}</div>
         <div class="mt-3 flex items-center justify-between">
-          <div class="font-semibold text-gray-800">${formatCurrency(p.price, currentCurrency)}</div>
+          <div class="font-semibold text-gray-800">${formatCurrency(getProductPrice(p), currentCurrency)}</div>
           <div class="flex items-center gap-2">
             <button class="view-detail bg-white border border-gray-200 text-gray-700 px-3 py-2 rounded-lg" data-id="${p.id}">View</button>
-            <button class="add-to-cart bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-2 rounded-lg" data-id="${p.id}">Add</button>
+            <button
+              class="add-to-cart bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-2 rounded-lg"
+              data-id="${p.id}"
+            >
+              Add
+            </button>
           </div>
         </div>
       </div>
@@ -547,8 +232,8 @@
       if (q && !(p.name.toLowerCase().includes(q) || (p.description||'').toLowerCase().includes(q) || (p.category||'').toLowerCase().includes(q))) return false;
       return true;
     });
-    if (sort==='price-asc') out.sort((a,b)=>a.price-b.price);
-    if (sort==='price-desc') out.sort((a,b)=>b.price-a.price);
+    if (sort==='price-asc') out.sort((a,b)=>getProductPrice(a)-getProductPrice(b));
+    if (sort==='price-desc') out.sort((a,b)=>getProductPrice(b)-getProductPrice(a));
     return out;
   }
 
@@ -605,7 +290,7 @@
   const detailAdd = document.getElementById('detail-add');
 
   function openProductDetail(id){
-    const p = products.find(x=>x.id===id);
+    const p = products.find(x=>String(x.id)===String(id));
     if(!p) return;
     detailImage.src = p.image||'images/placeholder.jpg';
     detailTitle.textContent = p.name;
@@ -614,7 +299,7 @@
     detailMukhi.textContent = p.mukhi? ('Mukhi: '+p.mukhi) : '';
     detailDeity.textContent = p.deity? ('Deity: '+p.deity) : '';
     detailMantra.textContent = p.mantra? ('Mantra: '+p.mantra) : '';
-    detailPrice.textContent = formatCurrency(p.price,currentCurrency);
+    detailPrice.textContent = formatCurrency(getProductPrice(p), currentCurrency);
     detailAdd.dataset.id = p.id;
     detailPanel.classList.remove('hidden');
     setTimeout(()=> detailPanel.classList.add('open'),10);
@@ -640,6 +325,15 @@
   const cartSubtotalEl = document.getElementById('cart-subtotal');
   const cartShippingEl = document.getElementById('cart-shipping');
   const cartTotalEl = document.getElementById('cart-total');
+  const checkoutBtn = document.getElementById('checkout-button');
+  const clearCartBtn = document.getElementById('clear-cart');
+
+  // Update header badge (red circle in navbar)
+  function updateHeaderCartCount(count) {
+    const badge = document.getElementById('cartCount'); // span in header.html
+    if (!badge) return;
+    badge.textContent = String(count);
+  }
 
   function saveCart(){
     localStorage.setItem('gon_cart', JSON.stringify(cart));
@@ -654,34 +348,46 @@
     if (entries.length === 0) {
       cartItemsEl.innerHTML = '<p class="text-gray-600">Your cart is empty.</p>';
       cartCountEl.textContent = '0';
+      updateHeaderCartCount(0);
     } else {
       entries.forEach(([pid, qty]) => {
-        const prod = products.find(p => p.id === pid) || { name: pid, price: 0, image: 'images/placeholder.jpg' };
-        const price = prod.price || 0;
+        const prod =
+          products.find(p => String(p.id) === String(pid)) ||
+          { name: pid, price: 0, image: 'images/placeholder.jpg' };
+
+        const price = getProductPrice(prod);
         subtotal += price * qty;
 
         const item = document.createElement('div');
         item.className = 'flex items-center gap-3 py-2';
         item.innerHTML = `
           <div class="h-14 w-14 flex-shrink-0">
-            <img src="${prod.image || 'images/placeholder.jpg'}" onerror="this.src='images/placeholder.jpg'" class="h-14 w-14 object-cover rounded"/>
+            <img src="${prod.image || 'images/placeholder.jpg'}"
+                 onerror="this.src='images/placeholder.jpg'"
+                 class="h-14 w-14 object-cover rounded"/>
           </div>
           <div class="flex-1">
             <div class="text-sm font-medium">${prod.name || pid}</div>
-            <div class="text-xs text-gray-500">${formatCurrency(price, currentCurrency)} × <span class="qty-num" data-id="${pid}">${qty}</span></div>
+            <div class="text-xs text-gray-500">
+              ${formatCurrency(price, currentCurrency)} ×
+              <span class="qty-num" data-id="${pid}">${qty}</span>
+            </div>
             <div class="mt-1 flex items-center gap-2">
               <button class="decrease text-sm px-2 py-1 border rounded" data-id="${pid}" aria-label="Decrease quantity">-</button>
               <button class="increase text-sm px-2 py-1 border rounded" data-id="${pid}" aria-label="Increase quantity">+</button>
               <button class="remove ml-3 text-xs text-red-600" data-id="${pid}" aria-label="Remove item">Remove</button>
             </div>
           </div>
-          <div class="text-sm font-semibold">${formatCurrency(price * qty, currentCurrency)}</div>
+          <div class="text-sm font-semibold">
+            ${formatCurrency(price * qty, currentCurrency)}
+          </div>
         `;
         cartItemsEl.appendChild(item);
       });
 
       const count = entries.reduce((s, [, q]) => s + Number(q || 0), 0);
       cartCountEl.textContent = String(count);
+      updateHeaderCartCount(count);
     }
 
     cartSubtotalEl.textContent = formatCurrency(subtotal, currentCurrency);
@@ -747,338 +453,26 @@
     }
   });
 
-  /* ---------- Improved checkout wiring ---------- */
-
-  const checkoutModal = document.getElementById('checkout-modal');
-  const checkoutForm = document.getElementById('checkout-form');
-  const checkoutSummary = document.getElementById('checkout-summary');
-  const closeCheckout = document.getElementById('close-checkout');
-  const cancelCheckout = document.getElementById('cancel-checkout');
-  const checkoutButton = document.getElementById('checkout-button');
-  const placeOrderBtn = document.getElementById('place-order');
-  const orderConfirm = document.getElementById('order-confirm');
-  const orderMessage = document.getElementById('order-message');
-  const closeOrderBtn = document.getElementById('close-order');
-  const copyUpiBtn = document.getElementById('copy-upi');
-  const upiInput = document.getElementById('upi-string');
-
-  function showCheckout(){ checkoutModal.classList.add('open'); checkoutModal.setAttribute('aria-hidden','false'); }
-  function hideCheckout(){ checkoutModal.classList.remove('open'); checkoutModal.setAttribute('aria-hidden','true'); }
-  function showOrderConfirm(){ orderConfirm.classList.add('open'); orderConfirm.setAttribute('aria-hidden','false'); }
-  function hideOrderConfirm(){ orderConfirm.classList.remove('open'); orderConfirm.setAttribute('aria-hidden','true'); }
-
-  function computeTotals(){
-    const entries = Object.entries(cart || {});
-    let subtotal = 0;
-    entries.forEach(([pid, qty]) => {
-      const prod = products.find(p => p.id === pid);
-      if (!prod) return;
-      subtotal += (prod.price || 0) * qty;
-    });
-    const shipping = entries.length ? SHIPPING : 0;
-    const total = subtotal + shipping;
-    return { subtotal, shipping, total };
-  }
-
-  function renderCheckoutSummary(){
-    if (!checkoutSummary) return;
-    const entries = Object.entries(cart || {});
-    if (entries.length === 0) {
-      checkoutSummary.innerHTML = '<div class="muted">No items in cart.</div>';
-    } else {
-      let html = '';
-      entries.forEach(([pid, qty]) => {
-        const prod = products.find(p => p.id === pid) || { name: pid, price: 0 };
-        html += `<div class="summary-line"><div><div class="font-medium">${prod.name}</div><div class="muted text-xs">${qty} × ${formatCurrency(prod.price, currentCurrency)}</div></div><div class="font-medium">${formatCurrency((prod.price||0)*qty, currentCurrency)}</div></div>`;
-      });
-      checkoutSummary.innerHTML = html;
-    }
-
-    const totals = computeTotals();
-    document.getElementById('co-subtotal').textContent = formatCurrency(totals.subtotal, currentCurrency);
-    document.getElementById('co-shipping').textContent = formatCurrency(totals.shipping, currentCurrency);
-    document.getElementById('co-total').textContent = formatCurrency(totals.total, currentCurrency);
-
-    // prepare UPI string
-    if (upiInput) {
-      const total = computeTotals().total;
-      upiInput.value = `upi://pay?pa=${encodeURIComponent(window.PAYEE_UPI || 'yourupi@bank')}&pn=${encodeURIComponent(window.PAYEE_NAME || 'Gems of Nature')}&tn=${encodeURIComponent('Gems of Nature Order')}&am=${encodeURIComponent((total).toFixed(2))}&cu=INR`;
-    }
-  }
-
-  // Open checkout button
-  checkoutButton && checkoutButton.addEventListener('click', () => {
-    if (!cart || Object.keys(cart).length === 0) { alert('Your cart is empty.'); return; }
-    checkoutForm?.reset();
-    hideOnlineSubPanels();
-    renderCheckoutSummary();
-    showCheckout();
-    placeOrderBtn.disabled = true;
-  });
-
-  // Close handlers
-  closeCheckout && closeCheckout.addEventListener('click', hideCheckout);
-  cancelCheckout && cancelCheckout.addEventListener('click', hideCheckout);
-  closeOrderBtn && closeOrderBtn.addEventListener('click', hideOrderConfirm);
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      if (checkoutModal && checkoutModal.classList.contains('open')) hideCheckout();
-      if (orderConfirm && orderConfirm.classList.contains('open')) hideOrderConfirm();
-    }
-  });
-
-  // Payment option toggles inside modal
-  checkoutForm && checkoutForm.querySelectorAll('[name="payment_method"]').forEach(el => {
-    el.addEventListener('change', (e) => {
-      const onlinePanel = document.getElementById('online-options');
-      if (!onlinePanel) return;
-      if (e.target.value === 'online') onlinePanel.classList.remove('hidden');
-      else { onlinePanel.classList.add('hidden'); hideOnlineSubPanels(); }
-    });
-  });
-
-  // utility: detect card brand by BIN prefix
-  function detectCardBrand(number){
-    const num = (number||'').replace(/\s+/g,'');
-    if (/^4[0-9]{0,}$/.test(num)) return 'visa';
-    if (/^(5[1-5][0-9]{0,}|2(2[2-9]|[3-6][0-9]|7[0-1])[0-9]{0,})/.test(num)) return 'mastercard';
-    if (/^3[47][0-9]{0,}$/.test(num)) return 'amex';
-    return 'unknown';
-  }
-
-  function formatCardNumber(value){
-    const v = (value||'').replace(/\D/g,'');
-    let out = '';
-    if (v.startsWith('34') || v.startsWith('37')) {
-      const a = v.slice(0,4), b = v.slice(4,10), c = v.slice(10,15);
-      out = [a,b,c].filter(Boolean).join(' ');
-    } else {
-      out = (v.match(/.{1,4}/g) || []).join(' ');
-    }
-    return out;
-  }
-
-  function luhnCheck(num){
-    const s = (num||'').replace(/\D/g,'');
-    let sum = 0, alt = false;
-    for (let i = s.length - 1; i >= 0; i--) {
-      let n = parseInt(s.charAt(i), 10);
-      if (alt) { n *= 2; if (n > 9) n -= 9; }
-      sum += n; alt = !alt;
-    }
-    return s.length > 0 && sum % 10 === 0;
-  }
-
-  function expiryValid(exp){
-    if (!/^\d{2}\/\d{2}$/.test(exp)) return false;
-    const [mm, yy] = exp.split('/').map(x=>parseInt(x,10));
-    if (isNaN(mm) || isNaN(yy)) return false;
-    if (mm < 1 || mm > 12) return false;
-    const now = new Date();
-    const currentYY = now.getFullYear() % 100;
-    const currentMM = now.getMonth() + 1;
-    if (yy < currentYY) return false;
-    if (yy === currentYY && mm < currentMM) return false;
-    return true;
-  }
-
-  const cardPanel = document.getElementById('card-panel');
-  const upiPanel = document.getElementById('upi-panel');
-  const cardNumberInput = document.getElementById('card-number');
-  const cardNameInput = document.getElementById('card-name');
-  const cardExpiryInput = document.getElementById('card-expiry');
-  const cardCvvInput = document.getElementById('card-cvv');
-  const cardError = document.getElementById('card-error');
-  const cardBrandImg = document.getElementById('card-brand-img');
-  const cardBrandText = document.getElementById('card-brand-text');
-
-  function hideOnlineSubPanels(){
-    upiPanel?.classList.add('hidden');
-    cardPanel?.classList.add('hidden');
-    if (cardError) { cardError.classList.add('hidden'); cardError.textContent = ''; }
-    if (cardBrandImg) { cardBrandImg.classList.add('hidden'); cardBrandImg.src=''; }
-    if (cardBrandText) { cardBrandText.classList.add('hidden'); cardBrandText.textContent=''; }
-  }
-
-  // online_option radios (UPI vs Card)
-  checkoutForm && checkoutForm.querySelectorAll('[name="online_option"]').forEach(el => {
-    el.addEventListener('change', (e) => {
-      hideOnlineSubPanels();
-      if (e.target.value === 'upi') {
-        upiPanel?.classList.remove('hidden');
-      } else if (e.target.value === 'card') {
-        cardPanel?.classList.remove('hidden');
-        setTimeout(()=> cardNumberInput?.focus(), 50);
+  // Checkout button → go to checkout.html
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener('click', function () {
+      if (!cart || Object.keys(cart).length === 0) {
+        alert('Your cart is empty.');
+        return;
       }
-    });
-  });
-
-  // card input formatting & brand detection
-  if (cardNumberInput) {
-    cardNumberInput.addEventListener('input', (ev) => {
-      const formatted = formatCardNumber(ev.target.value);
-      ev.target.value = formatted;
-
-      const brand = detectCardBrand(formatted);
-      if (cardBrandImg) cardBrandImg.classList.add('hidden');
-      if (cardBrandText) cardBrandText.classList.add('hidden');
-
-      if (brand === 'visa') {
-        if (cardBrandText) { cardBrandText.textContent = 'Visa'; cardBrandText.classList.remove('hidden'); }
-        if (cardBrandImg) { cardBrandImg.src = 'images/cards/visa.png'; cardBrandImg.classList.remove('hidden'); }
-      } else if (brand === 'mastercard') {
-        if (cardBrandText) { cardBrandText.textContent = 'Mastercard'; cardBrandText.classList.remove('hidden'); }
-        if (cardBrandImg) { cardBrandImg.src = 'images/cards/mastercard.png'; cardBrandImg.classList.remove('hidden'); }
-      } else if (brand === 'amex') {
-        if (cardBrandText) { cardBrandText.textContent = 'Amex'; cardBrandText.classList.remove('hidden'); }
-        if (cardBrandImg) { cardBrandImg.src = 'images/cards/amex.png'; cardBrandImg.classList.remove('hidden'); }
-      }
-
-      const digits = formatted.replace(/\s+/g,'');
-      if (digits.length >= 12) {
-        if (!luhnCheck(digits) && cardError) {
-          cardError.textContent = 'Card number appears invalid (Luhn check failed).';
-          cardError.classList.remove('hidden');
-        } else if (cardError) {
-          cardError.classList.add('hidden');
-        }
-      } else if (cardError) {
-        cardError.classList.add('hidden');
-      }
+      window.location.href = 'checkout.html';
     });
   }
 
-  if (cardExpiryInput) {
-    cardExpiryInput.addEventListener('input', (e) => {
-      let v = (e.target.value||'').replace(/\D/g,'').slice(0,4);
-      if (v.length >= 3) v = v.slice(0,2) + '/' + v.slice(2);
-      e.target.value = v;
+  // Clear cart button
+  if (clearCartBtn) {
+    clearCartBtn.addEventListener('click', function () {
+      if (!confirm('Clear your cart?')) return;
+      cart = {};
+      localStorage.setItem('gon_cart', JSON.stringify({}));
+      renderCart();
     });
   }
-
-  if (cardCvvInput) {
-    cardCvvInput.addEventListener('input', () => {
-      const brand = detectCardBrand(cardNumberInput?.value || '');
-      if (brand === 'amex') cardCvvInput.maxLength = 4;
-      else cardCvvInput.maxLength = 3;
-    });
-  }
-
-  function validateCardFields(){
-    const num = (cardNumberInput?.value||'').replace(/\s+/g,'');
-    const name = (cardNameInput?.value||'').trim();
-    const exp = (cardExpiryInput?.value||'').trim();
-    const cvv = (cardCvvInput?.value||'').trim();
-    const brand = detectCardBrand(cardNumberInput?.value||'');
-
-    if (!num || num.length < 12) { if(cardError){ cardError.textContent = 'Enter a valid card number.'; cardError.classList.remove('hidden'); } return false; }
-    if (!luhnCheck(num)) { if(cardError){ cardError.textContent = 'Card number failed validation (Luhn).'; cardError.classList.remove('hidden'); } return false; }
-    if (!name) { if(cardError){ cardError.textContent = 'Enter the name on the card.'; cardError.classList.remove('hidden'); } return false; }
-    if (!expiryValid(exp)) { if(cardError){ cardError.textContent = 'Enter a valid expiry date (MM/YY) that is not expired.'; cardError.classList.remove('hidden'); } return false; }
-
-    if (brand === 'amex' && cvv.length !== 4) { if(cardError){ cardError.textContent = 'AMEX CVV must be 4 digits.'; cardError.classList.remove('hidden'); } return false; }
-    if ((brand === 'visa' || brand === 'mastercard' || brand === 'unknown') && cvv.length !== 3) { if(cardError){ cardError.textContent = 'CVV must be 3 digits.'; cardError.classList.remove('hidden'); } return false; }
-
-    if (cardError) cardError.classList.add('hidden');
-    return true;
-  }
-
-  // copy UPI with fallback
-  copyUpiBtn && copyUpiBtn.addEventListener('click', () => {
-    const upi = upiInput?.value || '';
-    if (!upi) { alert('UPI link missing — open checkout first.'); return; }
-
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(upi).then(()=> alert('UPI link copied. Open it in your UPI app.')).catch(()=> fallbackCopy(upi));
-    } else fallbackCopy(upi);
-
-    function fallbackCopy(text){
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      document.body.appendChild(ta);
-      ta.select();
-      try { document.execCommand('copy'); alert('UPI link copied. Open it in your UPI app.'); } catch(err){ alert('Copy failed — paste manually.'); }
-      ta.remove();
-    }
-  });
-
-  const nameField = document.getElementById('co-name');
-  const emailField = document.getElementById('co-email');
-  function validatePlaceBtn(){ placeOrderBtn.disabled = !(nameField?.value?.trim() && emailField?.value?.trim()); }
-  nameField?.addEventListener('input', validatePlaceBtn);
-  emailField?.addEventListener('input', validatePlaceBtn);
-
-  placeOrderBtn && placeOrderBtn.addEventListener('click', ()=>{
-    if (!checkoutForm) return;
-    if (typeof checkoutForm.requestSubmit === 'function') checkoutForm.requestSubmit();
-    else checkoutForm.dispatchEvent(new Event('submit',{cancelable:true}));
-  });
-
-  checkoutForm && checkoutForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (!cart || Object.keys(cart).length === 0) { alert('Cart empty.'); hideCheckout(); return; }
-
-    const formData = new FormData(checkoutForm);
-    const name = formData.get('name') || 'Customer';
-    const email = formData.get('email') || '';
-    const phone = formData.get('phone') || '';
-    const address = formData.get('address') || '';
-    const payment = formData.get('payment_method') || 'cod';
-    const onlineOption = formData.get('online_option') || '';
-
-    const items = Object.entries(cart).map(([pid, qty]) => {
-      const prod = products.find(p => p.id === pid) || { name: pid, price: 0 };
-      return { id: pid, name: prod.name, qty, unitPrice: prod.price||0, lineTotal: (prod.price||0)*qty };
-    });
-    const subtotal = items.reduce((s,i)=>s+i.lineTotal,0);
-    const shipping = Object.keys(cart).length? SHIPPING:0;
-    const order = { orderId: 'GON' + Date.now(), name, email, phone, address, payment, onlineOption, items, subtotal, shipping, total: subtotal + shipping };
-
-    if (payment === 'online' && onlineOption === 'card') {
-      if (!validateCardFields()) { return; }
-      placeOrderBtn.disabled = true;
-      placeOrderBtn.textContent = 'Processing...';
-      setTimeout(()=> finalizeOrder(order), 1200);
-    } else if (payment === 'online' && onlineOption === 'upi') {
-      if (!confirm('Open your UPI app and send the exact amount using the copied UPI link/URI. Click OK after finishing payment to confirm order.')) return;
-      finalizeOrder(order);
-    } else {
-      finalizeOrder(order);
-    }
-  });
-
-  function finalizeOrder(order){
-    orderMessage.innerHTML = `<div>Order <strong>${order.orderId}</strong> received.</div>
-      <div class="muted text-sm mt-2">Name: ${order.name}<br/>Total: ${formatCurrency(order.total, currentCurrency)}</div>`;
-    hideCheckout();
-    showOrderConfirm();
-  }
-
-  // clear cart
-  function clearCart() {
-    cart = {};
-    localStorage.setItem('gon_cart', JSON.stringify({}));
-    renderCart();
-    updateCheckoutTotals();
-    const form = document.getElementById('checkout-form');
-    if (form) form.reset();
-  }
-
-  function updateCheckoutTotals() {
-    cartSubtotalEl.textContent = '₹0';
-    cartShippingEl.textContent = '₹0';
-    cartTotalEl.textContent = '₹0';
-  }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    const clearBtn = document.getElementById("clear-cart");
-    if (clearBtn) {
-      clearBtn.addEventListener("click", function () {
-        if (!confirm("Clear your cart?")) return;
-        clearCart();
-      });
-    }
-  });
   </script>
 
   <!-- WhatsApp Floating Chat Button -->
@@ -1088,5 +482,12 @@
     <img src="images/social/whatsapp.png" class="w-6 h-6" alt="WhatsApp">
     Chat with Us
   </a>
+
+  <!-- Global config & utils -->
+  <script src="js/gn-config.js"></script>
+  <script src="js/gn-utils.js"></script>
+
+  <!-- Mobile menu etc. -->
+  <script src="js/script.js"></script>
 </body>
 </html>

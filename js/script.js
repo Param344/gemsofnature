@@ -1,8 +1,13 @@
-// Mobile menu toggle
-const menuToggle = document.querySelector('.navbar .md\\:hidden');
-const navLinks = document.querySelector('.navbar ul');
+// js/script.js
+// Handles mobile menu toggle for the shared header
 
-menuToggle.addEventListener('click', () => {
-  navLinks.classList.toggle('hidden');
-  <script src="js/script.js"></script>
+document.addEventListener("DOMContentLoaded", function () {
+  const menuToggle = document.getElementById("mobile-menu-button");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener("click", function () {
+      mobileMenu.classList.toggle("hidden");
+    });
+  }
 });
