@@ -75,9 +75,11 @@
     </a>
 
     <!-- Quick View Modal -->
-    <div id="quickModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden justify-center items-center z-50">
-      <div id="modalContent" class="bg-white rounded-xl p-6 w-[90%] max-w-lg shadow-xl"></div>
-    </div>
+    <div
+  id="quickModal"
+  class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden justify-center items-center z-50">
+  <div id="modalContent" class="bg-white rounded-xl p-6 w-[95%] max-w-2xl shadow-xl"></div>
+</div>
   </main>
 
   <!-- Shared Footer injected by layout.js -->
@@ -186,30 +188,61 @@
 
 
   <!-- Quick View Modal Logic -->
-  <script>
-    function openModal(id) {
-      const p = window.products.find(x => x.id === id);
-      if (!p) return;
+<script>
+  function openModal(id) {
+    const p = window.products.find(x => x.id === id);
+    if (!p) return;
 
-      document.getElementById("modalContent").innerHTML = `
-        <img src="${p.image}" class="w-full h-72 object-cover rounded-lg mb-4">
-        <h2 class="text-2xl font-bold text-emerald-700">${p.name}</h2>
-        <p class="text-gray-700 mt-2 mb-2">${p.description}</p>
-        <p class="font-semibold text-lg">
-          ₹${p.price_min.toLocaleString()} - ₹${p.price_max.toLocaleString()}
-        </p>
-        <a href="shop-ecom.html?product=${p.id}" class="mt-4 inline-block bg-emerald-600 text-white px-4 py-2 rounded-lg">
-          Buy Now
+    document.getElementById("modalContent").innerHTML = `
+      <img src="${p.image}" class="w-full h-80 md:h-96 object-cover rounded-lg mb-4">
+      <h2 class="text-2xl md:text-3xl font-bold text-emerald-700">${p.name}</h2>
+      <p class="text-gray-700 mt-2 mb-2 text-sm md:text-base">${p.description}</p>
+      <p class="font-semibold text-lg md:text-xl">
+        ₹${p.price_min.toLocaleString()} - ₹${p.price_max.toLocaleString()}
+      </p>
+
+      <div class="mt-4 flex flex-col sm:flex-row gap-3">
+        <button
+          onclick="handleAddToCart('${p.id}')"
+          class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold">
+          Add to Cart
+        </button>
+        <a
+          href="cart.html"
+          class="flex-1 text-center border border-emerald-600 text-emerald-700 px-4 py-2 rounded-lg font-semibold hover:bg-emerald-50">
+          View Cart
         </a>
-        <button onclick="closeModal()" class="mt-3 text-sm text-gray-500 underline w-full">Close</button>
-      `;
-      document.getElementById("quickModal").classList.remove("hidden");
+      </div>
+
+      <button onclick="closeModal()" class="mt-4 text-sm text-gray-500 underline w-full">
+        Close
+      </button>
+    `;
+
+    const overlay = document.getElementById("quickModal");
+    overlay.classList.remove("hidden");
+    overlay.classList.add("flex"); // make it flex so content is centered
+  }
+
+  function closeModal() {
+    const overlay = document.getElementById("quickModal");
+    overlay.classList.add("hidden");
+    overlay.classList.remove("flex");
+  }
+
+  // Called from the modal button
+  function handleAddToCart(id) {
+    if (!window.GONCart || typeof GONCart.addToCart !== 'function') {
+      console.error('Cart system not loaded');
+      return;
     }
 
-    function closeModal() {
-      document.getElementById("quickModal").classList.add("hidden");
-    }
-  </script>
+    GONCart.addToCart(id, 1);
+    GONCart.updateBadge?.();
+
+    alert('Added to cart!');
+  }
+</script>
 
      <!-- Global config & utils -->
 <script src="js/gn-config.js"></script>
