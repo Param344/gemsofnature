@@ -108,7 +108,6 @@
 
     <!-- CHECKOUT SECTION (always part of page, not popup) -->
     <section id="checkout-section" class="container mx-auto px-4 mt-10 pb-16">
-      <div
        <div class="checkout-panel w-full bg-white rounded-3xl shadow-md border border-slate-200 overflow-hidden">
 
         <!-- Header -->
@@ -403,101 +402,90 @@
     Chat with Us
   </a>
 
-  <!-- Scripts -->
+  <!-- Core JS (same as other pages, adjust if your order is different) -->
   <script src="js/gn-config.js"></script>
   <script src="js/gn-utils.js"></script>
   <script src="js/layout.js"></script>
   <script src="js/products.js"></script>
   <script src="js/script.js"></script>
 
-  <!-- Cart + Checkout logic -->
+  <!-- Cart + Checkout logic using localStorage "gon_cart" -->
   <script>
     (function () {
       "use strict";
 
-      const SHIPPING_FLAT = 50;
-
-      const cartItemsEl = document.getElementById("cart-items-page");
-      const cartEmptyEl = document.getElementById("cart-empty");
-      const cartLayoutEl = document.getElementById("cart-layout");
-
-      const itemsCountEl = document.getElementById("cart-items-count");
-      const subtotalEl = document.getElementById("cart-subtotal-page");
-      const shippingEl = document.getElementById("cart-shipping-page");
-      const totalEl = document.getElementById("cart-total-page");
-
-      const btnCheckout = document.getElementById("cart-checkout-btn");
-      const btnContinue = document.getElementById("cart-continue-btn");
-      const btnClear = document.getElementById("cart-clear-btn");
-
-      const checkoutSection = document.getElementById("checkout-section");
-      const placeOrderBtn = document.getElementById("place-order");
-      const checkoutForm = document.getElementById("checkout-form");
-      const checkoutSummaryEl = document.getElementById("checkout-summary");
-      const coSubtotalEl = document.getElementById("co-subtotal");
-      const coShippingEl = document.getElementById("co-shipping");
-      const coTotalEl = document.getElementById("co-total");
-
-      const onlineOptionsEl = document.getElementById("online-options");
-      const upiPanelEl = document.getElementById("upi-panel");
-      const cardPanelEl = document.getElementById("card-panel");
-      const upiStringInput = document.getElementById("upi-string");
-      const copyUpiBtn = document.getElementById("copy-upi");
-      const cardErrorEl = document.getElementById("card-error");
-      const cardSubmitBtn = document.getElementById("card-submit");
-
-      const paymentMethodRadios = document.querySelectorAll("input[name='payment_method']");
-      const onlineOptionRadios = document.querySelectorAll("input[name='online_option']");
-
-      let cardSimOk = false;
-      const UPI_ID = "gemsofnature@upi";
-      const UPI_NAME = "Gems of Nature";
+      const SHIPPING_FLAT = 300;
 
       function loadCart() {
         try {
           return JSON.parse(localStorage.getItem("gon_cart") || "{}") || {};
         } catch (e) {
-          console.error("Failed to parse cart from storage", e);
+          console.error("Failed to parse cart", e);
           return {};
         }
       }
 
       let cart = loadCart();
 
-      function updateHeaderCartCount(count) {
-        const badge = document.getElementById("cartCount");
-        if (!badge) return;
-        badge.textContent = String(count);
+      const cartItemsEl  = document.getElementById("cart-items-page");
+      const cartEmptyEl  = document.getElementById("cart-empty");
+      const cartLayoutEl = document.getElementById("cart-layout");
+
+      const itemsCountEl = document.getElementById("cart-items-count");
+      const subtotalEl   = document.getElementById("cart-subtotal-page");
+      const shippingEl   = document.getElementById("cart-shipping-page");
+      const totalEl      = document.getElementById("cart-total-page");
+
+      const btnCheckout  = document.getElementById("cart-checkout-btn");
+      const btnContinue  = document.getElementById("cart-continue-btn");
+      const btnClear     = document.getElementById("cart-clear-btn");
+
+      const checkoutSection   = document.getElementById("checkout-section");
+      const checkoutSummaryEl = document.getElementById("checkout-summary");
+      const coSubtotalEl      = document.getElementById("co-subtotal");
+      const coShippingEl      = document.getElementById("co-shipping");
+      const coTotalEl         = document.getElementById("co-total");
+
+      const paymentMethodRadios = document.querySelectorAll("input[name='payment_method']");
+      const onlineOptionRadios  = document.querySelectorAll("input[name='online_option']");
+      const onlineOptionsEl     = document.getElementById("online-options");
+      const upiPanelEl          = document.getElementById("upi-panel");
+      const cardPanelEl         = document.getElementById("card-panel");
+      const upiStringInput      = document.getElementById("upi-string");
+      const copyUpiBtn          = document.getElementById("copy-upi");
+      const cardErrorEl         = document.getElementById("card-error");
+      const cardSubmitBtn       = document.getElementById("card-submit");
+      const placeOrderBtn       = document.getElementById("place-order");
+      const checkoutForm        = document.getElementById("checkout-form");
+
+      const UPI_ID   = "gemsofnature@upi";
+      const UPI_NAME = "Gems of Nature";
+      let cardSimOk  = false;
+
+      function getProductById(id) {
+        const list = window.products || [];
+        return list.find(p => String(p.id) === String(id));
       }
 
       function getProductPrice(prod) {
         if (!prod) return 0;
-        if (typeof prod.price === "number") return prod.price;
         if (typeof prod.price_min === "number") return prod.price_min;
-        if (typeof prod.price_max === "number") return prod.price_max;
-
-        const raw = String(prod.price || prod.price_min || prod.price_max || "");
-        const num = parseFloat(raw.replace(/[^0-9.-]/g, ""));
-        return isNaN(num) ? 0 : num;
+        if (typeof prod.price === "number") return prod.price;
+        const raw = String(prod.price_min || prod.price || "").replace(/[^0-9]/g, "");
+        return parseInt(raw || "0", 10);
       }
 
-      function formatCurrency(value) {
+      function formatCurrency(v) {
         return new Intl.NumberFormat("en-IN", {
           style: "currency",
           currency: "INR",
           maximumFractionDigits: 0
-        }).format(value || 0);
+        }).format(v || 0);
       }
 
       function saveCart() {
         localStorage.setItem("gon_cart", JSON.stringify(cart));
         renderCart();
-      }
-
-      function getSelectedRadio(list) {
-        let val = null;
-        list.forEach(r => { if (r.checked) val = r.value; });
-        return val;
       }
 
       function buildUpiString(amount) {
@@ -512,26 +500,71 @@
         return "upi://pay?" + params.toString();
       }
 
-      function updateCheckoutButtonState() {
-        const hasItems = Object.keys(cart || {}).length > 0;
-        btnCheckout.disabled = !hasItems;
+      function getSelectedRadio(nodes) {
+        let v = null;
+        nodes.forEach(r => { if (r.checked) v = r.value; });
+        return v;
       }
 
       function updatePlaceOrderState() {
-        const name = (document.getElementById("co-name").value || "").trim();
-        const email = (document.getElementById("co-email").value || "").trim();
-        const phone = (document.getElementById("co-phone").value || "").trim();
+        const name    = (document.getElementById("co-name").value || "").trim();
+        const email   = (document.getElementById("co-email").value || "").trim();
+        const phone   = (document.getElementById("co-phone").value || "").trim();
         const address = (document.getElementById("co-address").value || "").trim();
-        const method = getSelectedRadio(paymentMethodRadios);
+        const method  = getSelectedRadio(paymentMethodRadios);
+        const hasItems = Object.keys(cart || {}).length > 0;
 
-        let enabled = !!(name && email && phone && address && method && Object.keys(cart || {}).length);
+        let enabled = !!(name && email && phone && address && method && hasItems);
 
         if (method === "online") {
-          const onlineOpt = getSelectedRadio(onlineOptionRadios);
-          enabled = enabled && !!onlineOpt;
+          const opt = getSelectedRadio(onlineOptionRadios);
+          enabled = enabled && !!opt;
         }
 
         placeOrderBtn.disabled = !enabled;
+      }
+
+      function populateCheckoutSummary(subtotal, shipping, total) {
+        checkoutSummaryEl.innerHTML = "";
+        const entries = Object.entries(cart || {});
+
+        if (!entries.length) {
+          checkoutSummaryEl.innerHTML = '<p class="text-xs text-slate-500">Your cart is empty.</p>';
+          coSubtotalEl.textContent = "—";
+          coShippingEl.textContent = "—";
+          coTotalEl.textContent    = "—";
+          if (upiStringInput) upiStringInput.value = "";
+          return;
+        }
+
+        entries.forEach(([pid, qty]) => {
+          const prod  = getProductById(pid);
+          const price = getProductPrice(prod);
+          const line  = price * qty;
+
+          const row = document.createElement("div");
+          row.className = "flex items-center justify-between py-1.5";
+          row.innerHTML = `
+            <div class="flex-1 pr-3">
+              <div class="text-xs font-medium text-slate-800 truncate">${prod?.name || pid}</div>
+              <div class="text-[11px] text-slate-500">
+                ${formatCurrency(price)} × ${qty}
+              </div>
+            </div>
+            <div class="text-xs font-semibold text-slate-900">
+              ${formatCurrency(line)}
+            </div>
+          `;
+          checkoutSummaryEl.appendChild(row);
+        });
+
+        coSubtotalEl.textContent = formatCurrency(subtotal);
+        coShippingEl.textContent = formatCurrency(shipping);
+        coTotalEl.textContent    = formatCurrency(total);
+
+        if (upiStringInput) {
+          upiStringInput.value = buildUpiString(total);
+        }
       }
 
       function renderCart() {
@@ -543,43 +576,41 @@
           cartEmptyEl.classList.remove("hidden");
           cartLayoutEl.classList.add("hidden");
           checkoutSection.classList.add("hidden");
-          updateHeaderCartCount(0);
           itemsCountEl.textContent = "0";
-          subtotalEl.textContent = formatCurrency(0);
-          shippingEl.textContent = formatCurrency(0);
-          totalEl.textContent = formatCurrency(0);
-          updateCheckoutButtonState();
+          subtotalEl.textContent   = formatCurrency(0);
+          shippingEl.textContent   = formatCurrency(0);
+          totalEl.textContent      = formatCurrency(0);
+          populateCheckoutSummary(0, 0, 0);
+          updatePlaceOrderState();
           return;
-        } else {
-          cartEmptyEl.classList.add("hidden");
-          cartLayoutEl.classList.remove("hidden");
-          checkoutSection.classList.remove("hidden");
         }
 
-        entries.forEach(([pid, qty]) => {
-          const prod =
-            (window.products || []).find(p => String(p.id) === String(pid)) ||
-            { name: pid, price_min: 0, image: "images/placeholder.jpg" };
+        cartEmptyEl.classList.add("hidden");
+        cartLayoutEl.classList.remove("hidden");
+        checkoutSection.classList.remove("hidden");
 
+        entries.forEach(([pid, qty]) => {
+          const prod  = getProductById(pid);
           const price = getProductPrice(prod);
-          subtotal += price * qty;
+          const line  = price * qty;
+          subtotal   += line;
 
           const row = document.createElement("div");
           row.className = "flex items-center gap-4 py-4";
-
           row.innerHTML = `
             <div class="h-20 w-20 flex-shrink-0 rounded-xl overflow-hidden bg-gray-100">
-              <img src="${prod.image || "images/placeholder.jpg"}"
+              <img src="${prod?.image || "images/placeholder.jpg"}"
                    onerror="this.src='images/placeholder.jpg'"
-                   alt="${prod.name || pid}"
+                   alt="${prod?.name || pid}"
                    class="h-full w-full object-cover" />
             </div>
             <div class="flex-1">
               <div class="text-sm md:text-base font-semibold text-gray-800">
-                ${prod.name || pid}
+                ${prod?.name || pid}
               </div>
               <div class="text-xs text-gray-500 mb-2">
-                ${formatCurrency(price)} × <span data-id="${pid}" class="inline-block min-w-[1.5rem] text-center">${qty}</span>
+                ${formatCurrency(price)} × 
+                <span data-id="${pid}" class="inline-block min-w-[1.5rem] text-center">${qty}</span>
               </div>
               <div class="flex items-center gap-2">
                 <button class="qty-dec border rounded px-2 py-1 text-sm" data-id="${pid}">-</button>
@@ -590,27 +621,22 @@
               </div>
             </div>
             <div class="text-sm md:text-base font-semibold text-gray-900">
-              ${formatCurrency(price * qty)}
+              ${formatCurrency(line)}
             </div>
           `;
-
           cartItemsEl.appendChild(row);
         });
 
-        const count = entries.reduce((sum, [, q]) => sum + Number(q || 0), 0);
-        itemsCountEl.textContent = String(count);
-        updateHeaderCartCount(count);
-
+        const count    = entries.reduce((sum, [,q]) => sum + Number(q || 0), 0);
         const shipping = entries.length ? SHIPPING_FLAT : 0;
-        const total = subtotal + shipping;
+        const total    = subtotal + shipping;
 
-        subtotalEl.textContent = formatCurrency(subtotal);
-        shippingEl.textContent = formatCurrency(shipping);
-        totalEl.textContent = formatCurrency(total);
+        itemsCountEl.textContent = String(count);
+        subtotalEl.textContent   = formatCurrency(subtotal);
+        shippingEl.textContent   = formatCurrency(shipping);
+        totalEl.textContent      = formatCurrency(total);
 
-        updateCheckoutButtonState();
-        populateCheckoutSummary();
-
+        // Attach events for qty / remove
         cartItemsEl.querySelectorAll(".qty-inc").forEach(btn => {
           btn.onclick = () => {
             const id = btn.dataset.id;
@@ -622,8 +648,8 @@
         cartItemsEl.querySelectorAll(".qty-dec").forEach(btn => {
           btn.onclick = () => {
             const id = btn.dataset.id;
-            cart[id] = Math.max(0, (cart[id] || 0) - 1);
-            if (!cart[id]) delete cart[id];
+            cart[id] = (cart[id] || 0) - 1;
+            if (cart[id] <= 0) delete cart[id];
             saveCart();
           };
         });
@@ -635,67 +661,14 @@
             saveCart();
           };
         });
-      }
 
-      function populateCheckoutSummary() {
-        checkoutSummaryEl.innerHTML = "";
-
-        const entries = Object.entries(cart || {});
-        if (!entries.length) {
-          checkoutSummaryEl.innerHTML = '<p class="text-xs text-slate-500">Your cart is empty.</p>';
-          coSubtotalEl.textContent = "—";
-          coShippingEl.textContent = "—";
-          coTotalEl.textContent = "—";
-          return;
-        }
-
-        let subtotal = 0;
-
-        entries.forEach(([pid, qty]) => {
-          const prod =
-            (window.products || []).find(p => String(p.id) === String(pid)) ||
-            { name: pid, price_min: 0 };
-
-          const price = getProductPrice(prod);
-          subtotal += price * qty;
-
-          const row = document.createElement("div");
-          row.className = "flex items-center justify-between py-1.5";
-
-          row.innerHTML = `
-            <div class="flex-1 pr-3">
-              <div class="text-xs font-medium text-slate-800 truncate">${prod.name || pid}</div>
-              <div class="text-[11px] text-slate-500">
-                ${formatCurrency(price)} × ${qty}
-              </div>
-            </div>
-            <div class="text-xs font-semibold text-slate-900">
-              ${formatCurrency(price * qty)}
-            </div>
-          `;
-
-          checkoutSummaryEl.appendChild(row);
-        });
-
-        const shipping = entries.length ? SHIPPING_FLAT : 0;
-        const total = subtotal + shipping;
-
-        coSubtotalEl.textContent = formatCurrency(subtotal);
-        coShippingEl.textContent = formatCurrency(shipping);
-        coTotalEl.textContent = formatCurrency(total);
-
-        if (upiStringInput) {
-          upiStringInput.value = buildUpiString(total);
-        }
+        populateCheckoutSummary(subtotal, shipping, total);
+        updatePlaceOrderState();
       }
 
       // Buttons
-      btnContinue.addEventListener("click", () => window.location.href = "shop-ecom.html");
-
-      btnCheckout.addEventListener("click", () => {
-        if (btnCheckout.disabled) return;
-        populateCheckoutSummary();
-        checkoutSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      btnContinue.addEventListener("click", () => {
+        window.location.href = "shop-ecom.html";
       });
 
       btnClear.addEventListener("click", () => {
@@ -704,6 +677,12 @@
         saveCart();
       });
 
+      btnCheckout.addEventListener("click", () => {
+        if (!Object.keys(cart || {}).length) return;
+        checkoutSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      // Payment method toggle
       function handlePaymentMethodChange() {
         const method = getSelectedRadio(paymentMethodRadios);
         if (!onlineOptionsEl) return;
@@ -711,7 +690,6 @@
         else onlineOptionsEl.classList.add("hidden");
         updatePlaceOrderState();
       }
-
       paymentMethodRadios.forEach(r => r.addEventListener("change", handlePaymentMethodChange));
 
       function handleOnlineOptionChange() {
@@ -727,20 +705,20 @@
         if (cardErrorEl) cardErrorEl.classList.add("hidden");
         updatePlaceOrderState();
       }
-
       onlineOptionRadios.forEach(r => r.addEventListener("change", handleOnlineOptionChange));
 
+      // UPI copy button
       if (copyUpiBtn && upiStringInput) {
         copyUpiBtn.addEventListener("click", () => {
           if (!upiStringInput.value) return;
           if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(upiStringInput.value).then(() => {
-              alert("UPI string copied to clipboard.");
-            }).catch(() => {
-              upiStringInput.select();
-              document.execCommand("copy");
-              alert("UPI string copied to clipboard.");
-            });
+            navigator.clipboard.writeText(upiStringInput.value)
+              .then(() => alert("UPI string copied to clipboard."))
+              .catch(() => {
+                upiStringInput.select();
+                document.execCommand("copy");
+                alert("UPI string copied to clipboard.");
+              });
           } else {
             upiStringInput.select();
             document.execCommand("copy");
@@ -749,12 +727,13 @@
         });
       }
 
+      // Card simulation
       if (cardSubmitBtn) {
         cardSubmitBtn.addEventListener("click", () => {
-          const num = (document.getElementById("card-number").value || "").replace(/\D/g, "");
-          const name = (document.getElementById("card-name").value || "").trim();
+          const num    = (document.getElementById("card-number").value || "").replace(/\D/g, "");
+          const name   = (document.getElementById("card-name").value || "").trim();
           const expiry = (document.getElementById("card-expiry").value || "").trim();
-          const cvv = (document.getElementById("card-cvv").value || "").trim();
+          const cvv    = (document.getElementById("card-cvv").value || "").trim();
 
           const valid =
             num.length >= 12 &&
@@ -775,31 +754,32 @@
         });
       }
 
+      // Form input -> enable/disable Place Order
       if (checkoutForm) {
         checkoutForm.addEventListener("input", updatePlaceOrderState);
       }
 
+      // Place order
       if (placeOrderBtn) {
         placeOrderBtn.addEventListener("click", () => {
           if (placeOrderBtn.disabled) return;
 
-          const name = (document.getElementById("co-name").value || "").trim();
-          const email = (document.getElementById("co-email").value || "").trim();
-          const phone = (document.getElementById("co-phone").value || "").trim();
+          const name    = (document.getElementById("co-name").value || "").trim();
+          const email   = (document.getElementById("co-email").value || "").trim();
+          const phone   = (document.getElementById("co-phone").value || "").trim();
           const address = (document.getElementById("co-address").value || "").trim();
-          const method = getSelectedRadio(paymentMethodRadios);
+          const method  = getSelectedRadio(paymentMethodRadios);
           const onlineOpt = getSelectedRadio(onlineOptionRadios);
+          const entries = Object.entries(cart || {});
 
           if (!name || !email || !phone || !address || !method) {
             alert("Please fill all required fields.");
             return;
           }
-
-          if (!Object.keys(cart || {}).length) {
+          if (!entries.length) {
             alert("Your cart is empty.");
             return;
           }
-
           if (method === "online" && onlineOpt === "card" && !cardSimOk) {
             alert("Please submit valid card details first (demo only).");
             return;
@@ -810,10 +790,17 @@
           cart = {};
           saveCart();
           checkoutForm.reset();
+          handlePaymentMethodChange();
+          handleOnlineOptionChange();
+          updatePlaceOrderState();
         });
       }
 
+      // Initial
       renderCart();
+      handlePaymentMethodChange();
+      handleOnlineOptionChange();
+      updatePlaceOrderState();
     })();
   </script>
 </body>
