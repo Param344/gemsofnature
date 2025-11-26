@@ -3,28 +3,81 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Gems of Nature - Healing gemstones, crystals, and natural energy stones for wellness, prosperity, and spiritual growth." />
+  <meta name="description"
+        content="Gems of Nature - Healing gemstones, crystals, and natural energy stones for wellness, prosperity, and spiritual growth." />
+  <meta name="keywords"
+        content="natural gemstones, healing crystals, amethyst, citrine, rose quartz, buy gemstones online, gemstone store">
+  <meta name="author" content="Gems of Nature">
   <title>Gems of Nature | About Us</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Google Fonts: Montserrat -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
 
   <style>
-    .font-montserrat { font-family: 'Montserrat', sans-serif; }
-    /* subtle fade/slide animations used on important blocks */
-    .fade-in { opacity: 0; transform: translateY(12px); animation: fadeInUp .6s ease forwards; }
+    :root {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      min-height: 100vh;
+      background-color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main { flex: 1 0 auto; }
+
+    img { background: transparent; display: block; }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-    /* small card shadow */
-    .card { box-shadow: 0 8px 22px rgba(6, 95, 70, 0.06); border-radius: 14px; }
+    .card-base {
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+      transition: transform 320ms cubic-bezier(.2,.9,.2,1), box-shadow 320ms cubic-bezier(.2,.9,.2,1);
+      will-change: transform, box-shadow;
+    }
 
-    /* small helper for section headings */
-    .section-title { color: #065f46; } /* emerald-700 */
+    footer {
+      margin-top: 0;
+      padding-top: 22px;
+      flex-shrink: 0;
+      background-color: #065f46;
+      width: 100%;
+    }
+
+    .footer-inner { padding-left: 24px; padding-right: 24px; }
+    .footer-nowrap { white-space: nowrap; }
+
+    .section-title { color: #065f46; }
   </style>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Gems of Nature",
+    "url": "https://www.gemsofnature.shop",
+    "logo": "https://www.gemsofnature.shop/images/logo.png"
+  }
+  </script>
 </head>
+
+<body class="bg-white text-gray-800 antialiased font-montserrat">
+  <!-- Header placeholder -->
+  <div id="header"></div>
 
 <body>
   <!-- Header placeholder (filled by js/layout.js) -->

@@ -1,15 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Shop — Gems of Nature (Ecommerce)</title>
-  <meta name="description" content="Buy natural gemstones & healing crystals — Gems of Nature. Secure checkout, COD & online payment (simulated)." />
+  <title>Shop (Ecommerce) | Gems of Nature</title>
+
+  <meta name="description" content="Buy natural gemstones and healing crystals from Gems of Nature with a smooth ecommerce experience, simulated checkout, and multiple payment options." />
+  <meta name="keywords" content="ecommerce gemstones, buy crystals online, healing stones shop, Gems of Nature checkout, Rudraksha, spiritual products" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.gemsofnature.shop/shop-ecom.html" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Shop (Ecommerce) | Gems of Nature" />
+  <meta property="og:description" content="Browse and buy authentic gemstones and healing crystals with a streamlined ecommerce flow on Gems of Nature." />
+  <meta property="og:url" content="https://www.gemsofnature.shop/shop-ecom.html" />
+  <meta property="og:image" content="https://www.gemsofnature.shop/assets/og-image.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Shop (Ecommerce) | Gems of Nature" />
+  <meta name="twitter:description" content="Experience the Gems of Nature ecommerce shop for gemstones and healing crystals." />
+  <meta name="twitter:image" content="https://www.gemsofnature.shop/assets/og-image.jpg" />
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
+  <!-- Global Styles -->
+  <link rel="preload" href="css/styles.css" as="style" />
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Page-specific styles -->
   <style>
     .font-montserrat { font-family: 'Montserrat', sans-serif; }
 
@@ -24,26 +54,54 @@
     }
 
     /* product detail slide-in */
-    .detail-panel { transition: transform .28s ease, opacity .28s ease; transform: translateX(20px); opacity: 0; }
-    .detail-panel.open { transform: translateX(0); opacity: 1; }
+    .detail-panel {
+      transition: transform .28s ease, opacity .28s ease;
+      transform: translateX(20px);
+      opacity: 0;
+    }
+    .detail-panel.open {
+      transform: translateX(0);
+      opacity: 1;
+    }
 
     /* hover overlay */
     .product-card { position: relative; overflow: hidden; }
     .product-overlay {
-      position: absolute; inset: 0; display:flex; align-items:flex-end; justify-content:center;
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
       background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55) 100%);
-      color: white; padding: 1rem; transform: translateY(100%); transition: transform .25s ease;
+      color: white;
+      padding: 1rem;
+      transform: translateY(100%);
+      transition: transform .25s ease;
     }
-    .product-card:hover .product-overlay, .product-card:focus-within .product-overlay { transform: translateY(0); }
+    .product-card:hover .product-overlay,
+    .product-card:focus-within .product-overlay {
+      transform: translateY(0);
+    }
 
     /* small utility for truncated text */
-    .line-clamp-3 { overflow:hidden; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; }
+    .line-clamp-3 {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
 
     .muted { color:#6b7280; font-size:0.95rem; }
   </style>
+
+  <!-- Scripts -->
+  <script src="js/layout.js" defer></script>
+  <script src="js/main.js" defer></script>
 </head>
 
 <body class="bg-gray-50 text-gray-800 font-montserrat" data-page="shop-ecom">
+  <!-- Include header.html here (or JS-injected header) -->
+  <!-- Example: <div id="site-header"></div> -->
   <!-- Shared header (injected by layout.js) -->
   <div id="header"></div>
 

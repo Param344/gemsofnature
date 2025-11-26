@@ -1,27 +1,61 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Checkout - Review your cart and place order at Gems of Nature." />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Checkout | Gems of Nature</title>
 
-  <!-- Tailwind (same as other pages) -->
+  <meta name="description" content="Checkout — Review your selected gemstones and place a secure order at Gems of Nature. COD & online payment options (simulated interface)." />
+  <meta name="keywords" content="checkout gemstones, buy crystals online, healing stone purchase, Gems of Nature cart, Rudraksha checkout" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://www.gemsofnature.shop/checkout.html" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+
+  <!-- Open Graph (SEO Preview) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Checkout | Gems of Nature" />
+  <meta property="og:description" content="Complete your purchase securely at Gems of Nature and place an order for authentic healing gemstones and crystals." />
+  <meta property="og:url" content="https://www.gemsofnature.shop/checkout.html" />
+  <meta property="og:image" content="https://www.gemsofnature.shop/assets/og-image.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Checkout | Gems of Nature" />
+  <meta name="twitter:description" content="Secure checkout experience for gemstones & healing crystals at Gems of Nature." />
+  <meta name="twitter:image" content="https://www.gemsofnature.shop/assets/og-image.jpg" />
+
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Montserrat font (keep consistent) -->
+  <!-- Global Styles -->
+  <link rel="preload" href="css/styles.css" as="style" />
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
+  <!-- Page-specific styles -->
   <style>
     .font-montserrat {
       font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-    .muted {
-      color: #6b7280;
-    }
+    .muted { color: #6b7280; }
   </style>
+
+  <!-- Scripts -->
+  <script src="js/layout.js" defer></script>
+  <script src="js/main.js" defer></script>
 </head>
+
 <body class="bg-gray-50 text-gray-800 font-montserrat" data-page="checkout">
+  <!-- Injected header -->
+  <!-- <div id="site-header"></div> -->
+
 
   <!-- Shared Header injected by layout.js -->
   <div id="header"></div>
@@ -642,6 +676,7 @@
             const id = btn.dataset.id;
             cart[id] = (cart[id] || 0) + 1;
             saveCart();
+            updateHeaderCartCount(); // ← add this
           };
         });
 
@@ -651,6 +686,7 @@
             cart[id] = (cart[id] || 0) - 1;
             if (cart[id] <= 0) delete cart[id];
             saveCart();
+            updateHeaderCartCount(); // ← add this
           };
         });
 
@@ -659,6 +695,7 @@
             const id = btn.dataset.id;
             delete cart[id];
             saveCart();
+            updateHeaderCartCount(); // ← add this  
           };
         });
 
@@ -675,6 +712,7 @@
         if (!confirm("Clear all items from your cart?")) return;
         cart = {};
         saveCart();
+        updateHeaderCartCount(); // ← add this
       });
 
       btnCheckout.addEventListener("click", () => {
@@ -789,6 +827,7 @@
 
           cart = {};
           saveCart();
+          updateHeaderCartCount(); // ← add this
           checkoutForm.reset();
           handlePaymentMethodChange();
           handleOnlineOptionChange();

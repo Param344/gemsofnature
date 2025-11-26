@@ -6,7 +6,7 @@
   <meta name="description" content="Gems of Nature - Healing gemstones, crystals, and natural energy stones for wellness, prosperity, and spiritual growth." />
   <meta name="keywords" content="natural gemstones, healing crystals, amethyst, citrine, rose quartz, buy gemstones online, gemstone store">
   <meta name="author" content="Gems of Nature">
-  <title>Gems of Nature | Healing Gemstones & Crystals</title>
+  <title>Gems of Nature</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -14,8 +14,8 @@
   <!-- Google Fonts: Montserrat -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
+  <!-- Global Styles -->
   <style>
-    /* Global layout & accessibility */
     :root {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -31,9 +31,7 @@
       flex-direction: column;
     }
 
-    /* Make main fill remaining space so footer sits at bottom */
     main { flex: 1 0 auto; }
-
     body, button, input, textarea {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -43,52 +41,25 @@
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
-      animation: fadeInUp 0.8s ease forwards;
+      animation: fadeInUp .8s ease forwards;
     }
-    @keyframes fadeInUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-    /* Card shadow & hover (single source) */
+    /* Card hover animation */
     .card-base {
       box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
       transition: transform 320ms cubic-bezier(.2,.9,.2,1), box-shadow 320ms cubic-bezier(.2,.9,.2,1);
-      will-change: transform, box-shadow;
     }
     .card-base:hover, .group:hover .card-base {
       transform: translateY(-6px);
       box-shadow: 0 14px 36px rgba(15, 23, 42, 0.10);
     }
 
-    /* Images: ensure block-level, no background bleed and consistent cover */
-    img { background: transparent; display: block; }
-
-    /* Footer: keep pinned without negative margin hacks */
-    footer {
-      margin-top: 0;
-      padding-top: 22px;
-      flex-shrink: 0;
-      background-color: #065f46; /* emerald-900 */
-      width: 100%;
-    }
-
-    /* Footer inner padding */
-    .footer-inner { padding-left: 24px; padding-right: 24px; }
-
-    /* Prevent accidental wrap for the copyright on narrow widths */
-    .footer-nowrap { white-space: nowrap; }
-
-    /* Hero fills full viewport (adjust if header becomes fixed) */
-    .hero-min-h { min-height: calc(100vh - 0px); }
-
-    /* Button: remove any default extra shadow inside cards */
-    .no-btn-shadow, .no-btn-shadow * { box-shadow: none !important; }
-
-    /* Small responsive tweak to keep footer icons centered vertically */
-    footer svg { vertical-align: middle; }
+    img { display:block; background:transparent; }
+    footer { background-color:#065f46; width:100%; }
   </style>
 
-  <!-- Structured data (Organization) -->
+  <!-- Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",

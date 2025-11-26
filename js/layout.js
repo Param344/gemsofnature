@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Load shared header + footer
-  if (headerContainer) loadComponent(headerContainer, "components/header.html");
-  if (footerContainer) loadComponent(footerContainer, "components/footer.html");
+  // Load shared header + footer (fixed path)
+  if (headerContainer) loadComponent(headerContainer, "header.html");
+  if (footerContainer) loadComponent(footerContainer, "footer.html");
 });

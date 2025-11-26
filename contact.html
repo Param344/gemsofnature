@@ -43,18 +43,68 @@
   </script>
 
   <style>
+    /* Global layout & accessibility – same as index.html */
+    :root {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      min-height: 100vh;
+      background-color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Main content grows, footer stays at bottom */
+    main { flex: 1 0 auto; }
+
+    body, button, input, textarea {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    img { background: transparent; display: block; }
+
+    /* Footer base styles to match other pages */
+    footer {
+      margin-top: 0;
+      padding-top: 22px;
+      flex-shrink: 0;
+      background-color: #065f46; /* emerald-900 */
+      width: 100%;
+      color: #ffffff;
+    }
+    .footer-inner {
+      padding-left: 24px;
+      padding-right: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-nowrap { white-space: nowrap; }
+
+    /* Contact-page specific helpers (kept from your version) */
     .font-montserrat { font-family: 'Montserrat', sans-serif; }
     .fade-in { opacity:0; transform:translateY(8px); animation:fadeIn .45s ease forwards; }
     @keyframes fadeIn { to { opacity:1; transform:translateY(0); } }
     .modal-backdrop { background:rgba(0,0,0,0.5); }
-    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(2,6,23,0.12); }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(2,6,23,0.12);
+    }
   </style>
 </head>
 
-<body class="bg-gray-50 text-gray-800 font-montserrat antialiased">
-
-<!-- SHARED HEADER -->
-<div id="header"></div>
+<body class="bg-white text-gray-800 font-montserrat antialiased">
+  <!-- Shared header placeholder -->
+  <div id="header"></div>
 
 <!-- HERO -->
 <section class="relative bg-cover bg-center h-56 md:h-88" style="

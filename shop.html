@@ -1,15 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Shop gemstones, crystals, and Rudraksha — Gems of Nature unified collection." />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Shop | Gems of Nature</title>
 
-  <!-- Tailwind + Fonts (keep consistent with other pages) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta name="description" content="Shop gemstones, crystals, and Rudraksha from the unified Gems of Nature collection – carefully selected for healing, prosperity, and spiritual growth." />
+  <meta name="keywords" content="shop gemstones, buy crystals online, Rudraksha, healing stones, spiritual crystals, Gems of Nature shop" />
 
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.gemsofnature.shop/shop.html" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Shop | Gems of Nature" />
+  <meta property="og:description" content="Browse and buy authentic gemstones, crystals, and Rudraksha from the Gems of Nature unified collection." />
+  <meta property="og:url" content="https://www.gemsofnature.shop/shop.html" />
+  <meta property="og:image" content="https://www.gemsofnature.shop/assets/og-image.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Shop | Gems of Nature" />
+  <meta name="twitter:description" content="Shop healing gemstones, crystals, and Rudraksha from Gems of Nature." />
+  <meta name="twitter:image" content="https://www.gemsofnature.shop/assets/og-image.jpg" />
+
+  <!-- Tailwind + Global Styles (keep consistent with other pages) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preload" href="css/styles.css" as="style" />
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Page-specific styles -->
   <style>
     .font-montserrat { font-family: 'Montserrat', sans-serif }
     .fade-in { opacity: 0; transform: translateY(20px); animation: fadeInUp .8s ease forwards }
@@ -18,9 +46,16 @@
     .product-tile a { transition: all .25s ease-in-out }
     .product-tile a:hover { transform: translateY(-1px) }
   </style>
+
+  <!-- Scripts -->
+  <script src="js/layout.js" defer></script>
+  <script src="js/main.js" defer></script>
 </head>
 
 <body class="bg-gray-50 text-gray-800 font-montserrat" data-page="shop">
+  <!-- Include header.html here -->
+  <!-- Example if you’re injecting via JS: <div id="site-header"></div> -->
+
   <!-- Shared Header injected by layout.js -->
   <div id="header"></div>
 
