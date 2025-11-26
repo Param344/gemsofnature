@@ -311,152 +311,102 @@
   <div id="header"></div>
 
   <!-- HERO -->
-  <section
-    class="hero-gradient py-10"
-    style="
-      background: linear-gradient(180deg, rgba(0,140,120,0.35) 0%, rgba(0,90,65,0.55) 100%),
-                  url('/images/hero.jpg');
-      background-size: cover;
-      background-position: center;
-    "
-  >
-    <div class="content-inner px-0 grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
-      <div class="glass rounded-2xl shadow-lg card-base bg-emerald-900/80 text-white">
-        <h2 class="text-3xl font-extrabold">
-          Rudraksha + Astrological Gem Consultation
-        </h2>
-        <p class="mt-3 text-white/90">
-          Free gemstone recommendation (based on DOB) + paid 30-min personalized
-          consultation. We match natural gemstones &amp; Rudraksha with your
-          astrology, dosha, and life goals.
-        </p>
+<section
+  class="hero-gradient py-10 relative z-0"
+  style="
+    background: linear-gradient(180deg, rgba(0,140,120,0.35) 0%, rgba(0,90,65,0.55) 100%),
+                url('/images/hero.jpg');
+    background-size: cover;
+    background-position: center;
+  "
+>
+  <div class="content-inner relative z-10 container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
 
-        <ul class="mt-4 space-y-2 text-sm text-white/90">
-          <li>✅ Free automatic gem recommendation by date of birth</li>
-          <li>✅ Expert Rudraksha matching and mala recommendations</li>
-          <li>
-            ✅ 30-minute paid consultation (voice/video) — INR / USD options
-          </li>
-          <li>✅ Certification guidance &amp; stone authenticity tips</li>
-        </ul>
+    <!-- Left content -->
+    <div class="glass rounded-2xl shadow-lg bg-emerald-900/80 text-white p-6">
+      <h2 class="text-3xl font-extrabold">
+        Rudraksha + Astrological Gem Consultation
+      </h2>
+      <p class="mt-3 text-white/90">
+        Free gemstone recommendation (based on DOB) + paid 30-min personalized consultation.
+        We match natural gemstones &amp; Rudraksha with your astrology, dosha, and life goals.
+      </p>
 
-        <div class="mt-4 flex gap-3">
-          <a
-            href="#consultation"
-            class="inline-block bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-md font-semibold"
-          >
-            Get Free Recommendation
-          </a>
-          <a
-            href="#pricing"
-            class="inline-block border border-white/30 text-white px-4 py-2 rounded-md"
-          >
-            Book 30-min
-          </a>
-        </div>
-      </div>
+      <ul class="mt-4 space-y-2 text-sm text-white/90">
+        <li>✅ Free automatic gem recommendation by date of birth</li>
+        <li>✅ Expert Rudraksha matching and mala recommendations</li>
+        <li>✅ 30-minute paid consultation (voice/video) — INR / USD options</li>
+        <li>✅ Certification guidance &amp; stone authenticity tips</li>
+      </ul>
 
-      <div class="hero-right card-base rounded-2xl bg-white">
-        <div class="p-4 card-compact">
-          <h3 class="font-semibold">Quick Booking</h3>
-          <p class="text-sm text-slate-600">
-            Fill your birth details — get a recommendation instantly.
-          </p>
-
-          <form id="quick-form" class="mt-3 space-y-3">
-            <div>
-              <label for="q-name" class="text-xs text-slate-600">Full name</label>
-              <input
-                required
-                id="q-name"
-                name="name"
-                class="w-full mt-1 p-2 border rounded"
-                placeholder="Paramjeet Singh"
-              />
-            </div>
-
-            <div class="grid grid-cols-2 gap-2">
-              <div>
-                <label for="q-dob" class="text-xs text-slate-600"
-                  >Date of Birth</label
-                >
-                <input
-                  required
-                  id="q-dob"
-                  name="dob"
-                  type="date"
-                  class="w-full mt-1 p-2 border rounded"
-                />
-              </div>
-              <div>
-                <label for="q-tob" class="text-xs text-slate-600"
-                  >Time of Birth (optional)</label
-                >
-                <input
-                  id="q-tob"
-                  name="tob"
-                  type="time"
-                  class="w-full mt-1 p-2 border rounded"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label for="q-pob" class="text-xs text-slate-600"
-                >Place of Birth</label
-              >
-              <input
-                id="q-pob"
-                name="pob"
-                class="w-full mt-1 p-2 border rounded"
-                placeholder="Delhi, India"
-              />
-            </div>
-
-            <div>
-              <label for="q-goal" class="text-xs text-slate-600"
-                >Main concern / goal</label
-              >
-              <select
-                id="q-goal"
-                name="goal"
-                class="w-full mt-1 p-2 border rounded"
-              >
-                <option value="wealth">Wealth &amp; career</option>
-                <option value="health">Health &amp; wellbeing</option>
-                <option value="relationship">Relationships</option>
-                <option value="protection">Protection / spirituality</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-
-            <div class="flex items-center gap-2 pt-2">
-              <button
-                type="submit"
-                class="bg-emerald-500 px-3 py-2 rounded text-white font-semibold"
-              >
-                Get Recommendation
-              </button>
-              <button
-                id="wa-btn-quick"
-                type="button"
-                class="border px-3 py-2 rounded"
-              >
-                Chat on WhatsApp
-              </button>
-            </div>
-          </form>
-
-          <div
-            id="quick-result"
-            role="status"
-            aria-live="polite"
-            class="mt-3 hidden bg-amber-50 border border-amber-100 p-3 rounded text-sm"
-          ></div>
-        </div>
+      <div class="mt-4 flex gap-3">
+        <a
+          href="#consultation"
+          class="inline-block bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-md font-semibold"
+        >
+          Get Free Recommendation
+        </a>
+        <a
+          href="#pricing"
+          class="inline-block border border-white/30 text-white px-4 py-2 rounded-md"
+        >
+          Book 30-min
+        </a>
       </div>
     </div>
-  </section>
+
+    <!-- Right form card -->
+    <div class="hero-right rounded-2xl bg-white p-4 shadow-lg">
+      <h3 class="font-semibold text-emerald-900">Quick Booking</h3>
+      <p class="text-sm text-slate-600">
+        Fill your birth details — get a recommendation instantly.
+      </p>
+
+      <form id="quick-form" class="mt-3 space-y-3">
+        <div>
+          <label for="q-name" class="text-xs text-slate-600">Full name</label>
+          <input required id="q-name" name="name" class="w-full mt-1 p-2 border rounded" placeholder="Paramjeet Singh" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label for="q-dob" class="text-xs text-slate-600">Date of Birth</label>
+            <input required id="q-dob" name="dob" type="date" class="w-full mt-1 p-2 border rounded" />
+          </div>
+          <div>
+            <label for="q-tob" class="text-xs text-slate-600">Time of Birth (optional)</label>
+            <input id="q-tob" name="tob" type="time" class="w-full mt-1 p-2 border rounded" />
+          </div>
+        </div>
+
+        <div>
+          <label for="q-pob" class="text-xs text-slate-600">Place of Birth</label>
+          <input id="q-pob" name="pob" class="w-full mt-1 p-2 border rounded" placeholder="Delhi, India" />
+        </div>
+
+        <div>
+          <label for="q-goal" class="text-xs text-slate-600">Main concern / goal</label>
+          <select id="q-goal" name="goal" class="w-full mt-1 p-2 border rounded">
+            <option value="wealth">Wealth &amp; career</option>
+            <option value="health">Health &amp; wellbeing</option>
+            <option value="relationship">Relationships</option>
+            <option value="protection">Protection / spirituality</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="flex items-center gap-2 pt-2">
+          <button type="submit" class="bg-emerald-500 px-3 py-2 rounded text-white font-semibold">
+            Get Recommendation
+          </button>
+          <button id="wa-btn-quick" type="button" class="border px-3 py-2 rounded">
+            Chat on WhatsApp
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
 
   <main class="space-y-8 py-6">
     <!-- Consultation Embed -->
