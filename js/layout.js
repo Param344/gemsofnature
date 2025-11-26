@@ -8,10 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
       el.id = id;
 
       if (position === "top") {
-        // insert at very top of <body>
         document.body.insertBefore(el, document.body.firstChild);
       } else {
-        // insert at very bottom of <body>
         document.body.appendChild(el);
       }
     }
@@ -21,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const headerContainer = ensureContainer("header", "top");
   const footerContainer = ensureContainer("footer", "bottom");
 
-  // Dynamic load function
   async function loadComponent(container, filePath) {
     try {
       const res = await fetch(filePath);
@@ -33,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Always load from site root (works for /, /guides/, etc.)
+  // 🔥 This is perfect: always from site root
   loadComponent(headerContainer, "/header.html");
   loadComponent(footerContainer, "/footer.html");
 });
