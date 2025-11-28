@@ -8,26 +8,7 @@
   <meta name="description" content="Buy natural gemstones and healing crystals from Gems of Nature with a smooth ecommerce experience, simulated checkout, and multiple payment options." />
   <meta name="keywords" content="ecommerce gemstones, buy crystals online, healing stones shop, Gems of Nature checkout, Rudraksha, spiritual products" />
 
-  <!-- Canonical -->
   <link rel="canonical" href="https://www.gemsofnature.shop/shop-ecom.html" />
-
-  <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Shop (Ecommerce) | Gems of Nature" />
-  <meta property="og:description" content="Browse and buy authentic gemstones and healing crystals with a streamlined ecommerce flow on Gems of Nature." />
-  <meta property="og:url" content="https://www.gemsofnature.shop/shop-ecom.html" />
-  <meta property="og:image" content="https://www.gemsofnature.shop/assets/og-image.jpg" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Shop (Ecommerce) | Gems of Nature" />
-  <meta name="twitter:description" content="Experience the Gems of Nature ecommerce shop for gemstones and healing crystals." />
-  <meta name="twitter:image" content="https://www.gemsofnature.shop/assets/og-image.jpg" />
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -39,11 +20,9 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Page-specific styles -->
   <style>
     .font-montserrat { font-family: 'Montserrat', sans-serif; }
 
-    /* Fade-in animation */
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
@@ -53,7 +32,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* product detail slide-in */
     .detail-panel {
       transition: transform .28s ease, opacity .28s ease;
       transform: translateX(20px);
@@ -64,7 +42,6 @@
       opacity: 1;
     }
 
-    /* hover overlay */
     .product-card { position: relative; overflow: hidden; }
     .product-overlay {
       position: absolute;
@@ -83,7 +60,6 @@
       transform: translateY(0);
     }
 
-    /* small utility for truncated text */
     .line-clamp-3 {
       overflow: hidden;
       display: -webkit-box;
@@ -94,15 +70,12 @@
     .muted { color:#6b7280; font-size:0.95rem; }
   </style>
 
-  <!-- Scripts -->
+  <!-- Shared layout (header/footer) -->
   <script src="js/layout.js" defer></script>
-  <script src="js/main.js" defer></script>
 </head>
 
 <body class="bg-gray-50 text-gray-800 font-montserrat" data-page="shop-ecom">
-  <!-- Include header.html here (or JS-injected header) -->
-  <!-- Example: <div id="site-header"></div> -->
-  <!-- Shared header (injected by layout.js) -->
+  <!-- Header injected by layout.js -->
   <div id="header"></div>
 
   <!-- HERO -->
@@ -124,21 +97,29 @@
         <!-- Filters bar -->
         <div class="bg-white rounded-2xl shadow p-4 mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div class="flex items-center gap-3">
-            <input id="search-input" type="search" placeholder="Search stones, rudraksha or qualities" class="border rounded px-3 py-2 w-72" />
+            <input
+              id="search-input"
+              type="search"
+              placeholder="Search gemstones, crystals or Rudraksha"
+              class="border rounded px-3 py-2 w-72"
+            />
 
             <select id="category-filter" class="border rounded px-2 py-2 text-sm">
               <option value="all">All categories</option>
               <option value="Precious">Precious</option>
-              <option value="Semi-Precious">Semi-Precious</option>
+              <option value="Opal">Opal</option>
+              <option value="Astrology">Astrology</option>
               <option value="Healing">Healing</option>
+              <option value="Accessory">Healing Accessories</option>
               <option value="Rudraksha">Rudraksha</option>
-              <option value="Raw Stones">Raw Stones</option>
+              <option value="Raw">Raw Stones</option>
             </select>
 
             <select id="sort-select" class="border rounded px-2 py-2 text-sm">
               <option value="default">Sort: Featured</option>
               <option value="price-asc">Price: Low → High</option>
               <option value="price-desc">Price: High → Low</option>
+              <option value="name">A–Z</option>
             </select>
           </div>
 
@@ -190,8 +171,12 @@
     </div>
   </main>
 
-  <!-- PRODUCT DETAIL (slides in) -->
-  <aside id="product-detail" class="fixed right-4 top-12 w-full md:w-1/2 bg-white rounded-2xl shadow-lg p-6 detail-panel z-50 hidden" aria-hidden="true">
+  <!-- PRODUCT DETAIL (slide-in) -->
+  <aside
+    id="product-detail"
+    class="fixed right-4 top-12 w-full md:w-1/2 bg-white rounded-2xl shadow-lg p-6 detail-panel z-50 hidden"
+    aria-hidden="true"
+  >
     <div class="flex gap-4">
       <img id="detail-image" src="images/placeholder.jpg" alt="" class="w-40 h-40 object-cover rounded" />
       <div class="flex-1">
@@ -212,21 +197,23 @@
     </div>
   </aside>
 
-  <!-- Shared footer (injected by layout.js) -->
+  <!-- Footer -->
   <div id="footer"></div>
 
-  <!-- Shared layout (header + footer) -->
-  <script src="js/layout.js"></script>
-
-  <!-- shared product data -->
+  <!-- Products data -->
   <script src="js/products.js"></script>
 
-  <!-- Main ecommerce logic -->
+  <!-- Ecommerce logic -->
   <script>
-  // compute a display price (midpoint) for each product if not present
-  products.forEach(p => { if (!p.price) p.price = Math.round(((p.price_min || 0) + (p.price_max || 0)) / 2); });
+  // Use products from window
+  const products = window.products || [];
 
-  const ITEMS_PER_PAGE = 12; // 3 columns × 4 rows per page
+  // compute a display price (midpoint) for each product if not present
+  products.forEach(p => {
+    if (!p.price) p.price = Math.round(((p.price_min || 0) + (p.price_max || 0)) / 2);
+  });
+
+  const ITEMS_PER_PAGE = 12;
   let currentPage = 1;
   let currentCurrency = 'INR';
   const currencyRates = { INR:1, USD:1/83, EUR:1/95, GBP:1/110 };
@@ -235,11 +222,11 @@
 
   function formatCurrency(value, currency='INR'){
     if (value==null) return '';
-    if (currency==='INR') return '₹'+Number(value).toLocaleString('en-IN');
-    return (currency==='USD'? '$': currency==='EUR'? '€': '£') + (value*currencyRates[currency]).toFixed(2);
+    if (currency==='INR') return '₹' + Number(value).toLocaleString('en-IN');
+    const symbol = currency==='USD' ? '$' : currency==='EUR' ? '€' : '£';
+    return symbol + (value * currencyRates[currency]).toFixed(2);
   }
 
-  // Helper: pick a usable price for any product
   function getProductPrice(prod) {
     if (!prod) return 0;
     if (typeof prod.price === 'number') return prod.price;
@@ -285,25 +272,35 @@
     const q = (document.getElementById('search-input').value || '').toLowerCase();
     const cat = document.getElementById('category-filter').value;
     const sort = document.getElementById('sort-select').value;
+
     let out = products.filter(p => {
-      if (cat!=='all' && p.category!==cat) return false;
-      if (q && !(p.name.toLowerCase().includes(q) || (p.description||'').toLowerCase().includes(q) || (p.category||'').toLowerCase().includes(q))) return false;
+      if (cat !== 'all' && p.category !== cat) return false;
+      if (q && !(p.name.toLowerCase().includes(q) ||
+                 (p.description || '').toLowerCase().includes(q) ||
+                 (p.category || '').toLowerCase().includes(q))) return false;
       return true;
     });
-    if (sort==='price-asc') out.sort((a,b)=>getProductPrice(a)-getProductPrice(b));
-    if (sort==='price-desc') out.sort((a,b)=>getProductPrice(b)-getProductPrice(a));
+
+    if (sort === 'price-asc') out.sort((a, b) => getProductPrice(a) - getProductPrice(b));
+    if (sort === 'price-desc') out.sort((a, b) => getProductPrice(b) - getProductPrice(a));
+    if (sort === 'name') out.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+
     return out;
   }
 
   function renderPagination(pages){
     const el = document.getElementById('pagination');
     el.innerHTML = '';
-    if (pages<=1) return;
+    if (pages <= 1) return;
     for(let i=1;i<=pages;i++){
       const btn = document.createElement('button');
       btn.className = `px-3 py-1 rounded ${i===currentPage? 'bg-emerald-600 text-white' : 'bg-white border'}`;
       btn.textContent = i;
-      btn.onclick = ()=>{ currentPage=i; renderProducts(); window.scrollTo({top:200,behavior:'smooth'}); };
+      btn.onclick = () => {
+        currentPage = i;
+        renderProducts();
+        window.scrollTo({top: 200, behavior:'smooth'});
+      };
       el.appendChild(btn);
     }
   }
@@ -314,7 +311,7 @@
     const filtered = applyFilters();
     const start = (currentPage-1)*ITEMS_PER_PAGE;
     const pageItems = filtered.slice(start, start+ITEMS_PER_PAGE);
-    pageItems.forEach(p=> grid.appendChild(renderProductCard(p)));
+    pageItems.forEach(p => grid.appendChild(renderProductCard(p)));
     renderPagination(Math.ceil(filtered.length/ITEMS_PER_PAGE));
   }
 
@@ -348,15 +345,15 @@
   const detailAdd = document.getElementById('detail-add');
 
   function openProductDetail(id){
-    const p = products.find(x=>String(x.id)===String(id));
+    const p = products.find(x => String(x.id) === String(id));
     if(!p) return;
-    detailImage.src = p.image||'images/placeholder.jpg';
+    detailImage.src = p.image || 'images/placeholder.jpg';
     detailTitle.textContent = p.name;
-    detailMeta.textContent = p.category||'';
-    detailDesc.textContent = p.description||'';
-    detailMukhi.textContent = p.mukhi? ('Mukhi: '+p.mukhi) : '';
-    detailDeity.textContent = p.deity? ('Deity: '+p.deity) : '';
-    detailMantra.textContent = p.mantra? ('Mantra: '+p.mantra) : '';
+    detailMeta.textContent = p.category || '';
+    detailDesc.textContent = p.description || '';
+    detailMukhi.textContent = p.mukhi ? ('Mukhi: ' + p.mukhi) : '';
+    detailDeity.textContent = p.deity ? ('Deity: ' + p.deity) : '';
+    detailMantra.textContent = p.mantra ? ('Mantra: ' + p.mantra) : '';
     detailPrice.textContent = formatCurrency(getProductPrice(p), currentCurrency);
     detailAdd.dataset.id = p.id;
     detailPanel.classList.remove('hidden');
@@ -370,8 +367,8 @@
   });
 
   detailAdd && detailAdd.addEventListener('click', ()=>{
-    const id=detailAdd.dataset.id;
-    cart[id]=(cart[id]||0)+1;
+    const id = detailAdd.dataset.id;
+    cart[id] = (cart[id]||0)+1;
     saveCart();
     detailAdd.textContent='Added';
     setTimeout(()=> detailAdd.textContent='Add to Cart',900);
@@ -386,9 +383,8 @@
   const checkoutBtn = document.getElementById('checkout-button');
   const clearCartBtn = document.getElementById('clear-cart');
 
-  // Update header badge (red circle in navbar)
   function updateHeaderCartCount(count) {
-    const badge = document.getElementById('cartCount'); // span in header.html
+    const badge = document.getElementById('cartCount'); // badge in header.html
     if (!badge) return;
     badge.textContent = String(count);
   }
@@ -452,7 +448,6 @@
     cartShippingEl.textContent = entries.length ? formatCurrency(SHIPPING, currentCurrency) : formatCurrency(0, currentCurrency);
     cartTotalEl.textContent = formatCurrency(entries.length ? subtotal + SHIPPING : 0, currentCurrency);
 
-    // attach handlers (re-bind each render)
     document.querySelectorAll('.increase').forEach(btn => {
       btn.onclick = () => {
         const id = btn.dataset.id;
@@ -483,7 +478,8 @@
   ['search-input','category-filter','sort-select'].forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
-    el.addEventListener('input', () => { currentPage = 1; renderProducts(); });
+    const eventType = id === 'sort-select' ? 'change' : 'input';
+    el.addEventListener(eventType, () => { currentPage = 1; renderProducts(); });
   });
 
   // currency change
@@ -501,9 +497,20 @@
   renderProducts();
   renderCart();
 
-  // close detail on escape
+  // If coming from shop.html with ?id=pX → open product detail
+  const params = new URLSearchParams(window.location.search);
+  const initialId = params.get('id');
+  if (initialId) {
+    const exists = products.find(p => String(p.id) === String(initialId));
+    if (exists) {
+      // small timeout to ensure grid is rendered
+      setTimeout(() => openProductDetail(initialId), 300);
+    }
+  }
+
+  // close detail on Escape
   document.addEventListener('keydown', (e)=> {
-    if(e.key==='Escape'){
+    if(e.key === 'Escape'){
       if(!detailPanel.classList.contains('hidden')){
         detailPanel.classList.remove('open');
         setTimeout(()=> detailPanel.classList.add('hidden'),280);
@@ -544,8 +551,6 @@
   <!-- Global config & utils -->
   <script src="js/gn-config.js"></script>
   <script src="js/gn-utils.js"></script>
-
-  <!-- Mobile menu etc. -->
   <script src="js/script.js"></script>
 </body>
 </html>

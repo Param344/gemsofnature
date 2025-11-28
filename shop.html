@@ -8,61 +8,30 @@
   <meta name="description" content="Shop gemstones, crystals, and Rudraksha from the unified Gems of Nature collection – carefully selected for healing, prosperity, and spiritual growth." />
   <meta name="keywords" content="shop gemstones, buy crystals online, Rudraksha, healing stones, spiritual crystals, Gems of Nature shop" />
 
-  <!-- Canonical -->
   <link rel="canonical" href="https://www.gemsofnature.shop/shop.html" />
 
-  <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Shop | Gems of Nature" />
-  <meta property="og:description" content="Browse and buy authentic gemstones, crystals, and Rudraksha from the Gems of Nature unified collection." />
-  <meta property="og:url" content="https://www.gemsofnature.shop/shop.html" />
-  <meta property="og:image" content="https://www.gemsofnature.shop/assets/og-image.jpg" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Shop | Gems of Nature" />
-  <meta name="twitter:description" content="Shop healing gemstones, crystals, and Rudraksha from Gems of Nature." />
-  <meta name="twitter:image" content="https://www.gemsofnature.shop/assets/og-image.jpg" />
-
-  <!-- Tailwind + Global Styles (keep consistent with other pages) -->
+  <!-- Tailwind + Global CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preload" href="css/styles.css" as="style" />
   <link rel="stylesheet" href="css/styles.css" />
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Page-specific styles -->
-  <style>
-    .font-montserrat { font-family: 'Montserrat', sans-serif }
-    .fade-in { opacity: 0; transform: translateY(20px); animation: fadeInUp .8s ease forwards }
-    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0) } }
-    .tab-btn:focus { outline: 3px solid rgba(16,185,129,.15); outline-offset: 2px }
-    .product-tile a { transition: all .25s ease-in-out }
-    .product-tile a:hover { transform: translateY(-1px) }
-  </style>
-
-  <!-- Scripts -->
+  <!-- Shared layout (header/footer loader) -->
   <script src="js/layout.js" defer></script>
-  <script src="js/main.js" defer></script>
+
+  <style>
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+  </style>
 </head>
 
 <body class="bg-gray-50 text-gray-800 font-montserrat" data-page="shop">
-  <!-- Include header.html here -->
-  <!-- Example if you’re injecting via JS: <div id="site-header"></div> -->
-
-  <!-- Shared Header injected by layout.js -->
+  <!-- Header -->
   <div id="header"></div>
 
   <main>
     <!-- HERO -->
-    <section class="relative bg-cover bg-center h-[28rem] fade-in" style="background-image:url('images/hero-bg.jpg');">
-      <img src="images/hero-bg.jpg" alt="Healing gemstones and crystals background" loading="lazy" class="hidden">
+    <section class="relative bg-cover bg-center h-[28rem]" style="background-image:url('images/hero-bg.jpg');">
       <div class="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-center text-white px-6">
         <h1 class="text-4xl md:text-5xl font-bold mb-4">Shop Our Gemstones</h1>
         <p class="text-lg md:text-xl max-w-2xl">Find your perfect stone for healing, prosperity, and inner harmony</p>
@@ -70,228 +39,370 @@
       </div>
     </section>
 
-    <!-- FILTERS -->
+    <!-- FILTERS: tabs + search + sort -->
     <section class="py-8 container mx-auto px-6">
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <!-- Category Pills -->
         <div class="overflow-auto">
           <div id="categoryTabs" class="inline-flex gap-2"></div>
         </div>
 
-        <div class="flex items-center gap-2">
-          <input id="shopSearch" type="search" placeholder="Search within category..." class="px-4 py-2 rounded-lg border w-64">
-          <button id="clearFilters" class="px-3 py-2 bg-white border rounded-lg hover:bg-gray-50">Clear</button>
-        </div>
-
+        <!-- Search + Sort -->
         <div class="flex items-center gap-3">
+          <input
+            id="shopSearch"
+            type="search"
+            placeholder="Search gemstones..."
+            class="px-4 py-2 rounded-lg border w-64"
+          />
           <select id="sortSelect" class="px-3 py-2 rounded-lg border">
             <option value="">Sort</option>
-            <option value="low">Price: Low to High</option>
-            <option value="high">Price: High to Low</option>
-            <option value="az">A–Z</option>
-          </select
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="name">A–Z</option>
+          </select>
+          <button
+            id="clearFilters"
+            class="px-3 py-2 bg-white border rounded-lg hover:bg-gray-50 text-sm"
+          >
+            Clear
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- PRODUCT GRID -->
-    <section class="py-6 container mx-auto px-6 fade-in">
-      <div id="productGrid" class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-8"></div>
-      <div id="noResults" class="hidden text-center py-12 text-gray-500">
-        No products found — try clearing filters or select another category.
-      </div>
-    </section>
+    <!-- PRODUCT SECTIONS (rendered by JS) -->
+    <section id="shop-sections" class="max-w-6xl mx-auto px-6 pb-16"></section>
 
-    <!-- WhatsApp Floating Chat Button -->
-    <a href="https://wa.me/917827491801?text=Hi%20Gems%20of%20Nature,%20I%20need%20help%20with%20a%20gemstone."
-       class="fixed bottom-20 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-sm font-semibold transition-all z-50"
-       target="_blank" rel="noopener">
-      <img src="images/social/whatsapp.png" class="w-6 h-6" alt="WhatsApp">
+    <!-- NO RESULTS MESSAGE -->
+    <div id="noResults" class="hidden text-center py-12 text-gray-500 text-lg">
+      No products found — try adjusting filters or search again.
+    </div>
+
+    <!-- WhatsApp Floating Button -->
+    <a
+      href="https://wa.me/917827491801?text=Hi%20Gems%20of%20Nature,%20I%20need%20help%20with%20a%20gemstone."
+      class="fixed bottom-20 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-sm font-semibold transition-all z-50"
+      target="_blank" rel="noopener"
+    >
+      <img src="images/social/whatsapp.png" class="w-6 h-6" alt="WhatsApp" />
       Chat with Us
     </a>
 
-    <!-- Quick View Modal -->
+    <!-- Full-Screen Modal -->
     <div
-  id="quickModal"
-  class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden justify-center items-center z-50">
-  <div id="modalContent" class="bg-white rounded-xl p-6 w-[95%] max-w-2xl shadow-xl"></div>
-</div>
+      id="quickModal"
+      class="fixed inset-0 bg-black/60 hidden items-center justify-center px-4 md:px-6 z-50"
+    >
+      <div
+        id="modalContent"
+        class="bg-white rounded-2xl shadow-xl max-w-5xl w-full max-h-[90vh] overflow-y-auto p-6 md:p-8"
+      ></div>
+    </div>
   </main>
 
-  <!-- Shared Footer injected by layout.js -->
+  <!-- Footer -->
   <div id="footer"></div>
 
-  <!-- Shared layout (header + footer) -->
-  <script src="js/layout.js"></script>
+<!-- Product data -->
+<script src="js/products.js"></script>
+<!-- Extra spiritual meta -->
+<script src="js/product-meta.js"></script>
 
-  <!-- shared product data -->
-  <script src="js/products.js"></script>
+  <!-- Page logic: filters + rendering + modal -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const sectionsEl = document.getElementById("shop-sections");
+      const tabsEl = document.getElementById("categoryTabs");
+      const searchInput = document.getElementById("shopSearch");
+      const sortSelect = document.getElementById("sortSelect");
+      const clearBtn = document.getElementById("clearFilters");
+      const noResults = document.getElementById("noResults");
 
-  <!-- Dynamic Rendering -->
-<script>
-  const productGrid   = document.getElementById('productGrid');
-  const tabsContainer = document.getElementById('categoryTabs');
-  const searchInput   = document.getElementById('shopSearch');
-  const clearBtn      = document.getElementById('clearFilters');
-  const noResults     = document.getElementById('noResults');
+      const categoryOrder = [
+        "Precious",
+        "Opal",
+        "Astrology",
+        "Healing",
+        "Accessory",
+        "Rudraksha",
+        "Raw"
+      ];
 
-  const sortSelect    = document.getElementById('sortSelect');
+      const categoryLabels = {
+        Precious: "Precious Stones",
+        Opal: "Opal Collection",
+        Astrology: "Astrology & Planetary Stones",
+        Healing: "Healing & Chakra Stones",
+        Accessory: "Healing Accessories",
+        Rudraksha: "Rudraksha Collection",
+        Raw: "Raw Crystals & Décor"
+      };
 
-  const categories = [...new Set(window.products.map(p => p.category))];
-  let activeTab = 'All';
+      // filter tabs (what user sees)
+      const filterTabs = [
+        { key: "All", label: "All" },
+        { key: "Precious", label: "Precious" },
+        { key: "Opal", label: "Opal" },
+        { key: "Astrology", label: "Astrology" },
+        { key: "Healing", label: "Healing" },
+        { key: "Accessory", label: "Healing Accessories" },
+        { key: "Rudraksha", label: "Rudraksha" },
+        { key: "Raw", label: "Raw Stones" }
+      ];
 
-  function renderTabs() {
-    tabsContainer.innerHTML = '';
-    ['All', ...categories].forEach(tab => {
-      const btn = document.createElement('button');
-      btn.textContent = tab;
-      btn.className =
-        'tab-btn px-4 py-2 rounded-full border border-gray-200 bg-white text-sm shadow-sm hover:bg-emerald-50 ' +
-        (tab === activeTab ? 'bg-emerald-600 text-black border-emerald-600' : '');
-      btn.addEventListener('click', () => {
-        activeTab = tab;
-        render();
+      let activeFilter = "All";
+      let searchQuery = "";
+      let sortMode = "";
+
+      function renderTabs() {
+        tabsEl.innerHTML = "";
+        filterTabs.forEach((tab) => {
+          const btn = document.createElement("button");
+          const isActive = tab.key === activeFilter;
+
+          btn.textContent = tab.label;
+          btn.className =
+            "px-4 py-2 rounded-full border text-sm whitespace-nowrap shadow-sm transition " +
+            (isActive
+              ? "bg-emerald-600 text-white border-emerald-600"
+              : "bg-white text-gray-700 border-gray-200 hover:bg-emerald-50");
+
+          btn.addEventListener("click", () => {
+            activeFilter = tab.key;
+            renderSections();
+          });
+
+          tabsEl.appendChild(btn);
+        });
+      }
+
+      function getFilteredProducts() {
+        let list = Array.isArray(window.products) ? [...window.products] : [];
+
+        if (searchQuery.trim()) {
+          const q = searchQuery.toLowerCase();
+          list = list.filter((p) => {
+            const name = (p.name || "").toLowerCase();
+            const desc = (p.description || "").toLowerCase();
+            return name.includes(q) || desc.includes(q);
+          });
+        }
+
+        if (sortMode === "price-asc") {
+          list.sort((a, b) => (a.price_min || 0) - (b.price_min || 0));
+        } else if (sortMode === "price-desc") {
+          list.sort((a, b) => (b.price_min || 0) - (a.price_min || 0));
+        } else if (sortMode === "name") {
+          list.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+        }
+
+        return list;
+      }
+
+      function renderSections() {
+        const products = getFilteredProducts();
+        sectionsEl.innerHTML = "";
+        let totalRendered = 0;
+
+        categoryOrder.forEach((cat) => {
+          if (activeFilter !== "All" && activeFilter !== cat) return;
+
+          const inCat = products.filter((p) => p.category === cat);
+          if (!inCat.length) return;
+
+          const section = document.createElement("section");
+          section.className = "mb-10";
+
+          section.innerHTML = `
+            <div class="flex items-baseline justify-between mb-4">
+              <h2 class="text-2xl font-bold text-emerald-800">
+                ${categoryLabels[cat] || cat}
+              </h2>
+              <p class="text-sm text-gray-500">
+                ${inCat.length} item${inCat.length > 1 ? "s" : ""}
+              </p>
+            </div>
+
+            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              ${inCat
+                .map(
+                  (p) => `
+                <article
+                  class="bg-white rounded-xl shadow hover:shadow-md transition cursor-pointer"
+                  onclick="openModal('${p.id}')"
+                >
+                  <img
+                    src="${p.image}"
+                    alt="${(p.name || "").replace(/"/g, "&quot;")}"
+                    class="w-full h-56 object-cover rounded-t-xl"
+                  >
+                  <div class="p-4 flex flex-col gap-2">
+                    <h3 class="font-semibold text-emerald-800 text-lg leading-snug">
+                      ${p.name || ""}
+                    </h3>
+                    <p class="text-sm text-gray-600">
+                      ${p.description || ""}
+                    </p>
+                    <p class="mt-1 text-sm font-semibold text-gray-900">
+                      ₹${(p.price_min || 0).toLocaleString()} – ₹${(p.price_max || 0).toLocaleString()}
+                    </p>
+                  </div>
+                </article>
+              `
+                )
+                .join("")}
+            </div>
+          `;
+
+          sectionsEl.appendChild(section);
+          totalRendered += inCat.length;
+        });
+
+        noResults.classList.toggle("hidden", totalRendered > 0);
+        renderTabs();
+      }
+
+      // Events
+      searchInput.addEventListener("input", (e) => {
+        searchQuery = e.target.value || "";
+        renderSections();
       });
-      tabsContainer.appendChild(btn);
-    });
-  }
 
-  function render() {
-    productGrid.innerHTML = '';
-    const q = (searchInput.value || '').toLowerCase().trim();
+      sortSelect.addEventListener("change", (e) => {
+        sortMode = e.target.value || "";
+        renderSections();
+      });
 
-    const sortVal = sortSelect.value;
+      clearBtn.addEventListener("click", () => {
+        searchQuery = "";
+        sortMode = "";
+        activeFilter = "All";
+        searchInput.value = "";
+        sortSelect.value = "";
+        renderSections();
+      });
 
-    let data = [...window.products];
-
-    // FILTER by category + search
-    data = data.filter(p => {
-      const cat   = p.category || '';
-      const name  = (p.name || '').toLowerCase();
-      const desc  = (p.description || '').toLowerCase();
-
-      const matchCat    = activeTab === 'All' || cat === activeTab;
-      const matchSearch = !q || name.includes(q) || desc.includes(q);
-
-      return matchCat && matchSearch;
+      // First render
+      renderSections();
     });
 
-    // SORT
-    if (sortVal === 'low')  data.sort((a, b) => a.price_min - b.price_min);
-    if (sortVal === 'high') data.sort((a, b) => b.price_min - a.price_min);
-    if (sortVal === 'az')   data.sort((a, b) => a.name.localeCompare(b.name));
-
-    // RENDER
-    let count = 0;
-    data.forEach(p => {
-      const tile = document.createElement('div');
-      tile.className =
-        'product-tile bg-white rounded-2xl shadow-md transition transform duration-300 group overflow-hidden cursor-pointer';
-      tile.innerHTML = `
-        <div onclick="openModal('${p.id}')">
-          <img src="${p.image}" class="w-full h-56 object-cover">
-          <div class="p-6">
-            <h3 class="text-xl font-semibold text-emerald-700">${p.name}</h3>
-            <p class="text-sm text-gray-600 mt-2">${p.description}</p>
-            <p class="text-sm text-gray-800 mt-2 font-semibold">
-              ₹${p.price_min.toLocaleString()} - ₹${p.price_max.toLocaleString()}
-            </p>
-          </div>
-        </div>
-      `;
-      productGrid.appendChild(tile);
-      count++;
-    });
-
-    noResults.classList.toggle('hidden', count > 0);
-    renderTabs();
-  }
-
-  // Wire filters/search to re-render
-  searchInput.addEventListener('input', render);
-  sortSelect.addEventListener('change', render);
-
-  clearBtn.addEventListener('click', () => {
-    searchInput.value = '';
-    sortSelect.value = '';
-    activeTab = 'All';
-    render();
-  });
-
-  // Initial render
-  render();
-</script>
-
-
-  <!-- Quick View Modal Logic -->
-<script>
+    
   function openModal(id) {
-    const p = window.products.find(x => x.id === id);
-    if (!p) return;
+    const base = (window.products || []).find((x) => x.id === id);
+    const meta = (window.productMeta && window.productMeta[id]) || {};
 
-    document.getElementById("modalContent").innerHTML = `
-      <img src="${p.image}" class="w-full h-80 md:h-96 object-cover rounded-lg mb-4">
-      <h2 class="text-2xl md:text-3xl font-bold text-emerald-700">${p.name}</h2>
-      <p class="text-gray-700 mt-2 mb-2 text-sm md:text-base">${p.description}</p>
-      <p class="font-semibold text-lg md:text-xl">
-        ₹${p.price_min.toLocaleString()} - ₹${p.price_max.toLocaleString()}
-      </p>
+    if (!base) return;
 
-      <div class="mt-4 flex flex-col sm:flex-row gap-3">
-        <button
-          onclick="handleAddToCart('${p.id}')"
-          class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold">
-          Add to Cart
-        </button>
-        <a
-          href="cart.html"
-          class="flex-1 text-center border border-emerald-600 text-emerald-700 px-4 py-2 rounded-lg font-semibold hover:bg-emerald-50">
-          View Cart
-        </a>
-      </div>
-
-      <button onclick="closeModal()" class="mt-4 text-sm text-gray-500 underline w-full">
-        Close
-      </button>
-    `;
+    // Merge: meta overrides base if same key exists
+    const p = { ...base, ...meta };
 
     const overlay = document.getElementById("quickModal");
+    const modalBody = document.getElementById("modalContent");
+    if (!overlay || !modalBody) return;
+
+    const mainDesc = p.long_description || p.description || "";
+
+    const priceText =
+      p.price_min && p.price_max
+        ? `₹${p.price_min.toLocaleString()} – ₹${p.price_max.toLocaleString()}`
+        : "";
+
+    // Planet / zodiac / chakra block
+    const zodiacText = Array.isArray(p.zodiac) ? p.zodiac.join(", ") : (p.zodiac || "");
+    const chakraText = Array.isArray(p.chakra) ? p.chakra.join(", ") : (p.chakra || "");
+
+    const infoHtml =
+      p.planet || zodiacText || chakraText
+        ? `
+      <div class="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs md:text-sm text-gray-700">
+        ${p.planet ? `<div><span class="font-semibold">Planet:</span> ${p.planet}</div>` : ""}
+        ${zodiacText ? `<div><span class="font-semibold">Zodiac:</span> ${zodiacText}</div>` : ""}
+        ${chakraText ? `<div><span class="font-semibold">Chakra:</span> ${chakraText}</div>` : ""}
+      </div>
+    `
+        : "";
+
+    const benefitsHtml =
+      Array.isArray(p.benefits) && p.benefits.length
+        ? `
+      <h3 class="mt-4 font-semibold text-emerald-700 text-sm md:text-base">Key Benefits</h3>
+      <ul class="list-disc pl-5 text-sm text-gray-700 space-y-1 mt-1">
+        ${p.benefits.map((b) => `<li>${b}</li>`).join("")}
+      </ul>
+    `
+        : "";
+
+    const mantraParts = [];
+    if (p.mantra_sanskrit) mantraParts.push(`<div class="font-semibold">${p.mantra_sanskrit}</div>`);
+    if (p.mantra_english) mantraParts.push(`<div class="text-sm text-gray-700">${p.mantra_english}</div>`);
+
+    const mantraHtml =
+      mantraParts.length
+        ? `
+      <div class="mt-4">
+        <div class="text-sm font-semibold text-emerald-700 mb-1">Recommended Mantra</div>
+        ${mantraParts.join("")}
+      </div>
+    `
+        : "";
+
+    modalBody.innerHTML = `
+      <button
+        onclick="closeModal()"
+        class="text-right text-gray-500 hover:text-gray-800 w-full mb-2 text-sm"
+      >
+        ✕ Close
+      </button>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <img
+          src="${p.image}"
+          class="w-full h-80 md:h-96 object-cover rounded-lg"
+          alt="${(p.name || "").replace(/"/g, "&quot;")}"
+        >
+
+        <div>
+          <h2 class="text-2xl md:text-3xl font-bold text-emerald-700">
+            ${p.name || ""}
+          </h2>
+
+          <p class="mt-2 text-sm md:text-base text-gray-700">
+            ${mainDesc}
+          </p>
+
+          ${
+            priceText
+              ? `<p class="mt-3 font-semibold text-lg md:text-xl text-gray-900">${priceText}</p>`
+              : ""
+          }
+
+          ${infoHtml}
+          ${benefitsHtml}
+          ${mantraHtml}
+
+          <div class="mt-6 flex flex-col sm:flex-row gap-3">
+            <a
+              href="shop-ecom.html?id=${p.id}"
+              class="flex-1 inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold"
+            >
+              Visit Online Store
+            </a>
+          </div>
+        </div>
+      </div>
+    `;
+
     overlay.classList.remove("hidden");
-    overlay.classList.add("flex"); // make it flex so content is centered
+    overlay.classList.add("flex");
   }
 
   function closeModal() {
     const overlay = document.getElementById("quickModal");
+    if (!overlay) return;
     overlay.classList.add("hidden");
     overlay.classList.remove("flex");
   }
-
-  // Called from the modal button
-  function handleAddToCart(id) {
-    if (!window.GONCart || typeof GONCart.addToCart !== 'function') {
-      console.error('Cart system not loaded');
-      return;
-    }
-
-    GONCart.addToCart(id, 1);
-    GONCart.updateBadge?.();
-
-    alert('Added to cart!');
-  }
 </script>
-
-     <!-- Global config & utils -->
-<script src="js/gn-config.js"></script>
-<script src="js/gn-utils.js"></script>
-
-<!-- Shared layout -->
-<script src="js/layout.js"></script>
-
-<!-- Cart System -->
-<script src="js/gn-cart.js"></script>
-
-<!-- Product / page logic -->
-<script src="js/products.js"></script>
-<script src="js/script.js"></script>
 </body>
 </html>
-
