@@ -115,7 +115,7 @@ window.products = [
   },
   {
     id: "p58",
-    name: "White Sapphire (Natural)",
+    name: "White Sapphire (Shvet Pukhraj)",
     category: "Precious",
     image: "images/products/white-sapphire.jpg",
     price_min: 800,
@@ -130,15 +130,6 @@ window.products = [
     price_min: 15000,
     price_max: 120000,
     description: "Romantic sapphire for love, grace and refined luxury jewellery."
-  },
-  {
-    id: "p112",
-    name: "Multi-Colour Sapphire",
-    category: "Precious",
-    image: "images/products/multicolour-sapphire.jpg",
-    price_min: 12000,
-    price_max: 150000,
-    description: "Teal, parti and bi-colour sapphires for unique premium designs."
   },
 
   // =====================
@@ -170,24 +161,6 @@ window.products = [
     price_min: 2000,
     price_max: 20000,
     description: "Fiery red-orange opal associated with passion and creativity."
-  },
-  {
-    id: "p115",
-    name: "Ethiopian Opal",
-    category: "Opal",
-    image: "images/products/ethiopian-opal.jpg",
-    price_min: 4000,
-    price_max: 40000,
-    description: "Brilliant hydrophane opal with vivid internal flashes."
-  },
-  {
-    id: "p116",
-    name: "Australian Opal",
-    category: "Opal",
-    image: "images/products/australian-opal.jpg",
-    price_min: 5000,
-    price_max: 50000,
-    description: "Classic Australian opal prized for stable and strong colour play."
   },
   {
     id: "p117",
@@ -319,6 +292,16 @@ window.products = [
     price_max: 40000,
     description: "Mars gemstone for courage, vitality and action in career and defence."
   },
+    {
+    id: "p120",
+    name: "Red Coral (Japanese)",
+    category: "Astrology",
+    image: "images/products/coral-japanese.jpg",
+    price_min: 5000,
+    price_max: 40000,
+    description: "Mars gemstone for courage, vitality and action in career and defence."
+  },
+
 
   // =====================
   // HEALING & CHAKRA STONES
@@ -688,33 +671,6 @@ window.products = [
     description: "Grounded confidence and willpower enhancement bracelet."
   },
   {
-    id: "p127",
-    name: "Amethyst Pendant",
-    category: "Accessory",
-    image: "images/products/pendant-amethyst.jpg",
-    price_min: 500,
-    price_max: 4000,
-    description: "Intuition-boosting amethyst pendant for daily wear."
-  },
-  {
-    id: "p128",
-    name: "Rose Quartz Pendant",
-    category: "Accessory",
-    image: "images/products/pendant-rose-quartz.jpg",
-    price_min: 500,
-    price_max: 4000,
-    description: "Heart-healing pendant for love and emotional comfort."
-  },
-  {
-    id: "p129",
-    name: "Clear Quartz Pendant",
-    category: "Accessory",
-    image: "images/products/pendant-clear-quartz.jpg",
-    price_min: 400,
-    price_max: 3500,
-    description: "Amplifier pendant to boost any intention or mantra."
-  },
-  {
     id: "p130",
     name: "7 Chakra Stone Set",
     category: "Accessory",
@@ -758,15 +714,6 @@ window.products = [
     price_min: 500,
     price_max: 3500,
     description: "Energy-clearing wand for aura brushing and space cleansing."
-  },
-  {
-    id: "p135",
-    name: "Charging Plate (Selenite / Quartz)",
-    category: "Accessory",
-    image: "images/products/charging-plate.jpg",
-    price_min: 700,
-    price_max: 5000,
-    description: "Plate for cleansing and recharging crystals and jewellery."
   },
   {
     id: "p136",
