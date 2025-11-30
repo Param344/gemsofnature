@@ -68,6 +68,36 @@
     }
 
     .muted { color:#6b7280; font-size:0.95rem; }
+
+    /* Filter pills */
+.filter-pill {
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  padding: 0.4rem 0.95rem;
+  background: #ffffff;
+  font-size: 0.8rem;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.filter-pill span.arrow {
+  font-size: 0.6rem;
+  line-height: 1;
+}
+.filter-pill:hover {
+  background: #065f46;
+  border-color: #065f46;
+  color: #ffffff;
+}
+.filter-pill.active {
+  background: #065f46;
+  border-color: #065f46;
+  color: #ffffff;
+}
+
   </style>
 
   <!-- Shared layout (header/footer) -->
@@ -88,44 +118,33 @@
     </div>
   </section>
 
-  <!-- MAIN -->
+    <!-- MAIN -->
   <main class="container mx-auto px-4 py-10 fade-in">
-    <div class="lg:flex lg:gap-8">
+    <!-- Filters block -->
+    <div class="bg-white rounded-2xl shadow p-4 mb-6 flex flex-col gap-3">
 
-      <!-- LEFT: Filters + Grid -->
-      <div class="flex-1">
-        <!-- Filters bar -->
-        <div class="bg-white rounded-2xl shadow p-4 mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <div class="flex items-center gap-3">
-            <input
-              id="search-input"
-              type="search"
-              placeholder="Search gemstones, crystals or Rudraksha"
-              class="border rounded px-3 py-2 w-72"
-            />
+      <!-- Row 1: search (left) + sort + currency (right) -->
+      <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <div class="flex-1">
+          <input
+            id="search-input"
+            type="search"
+            placeholder="Search gemstones, crystals or Rudraksha"
+            class="border rounded-full px-4 py-2 w-full text-sm"
+          />
+        </div>
 
-            <select id="category-filter" class="border rounded px-2 py-2 text-sm">
-              <option value="all">All categories</option>
-              <option value="Precious">Precious</option>
-              <option value="Opal">Opal</option>
-              <option value="Astrology">Astrology</option>
-              <option value="Healing">Healing</option>
-              <option value="Accessory">Healing Accessories</option>
-              <option value="Rudraksha">Rudraksha</option>
-              <option value="Raw">Raw Stones</option>
-            </select>
+        <div class="flex items-center gap-3 justify-end">
+          <select id="sort-select" class="border rounded-full px-3 py-2 text-sm">
+            <option value="default">Sort: Featured</option>
+            <option value="price-asc">Price: Low → High</option>
+            <option value="price-desc">Price: High → Low</option>
+            <option value="name">A–Z</option>
+          </select>
 
-            <select id="sort-select" class="border rounded px-2 py-2 text-sm">
-              <option value="default">Sort: Featured</option>
-              <option value="price-asc">Price: Low → High</option>
-              <option value="price-desc">Price: High → Low</option>
-              <option value="name">A–Z</option>
-            </select>
-          </div>
-
-          <div class="flex items-center gap-3">
-            <label class="text-sm text-gray-600">Currency</label>
-            <select id="currency-select" class="border rounded px-2 py-1 text-sm">
+          <div class="flex items-center gap-2">
+            <span class="text-sm text-gray-600">Currency</span>
+            <select id="currency-select" class="border rounded-full px-3 py-2 text-sm">
               <option value="INR">₹ INR</option>
               <option value="USD">$ USD</option>
               <option value="EUR">€ EUR</option>
@@ -133,42 +152,56 @@
             </select>
           </div>
         </div>
-
-        <!-- Products grid -->
-        <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6"></div>
-
-        <!-- pagination -->
-        <div id="pagination" class="mt-6 flex items-center justify-center gap-2"></div>
       </div>
 
-      <!-- RIGHT: Cart -->
-      <aside id="cart-sidebar" class="w-full lg:w-96 bg-white rounded-2xl shadow-md p-6 mt-6 lg:mt-0">
-        <h3 class="text-xl font-semibold text-emerald-700">
-          Your Cart <span id="cart-count" class="ml-2 inline-block bg-emerald-100 text-emerald-700 text-sm px-2 py-0.5 rounded">0</span>
-        </h3>
-        <div id="cart-items" class="mt-4 space-y-4 max-h-72 overflow-auto">
-          <!-- cart items injected here -->
-        </div>
+      <!-- Hidden category select (used by JS) -->
+      <select id="category-filter" class="hidden">
+        <option value="all">All categories</option>
+        <option value="Precious">Precious</option>
+        <option value="Opal">Opal</option>
+        <option value="Astrology">Astrology</option>
+        <option value="Healing">Healing</option>
+        <option value="Accessory">Healing Accessories</option>
+        <option value="Rudraksha">Rudraksha</option>
+        <option value="Raw">Raw Stones</option>
+      </select>
 
-        <div class="mt-4 border-t pt-4">
-          <div class="flex justify-between text-gray-700">
-            <span class="font-medium">Subtotal</span>
-            <span id="cart-subtotal">₹0</span>
-          </div>
-          <div class="flex justify-between text-gray-700 mt-2">
-            <span class="font-medium">Shipping</span>
-            <span id="cart-shipping">₹50</span>
-          </div>
-          <div class="flex justify-between text-lg font-semibold text-emerald-800 mt-3">
-            <span>Total</span>
-            <span id="cart-total">₹0</span>
-          </div>
+      <!-- Row 2: pill filters -->
+      <div class="flex flex-wrap gap-2 pt-1">
+        <button class="filter-pill active" type="button" data-category="all">
+          All categories <span class="arrow">&#9662;</span>
+        </button>
+        <button class="filter-pill" type="button" data-filter="price">
+          Price <span class="arrow">&#9662;</span>
+        </button>
+        <button class="filter-pill" type="button" data-filter="price-per-carat">
+          Price per Carat <span class="arrow">&#9662;</span>
+        </button>
+        <button class="filter-pill" type="button" data-filter="weight-carat">
+          Weight (Carat) <span class="arrow">&#9662;</span>
+        </button>
+        <button class="filter-pill" type="button" data-filter="weight-ratti">
+          Weight (Ratti) <span class="arrow">&#9662;</span>
+        </button>
+        <button class="filter-pill" type="button" data-filter="certification">
+          Certification <span class="arrow">&#9662;</span>
+        </button>
+        <button class="filter-pill" type="button" data-filter="origin">
+          Origin <span class="arrow">&#9662;</span>
+        </button>
+      </div>
 
-          <button id="checkout-button" class="mt-4 w-full bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg">Checkout</button>
-          <button id="clear-cart" class="mt-3 w-full border border-gray-200 text-gray-700 px-4 py-2 rounded-lg">Clear Cart</button>
-        </div>
-      </aside>
-    </div>
+            <!-- Filter dropdown panel -->
+      <div id="filter-panel"
+           class="mt-3 hidden bg-white border border-gray-200 rounded-2xl shadow-lg p-4 text-sm">
+      </div>
+
+
+    <!-- Products grid -->
+    <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+
+    <!-- pagination -->
+    <div id="pagination" class="mt-6 flex items-center justify-center gap-2"></div>
   </main>
 
   <!-- PRODUCT DETAIL (slide-in) -->
@@ -220,6 +253,24 @@
   let cart = JSON.parse(localStorage.getItem('gon_cart') || '{}');
   const SHIPPING = 50;
 
+  // extra filter state for pills
+  const filterState = {
+    priceMin: null,
+    priceMax: null,
+    ppcMin: null,
+    ppcMax: null,
+    wtMin: null,
+    wtMax: null,
+    rattiMin: null,
+    rattiMax: null,
+    certs: [],
+    origins: []
+  };
+
+  // precompute unique certifications & origins (if present in data)
+  const uniqueCerts = [...new Set(products.map(p => p.certification).filter(Boolean))];
+  const uniqueOrigins = [...new Set(products.map(p => p.origin).filter(Boolean))];
+
   function formatCurrency(value, currency='INR'){
     if (value==null) return '';
     if (currency==='INR') return '₹' + Number(value).toLocaleString('en-IN');
@@ -270,14 +321,48 @@
 
   function applyFilters(){
     const q = (document.getElementById('search-input').value || '').toLowerCase();
-    const cat = document.getElementById('category-filter').value;
+    const catSelect = document.getElementById('category-filter');
+    const cat = catSelect ? catSelect.value : 'all';
     const sort = document.getElementById('sort-select').value;
 
     let out = products.filter(p => {
+      // category
       if (cat !== 'all' && p.category !== cat) return false;
+
+      // search text
       if (q && !(p.name.toLowerCase().includes(q) ||
                  (p.description || '').toLowerCase().includes(q) ||
                  (p.category || '').toLowerCase().includes(q))) return false;
+
+      // numeric filters
+      const price = getProductPrice(p);
+      if (filterState.priceMin != null && price < filterState.priceMin) return false;
+      if (filterState.priceMax != null && price > filterState.priceMax) return false;
+
+      const ppc = p.price_per_carat || p.ppc;
+      if (filterState.ppcMin != null && (ppc == null || ppc < filterState.ppcMin)) return false;
+      if (filterState.ppcMax != null && (ppc == null || ppc > filterState.ppcMax)) return false;
+
+      const wt = p.weight_carat || p.carat || p.weight;
+      if (filterState.wtMin != null && (wt == null || wt < filterState.wtMin)) return false;
+      if (filterState.wtMax != null && (wt == null || wt > filterState.wtMax)) return false;
+
+      const rt = p.weight_ratti || p.ratti;
+      if (filterState.rattiMin != null && (rt == null || rt < filterState.rattiMin)) return false;
+      if (filterState.rattiMax != null && (rt == null || rt > filterState.rattiMax)) return false;
+
+      // certification
+      if (filterState.certs.length) {
+        const certVal = p.certification ? String(p.certification) : '';
+        if (!filterState.certs.includes(certVal)) return false;
+      }
+
+      // origin
+      if (filterState.origins.length) {
+        const originVal = p.origin ? String(p.origin) : '';
+        if (!filterState.origins.includes(originVal)) return false;
+      }
+
       return true;
     });
 
@@ -294,7 +379,7 @@
     if (pages <= 1) return;
     for(let i=1;i<=pages;i++){
       const btn = document.createElement('button');
-      btn.className = `px-3 py-1 rounded ${i===currentPage? 'bg-emerald-600 text-white' : 'bg-white border'}`;
+      btn.className = `px-3 py-1 rounded ${i===currentPage ? 'bg-emerald-600 text-white' : 'bg-white border'}`;
       btn.textContent = i;
       btn.onclick = () => {
         currentPage = i;
@@ -313,6 +398,276 @@
     const pageItems = filtered.slice(start, start+ITEMS_PER_PAGE);
     pageItems.forEach(p => grid.appendChild(renderProductCard(p)));
     renderPagination(Math.ceil(filtered.length/ITEMS_PER_PAGE));
+  }
+
+  // ---------- Filter pill dropdown logic ----------
+  const filterPanel = document.getElementById('filter-panel');
+  const filterPills = document.querySelectorAll('.filter-pill');
+
+  filterPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      if (!filterPanel) return;
+
+      const type = pill.dataset.filter || pill.dataset.category || '';
+
+      // toggle same panel (close if already open)
+      if (!filterPanel.classList.contains('hidden') && filterPanel.dataset.type === type) {
+        filterPanel.classList.add('hidden');
+        return;
+      }
+
+      filterPanel.dataset.type = type;
+      renderFilterPanel(type);
+      filterPanel.classList.remove('hidden');
+    });
+  });
+
+  function renderFilterPanel(type) {
+    if (!filterPanel) return;
+    const catSelect = document.getElementById('category-filter');
+
+    // category
+    if (type === 'all' || type === 'category') {
+      filterPanel.innerHTML = `
+        <div class="grid grid-cols-2 gap-2">
+          <button class="cat-option border rounded-lg px-3 py-1 text-left text-sm" data-value="all">All categories</button>
+          <button class="cat-option border rounded-lg px-3 py-1 text-left text-sm" data-value="Precious">Precious</button>
+          <button class="cat-option border rounded-lg px-3 py-1 text-left text-sm" data-value="Opal">Opal</button>
+          <button class="cat-option border rounded-lg px-3 py-1 text-left text-sm" data-value="Astrology">Astrology</button>
+          <button class="cat-option border rounded-lg px-3 py-1 text-left text-sm" data-value="Healing">Healing</button>
+          <button class="cat-option border rounded-lg px-3 py-1 text-left text-sm" data-value="Accessory">Accessories</button>
+          <button class="cat-option border rounded-lg px-3 py-1 text-left text-sm" data-value="Rudraksha">Rudraksha</button>
+          <button class="cat-option border rounded-lg px-3 py-1 text-left text-sm" data-value="Raw">Raw stones</button>
+        </div>
+      `;
+
+      filterPanel.querySelectorAll('.cat-option').forEach(btn => {
+        btn.onclick = () => {
+          const value = btn.dataset.value;
+          if (catSelect) catSelect.value = value;
+
+          const catPill = document.querySelector('.filter-pill[data-category]');
+          if (catPill) {
+            const label = value === 'all' ? 'All categories' : btn.textContent;
+            catPill.innerHTML = label + ' <span class="arrow">&#9662;</span>';
+          }
+
+          currentPage = 1;
+          renderProducts();
+          filterPanel.classList.add('hidden');
+        };
+      });
+
+      return;
+    }
+
+    // helper to build numeric panel
+    function buildNumericPanel(idBase, title, minVal, maxVal) {
+      filterPanel.innerHTML = `
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs text-gray-500">Min</label>
+            <input id="${idBase}-min" type="number"
+                   class="mt-1 w-full border rounded-lg px-2 py-1 text-sm"
+                   value="${minVal ?? ''}" />
+          </div>
+          <div>
+            <label class="text-xs text-gray-500">Max</label>
+            <input id="${idBase}-max" type="number"
+                   class="mt-1 w-full border rounded-lg px-2 py-1 text-sm"
+                   value="${maxVal ?? ''}" />
+          </div>
+        </div>
+        <div class="mt-3 flex justify-end gap-2">
+          <button id="${idBase}-clear" class="px-3 py-1 border rounded-lg text-xs">Clear</button>
+          <button id="${idBase}-apply" class="px-3 py-1 bg-emerald-600 text-white rounded-lg text-xs">Apply</button>
+        </div>
+      `;
+    }
+
+    // build panels by type
+    if (type === 'price') {
+      buildNumericPanel('filter-price', 'Price', filterState.priceMin, filterState.priceMax);
+
+      const minInput = document.getElementById('filter-price-min');
+      const maxInput = document.getElementById('filter-price-max');
+      document.getElementById('filter-price-apply').onclick = () => {
+        filterState.priceMin = minInput.value ? Number(minInput.value) : null;
+        filterState.priceMax = maxInput.value ? Number(maxInput.value) : null;
+        currentPage = 1;
+        renderProducts();
+        filterPanel.classList.add('hidden');
+      };
+      document.getElementById('filter-price-clear').onclick = () => {
+        filterState.priceMin = null;
+        filterState.priceMax = null;
+        minInput.value = '';
+        maxInput.value = '';
+        currentPage = 1;
+        renderProducts();
+        filterPanel.classList.add('hidden');
+      };
+      return;
+    }
+
+    if (type === 'price-per-carat') {
+      buildNumericPanel('filter-ppc', 'Price per Carat', filterState.ppcMin, filterState.ppcMax);
+
+      const minInput = document.getElementById('filter-ppc-min');
+      const maxInput = document.getElementById('filter-ppc-max');
+      document.getElementById('filter-ppc-apply').onclick = () => {
+        filterState.ppcMin = minInput.value ? Number(minInput.value) : null;
+        filterState.ppcMax = maxInput.value ? Number(maxInput.value) : null;
+        currentPage = 1;
+        renderProducts();
+        filterPanel.classList.add('hidden');
+      };
+      document.getElementById('filter-ppc-clear').onclick = () => {
+        filterState.ppcMin = null;
+        filterState.ppcMax = null;
+        minInput.value = '';
+        maxInput.value = '';
+        currentPage = 1;
+        renderProducts();
+        filterPanel.classList.add('hidden');
+      };
+      return;
+    }
+
+    if (type === 'weight-carat') {
+      buildNumericPanel('filter-wt', 'Weight (Carat)', filterState.wtMin, filterState.wtMax);
+
+      const minInput = document.getElementById('filter-wt-min');
+      const maxInput = document.getElementById('filter-wt-max');
+      document.getElementById('filter-wt-apply').onclick = () => {
+        filterState.wtMin = minInput.value ? Number(minInput.value) : null;
+        filterState.wtMax = maxInput.value ? Number(maxInput.value) : null;
+        currentPage = 1;
+        renderProducts();
+        filterPanel.classList.add('hidden');
+      };
+      document.getElementById('filter-wt-clear').onclick = () => {
+        filterState.wtMin = null;
+        filterState.wtMax = null;
+        minInput.value = '';
+        maxInput.value = '';
+        currentPage = 1;
+        renderProducts();
+        filterPanel.classList.add('hidden');
+      };
+      return;
+    }
+
+    if (type === 'weight-ratti') {
+      buildNumericPanel('filter-ratti', 'Weight (Ratti)', filterState.rattiMin, filterState.rattiMax);
+
+      const minInput = document.getElementById('filter-ratti-min');
+      const maxInput = document.getElementById('filter-ratti-max');
+      document.getElementById('filter-ratti-apply').onclick = () => {
+        filterState.rattiMin = minInput.value ? Number(minInput.value) : null;
+        filterState.rattiMax = maxInput.value ? Number(maxInput.value) : null;
+        currentPage = 1;
+        renderProducts();
+        filterPanel.classList.add('hidden');
+      };
+      document.getElementById('filter-ratti-clear').onclick = () => {
+        filterState.rattiMin = null;
+        filterState.rattiMax = null;
+        minInput.value = '';
+        maxInput.value = '';
+        currentPage = 1;
+        renderProducts();
+        filterPanel.classList.add('hidden');
+      };
+      return;
+    }
+
+    if (type === 'certification') {
+      if (!uniqueCerts.length) {
+        filterPanel.innerHTML = '<p class="text-xs text-gray-500">No certification data available.</p>';
+        return;
+      }
+
+      filterPanel.innerHTML = `
+        <div class="space-y-2 max-h-60 overflow-auto">
+          ${uniqueCerts.map(c => `
+            <label class="flex items-center gap-2 text-sm">
+              <input type="checkbox" class="cert-checkbox"
+                     value="${c}"
+                     ${filterState.certs.includes(String(c)) ? 'checked' : ''} />
+              <span>${c}</span>
+            </label>
+          `).join('')}
+        </div>
+        <div class="mt-3 flex justify-end gap-2">
+          <button id="filter-cert-clear" class="px-3 py-1 border rounded-lg text-xs">Clear</button>
+          <button id="filter-cert-apply" class="px-3 py-1 bg-emerald-600 text-white rounded-lg text-xs">Apply</button>
+        </div>
+      `;
+
+      document.getElementById('filter-cert-apply').onclick = () => {
+        const checks = filterPanel.querySelectorAll('.cert-checkbox');
+        filterState.certs = Array.from(checks)
+          .filter(ch => ch.checked)
+          .map(ch => String(ch.value));
+        currentPage = 1;
+        renderProducts();
+        filterPanel.classList.add('hidden');
+      };
+      document.getElementById('filter-cert-clear').onclick = () => {
+        filterState.certs = [];
+        currentPage = 1;
+        renderProducts();
+        filterPanel.classList.add('hidden');
+      };
+      return;
+    }
+
+    if (type === 'origin') {
+      if (!uniqueOrigins.length) {
+        filterPanel.innerHTML = '<p class="text-xs text-gray-500">No origin data available.</p>';
+        return;
+      }
+
+      filterPanel.innerHTML = `
+        <div class="space-y-2 max-h-60 overflow-auto">
+          ${uniqueOrigins.map(o => `
+            <label class="flex items-center gap-2 text-sm">
+              <input type="checkbox" class="origin-checkbox"
+                     value="${o}"
+                     ${filterState.origins.includes(String(o)) ? 'checked' : ''} />
+              <span>${o}</span>
+            </label>
+          `).join('')}
+        </div>
+        <div class="mt-3 flex justify-end gap-2">
+          <button id="filter-origin-clear" class="px-3 py-1 border rounded-lg text-xs">Clear</button>
+          <button id="filter-origin-apply" class="px-3 py-1 bg-emerald-600 text-white rounded-lg text-xs">Apply</button>
+        </div>
+      `;
+
+      document.getElementById('filter-origin-apply').onclick = () => {
+        const checks = filterPanel.querySelectorAll('.origin-checkbox');
+        filterState.origins = Array.from(checks)
+          .filter(ch => ch.checked)
+          .map(ch => String(ch.value));
+        currentPage = 1;
+        renderProducts();
+        filterPanel.classList.add('hidden');
+      };
+      document.getElementById('filter-origin-clear').onclick = () => {
+        filterState.origins = [];
+        currentPage = 1;
+        renderProducts();
+        filterPanel.classList.add('hidden');
+      };
+      return;
+    }
+
+    // fallback
+    filterPanel.innerHTML = `
+      <p class="text-xs text-gray-500 mb-1">Filter coming soon.</p>
+    `;
   }
 
   // product card interactions
@@ -374,15 +729,7 @@
     setTimeout(()=> detailAdd.textContent='Add to Cart',900);
   });
 
-  // cart functions
-  const cartItemsEl = document.getElementById('cart-items');
-  const cartCountEl = document.getElementById('cart-count');
-  const cartSubtotalEl = document.getElementById('cart-subtotal');
-  const cartShippingEl = document.getElementById('cart-shipping');
-  const cartTotalEl = document.getElementById('cart-total');
-  const checkoutBtn = document.getElementById('checkout-button');
-  const clearCartBtn = document.getElementById('clear-cart');
-
+  // header cart badge & mini cart
   function updateHeaderCartCount(count) {
     const badge = document.getElementById('cartCount'); // badge in header.html
     if (!badge) return;
@@ -395,91 +742,83 @@
   }
 
   function renderCart(){
-    cartItemsEl.innerHTML = '';
+    // always grab latest elements (header loads asynchronously)
+    const cartMiniItemsEl = document.getElementById('cart-items-mini');
+    const cartTotalMiniEl = document.getElementById('cart-total-mini');
+    const clearCartMiniBtn = document.getElementById('clear-cart-mini');
+
     const entries = Object.entries(cart || {});
     let subtotal = 0;
 
+    // reset mini-cart list
+    if (cartMiniItemsEl) {
+      cartMiniItemsEl.innerHTML = '';
+    }
+
     if (entries.length === 0) {
-      cartItemsEl.innerHTML = '<p class="text-gray-600">Your cart is empty.</p>';
-      cartCountEl.textContent = '0';
+      if (cartMiniItemsEl) {
+        cartMiniItemsEl.innerHTML = '<p class="text-sm text-gray-600">Your cart is empty.</p>';
+      }
+      if (cartTotalMiniEl) cartTotalMiniEl.textContent = '₹0';
       updateHeaderCartCount(0);
-    } else {
-      entries.forEach(([pid, qty]) => {
-        const prod =
-          products.find(p => String(p.id) === String(pid)) ||
-          { name: pid, price: 0, image: 'images/placeholder.jpg' };
+      return;
+    }
 
-        const price = getProductPrice(prod);
-        subtotal += price * qty;
+    // there ARE items
+    entries.forEach(([pid, qty]) => {
+      const prod =
+        products.find(p => String(p.id) === String(pid)) ||
+        { name: pid, price: 0, image: 'images/placeholder.jpg' };
 
+      const price = getProductPrice(prod);
+      subtotal += price * qty;
+
+      if (cartMiniItemsEl) {
         const item = document.createElement('div');
-        item.className = 'flex items-center gap-3 py-2';
+        item.className = 'flex items-center justify-between gap-2 py-1 border-b border-gray-100 last:border-b-0';
         item.innerHTML = `
-          <div class="h-14 w-14 flex-shrink-0">
-            <img src="${prod.image || 'images/placeholder.jpg'}"
-                 onerror="this.src='images/placeholder.jpg'"
-                 class="h-14 w-14 object-cover rounded"/>
-          </div>
           <div class="flex-1">
-            <div class="text-sm font-medium">${prod.name || pid}</div>
-            <div class="text-xs text-gray-500">
-              ${formatCurrency(price, currentCurrency)} ×
-              <span class="qty-num" data-id="${pid}">${qty}</span>
-            </div>
-            <div class="mt-1 flex items-center gap-2">
-              <button class="decrease text-sm px-2 py-1 border rounded" data-id="${pid}" aria-label="Decrease quantity">-</button>
-              <button class="increase text-sm px-2 py-1 border rounded" data-id="${pid}" aria-label="Increase quantity">+</button>
-              <button class="remove ml-3 text-xs text-red-600" data-id="${pid}" aria-label="Remove item">Remove</button>
-            </div>
+            <div class="text-xs font-medium text-gray-800">${prod.name || pid}</div>
+            <div class="text-[11px] text-gray-500">${qty} × ${formatCurrency(price, currentCurrency)}</div>
           </div>
-          <div class="text-sm font-semibold">
+          <div class="text-xs font-semibold text-gray-800">
             ${formatCurrency(price * qty, currentCurrency)}
           </div>
         `;
-        cartItemsEl.appendChild(item);
-      });
+        cartMiniItemsEl.appendChild(item);
+      }
+    });
 
-      const count = entries.reduce((s, [, q]) => s + Number(q || 0), 0);
-      cartCountEl.textContent = String(count);
-      updateHeaderCartCount(count);
+    const count = entries.reduce((s, [, q]) => s + Number(q || 0), 0);
+    updateHeaderCartCount(count);
+
+    const total = subtotal + SHIPPING;
+    if (cartTotalMiniEl) {
+      cartTotalMiniEl.textContent = formatCurrency(total, currentCurrency);
     }
 
-    cartSubtotalEl.textContent = formatCurrency(subtotal, currentCurrency);
-    cartShippingEl.textContent = entries.length ? formatCurrency(SHIPPING, currentCurrency) : formatCurrency(0, currentCurrency);
-    cartTotalEl.textContent = formatCurrency(entries.length ? subtotal + SHIPPING : 0, currentCurrency);
-
-    document.querySelectorAll('.increase').forEach(btn => {
-      btn.onclick = () => {
-        const id = btn.dataset.id;
-        cart[id] = (cart[id] || 0) + 1;
-        saveCart();
-      };
-    });
-
-    document.querySelectorAll('.decrease').forEach(btn => {
-      btn.onclick = () => {
-        const id = btn.dataset.id;
-        cart[id] = Math.max(0, (cart[id] || 0) - 1);
-        if (cart[id] === 0) delete cart[id];
-        saveCart();
-      };
-    });
-
-    document.querySelectorAll('.remove').forEach(btn => {
-      btn.onclick = () => {
-        const id = btn.dataset.id;
-        delete cart[id];
-        saveCart();
-      };
-    });
+    // wire up "Clear Cart" button once header exists
+    if (clearCartMiniBtn && !clearCartMiniBtn.dataset.bound) {
+      clearCartMiniBtn.dataset.bound = '1';
+      clearCartMiniBtn.addEventListener('click', function () {
+        if (!confirm('Clear your cart?')) return;
+        cart = {};
+        localStorage.setItem('gon_cart', JSON.stringify({}));
+        renderCart();
+      });
+    }
   }
 
+
   // search / filter events
-  ['search-input','category-filter','sort-select'].forEach(id => {
+  ['search-input','sort-select'].forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
     const eventType = id === 'sort-select' ? 'change' : 'input';
-    el.addEventListener(eventType, () => { currentPage = 1; renderProducts(); });
+    el.addEventListener(eventType, () => {
+      currentPage = 1;
+      renderProducts();
+    });
   });
 
   // currency change
@@ -503,7 +842,6 @@
   if (initialId) {
     const exists = products.find(p => String(p.id) === String(initialId));
     if (exists) {
-      // small timeout to ensure grid is rendered
       setTimeout(() => openProductDetail(initialId), 300);
     }
   }
@@ -517,27 +855,6 @@
       }
     }
   });
-
-  // Checkout button → go to checkout.html
-  if (checkoutBtn) {
-    checkoutBtn.addEventListener('click', function () {
-      if (!cart || Object.keys(cart).length === 0) {
-        alert('Your cart is empty.');
-        return;
-      }
-      window.location.href = 'checkout.html';
-    });
-  }
-
-  // Clear cart button
-  if (clearCartBtn) {
-    clearCartBtn.addEventListener('click', function () {
-      if (!confirm('Clear your cart?')) return;
-      cart = {};
-      localStorage.setItem('gon_cart', JSON.stringify({}));
-      renderCart();
-    });
-  }
   </script>
 
   <!-- WhatsApp Floating Chat Button -->
