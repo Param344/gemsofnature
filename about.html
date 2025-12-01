@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
-        content="Gems of Nature - Healing gemstones, crystals, and natural energy stones for wellness, prosperity, and spiritual growth." />
+        content="Gems of Nature - Ethically sourced gemstones and Rudraksha, curated with care for healing, jewellery and meaningful gifts." />
   <meta name="keywords"
         content="natural gemstones, healing crystals, amethyst, citrine, rose quartz, buy gemstones online, gemstone store">
   <meta name="author" content="Gems of Nature">
@@ -43,10 +43,15 @@
     }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-    .card-base {
+    .card {
       box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
       transition: transform 320ms cubic-bezier(.2,.9,.2,1), box-shadow 320ms cubic-bezier(.2,.9,.2,1);
       will-change: transform, box-shadow;
+      border-radius: 1rem;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.11);
     }
 
     footer {
@@ -57,10 +62,12 @@
       width: 100%;
     }
 
-    .footer-inner { padding-left: 24px; padding-right: 24px; }
-    .footer-nowrap { white-space: nowrap; }
-
     .section-title { color: #065f46; }
+
+    /* Modal styles */
+    .modal-overlay {
+      background-color: rgba(15, 23, 42, 0.55);
+    }
   </style>
 
   <!-- Structured Data -->
@@ -75,212 +82,299 @@
   </script>
 </head>
 
-<body class="bg-white text-gray-800 antialiased font-montserrat">
-  <!-- Header placeholder -->
+<body class="bg-white text-gray-800 antialiased">
+  <!-- Header (injected by layout.js) -->
   <div id="header"></div>
 
-<body>
-  <!-- Header placeholder (filled by js/layout.js) -->
-  <div id="header"></div>
-
-  <!-- Hero / Banner (warm citrine gradient over image) -->
-  <section class="relative bg-cover bg-center h-64 md:h-96" style="
-    background-image: linear-gradient(135deg, rgba(0,140,120,0.35), rgba(0,90,65,0.55)),
-                      url('images/about-gems.jpg');
-    background-blend-mode: overlay;
-    background-size: cover;
-    background-position: center;">
-    <div class="absolute inset-0 bg-black/25 flex items-center justify-center">
-      <div class="text-center text-white px-6">
-        <h1 class="text-3xl md:text-5xl font-bold drop-shadow-lg">About Gems of Nature</h1>
-        <p class="mt-3 text-sm md:text-lg max-w-2xl mx-auto">
-          Ethically-sourced gemstones, crafted for healing, jewelry and meaningful gifts.
-        </p>
+  <main>
+    <!-- Hero -->
+    <section class="relative bg-cover bg-center h-64 md:h-96"
+      style="background-image:
+        linear-gradient(135deg, rgba(0,140,120,0.35), rgba(0,90,65,0.55)),
+        url('images/about-gems.jpg');
+        background-blend-mode: overlay;
+        background-size: cover;
+        background-position: center;">
+      <div class="absolute inset-0 bg-black/25 flex items-center justify-center">
+        <div class="text-center text-white px-6">
+          <h1 class="text-3xl md:text-5xl font-bold drop-shadow-lg">About Gems of Nature</h1>
+          <p class="mt-3 text-sm md:text-lg max-w-2xl mx-auto">
+            Ethically sourced gemstones and Rudraksha, curated with intention for healing, jewellery and meaningful gifts.
+          </p>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Intro mission -->
-  <section class="py-12 px-6">
-    <div class="container mx-auto max-w-5xl fade-in">
-      <div class="bg-white p-8 card">
-        <div class="grid md:grid-cols-2 gap-6 items-center">
-          <div>
-            <h2 class="text-3xl font-bold section-title mb-4">Our Mission</h2>
-            <p class="text-gray-700 leading-relaxed text-lg">
-              At <span class="font-semibold">Gems of Nature</span> our mission is to bring transparent,
-              ethical and sustainable gemstones directly to you.
-              We partner with small-scale miners and trusted suppliers so every stone we sell
-              has a clear origin and supports fair practices.
-            </p>
-            <p class="mt-4 text-gray-700">
-              Buying from us means supporting safer mines, fair wages and traceability across the supply chain.
-            </p>
-          </div>
-
-          <div class="space-y-4">
-            <div class="p-4 bg-emerald-50 rounded-lg">
-              <h4 class="font-semibold text-emerald-700">Ethical Sourcing</h4>
-              <p class="text-sm text-gray-700 mt-1">Traceable, conflict-free stones with supplier audits.</p>
+    <!-- Our Story -->
+    <section class="py-10 px-6">
+      <div class="container mx-auto max-w-5xl fade-in">
+        <div class="bg-white p-8 card">
+          <div class="grid md:grid-cols-2 gap-6 items-start">
+            <div>
+              <h2 class="text-3xl font-bold section-title mb-4">How Gems of Nature began</h2>
+              <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                <span class="font-semibold">Gems of Nature</span> started with a simple promise:
+                to make genuine, energetically clean gemstones accessible without confusion or hidden tricks.
+                After years of working with stones, astrology and spiritual practice, we saw how many people
+                were sold treated, mislabelled or energetically “dead” pieces.
+              </p>
+              <p class="text-gray-700 mt-4 text-sm md:text-base">
+                We built Gems of Nature as a small, independent studio that focuses on
+                traceable sourcing, honest guidance and practical results. Every stone is hand-selected,
+                energetically cleansed and documented so you know exactly what you are wearing and why.
+              </p>
             </div>
-            <div class="p-4 bg-emerald-50 rounded-lg">
-              <h4 class="font-semibold text-emerald-700">Certified Quality</h4>
-              <p class="text-sm text-gray-700 mt-1">Independent gem lab verification for important pieces.</p>
+
+            <div class="space-y-4">
+              <div class="p-4 bg-emerald-50 rounded-xl flex gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-600 text-white text-xl">🧭</div>
+                <div>
+                  <h4 class="font-semibold text-emerald-800">Clarity for the buyer</h4>
+                  <p class="text-sm text-gray-700 mt-1">
+                    Clear photos, honest descriptions and transparent recommendations so you choose the right stone
+                    for your intention and budget.
+                  </p>
+                </div>
+              </div>
+              <div class="p-4 bg-emerald-50 rounded-xl flex gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-600 text-white text-xl">🤝</div>
+                <div>
+                  <h4 class="font-semibold text-emerald-800">Long-term relationship</h4>
+                  <p class="text-sm text-gray-700 mt-1">
+                    We aim to be your long-term gemstone partner – from first purchase to upgrades, replacements
+                    and family pieces.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- What we offer + stats -->
-  <section class="py-10 px-6 bg-gray-50">
-    <div class="container mx-auto max-w-6xl fade-in">
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-white p-6 card">
-          <h3 class="text-xl font-semibold text-emerald-700 mb-2">Curated Collections</h3>
-          <p class="text-gray-700">
-            Loose stones, beads, cabochons and specimens hand-selected for energy and quality.
-          </p>
-        </div>
-        <div class="bg-white p-6 card">
-          <h3 class="text-xl font-semibold text-emerald-700 mb-2">Custom Orders</h3>
-          <p class="text-gray-700">
-            Jewellery-ready stones and bespoke sourcing for designers and collectors.
-          </p>
-        </div>
-        <div class="bg-white p-6 card">
-          <h3 class="text-xl font-semibold text-emerald-700 mb-2">Education</h3>
-          <p class="text-gray-700">
-            Guides and care tips so you choose the right stone for your intention.
-          </p>
+    <!-- Mission -->
+    <section class="py-8 px-6">
+      <div class="container mx-auto max-w-5xl fade-in">
+        <div class="bg-white p-8 card">
+          <div class="grid md:grid-cols-2 gap-6 items-center">
+            <div>
+              <h2 class="text-3xl font-bold section-title mb-4">Our Mission</h2>
+              <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                Our mission is to bring transparent, ethical and sustainable gemstones directly to you.
+                We work with small-scale miners, trusted cutters and verified suppliers so every stone has a clear
+                origin and supports fair practices.
+              </p>
+              <p class="mt-4 text-gray-700 text-sm md:text-base">
+                When you buy from Gems of Nature, you support safer mines, fair wages and traceability across the supply chain,
+                while receiving pieces that are suitable for spiritual work, daily wear and long-term investment.
+              </p>
+            </div>
+
+            <div class="space-y-4">
+              <div class="p-4 bg-emerald-50 rounded-xl flex gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-600 text-white text-xl">🌍</div>
+                <div>
+                  <h4 class="font-semibold text-emerald-800">Ethical sourcing</h4>
+                  <p class="text-sm text-gray-700 mt-1">
+                    Traceable, conflict-free stones with regular supplier checks and a preference for small, family-run
+                    operations.
+                  </p>
+                </div>
+              </div>
+              <div class="p-4 bg-emerald-50 rounded-xl flex gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-600 text-white text-xl">📜</div>
+                <div>
+                  <h4 class="font-semibold text-emerald-800">Certified quality</h4>
+                  <p class="text-sm text-gray-700 mt-1">
+                    Important pieces are verified by independent gem labs; each parcel is checked for treatment, clarity
+                    and durability before reaching you.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
-        <div class="p-6 card">
-          <div class="text-3xl font-bold text-emerald-700">+100</div>
-          <div class="mt-2 text-sm text-gray-600">Gem varieties</div>
-        </div>
-        <div class="p-6 card">
-          <div class="text-3xl font-bold text-emerald-700">+5000</div>
-          <div class="mt-2 text-sm text-gray-600">Happy customers</div>
-        </div>
-        <div class="p-6 card">
-          <div class="text-3xl font-bold text-emerald-700">100%</div>
-          <div class="mt-2 text-sm text-gray-600">Satisfaction guarantee</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Team (simple) -->
-  <section class="py-12 px-6">
-    <div class="container mx-auto max-w-6xl fade-in">
-      <h2 class="text-3xl font-bold section-title mb-6">Meet the Team</h2>
-      <div class="grid sm:grid-cols-3 gap-6">
-        <div class="bg-white p-6 text-center card">
-          <img src="images/team-param.jpg" alt="Paramjeet Singh" loading="lazy"
-               class="mx-auto rounded-full h-28 w-28 object-cover mb-4">
-          <h4 class="font-semibold">Paramjeet Singh</h4>
-          <p class="text-sm text-gray-600 mt-1">Founder • Sourcing & Quality</p>
-        </div>
-        <div class="bg-white p-6 text-center card">
-          <img src="images/team-2.jpg" alt="Team member" loading="lazy"
-               class="mx-auto rounded-full h-28 w-28 object-cover mb-4">
-          <h4 class="font-semibold">Rupinder Kaur</h4>
-          <p class="text-sm text-gray-600 mt-1">Customer Care & Logistics</p>
-        </div>
-        <div class="bg-white p-6 text-center card">
-          <img src="images/team-3.jpg" alt="Team member" loading="lazy"
-               class="mx-auto rounded-full h-28 w-28 object-cover mb-4">
-          <h4 class="font-semibold">Vishal Sadh</h4>
-          <p class="text-sm text-gray-600 mt-1">Photography & Catalog</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Timeline / Values -->
-  <section class="py-12 px-6 bg-gray-50">
-    <div class="container mx-auto max-w-5xl fade-in">
-      <h2 class="text-3xl font-bold section-title mb-6">Our Values</h2>
-
-      <div class="space-y-6">
-        <div class="flex gap-4 items-start">
-          <div class="min-w-[56px] h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold">01</div>
-          <div>
-            <h4 class="font-semibold">Transparency</h4>
-            <p class="text-gray-700">
-              We share origin details, clear photos and provide care instructions for every product.
+    <!-- What we offer + stats -->
+    <section class="py-10 px-6 bg-gray-50">
+      <div class="container mx-auto max-w-6xl fade-in">
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-white p-6 card">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="h-10 w-10 rounded-full bg-emerald-100 flex items-center justify-center text-xl">💎</div>
+              <h3 class="text-xl font-semibold text-emerald-700">Curated collections</h3>
+            </div>
+            <p class="text-gray-700 text-sm md:text-base">
+              Loose stones, beads, cabochons and specimens hand-selected for energy, beauty and structural quality.
+            </p>
+          </div>
+          <div class="bg-white p-6 card">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="h-10 w-10 rounded-full bg-emerald-100 flex items-center justify-center text-xl">🛠️</div>
+              <h3 class="text-xl font-semibold text-emerald-700">Custom & astrology work</h3>
+            </div>
+            <p class="text-gray-700 text-sm md:text-base">
+              Jewellery-ready stones for rings and pendants, plus specialised sourcing for astrologers and healers.
+            </p>
+          </div>
+          <div class="bg-white p-6 card">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="h-10 w-10 rounded-full bg-emerald-100 flex items-center justify-center text-xl">📚</div>
+              <h3 class="text-xl font-semibold text-emerald-700">Education & guidance</h3>
+            </div>
+            <p class="text-gray-700 text-sm md:text-base">
+              Simple guides, care instructions and honest suggestions so you don’t feel lost when choosing a stone.
             </p>
           </div>
         </div>
 
-        <div class="flex gap-4 items-start">
-          <div class="min-w-[56px] h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold">02</div>
-          <div>
-            <h4 class="font-semibold">Ethics</h4>
-            <p class="text-gray-700">
-              We support fair wages, sustainable extraction and small-scale miners.
-            </p>
+        <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+          <div class="p-6 card">
+            <div class="text-3xl font-bold text-emerald-700">100+</div>
+            <div class="mt-2 text-sm text-gray-600">Gemstone & bead varieties</div>
           </div>
-        </div>
-
-        <div class="flex gap-4 items-start">
-          <div class="min-w-[56px] h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold">03</div>
-          <div>
-            <h4 class="font-semibold">Quality</h4>
-            <p class="text-gray-700">
-              We verify notable pieces with independent gem labs and maintain strict quality control.
-            </p>
+          <div class="p-6 card">
+            <div class="text-3xl font-bold text-emerald-700">5000+</div>
+            <div class="mt-2 text-sm text-gray-600">Orders across India & abroad</div>
+          </div>
+          <div class="p-6 card">
+            <div class="text-3xl font-bold text-emerald-700">100%</div>
+            <div class="mt-2 text-sm text-gray-600">Support until you’re satisfied</div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- CTA -->
-  <section class="py-12 px-6">
-    <div class="container mx-auto max-w-4xl text-center fade-in">
-      <div class="bg-white p-8 card">
-        <h3 class="text-2xl font-bold section-title">Ready to explore our collection?</h3>
-        <p class="text-gray-700 mt-3">
-          Browse hand-selected gemstones or contact us for custom sourcing.
+    <!-- Team -->
+    <section class="py-12 px-6">
+      <div class="container mx-auto max-w-6xl fade-in">
+        <h2 class="text-3xl font-bold section-title mb-6">Meet the Team</h2>
+        <p class="text-sm md:text-base text-gray-700 max-w-3xl mb-6">
+          We keep our team intentionally small so we can stay close to every stone and every customer.
+          Click on a photo or name to learn more about the people behind Gems of Nature.
         </p>
-        <div class="mt-6 flex justify-center gap-4">
-          <a href="shop.html"
-             class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full font-semibold">
-            Explore Collections
-          </a>
-          <a href="contact.html"
-             class="border border-emerald-600 text-emerald-600 px-6 py-3 rounded-full hover:bg-emerald-600 hover:text-white transition">
-            Contact Us
-          </a>
+
+        <div class="grid sm:grid-cols-3 gap-6">
+          <!-- Paramjeet -->
+          <button type="button"
+                  class="bg-white p-6 text-center card focus:outline-none focus:ring-2 focus:ring-emerald-500 team-card w-full"
+                  data-member="param">
+            <img src="images/team-param.jpg" alt="Paramjeet Singh"
+                 class="mx-auto rounded-full h-28 w-28 object-cover mb-4">
+            <h4 class="font-semibold text-base md:text-lg">Paramjeet Singh</h4>
+            <p class="text-sm text-gray-600 mt-1">Founder · Sourcing & Guidance</p>
+          </button>
+
+          <!-- Rupinder -->
+          <button type="button"
+                  class="bg-white p-6 text-center card focus:outline-none focus:ring-2 focus:ring-emerald-500 team-card w-full"
+                  data-member="rupinder">
+            <img src="images/team-2.jpg" alt="Rupinder Kaur"
+                 class="mx-auto rounded-full h-28 w-28 object-cover mb-4">
+            <h4 class="font-semibold text-base md:text-lg">Rupinder Kaur</h4>
+            <p class="text-sm text-gray-600 mt-1">Customer Care & Logistics</p>
+          </button>
+
+          <!-- Vishal -->
+          <button type="button"
+                  class="bg-white p-6 text-center card focus:outline-none focus:ring-2 focus:ring-emerald-500 team-card w-full"
+                  data-member="vishal">
+            <img src="images/team-3.jpg" alt="Vishal Sadh"
+                 class="mx-auto rounded-full h-28 w-28 object-cover mb-4">
+            <h4 class="font-semibold text-base md:text-lg">Vishal Sadh</h4>
+            <p class="text-sm text-gray-600 mt-1">Photography & Catalog</p>
+          </button>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Newsletter small -->
-  <section class="bg-emerald-50 py-8">
-    <div class="container mx-auto px-6 text-center max-w-2xl">
-      <h3 class="text-lg font-semibold text-emerald-800 mb-2">Join our mailing list</h3>
-      <p class="text-sm text-gray-600 mb-4">Receive updates and special offers.</p>
-      <form action="https://formspree.io/f/mzzybgop" method="POST"
-            class="flex flex-col sm:flex-row gap-3 justify-center">
-        <input type="email" name="email" required placeholder="Enter your email"
-               class="border border-gray-300 rounded-lg px-4 py-2 w-full sm:w-auto flex-1
-                      focus:outline-none focus:ring-2 focus:ring-emerald-400">
-        <button type="submit"
-                class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
-          Subscribe
-        </button>
-      </form>
-    </div>
-  </section>
+    <!-- Values -->
+    <section class="py-12 px-6 bg-gray-50">
+      <div class="container mx-auto max-w-5xl fade-in">
+        <h2 class="text-3xl font-bold section-title mb-6">Our Values</h2>
 
-  <!-- Footer placeholder (filled by js/layout.js) -->
+        <div class="space-y-6">
+          <div class="flex gap-4 items-start">
+            <div class="min-w-[56px] h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold">01</div>
+            <div>
+              <h4 class="font-semibold">Transparency</h4>
+              <p class="text-gray-700 text-sm md:text-base">
+                We show real photos, disclose treatments where applicable, and are honest if a stone is not suitable
+                for your budget or intention.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="min-w-[56px] h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold">02</div>
+            <div>
+              <h4 class="font-semibold">Ethics</h4>
+              <p class="text-gray-700 text-sm md:text-base">
+                We prioritise small workshops, safer working conditions and fair payments along our supply chain
+                as much as possible.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="min-w-[56px] h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold">03</div>
+            <div>
+              <h4 class="font-semibold">Quality & energy</h4>
+              <p class="text-gray-700 text-sm md:text-base">
+                We check each parcel for durability and energetic feel, cleanse stones before shipping,
+                and guide you on how to maintain their vibration.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-12 px-6">
+      <div class="container mx-auto max-w-4xl text-center fade-in">
+        <div class="bg-white p-8 card">
+          <h3 class="text-2xl font-bold section-title">Ready to explore our collection?</h3>
+          <p class="text-gray-700 mt-3 text-sm md:text-base">
+            Browse our hand-selected gemstones and Rudraksha, or contact us if you need personal guidance
+            for astrology or healing.
+          </p>
+          <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+            <a href="shop-ecom.html"
+               class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full font-semibold">
+              Explore Collections
+            </a>
+            <a href="contact.html"
+               class="border border-emerald-600 text-emerald-600 px-6 py-3 rounded-full hover:bg-emerald-600 hover:text-white transition">
+              Contact Us
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="bg-emerald-50 py-8">
+      <div class="container mx-auto px-6 text-center max-w-2xl">
+        <h3 class="text-lg font-semibold text-emerald-800 mb-2">Join our mailing list</h3>
+        <p class="text-sm text-gray-600 mb-4">Receive gemstone education, care tips and special offers — no spam.</p>
+        <form action="https://formspree.io/f/mzzybgop" method="POST"
+              class="flex flex-col sm:flex-row gap-3 justify-center">
+          <input type="email" name="email" required placeholder="Enter your email"
+                 class="border border-gray-300 rounded-lg px-4 py-2 w-full sm:w-auto flex-1
+                        focus:outline-none focus:ring-2 focus:ring-emerald-400">
+          <button type="submit"
+                  class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+            Subscribe
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer placeholder -->
   <div id="footer"></div>
 
   <!-- WhatsApp Floating Chat Button -->
@@ -291,18 +385,135 @@
     Chat with Us
   </a>
 
-  <!-- Shared layout script (injects header + footer, handles mobile menu, highlights active page) -->
-  <script src="js/layout.js"></script>
+  <!-- Team Modal -->
+  <div id="team-modal" class="fixed inset-0 z-40 hidden modal-overlay flex items-center justify-center px-4">
+    <div class="absolute inset-0 modal-overlay"></div>
+  <div class="relative bg-white rounded-2xl shadow-2xl max-w-2xl md:max-w-3xl w-full p-6 md:p-10 z-50">
+      <button type="button" id="team-modal-close"
+              class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-xl leading-none">
+        &times;
+      </button>
+      <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
+      <div class="flex-shrink-0 flex items-center justify-center">
+      <div class="h-28 w-28 rounded-full bg-emerald-100 flex items-center justify-center text-4xl" id="team-modal-avatar">
+      👤
+      </div>
+      </div>
+        <div>
+        <h3 class="text-2xl font-semibold text-emerald-800" id="team-modal-name">Name</h3>
+        <p class="text-sm md:text-base text-gray-600 mt-1" id="team-modal-role">Role</p>
+        <p class="text-sm md:text-base text-gray-700 mt-3" id="team-modal-bio">
+            Short introduction will appear here.
+          </p>
+          <ul class="mt-3 space-y-1 text-sm text-gray-700" id="team-modal-experience">
+            <!-- List items injected via JS -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <!-- Global config & utils -->
+  <!-- Shared layout & scripts -->
+  <script src="js/layout.js"></script>
   <script src="js/gn-config.js"></script>
   <script src="js/gn-utils.js"></script>
-
-  <!-- Shared layout -->
-  <script src="js/layout.js"></script>
-
-  <!-- Optional: any extra JS you had before -->
   <script src="js/script.js"></script>
+
+  <!-- Team modal logic -->
+  <script>
+    (function () {
+      const TEAM_DETAILS = {
+        param: {
+          name: "Paramjeet Singh",
+          role: "Founder · Sourcing & Guidance",
+          avatarEmoji: "🧿",
+          bio: "Paramjeet personally curates most of the gemstones and Rudraksha, combining practical gem knowledge with astrological understanding and spiritual practice.",
+          experience: [
+            "Over a decade of experience working with gemstones, mantra and remedial astrology.",
+            "Helps customers choose the right stone based on intention, budget and lifestyle.",
+            "Oversees sourcing, quality checks and final energetic cleansing before dispatch."
+          ]
+        },
+        rupinder: {
+          name: "Rupinder Kaur",
+          role: "Customer Care & Logistics",
+          avatarEmoji: "📦",
+          bio: "Rupinder handles day-to-day communication, order updates and packaging so your pieces reach you safely and on time.",
+          experience: [
+            "Coordinates shipping, tracking and safe packaging for domestic and international orders.",
+            "First point of contact for questions about sizing, delivery and after-sales support.",
+            "Makes sure every parcel includes proper documentation and care instructions."
+          ]
+        },
+        vishal: {
+          name: "Vishal Sadh",
+          role: "Photography & Catalog",
+          avatarEmoji: "📷",
+          bio: "Vishal ensures that each stone is photographed clearly so what you see on the website is as close as possible to what you receive.",
+          experience: [
+            "Specialises in macro gemstone photography and accurate colour representation.",
+            "Maintains the online catalog and helps document new arrivals and collections.",
+            "Works closely with sourcing to highlight inclusions, clarity and real-life appearance."
+          ]
+        }
+      };
+
+      const modal      = document.getElementById("team-modal");
+      const modalName  = document.getElementById("team-modal-name");
+      const modalRole  = document.getElementById("team-modal-role");
+      const modalBio   = document.getElementById("team-modal-bio");
+      const modalExp   = document.getElementById("team-modal-experience");
+      const modalAv    = document.getElementById("team-modal-avatar");
+      const modalClose = document.getElementById("team-modal-close");
+      const teamCards  = document.querySelectorAll(".team-card");
+
+      function openModal(memberKey) {
+        const data = TEAM_DETAILS[memberKey];
+        if (!data) return;
+
+        modalName.textContent = data.name;
+        modalRole.textContent = data.role;
+        modalBio.textContent  = data.bio;
+
+        // Avatar content
+        modalAv.textContent = data.avatarEmoji || "👤";
+
+        // Experience list
+        modalExp.innerHTML = "";
+        (data.experience || []).forEach(item => {
+          const li = document.createElement("li");
+          li.textContent = "• " + item;
+          modalExp.appendChild(li);
+        });
+
+        modal.classList.remove("hidden");
+      }
+
+      function closeModal() {
+        modal.classList.add("hidden");
+      }
+
+      teamCards.forEach(card => {
+        card.addEventListener("click", () => {
+          const key = card.getAttribute("data-member");
+          openModal(key);
+        });
+      });
+
+      modalClose.addEventListener("click", closeModal);
+
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          closeModal();
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+          closeModal();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
-
