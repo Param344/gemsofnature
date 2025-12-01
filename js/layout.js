@@ -30,7 +30,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // 🔥 This is perfect: always from site root
+  // Load reusable components
   loadComponent(headerContainer, "/header.html");
   loadComponent(footerContainer, "/footer.html");
+
+  // ------------------------------------------
+  // INIT Chat widget (structure only for now)
+  // ------------------------------------------
+  // This waits until layout is placed in DOM
+  setTimeout(() => {
+    if (window.gonAIChat && typeof window.gonAIChat.init === "function") {
+      window.gonAIChat.init();
+    }
+  }, 300);
 });
