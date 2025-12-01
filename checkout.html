@@ -5,29 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Checkout | Gems of Nature</title>
 
-  <meta name="description" content="Checkout — Review your selected gemstones and place a secure order at Gems of Nature. COD & online payment options (simulated interface)." />
+  <meta name="description" content="Secure checkout at Gems of Nature — review your selected gemstones and complete payment via Razorpay (India) or CCAvenue (international)." />
   <meta name="keywords" content="checkout gemstones, buy crystals online, healing stone purchase, Gems of Nature cart, Rudraksha checkout" />
-
-  <!-- Canonical URL -->
   <link rel="canonical" href="https://www.gemsofnature.shop/checkout.html" />
-
-  <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
-
-  <!-- Open Graph (SEO Preview) -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Checkout | Gems of Nature" />
-  <meta property="og:description" content="Complete your purchase securely at Gems of Nature and place an order for authentic healing gemstones and crystals." />
-  <meta property="og:url" content="https://www.gemsofnature.shop/checkout.html" />
-  <meta property="og:image" content="https://www.gemsofnature.shop/assets/og-image.jpg" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Checkout | Gems of Nature" />
-  <meta name="twitter:description" content="Secure checkout experience for gemstones & healing crystals at Gems of Nature." />
-  <meta name="twitter:image" content="https://www.gemsofnature.shop/assets/og-image.jpg" />
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -39,7 +19,6 @@
   <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Page-specific styles -->
   <style>
     .font-montserrat {
       font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -47,13 +26,15 @@
     .muted { color: #6b7280; }
   </style>
 
-  <!-- Scripts -->
+  <!-- Shared layout -->
   <script src="js/layout.js" defer></script>
-  <script src="js/main.js" defer></script>
+
+  <!-- Razorpay Checkout -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 
 <body class="bg-gray-50 text-gray-800 font-montserrat" data-page="checkout">
-  <!-- Shared Header injected by layout.js -->
+  <!-- Header -->
   <div id="header"></div>
 
   <main class="min-h-screen py-10">
@@ -62,7 +43,7 @@
         Your Cart &amp; Checkout
       </h1>
 
-      <!-- If empty -->
+      <!-- Empty Cart State -->
       <div id="cart-empty" class="hidden bg-white rounded-2xl shadow-md p-8 text-center">
         <p class="text-lg text-gray-600 mb-4">Your cart is empty right now.</p>
         <a href="shop-ecom.html"
@@ -112,7 +93,7 @@
             <button
               id="cart-checkout-btn"
               class="w-full inline-flex items-center justify-center px-4 py-3 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition disabled:opacity-60 disabled:cursor-not-allowed">
-              Proceed to Checkout
+              Go to Checkout Details
             </button>
 
             <button
@@ -135,6 +116,14 @@
       </div>
     </section>
 
+    <!-- ORDER STATUS BANNER -->
+    <section class="container mx-auto px-4 mt-6 hidden" id="order-status-wrapper">
+      <div id="order-status"
+           class="rounded-2xl border px-4 py-3 text-sm flex items-start gap-3 bg-emerald-50 border-emerald-200 text-emerald-900">
+        <!-- Filled by JS -->
+      </div>
+    </section>
+
     <!-- CHECKOUT SECTION -->
     <section id="checkout-section" class="container mx-auto px-4 mt-10 pb-16">
       <div class="checkout-panel w-full bg-white rounded-3xl shadow-md border border-slate-200 overflow-hidden">
@@ -143,17 +132,17 @@
         <div class="checkout-header flex items-start justify-between gap-3 px-6 md:px-8 pt-5 pb-4 border-b border-slate-100">
           <div>
             <h3 class="text-2xl font-semibold text-slate-900">Checkout Details</h3>
-            <div class="muted text-sm mt-1">
-              Complete your order — we will contact you for shipping &amp; dispatch.
-            </div>
+            <p class="muted text-sm mt-1">
+              Complete your details and pay securely using UPI, card or international payment.
+            </p>
 
-            <div class="flex items-center gap-2 text-xs mt-3 text-slate-500">
+            <div class="flex flex-wrap items-center gap-2 text-xs mt-3 text-slate-500">
               <span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-emerald-700">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                 Secure order
               </span>
               <span>→</span>
-              <span>Confirmation via call / WhatsApp</span>
+              <span>Order confirmation via WhatsApp / Email</span>
             </div>
           </div>
         </div>
@@ -162,13 +151,13 @@
         <div class="checkout-body grid md:grid-cols-[1.8fr_1.2fr] gap-0">
           <!-- Left: buyer details -->
           <div class="checkout-left px-6 md:px-8 py-5">
-            <form id="checkout-form" class="grid gap-4">
+            <form id="checkout-form" class="grid gap-4" novalidate>
               <div class="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label for="co-name" class="block text-xs font-medium text-slate-600 mb-1">
                     Full name
                   </label>
-                  <input id="co-name" name="name" required placeholder="Full name"
+                  <input id="co-name" name="name" autocomplete="name" required placeholder="Full name"
                          class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
                                 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
                 </div>
@@ -176,26 +165,40 @@
                   <label for="co-email" class="block text-xs font-medium text-slate-600 mb-1">
                     Email address
                   </label>
-                  <input id="co-email" name="email" type="email" required placeholder="Email address"
+                  <input id="co-email" name="email" type="email" autocomplete="email" required placeholder="Email address"
                          class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
                                 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
                 </div>
               </div>
 
-              <div>
-                <label for="co-phone" class="block text-xs font-medium text-slate-600 mb-1">
-                  Phone / WhatsApp
-                </label>
-                <input id="co-phone" name="phone" placeholder="Phone number"
-                       class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
-                              focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="co-phone" class="block text-xs font-medium text-slate-600 mb-1">
+                    Phone / WhatsApp
+                  </label>
+                  <input id="co-phone" name="phone" type="tel" autocomplete="tel" required placeholder="Phone number"
+                         class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
+                                focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
+                </div>
+                <div>
+                  <label for="co-country" class="block text-xs font-medium text-slate-600 mb-1">
+                    Country / Region
+                  </label>
+                  <select id="co-country" name="country"
+                          class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
+                                 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none">
+                    <option value="IN">India (Domestic)</option>
+                    <option value="INTL">Outside India (International)</option>
+                  </select>
+                </div>
               </div>
 
               <div>
                 <label for="co-address" class="block text-xs font-medium text-slate-600 mb-1">
                   Shipping address
                 </label>
-                <textarea id="co-address" name="address" placeholder="Full address with city &amp; pincode"
+                <textarea id="co-address" name="address" required autocomplete="street-address"
+                          placeholder="Full address with city &amp; pincode"
                           class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
                                  focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none"
                           rows="3"></textarea>
@@ -206,164 +209,34 @@
                 <label class="block mb-2 text-xs font-semibold text-slate-600 uppercase tracking-wide">
                   Payment method
                 </label>
-                <div class="grid gap-3 sm:grid-cols-2">
-                  <label
-                    class="flex items-start gap-2 rounded-xl border border-emerald-500/60 bg-emerald-50 px-3.5 py-3 text-sm cursor-pointer">
-                    <input type="radio" name="payment_method" value="cod" checked class="mt-1" />
+
+                <div class="grid gap-3 sm:grid-cols-2" id="payment-method-wrapper">
+                  <label class="flex items-start gap-2 rounded-xl border border-emerald-500/80 bg-emerald-50 px-3.5 py-3 text-sm cursor-pointer transition"
+                         data-method-label="razorpay">
+                    <input type="radio" name="payment_method" value="razorpay" checked class="mt-1" />
                     <span>
-                      <span class="font-medium text-slate-900 block">Cash on Delivery</span>
+                      <span class="font-medium text-slate-900 block">Online (India – Razorpay)</span>
                       <span class="muted text-xs">
-                        Pay on delivery. Ideal for high-value gemstones.
+                        UPI, cards, net-banking &amp; wallets for Indian customers.
                       </span>
                     </span>
                   </label>
-                  <label
-                    class="flex items-start gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-3 text-sm cursor-pointer">
-                    <input type="radio" name="payment_method" value="online" class="mt-1" />
+
+                  <label class="flex items-start gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-3 text-sm cursor-pointer transition"
+                         data-method-label="ccavenue">
+                    <input type="radio" name="payment_method" value="ccavenue" class="mt-1" />
                     <span>
-                      <span class="font-medium text-slate-900 block">Pay Online</span>
+                      <span class="font-medium text-slate-900 block">International Payment (CCAvenue)</span>
                       <span class="muted text-xs">
-                        Secure UPI / card link shared after confirmation.
+                        International cards &amp; multi-currency (for buyers outside India).
                       </span>
                     </span>
                   </label>
                 </div>
-              </div>
 
-              <!-- online options -->
-              <div id="online-options" class="hidden mt-3 border border-slate-200 rounded-2xl p-4 bg-slate-50/70">
-                <div class="flex items-center justify-between gap-3">
-                  <div>
-                    <p class="text-xs font-semibold text-slate-600 tracking-wide uppercase">
-                      Online payment
-                    </p>
-                    <p class="text-[11px] text-slate-500 mt-1">
-                      Choose UPI or card. This flow is simulated – actual payment happens via link/UPI app.
-                    </p>
-                  </div>
-                  <span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-[11px] text-emerald-700">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                    Secure
-                  </span>
-                </div>
-
-                <div class="flex flex-wrap gap-3 mt-4 text-sm">
-                  <label
-                    class="flex items-center gap-2 rounded-2xl border border-emerald-500/70 bg-emerald-50 px-3.5 py-2 cursor-pointer">
-                    <input type="radio" name="online_option" value="upi" checked />
-                    <div>
-                      <div class="font-medium text-slate-900">UPI</div>
-                      <div class="text-[11px] text-slate-600">
-                        Scan or open with any UPI app.
-                      </div>
-                    </div>
-                  </label>
-
-                  <label
-                    class="flex items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 px-3.5 py-2 cursor-pointer">
-                    <input type="radio" name="online_option" value="card" />
-                    <div>
-                      <div class="font-medium text-slate-900">Card (simulated)</div>
-                      <div class="text-[11px] text-slate-600">
-                        Enter card details for demo only.
-                      </div>
-                    </div>
-                  </label>
-                </div>
-
-                <!-- UPI panel -->
-                <div id="upi-panel" class="mt-5">
-                  <p class="text-xs text-slate-600">
-                    Scan the QR / open in your UPI app. You’ll also receive this link by WhatsApp/SMS after order confirmation.
-                  </p>
-
-                  <div class="mt-3 flex flex-col gap-2">
-                    <label class="text-[11px] font-medium text-slate-500">
-                      UPI intent link / string
-                    </label>
-                    <div class="flex gap-2">
-                      <input id="upi-string"
-                             class="border border-slate-200 rounded-2xl px-3.5 py-2.5 w-full text-[13px] bg-slate-50 shadow-inner"
-                             readonly />
-                      <button id="copy-upi" type="button"
-                              class="px-3.5 py-2.5 rounded-2xl text-xs font-semibold bg-emerald-600 text-white hover:bg-emerald-700">
-                        Copy
-                      </button>
-                    </div>
-                    <p class="text-[11px] text-slate-500">
-                      Paste this directly inside your UPI app if auto-opening doesn’t work.
-                    </p>
-                  </div>
-                </div>
-
-                <!-- Card panel -->
-                <div id="card-panel" class="mt-5 hidden">
-                  <p class="text-xs text-slate-600 mb-3">
-                    Enter card details – this is a <span class="font-semibold">simulated</span> payment flow.
-                    No real charge will be made.
-                  </p>
-
-                  <div class="grid gap-3 text-sm">
-                    <div>
-                      <label class="text-[11px] font-medium text-slate-500">Card number</label>
-                      <div class="relative mt-1">
-                        <input id="card-number" inputmode="numeric" autocomplete="cc-number" maxlength="19"
-                               placeholder="1234-5678-9012-3456"
-                               class="border border-slate-200 rounded-2xl px-3.5 py-2.5 w-full pr-24 text-sm shadow-inner
-                                      focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
-                        <div id="card-brand"
-                             class="absolute right-3 top-2.5 text-[11px] flex items-center gap-2 text-slate-500">
-                          <img id="card-brand-img" src="" alt="" class="h-5 hidden" />
-                          <span id="card-brand-text" class="hidden"></span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label class="text-[11px] font-medium text-slate-500">Name on card</label>
-                      <input id="card-name" autocomplete="cc-name" placeholder="Full name as on card"
-                             class="mt-1 border border-slate-200 rounded-2xl px-3.5 py-2.5 w-full text-sm shadow-inner
-                                    focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
-                    </div>
-
-                    <div class="flex gap-3">
-                      <div class="flex-1">
-                        <label class="text-[11px] font-medium text-slate-500">Expiry (MM/YY)</label>
-                        <input id="card-expiry" inputmode="numeric" maxlength="5" placeholder="MM/YY"
-                               class="mt-1 border border-slate-200 rounded-2xl px-3.5 py-2.5 w-full text-sm shadow-inner
-                                      focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
-                      </div>
-                      <div class="w-32">
-                        <label class="text-[11px] font-medium text-slate-500">CVV</label>
-                        <input id="card-cvv" inputmode="numeric" maxlength="4" placeholder="CVV"
-                               class="mt-1 border border-slate-200 rounded-2xl px-3.5 py-2.5 w-full text-sm shadow-inner
-                                      focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
-                      </div>
-                    </div>
-
-                    <div id="card-error" class="text-[11px] text-red-600 hidden">
-                      Invalid card details. Please check and try again.
-                    </div>
-
-                    <p class="text-[11px] text-slate-500">
-                      We only simulate card payments here. To accept real payments, connect a live gateway
-                      (Razorpay, Stripe, etc.).
-                    </p>
-
-                    <p class="text-[11px] text-slate-500 mt-1">
-                      After submitting your card details, you can continue with the main
-                      <span class="font-semibold">“Place Order”</span> button in the checkout.
-                    </p>
-
-                    <div class="mt-2 flex justify-end">
-                      <button id="card-submit" type="button"
-                              class="rounded-2xl bg-emerald-600 text-white text-xs font-semibold px-5 py-2
-                                     shadow-md hover:bg-emerald-700">
-                        Submit
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <p class="text-[11px] text-slate-500 mt-2">
+                  Cash on Delivery is limited / not recommended for high-value gemstones and jewellery.
+                </p>
               </div>
 
               <!-- Order summary (items list) -->
@@ -375,8 +248,10 @@
               </div>
 
               <p class="text-[11px] text-slate-500 mt-3 leading-relaxed">
-                By placing the order, you agree to be contacted via phone / WhatsApp / email
-                for confirmation and final shipping charges for high-value stones.
+                By placing the order, you agree to our
+                <a href="/guides/terms-conditions.html" class="text-emerald-700 underline">Terms &amp; Conditions</a>,
+                <a href="/guides/privacy-policy.html" class="text-emerald-700 underline">Privacy Policy</a>
+                and understand that gemstone / Rudraksha results depend on individual karma and astrological factors.
               </p>
             </form>
           </div>
@@ -398,20 +273,18 @@
               </div>
             </div>
 
-            <div class="summary-footer mt-5">
-              <button id="place-order" disabled
-                      class="w-full bg-emerald-600 disabled:opacity-60 disabled:cursor-not-allowed
-                             text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow-md hover:bg-emerald-700">
-                Place Order
+            <div class="summary-footer mt-5 space-y-2">
+              <button id="place-order"
+                      class="w-full bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow-md hover:bg-emerald-700 disabled:opacity-60 disabled:cursor-not-allowed">
+                Pay Securely &amp; Place Order
               </button>
-            </div>
 
-            <div class="muted text-[11px] mt-4 flex items-start gap-2">
-              <span class="mt-0.5">🔒</span>
-              <span>
-                We’ll contact you on the phone/email to confirm shipping cost and dispatch details
-                for high-value stones. Your details are never shared with third parties.
-              </span>
+              <p class="muted text-[11px] mt-1 flex items-start gap-2">
+                <span class="mt-0.5">🔒</span>
+                <span>
+                  Payments are processed via secure payment gateways (Razorpay / CCAvenue). We never store your card or UPI PIN on our servers.
+                </span>
+              </p>
             </div>
           </div>
         </div>
@@ -419,7 +292,7 @@
     </section>
   </main>
 
-  <!-- Shared Footer injected by layout.js -->
+  <!-- Footer -->
   <div id="footer"></div>
 
   <!-- WhatsApp Floating Chat Button -->
@@ -433,17 +306,18 @@
   <!-- Core JS -->
   <script src="js/gn-config.js"></script>
   <script src="js/gn-utils.js"></script>
-  <script src="js/layout.js"></script>
   <script src="js/products.js"></script>
   <script src="js/script.js"></script>
 
-  <!-- Cart + Checkout logic using localStorage "gon_cart" -->
+  <!-- Cart + Checkout logic with Razorpay / CCAvenue hooks -->
   <script>
     (function () {
       "use strict";
 
-      // match shop-ecom shipping
-      const SHIPPING_FLAT = 50;
+      const SHIPPING_FLAT = 300;
+      const RAZORPAY_KEY_ID = "rzp_test_RmIdugVudVvFT0"; // your current test key
+
+      /* ---------- Helpers ---------- */
 
       function loadCart() {
         try {
@@ -455,15 +329,6 @@
       }
 
       let cart = loadCart();
-
-      // header badge helper (same idea as shop-ecom)
-      function updateHeaderCartCount() {
-        const badge = document.getElementById("cartCount");
-        const label = document.getElementById("cartCountLabel");
-        const count = Object.values(cart || {}).reduce((sum, q) => sum + Number(q || 0), 0);
-        if (badge) badge.textContent = String(count);
-        if (label) label.textContent = count + " items in cart";
-      }
 
       const cartItemsEl  = document.getElementById("cart-items-page");
       const cartEmptyEl  = document.getElementById("cart-empty");
@@ -478,27 +343,17 @@
       const btnContinue  = document.getElementById("cart-continue-btn");
       const btnClear     = document.getElementById("cart-clear-btn");
 
-      const checkoutSection   = document.getElementById("checkout-section");
-      const checkoutSummaryEl = document.getElementById("checkout-summary");
-      const coSubtotalEl      = document.getElementById("co-subtotal");
-      const coShippingEl      = document.getElementById("co-shipping");
-      const coTotalEl         = document.getElementById("co-total");
-
+      const checkoutSection    = document.getElementById("checkout-section");
+      const checkoutSummaryEl  = document.getElementById("checkout-summary");
+      const coSubtotalEl       = document.getElementById("co-subtotal");
+      const coShippingEl       = document.getElementById("co-shipping");
+      const coTotalEl          = document.getElementById("co-total");
+      const placeOrderBtn      = document.getElementById("place-order");
+      const checkoutForm       = document.getElementById("checkout-form");
       const paymentMethodRadios = document.querySelectorAll("input[name='payment_method']");
-      const onlineOptionRadios  = document.querySelectorAll("input[name='online_option']");
-      const onlineOptionsEl     = document.getElementById("online-options");
-      const upiPanelEl          = document.getElementById("upi-panel");
-      const cardPanelEl         = document.getElementById("card-panel");
-      const upiStringInput      = document.getElementById("upi-string");
-      const copyUpiBtn          = document.getElementById("copy-upi");
-      const cardErrorEl         = document.getElementById("card-error");
-      const cardSubmitBtn       = document.getElementById("card-submit");
-      const placeOrderBtn       = document.getElementById("place-order");
-      const checkoutForm        = document.getElementById("checkout-form");
-
-      const UPI_ID   = "gemsofnature@upi";
-      const UPI_NAME = "Gems of Nature";
-      let cardSimOk  = false;
+      const paymentMethodLabels = document.querySelectorAll("[data-method-label]");
+      const orderStatusWrapper = document.getElementById("order-status-wrapper");
+      const orderStatusEl      = document.getElementById("order-status");
 
       function getProductById(id) {
         const list = window.products || [];
@@ -524,42 +379,68 @@
       function saveCart() {
         localStorage.setItem("gon_cart", JSON.stringify(cart));
         renderCart();
+        updateHeaderCartCount();
       }
 
-      function buildUpiString(amount) {
-        const am = (amount || 0).toFixed(2);
-        const params = new URLSearchParams({
-          pa: UPI_ID,
-          pn: UPI_NAME,
-          am: am,
-          cu: "INR",
-          tn: "Gems of Nature order"
+      function getSelectedPaymentMethod() {
+        let val = null;
+        paymentMethodRadios.forEach(r => { if (r.checked) val = r.value; });
+        return val;
+      }
+
+      function updateHeaderCartCount() {
+        const entries = Object.entries(cart || {});
+        const count = entries.reduce((sum, [, q]) => sum + Number(q || 0), 0);
+        const badge = document.getElementById("cartCount");
+        const label = document.getElementById("cartCountLabel");
+        if (badge) badge.textContent = String(count);
+        if (label) label.textContent = count + " items in cart";
+      }
+
+      function showOrderStatus(type, message, meta) {
+        if (!orderStatusEl || !orderStatusWrapper) return;
+
+        const icon = type === "success" ? "✅" : (type === "error" ? "⚠️" : "ℹ️");
+        orderStatusEl.className =
+          "rounded-2xl border px-4 py-3 text-sm flex items-start gap-3 " +
+          (type === "success"
+            ? "bg-emerald-50 border-emerald-200 text-emerald-900"
+            : type === "error"
+            ? "bg-red-50 border-red-200 text-red-900"
+            : "bg-slate-50 border-slate-200 text-slate-900");
+
+        orderStatusEl.innerHTML = `
+          <div class="text-lg leading-none mt-0.5">${icon}</div>
+          <div>
+            <div class="font-semibold mb-0.5">${message}</div>
+            ${meta ? `<div class="text-xs mt-1 text-slate-600">${meta}</div>` : ""}
+          </div>
+        `;
+        orderStatusWrapper.classList.remove("hidden");
+        orderStatusWrapper.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+
+      function generateOrderId() {
+        const now = new Date();
+        return "GON-" +
+          now.getFullYear().toString().slice(-2) +
+          String(now.getMonth() + 1).padStart(2, "0") +
+          String(now.getDate()).padStart(2, "0") +
+          "-" +
+          now.getTime().toString().slice(-5);
+      }
+
+      function calculateTotals() {
+        const entries = Object.entries(cart || {});
+        let subtotal = 0;
+        entries.forEach(([pid, qty]) => {
+          const prod  = getProductById(pid);
+          const price = getProductPrice(prod);
+          subtotal += price * qty;
         });
-        return "upi://pay?" + params.toString();
-      }
-
-      function getSelectedRadio(nodes) {
-        let v = null;
-        nodes.forEach(r => { if (r.checked) v = r.value; });
-        return v;
-      }
-
-      function updatePlaceOrderState() {
-        const name    = (document.getElementById("co-name").value || "").trim();
-        const email   = (document.getElementById("co-email").value || "").trim();
-        const phone   = (document.getElementById("co-phone").value || "").trim();
-        const address = (document.getElementById("co-address").value || "").trim();
-        const method  = getSelectedRadio(paymentMethodRadios);
-        const hasItems = Object.keys(cart || {}).length > 0;
-
-        let enabled = !!(name && email && phone && address && method && hasItems);
-
-        if (method === "online") {
-          const opt = getSelectedRadio(onlineOptionRadios);
-          enabled = enabled && !!opt;
-        }
-
-        placeOrderBtn.disabled = !enabled;
+        const shipping = entries.length ? SHIPPING_FLAT : 0;
+        const total    = subtotal + shipping;
+        return { subtotal, shipping, total };
       }
 
       function populateCheckoutSummary(subtotal, shipping, total) {
@@ -571,7 +452,6 @@
           coSubtotalEl.textContent = "—";
           coShippingEl.textContent = "—";
           coTotalEl.textContent    = "—";
-          if (upiStringInput) upiStringInput.value = "";
           return;
         }
 
@@ -599,11 +479,9 @@
         coSubtotalEl.textContent = formatCurrency(subtotal);
         coShippingEl.textContent = formatCurrency(shipping);
         coTotalEl.textContent    = formatCurrency(total);
-
-        if (upiStringInput) {
-          upiStringInput.value = buildUpiString(total);
-        }
       }
+
+      /* ---------- Cart Rendering ---------- */
 
       function renderCart() {
         cartItemsEl.innerHTML = "";
@@ -619,8 +497,7 @@
           shippingEl.textContent   = formatCurrency(0);
           totalEl.textContent      = formatCurrency(0);
           populateCheckoutSummary(0, 0, 0);
-          updateHeaderCartCount();
-          updatePlaceOrderState();
+          placeOrderBtn.disabled = true;
           return;
         }
 
@@ -652,9 +529,13 @@
                 <span data-id="${pid}" class="inline-block min-w-[1.5rem] text-center">${qty}</span>
               </div>
               <div class="flex items-center gap-2">
-                <button class="qty-dec border rounded px-2 py-1 text-sm" data-id="${pid}">-</button>
-                <button class="qty-inc border rounded px-2 py-1 text-sm" data-id="${pid}">+</button>
-                <button class="ml-3 text-xs text-red-600 hover:underline remove-item" data-id="${pid}">
+                <button type="button" class="qty-inc border rounded px-2 py-1 text-sm" data-id="${pid}" aria-label="Increase quantity">
+                  +
+                </button>
+                <button type="button" class="qty-dec border rounded px-2 py-1 text-sm" data-id="${pid}" aria-label="Decrease quantity">
+                  -
+                </button>
+                <button type="button" class="ml-3 text-xs text-red-600 hover:underline remove-item" data-id="${pid}">
                   Remove
                 </button>
               </div>
@@ -675,134 +556,171 @@
         shippingEl.textContent   = formatCurrency(shipping);
         totalEl.textContent      = formatCurrency(total);
 
-        cartItemsEl.querySelectorAll(".qty-inc").forEach(btn => {
-          btn.onclick = () => {
-            const id = btn.dataset.id;
-            cart[id] = (cart[id] || 0) + 1;
-            saveCart();
-            updateHeaderCartCount();
-          };
-        });
-
-        cartItemsEl.querySelectorAll(".qty-dec").forEach(btn => {
-          btn.onclick = () => {
-            const id = btn.dataset.id;
-            cart[id] = (cart[id] || 0) - 1;
-            if (cart[id] <= 0) delete cart[id];
-            saveCart();
-            updateHeaderCartCount();
-          };
-        });
-
-        cartItemsEl.querySelectorAll(".remove-item").forEach(btn => {
-          btn.onclick = () => {
-            const id = btn.dataset.id;
-            delete cart[id];
-            saveCart();
-            updateHeaderCartCount();
-          };
-        });
-
-        populateCheckoutSummary(subtotal, shipping, total);
+        const totals = { subtotal, shipping, total };
+        populateCheckoutSummary(totals.subtotal, totals.shipping, totals.total);
         updateHeaderCartCount();
         updatePlaceOrderState();
       }
 
-      // Buttons
-      btnContinue.addEventListener("click", () => {
-        window.location.href = "shop-ecom.html";
-      });
+      /* ---------- UI / Form Logic ---------- */
 
-      btnClear.addEventListener("click", () => {
-        if (!confirm("Clear all items from your cart?")) return;
-        cart = {};
-        saveCart();
-        updateHeaderCartCount();
-      });
+      function updatePlaceOrderState() {
+        const name    = (document.getElementById("co-name").value || "").trim();
+        const email   = (document.getElementById("co-email").value || "").trim();
+        const phone   = (document.getElementById("co-phone").value || "").trim();
+        const address = (document.getElementById("co-address").value || "").trim();
+        const method  = getSelectedPaymentMethod();
+        const hasItems = Object.keys(cart || {}).length > 0;
 
-      btnCheckout.addEventListener("click", () => {
-        if (!Object.keys(cart || {}).length) return;
-        checkoutSection.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-
-      // Payment method toggle
-      function handlePaymentMethodChange() {
-        const method = getSelectedRadio(paymentMethodRadios);
-        if (!onlineOptionsEl) return;
-        if (method === "online") onlineOptionsEl.classList.remove("hidden");
-        else onlineOptionsEl.classList.add("hidden");
-        updatePlaceOrderState();
+        const enabled = !!(name && email && phone && address && method && hasItems);
+        placeOrderBtn.disabled = !enabled;
       }
-      paymentMethodRadios.forEach(r => r.addEventListener("change", handlePaymentMethodChange));
 
-      function handleOnlineOptionChange() {
-        const opt = getSelectedRadio(onlineOptionRadios);
-        if (!upiPanelEl || !cardPanelEl) return;
-        if (opt === "card") {
-          cardPanelEl.classList.remove("hidden");
-          upiPanelEl.classList.add("hidden");
-        } else {
-          upiPanelEl.classList.remove("hidden");
-          cardPanelEl.classList.add("hidden");
-        }
-        if (cardErrorEl) cardErrorEl.classList.add("hidden");
-        updatePlaceOrderState();
-      }
-      onlineOptionRadios.forEach(r => r.addEventListener("change", handleOnlineOptionChange));
-
-      // UPI copy button
-      if (copyUpiBtn && upiStringInput) {
-        copyUpiBtn.addEventListener("click", () => {
-          if (!upiStringInput.value) return;
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(upiStringInput.value)
-              .then(() => alert("UPI string copied to clipboard."))
-              .catch(() => {
-                upiStringInput.select();
-                document.execCommand("copy");
-                alert("UPI string copied to clipboard.");
-              });
+      function highlightSelectedPaymentMethod() {
+        const selected = getSelectedPaymentMethod();
+        paymentMethodLabels.forEach(label => {
+          const method = label.getAttribute("data-method-label");
+          if (method === selected) {
+            label.classList.remove("border-slate-200", "bg-slate-50");
+            label.classList.add("border-emerald-500/80", "bg-emerald-50");
           } else {
-            upiStringInput.select();
-            document.execCommand("copy");
-            alert("UPI string copied to clipboard.");
+            label.classList.remove("border-emerald-500/80", "bg-emerald-50");
+            label.classList.add("border-slate-200", "bg-slate-50");
           }
         });
       }
 
-      // Card simulation
-      if (cardSubmitBtn) {
-        cardSubmitBtn.addEventListener("click", () => {
-          const num    = (document.getElementById("card-number").value || "").replace(/\D/g, "");
-          const name   = (document.getElementById("card-name").value || "").trim();
-          const expiry = (document.getElementById("card-expiry").value || "").trim();
-          const cvv    = (document.getElementById("card-cvv").value || "").trim();
-
-          const valid =
-            num.length >= 12 &&
-            name.length >= 3 &&
-            /^\d{2}\/\d{2}$/.test(expiry) &&
-            cvv.length >= 3;
-
-          if (!valid) {
-            cardErrorEl.classList.remove("hidden");
-            cardSimOk = false;
-            return;
-          }
-
-          cardErrorEl.classList.add("hidden");
-          cardSimOk = true;
-          alert("Card details accepted for demo. No real payment was made.");
-          updatePlaceOrderState();
-        });
-      }
-
-      // Form input -> enable/disable Place Order
       if (checkoutForm) {
         checkoutForm.addEventListener("input", updatePlaceOrderState);
       }
 
-      // Place order
+      paymentMethodRadios.forEach(radio => {
+        radio.addEventListener("change", () => {
+          highlightSelectedPaymentMethod();
+          updatePlaceOrderState();
+        });
+      });
+
+      // Auto-switch payment method based on country
+      const countrySelect = document.getElementById("co-country");
+      if (countrySelect) {
+        countrySelect.addEventListener("change", () => {
+          const isIntl = countrySelect.value === "INTL";
+          paymentMethodRadios.forEach(radio => {
+            if (isIntl && radio.value === "ccavenue") {
+              radio.checked = true;
+            }
+            if (!isIntl && radio.value === "razorpay") {
+              radio.checked = true;
+            }
+          });
+          highlightSelectedPaymentMethod();
+          updatePlaceOrderState();
+        });
+      }
+
+      /* ---------- Payment Integrations ---------- */
+
+      function openRazorpayPayment(orderId, totalAmount) {
+        if (typeof Razorpay === "undefined") {
+          showOrderStatus("error", "Razorpay script not loaded.",
+            "Please refresh the page and try again, or contact support if the issue continues.");
+          return;
+        }
+
+        if (!RAZORPAY_KEY_ID || RAZORPAY_KEY_ID === "RAZORPAY_KEY_ID_HERE") {
+          showOrderStatus("error", "Razorpay key not configured.",
+            "Please add your Razorpay Key ID in checkout.html before going live.");
+          return;
+        }
+
+        const name    = (document.getElementById("co-name").value || "").trim();
+        const email   = (document.getElementById("co-email").value || "").trim();
+        const phone   = (document.getElementById("co-phone").value || "").trim();
+
+        const options = {
+          key: RAZORPAY_KEY_ID,
+          amount: Math.round((totalAmount || 0) * 100), // in paise
+          currency: "INR",
+          name: "Gems of Nature",
+          description: "Gemstones / Rudraksha Purchase",
+          order_id: "", // ideally comes from your backend Orders API
+          prefill: {
+            name,
+            email,
+            contact: phone
+          },
+          notes: {
+            gon_order_id: orderId
+          },
+          handler: function (response) {
+            const paymentId = response.razorpay_payment_id;
+
+            const fullName = (document.getElementById("co-name").value || "").trim();
+            const emailAddr = (document.getElementById("co-email").value || "").trim();
+            const phoneNum  = (document.getElementById("co-phone").value || "").trim();
+            const address   = (document.getElementById("co-address").value || "").trim();
+
+            // Build a basic order summary for your inbox
+            const summary = `
+Order ID: ${orderId}
+Payment ID: ${paymentId}
+Name: ${fullName}
+Email: ${emailAddr}
+Phone: ${phoneNum}
+Address: ${address}
+Total: ${formatCurrency(totalAmount)}
+Cart: ${JSON.stringify(cart, null, 2)}
+            `;
+
+            // Open default mail client with pre-filled email
+            window.open(
+              "mailto:paramjeet19@gmail.com"
+              + "?subject=" + encodeURIComponent("New order - " + orderId)
+              + "&body=" + encodeURIComponent(summary)
+            );
+
+            showOrderStatus(
+              "success",
+              "Payment successful! Your order is confirmed.",
+              `Order reference: <strong>${orderId}</strong><br>Razorpay Payment ID: <strong>${paymentId}</strong><br>We’ll contact you shortly on WhatsApp / Email with final confirmation.`
+            );
+
+            cart = {};
+            saveCart();
+            checkoutForm.reset();
+            highlightSelectedPaymentMethod();
+            updatePlaceOrderState();
+          },
+          theme: {
+            color: "#047857"
+          }
+        };
+
+        const rzp = new Razorpay(options);
+        rzp.on("payment.failed", function (response) {
+          console.error("Razorpay failed:", response.error);
+          showOrderStatus(
+            "error",
+            "Payment failed or cancelled.",
+            "No amount has been charged. You can try again, use a different card/UPI, or choose international payment if applicable."
+          );
+        });
+
+        rzp.open();
+      }
+
+      function openCCAvenuePayment(orderId, totalAmount) {
+        // Placeholder UX while backend is not wired
+        showOrderStatus(
+          "info",
+          "International payment (CCAvenue) coming soon.",
+          "For live CCAvenue, connect this button to a small backend that generates the encrypted encRequest and redirects to CCAvenue. For now, you can accept manual bank/PayPal transfers for international clients."
+        );
+      }
+
+      /* ---------- Place Order ---------- */
+
       if (placeOrderBtn) {
         placeOrderBtn.addEventListener("click", () => {
           if (placeOrderBtn.disabled) return;
@@ -811,40 +729,63 @@
           const email   = (document.getElementById("co-email").value || "").trim();
           const phone   = (document.getElementById("co-phone").value || "").trim();
           const address = (document.getElementById("co-address").value || "").trim();
-          const method  = getSelectedRadio(paymentMethodRadios);
-          const onlineOpt = getSelectedRadio(onlineOptionRadios);
+          const country = (document.getElementById("co-country").value || "IN");
+          const method  = getSelectedPaymentMethod();
           const entries = Object.entries(cart || {});
 
           if (!name || !email || !phone || !address || !method) {
-            alert("Please fill all required fields.");
+            showOrderStatus("error", "Please complete all required details before placing the order.");
             return;
           }
           if (!entries.length) {
-            alert("Your cart is empty.");
-            return;
-          }
-          if (method === "online" && onlineOpt === "card" && !cardSimOk) {
-            alert("Please submit valid card details first (demo only).");
+            showOrderStatus("error", "Your cart is empty.");
             return;
           }
 
-          alert("Order placed successfully! Thank you for shopping with Gems of Nature.");
+          const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+          if (!emailOk) {
+            showOrderStatus("error", "Please enter a valid email address.");
+            return;
+          }
+          if (phone.replace(/\D/g, "").length < 7) {
+            showOrderStatus("error", "Please enter a valid phone / WhatsApp number.");
+            return;
+          }
 
-          cart = {};
-          saveCart();
-          updateHeaderCartCount();
-          checkoutForm.reset();
-          handlePaymentMethodChange();
-          handleOnlineOptionChange();
-          updatePlaceOrderState();
+          const totals = calculateTotals();
+          const orderId = generateOrderId();
+
+          if (method === "razorpay" && country === "IN") {
+            openRazorpayPayment(orderId, totals.total);
+          } else if (method === "ccavenue") {
+            openCCAvenuePayment(orderId, totals.total);
+          } else {
+            showOrderStatus("error", "Please select a valid payment method for your country.");
+          }
         });
       }
 
-      // Initial
+      /* ---------- Cart Buttons ---------- */
+
+      btnContinue.addEventListener("click", () => {
+        window.location.href = "shop-ecom.html";
+      });
+
+      btnClear.addEventListener("click", () => {
+        if (!confirm("Clear all items from your cart?")) return;
+        cart = {};
+        saveCart();
+      });
+
+      btnCheckout.addEventListener("click", () => {
+        if (!Object.keys(cart || {}).length) return;
+        checkoutSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      /* ---------- Initial Render ---------- */
+
       renderCart();
-      handlePaymentMethodChange();
-      handleOnlineOptionChange();
-      updatePlaceOrderState();
+      highlightSelectedPaymentMethod();
     })();
   </script>
 </body>
