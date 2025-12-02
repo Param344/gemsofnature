@@ -1,30 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y2WZJ6SR5G"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Google Tag (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y2WZJ6SR5G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y2WZJ6SR5G');
+  </script>
 
-  gtag('config', 'G-Y2WZJ6SR5G');
-</script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description"
-        content="Gems of Nature - Ethically sourced gemstones and Rudraksha, curated with care for healing, jewellery and meaningful gifts." />
-  <meta name="keywords"
-        content="natural gemstones, healing crystals, amethyst, citrine, rose quartz, buy gemstones online, gemstone store">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="canonical" href="https://www.gemsofnature.shop/about.html">
+
+  <!-- Primary SEO Meta Tags -->
+  <title>About Gems of Nature | Authentic Natural Gemstones & Ethical Sourcing</title>
+  <meta name="description" content="Learn about Gems of Nature — trusted source for natural gemstones and Rudraksha. Ethically sourced products, certified stones, personalized guidance, and transparent pricing.">
+  <meta name="keywords" content="about gemstone seller, authentic gemstones India, certified gemstones source, natural crystals, ethical gemstone sourcing, buy gemstones online India">
   <meta name="author" content="Gems of Nature">
-  <title>Gems of Nature | About Us</title>
+
+  <!-- Open Graph / Social Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="About Gems of Nature | Natural Gemstones & Ethical Sourcing">
+  <meta property="og:description" content="Learn about Gems of Nature — trusted source for natural gemstones and Rudraksha with ethical sourcing, certified stones & expert guidance.">
+  <meta property="og:url" content="https://www.gemsofnature.shop/about.html">
+  <meta property="og:site_name" content="Gems of Nature">
+  <meta property="og:image" content="https://www.gemsofnature.shop/images/banner/og-about.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About Gems of Nature | Natural Gemstones & Ethical Sourcing">
+  <meta name="twitter:description" content="Learn about our mission, ethical sourcing, and premium gemstones selected for healing, astrology & spiritual growth.">
+  <meta name="twitter:image" content="https://www.gemsofnature.shop/images/banner/og-about.jpg">
+  <meta name="twitter:site" content="@gemsofnature">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/images/logo.png">
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Google Fonts: Montserrat -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
+  <!-- Global Styles -->
+  <link rel="stylesheet" href="/css/styles.css">
+
+  <!-- Page-specific Styles -->
   <style>
     :root {
       -webkit-font-smoothing: antialiased;
@@ -95,7 +121,7 @@
   <!-- Header (injected by layout.js) -->
   <div id="header"></div>
 
-  <main>
+  <main class="flex-1">
     <!-- Hero -->
     <section class="relative bg-cover bg-center h-64 md:h-96"
       style="background-image:
@@ -305,7 +331,7 @@
         <h2 class="text-3xl font-bold section-title mb-6">Our Values</h2>
 
         <div class="space-y-6">
-          <div class="flex gap-4 items-start">
+          <div class="flex flex-col sm:flex-row gap-4 items-start">
             <div class="min-w-[56px] h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold">01</div>
             <div>
               <h4 class="font-semibold">Transparency</h4>
@@ -316,7 +342,7 @@
             </div>
           </div>
 
-          <div class="flex gap-4 items-start">
+          <div class="flex flex-col sm:flex-row gap-4 items-start">
             <div class="min-w-[56px] h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold">02</div>
             <div>
               <h4 class="font-semibold">Ethics</h4>
@@ -327,7 +353,7 @@
             </div>
           </div>
 
-          <div class="flex gap-4 items-start">
+          <div class="flex flex-col sm:flex-row gap-4 items-start">
             <div class="min-w-[56px] h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold">03</div>
             <div>
               <h4 class="font-semibold">Quality & energy</h4>
@@ -363,6 +389,7 @@
         </div>
       </div>
     </section>
+  </main>
 
   <!-- Footer placeholder -->
   <div id="footer"></div>
@@ -378,21 +405,21 @@
   <!-- Team Modal -->
   <div id="team-modal" class="fixed inset-0 z-40 hidden modal-overlay flex items-center justify-center px-4">
     <div class="absolute inset-0 modal-overlay"></div>
-  <div class="relative bg-white rounded-2xl shadow-2xl max-w-2xl md:max-w-3xl w-full p-6 md:p-10 z-50">
+    <div class="relative bg-white rounded-2xl shadow-2xl max-w-2xl md:max-w-3xl w-full p-6 md:p-10 z-50">
       <button type="button" id="team-modal-close"
               class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-xl leading-none">
         &times;
       </button>
       <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
-      <div class="flex-shrink-0 flex items-center justify-center">
-      <div class="h-28 w-28 rounded-full bg-emerald-100 flex items-center justify-center text-4xl" id="team-modal-avatar">
-      👤
-      </div>
-      </div>
+        <div class="flex-shrink-0 flex items-center justify-center">
+          <div class="h-28 w-28 rounded-full bg-emerald-100 flex items-center justify-center text-4xl" id="team-modal-avatar">
+            👤
+          </div>
+        </div>
         <div>
-        <h3 class="text-2xl font-semibold text-emerald-800" id="team-modal-name">Name</h3>
-        <p class="text-sm md:text-base text-gray-600 mt-1" id="team-modal-role">Role</p>
-        <p class="text-sm md:text-base text-gray-700 mt-3" id="team-modal-bio">
+          <h3 class="text-2xl font-semibold text-emerald-800" id="team-modal-name">Name</h3>
+          <p class="text-sm md:text-base text-gray-600 mt-1" id="team-modal-role">Role</p>
+          <p class="text-sm md:text-base text-gray-700 mt-3" id="team-modal-bio">
             Short introduction will appear here.
           </p>
           <ul class="mt-3 space-y-1 text-sm text-gray-700" id="team-modal-experience">

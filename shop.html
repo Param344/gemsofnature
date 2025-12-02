@@ -1,36 +1,59 @@
 <!doctype html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y2WZJ6SR5G"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Google Tag (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y2WZJ6SR5G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y2WZJ6SR5G');
+  </script>
 
-  gtag('config', 'G-Y2WZJ6SR5G');
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Shop | Gems of Nature</title>
+  <link rel="canonical" href="https://www.gemsofnature.shop/shop.html">
 
-  <meta name="description" content="Shop gemstones, crystals, and Rudraksha from the unified Gems of Nature collection – carefully selected for healing, prosperity, and spiritual growth." />
-  <meta name="keywords" content="shop gemstones, buy crystals online, Rudraksha, healing stones, spiritual crystals, Gems of Nature shop" />
+  <!-- Primary SEO Meta Tags -->
+  <title>Gemstone Collections | Natural Healing Stones & Certified Gemstones | Gems of Nature</title>
+  <meta name="description" content="Browse premium natural gemstones and healing crystals. Find stones for astrology, healing, and jewellery. 100% natural, ethically sourced & available for custom recommendations.">
+  <meta name="keywords" content="gemstone collections, healing stones, astrology gemstones, natural gemstone shop, buy crystals India, premium gemstones, Rudraksha and crystals">
 
-  <link rel="canonical" href="https://www.gemsofnature.shop/shop.html" />
+  <!-- Open Graph / Social Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Gemstone Collections | Natural & Certified Healing Stones">
+  <meta property="og:description" content="Explore natural gemstones and healing crystals selected for astrology, wellness & jewellery. Premium quality, secure payments & fast delivery.">
+  <meta property="og:url" content="https://www.gemsofnature.shop/shop.html">
+  <meta property="og:site_name" content="Gems of Nature">
+  <meta property="og:image" content="https://www.gemsofnature.shop/images/banner/og-shop.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
 
-  <!-- Tailwind + Global CSS -->
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Gemstone Collections | Natural & Certified Healing Stones">
+  <meta name="twitter:description" content="Browse natural gemstones, Rudraksha & healing crystals. Perfect for astrology & spiritual growth.">
+  <meta name="twitter:image" content="https://www.gemsofnature.shop/images/banner/og-shop.jpg">
+  <meta name="twitter:site" content="@gemsofnature">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/images/logo.png">
+
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="css/styles.css" />
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Global Styles -->
+  <link rel="stylesheet" href="/css/styles.css">
 
   <!-- Shared layout (header/footer loader) -->
   <script src="js/layout.js" defer></script>
   <script src="js/ai-chat.js" defer></script>
 
+  <!-- Page-specific Styles -->
   <style>
     .font-montserrat { font-family: 'Montserrat', sans-serif; }
   </style>
@@ -59,14 +82,14 @@
         </div>
 
         <!-- Search + Sort -->
-        <div class="flex items-center gap-3">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-3 w-full md:w-auto">
           <input
             id="shopSearch"
             type="search"
             placeholder="Search gemstones..."
-            class="px-4 py-2 rounded-lg border w-64"
+            class="px-4 py-2 rounded-lg border w-full sm:w-64"
           />
-          <select id="sortSelect" class="px-3 py-2 rounded-lg border">
+          <select id="sortSelect" class="px-3 py-2 rounded-lg border w-full sm:w-auto">
             <option value="">Sort</option>
             <option value="price-asc">Price: Low to High</option>
             <option value="price-desc">Price: High to Low</option>
@@ -74,7 +97,7 @@
           </select>
           <button
             id="clearFilters"
-            class="px-3 py-2 bg-white border rounded-lg hover:bg-gray-50 text-sm"
+            class="px-3 py-2 bg-white border rounded-lg hover:bg-gray-50 text-sm w-full sm:w-auto"
           >
             Clear
           </button>
@@ -115,10 +138,10 @@
   <!-- Footer -->
   <div id="footer"></div>
 
-<!-- Product data -->
-<script src="js/products.js?v=4"></script>
-<!-- Extra spiritual meta -->
-<script src="js/product-meta.js"></script>
+  <!-- Product data -->
+  <script src="js/products.js?v=4"></script>
+  <!-- Extra spiritual meta -->
+  <script src="js/product-meta.js"></script>
 
   <!-- Page logic: filters + rendering + modal -->
   <script>
@@ -298,122 +321,121 @@
       renderSections();
     });
 
-    
-  function openModal(id) {
-    const base = (window.products || []).find((x) => x.id === id);
-    const meta = (window.productMeta && window.productMeta[id]) || {};
+    function openModal(id) {
+      const base = (window.products || []).find((x) => x.id === id);
+      const meta = (window.productMeta && window.productMeta[id]) || {};
 
-    if (!base) return;
+      if (!base) return;
 
-    // Merge: meta overrides base if same key exists
-    const p = { ...base, ...meta };
+      // Merge: meta overrides base if same key exists
+      const p = { ...base, ...meta };
 
-    const overlay = document.getElementById("quickModal");
-    const modalBody = document.getElementById("modalContent");
-    if (!overlay || !modalBody) return;
+      const overlay = document.getElementById("quickModal");
+      const modalBody = document.getElementById("modalContent");
+      if (!overlay || !modalBody) return;
 
-    const mainDesc = p.long_description || p.description || "";
+      const mainDesc = p.long_description || p.description || "";
 
-    const priceText =
-      p.price_min && p.price_max
-        ? `₹${p.price_min.toLocaleString()} – ₹${p.price_max.toLocaleString()}`
-        : "";
+      const priceText =
+        p.price_min && p.price_max
+          ? `₹${p.price_min.toLocaleString()} – ₹${p.price_max.toLocaleString()}`
+          : "";
 
-    // Planet / zodiac / chakra block
-    const zodiacText = Array.isArray(p.zodiac) ? p.zodiac.join(", ") : (p.zodiac || "");
-    const chakraText = Array.isArray(p.chakra) ? p.chakra.join(", ") : (p.chakra || "");
+      // Planet / zodiac / chakra block
+      const zodiacText = Array.isArray(p.zodiac) ? p.zodiac.join(", ") : (p.zodiac || "");
+      const chakraText = Array.isArray(p.chakra) ? p.chakra.join(", ") : (p.chakra || "");
 
-    const infoHtml =
-      p.planet || zodiacText || chakraText
-        ? `
-      <div class="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs md:text-sm text-gray-700">
-        ${p.planet ? `<div><span class="font-semibold">Planet:</span> ${p.planet}</div>` : ""}
-        ${zodiacText ? `<div><span class="font-semibold">Zodiac:</span> ${zodiacText}</div>` : ""}
-        ${chakraText ? `<div><span class="font-semibold">Chakra:</span> ${chakraText}</div>` : ""}
-      </div>
-    `
-        : "";
+      const infoHtml =
+        p.planet || zodiacText || chakraText
+          ? `
+        <div class="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs md:text-sm text-gray-700">
+          ${p.planet ? `<div><span class="font-semibold">Planet:</span> ${p.planet}</div>` : ""}
+          ${zodiacText ? `<div><span class="font-semibold">Zodiac:</span> ${zodiacText}</div>` : ""}
+          ${chakraText ? `<div><span class="font-semibold">Chakra:</span> ${chakraText}</div>` : ""}
+        </div>
+      `
+          : "";
 
-    const benefitsHtml =
-      Array.isArray(p.benefits) && p.benefits.length
-        ? `
-      <h3 class="mt-4 font-semibold text-emerald-700 text-sm md:text-base">Key Benefits</h3>
-      <ul class="list-disc pl-5 text-sm text-gray-700 space-y-1 mt-1">
-        ${p.benefits.map((b) => `<li>${b}</li>`).join("")}
-      </ul>
-    `
-        : "";
+      const benefitsHtml =
+        Array.isArray(p.benefits) && p.benefits.length
+          ? `
+        <h3 class="mt-4 font-semibold text-emerald-700 text-sm md:text-base">Key Benefits</h3>
+        <ul class="list-disc pl-5 text-sm text-gray-700 space-y-1 mt-1">
+          ${p.benefits.map((b) => `<li>${b}</li>`).join("")}
+        </ul>
+      `
+          : "";
 
-    const mantraParts = [];
-    if (p.mantra_sanskrit) mantraParts.push(`<div class="font-semibold">${p.mantra_sanskrit}</div>`);
-    if (p.mantra_english) mantraParts.push(`<div class="text-sm text-gray-700">${p.mantra_english}</div>`);
+      const mantraParts = [];
+      if (p.mantra_sanskrit) mantraParts.push(`<div class="font-semibold">${p.mantra_sanskrit}</div>`);
+      if (p.mantra_english) mantraParts.push(`<div class="text-sm text-gray-700">${p.mantra_english}</div>`);
 
-    const mantraHtml =
-      mantraParts.length
-        ? `
-      <div class="mt-4">
-        <div class="text-sm font-semibold text-emerald-700 mb-1">Recommended Mantra</div>
-        ${mantraParts.join("")}
-      </div>
-    `
-        : "";
+      const mantraHtml =
+        mantraParts.length
+          ? `
+        <div class="mt-4">
+          <div class="text-sm font-semibold text-emerald-700 mb-1">Recommended Mantra</div>
+          ${mantraParts.join("")}
+        </div>
+      `
+          : "";
 
-    modalBody.innerHTML = `
-      <button
-        onclick="closeModal()"
-        class="text-right text-gray-500 hover:text-gray-800 w-full mb-2 text-sm"
-      >
-        ✕ Close
-      </button>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <img
-          src="${p.image}"
-          class="w-full h-80 md:h-96 object-cover rounded-lg"
-          alt="${(p.name || "").replace(/"/g, "&quot;")}"
+      modalBody.innerHTML = `
+        <button
+          onclick="closeModal()"
+          class="text-right text-gray-500 hover:text-gray-800 w-full mb-2 text-sm"
         >
+          ✕ Close
+        </button>
 
-        <div>
-          <h2 class="text-2xl md:text-3xl font-bold text-emerald-700">
-            ${p.name || ""}
-          </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <img
+            src="${p.image}"
+            class="w-full h-80 md:h-96 object-cover rounded-lg"
+            alt="${(p.name || "").replace(/"/g, "&quot;")}"
+          >
 
-          <p class="mt-2 text-sm md:text-base text-gray-700">
-            ${mainDesc}
-          </p>
+          <div>
+            <h2 class="text-2xl md:text-3xl font-bold text-emerald-700">
+              ${p.name || ""}
+            </h2>
 
-          ${
-            priceText
-              ? `<p class="mt-3 font-semibold text-lg md:text-xl text-gray-900">${priceText}</p>`
-              : ""
-          }
+            <p class="mt-2 text-sm md:text-base text-gray-700">
+              ${mainDesc}
+            </p>
 
-          ${infoHtml}
-          ${benefitsHtml}
-          ${mantraHtml}
+            ${
+              priceText
+                ? `<p class="mt-3 font-semibold text-lg md:text-xl text-gray-900">${priceText}</p>`
+                : ""
+            }
 
-          <div class="mt-6 flex flex-col sm:flex-row gap-3">
-            <a
-              href="shop-ecom.html?id=${p.id}"
-              class="flex-1 inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold"
-            >
-              Visit Online Store
-            </a>
+            ${infoHtml}
+            ${benefitsHtml}
+            ${mantraHtml}
+
+            <div class="mt-6 flex flex-col sm:flex-row gap-3">
+              <a
+                href="shop-ecom.html?id=${p.id}"
+                class="flex-1 inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold"
+              >
+                Visit Online Store
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-    `;
+      `;
 
-    overlay.classList.remove("hidden");
-    overlay.classList.add("flex");
-  }
+      overlay.classList.remove("hidden");
+      overlay.classList.add("flex");
+    }
 
-  function closeModal() {
-    const overlay = document.getElementById("quickModal");
-    if (!overlay) return;
-    overlay.classList.add("hidden");
-    overlay.classList.remove("flex");
-  }
-</script>
+    function closeModal() {
+      const overlay = document.getElementById("quickModal");
+      if (!overlay) return;
+      overlay.classList.add("hidden");
+      overlay.classList.remove("flex");
+    }
+  </script>
 </body>
 </html>

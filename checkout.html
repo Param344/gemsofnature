@@ -1,46 +1,73 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Google Tag (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y2WZJ6SR5G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y2WZJ6SR5G');
+  </script>
 
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y2WZJ6SR5G"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  gtag('config', 'G-Y2WZJ6SR5G');
-</script>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Checkout | Gems of Nature</title>
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://www.gemsofnature.shop/checkout.html">
 
-  <meta name="description" content="Secure checkout at Gems of Nature — review your selected gemstones and complete payment via Razorpay (India) or CCAvenue (international)." />
-  <meta name="keywords" content="checkout gemstones, buy crystals online, healing stone purchase, Gems of Nature cart, Rudraksha checkout" />
-  <link rel="canonical" href="https://www.gemsofnature.shop/checkout.html" />
+  <!-- Primary SEO Meta Tags -->
+  <title>Secure Checkout | Gems of Nature – Natural Gemstones & Rudraksha</title>
+  <meta name="description" content="Complete your order securely with Razorpay (India) or CCAvenue (international). Encrypted payments, WhatsApp/email confirmation and fast shipping of natural gemstones & Rudraksha.">
+  <meta name="keywords" content="gemstone checkout, secure payment gemstones, Razorpay gemstones, CCAvenue gemstones, buy rudraksha online, gems of nature checkout">
+
+  <!-- Open Graph / Social Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Secure Checkout | Gems of Nature – Natural Gemstones & Rudraksha">
+  <meta property="og:description" content="Pay securely for 100% natural gemstones and Rudraksha using Razorpay or CCAvenue. Order confirmation via WhatsApp & email, with fast, careful shipping.">
+  <meta property="og:url" content="https://www.gemsofnature.shop/checkout.html">
+  <meta property="og:site_name" content="Gems of Nature">
+  <meta property="og:image" content="https://www.gemsofnature.shop/images/banner/og-checkout.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Secure Checkout | Gems of Nature – Natural Gemstones & Rudraksha">
+  <meta name="twitter:description" content="Secure online payment for natural gemstones & Rudraksha, with Razorpay and CCAvenue options and personal order support.">
+  <meta name="twitter:image" content="https://www.gemsofnature.shop/images/banner/og-checkout.jpg">
+  <meta name="twitter:site" content="@gemsofnature">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/images/logo.png">
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <!-- Global Styles -->
-  <link rel="preload" href="css/styles.css" as="style" />
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="/css/styles.css">
 
-  <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-  <style>
-    .font-montserrat {
-      font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-    .muted { color: #6b7280; }
-  </style>
-
-  <!-- Shared layout -->
+  <!-- Shared layout (header/footer) -->
   <script src="js/layout.js" defer></script>
 
-  <!-- Razorpay Checkout -->
+  <!-- Razorpay Checkout (needed for payment popup) -->
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+    }
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+    .muted {
+      color: #6b7280;
+      font-size: 0.875rem;
+    }
+  </style>
 </head>
 
 <body class="bg-gray-50 text-gray-800 font-montserrat" data-page="checkout">
@@ -671,7 +698,6 @@
             const phoneNum  = (document.getElementById("co-phone").value || "").trim();
             const address   = (document.getElementById("co-address").value || "").trim();
 
-            // Build a basic order summary for your inbox
             const summary = `
 Order ID: ${orderId}
 Payment ID: ${paymentId}
@@ -683,7 +709,6 @@ Total: ${formatCurrency(totalAmount)}
 Cart: ${JSON.stringify(cart, null, 2)}
             `;
 
-            // Open default mail client with pre-filled email
             window.open(
               "mailto:paramjeet19@gmail.com"
               + "?subject=" + encodeURIComponent("New order - " + orderId)
@@ -721,11 +746,10 @@ Cart: ${JSON.stringify(cart, null, 2)}
       }
 
       function openCCAvenuePayment(orderId, totalAmount) {
-        // Placeholder UX while backend is not wired
         showOrderStatus(
           "info",
           "International payment (CCAvenue) coming soon.",
-          "For live CCAvenue, connect this button to a small backend that generates the encrypted encRequest and redirects to CCAvenue. For now, you can accept manual bank/PayPal transfers for international clients."
+          "For live CCAvenue, connect this button to a backend that generates the encrypted encRequest and redirects to CCAvenue. For now, you can accept manual bank/PayPal transfers for international clients."
         );
       }
 
