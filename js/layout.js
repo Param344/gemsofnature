@@ -8,7 +8,12 @@ document.addEventListener("DOMContentLoaded", () => {
   async function loadFragment(container, path, callback) {
     if (!container) return;
     try {
-      const res = await fetch(path);
+      const res = await fetch(path, { cache: "no-cache" });
+      if (!res.ok) {
+        console.error(`Failed to load ${path}:`, res.status, res.statusText);
+        return;
+      }
+
       const html = await res.text();
       container.innerHTML = html;
 
@@ -21,8 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Load header and then wire up mobile menu + cart badge
-  loadFragment(headerContainer, "header.html", () => {
+  // NOTE: use absolute paths so it works from /, /guides/, etc.
+  loadFragment(headerContainer, "/header.html", () => {
     if (typeof initHeaderInteractiveFeatures === "function") {
       initHeaderInteractiveFeatures();
     } else if (typeof initMobileMenu === "function") {
@@ -32,5 +37,5 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Load footer (no special JS needed for now)
-  loadFragment(footerContainer, "footer.html");
+  loadFragment(footerContainer, "/footer.html");
 });
