@@ -50,6 +50,8 @@
   <!-- Global Styles -->
   <link rel="stylesheet" href="/css/styles.css">
 
+  <link rel="stylesheet" href="/css/gon-responsive.css">
+
   <!-- Shared layout (header/footer) -->
   <script src="js/layout.js" defer></script>
 
@@ -135,16 +137,19 @@
 
             <button
               id="cart-continue-btn"
+              type="button"
               class="w-full inline-flex items-center justify-center px-4 py-3 rounded-xl border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition">
               Continue Shopping
             </button>
 
             <button
               id="cart-clear-btn"
+              type="button"
+              onclick="gonClearCart(event)"
               class="w-full inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm text-red-600 hover:bg-red-50 transition">
               Clear Cart
             </button>
-          </div>
+
 
           <p class="mt-4 text-xs text-gray-400">
             Taxes and final shipping may vary based on weight and destination. You will confirm all details during checkout.
@@ -699,14 +704,14 @@
             const address   = (document.getElementById("co-address").value || "").trim();
 
             const summary = `
-Order ID: ${orderId}
-Payment ID: ${paymentId}
-Name: ${fullName}
-Email: ${emailAddr}
-Phone: ${phoneNum}
-Address: ${address}
-Total: ${formatCurrency(totalAmount)}
-Cart: ${JSON.stringify(cart, null, 2)}
+            Order ID: ${orderId}
+            Payment ID: ${paymentId}
+            Name: ${fullName}
+            Email: ${emailAddr}
+            Phone: ${phoneNum}
+            Address: ${address}
+            Total: ${formatCurrency(totalAmount)}
+            Cart: ${JSON.stringify(cart, null, 2)}
             `;
 
             window.open(
@@ -798,23 +803,34 @@ Cart: ${JSON.stringify(cart, null, 2)}
           }
         });
       }
+/* ---------- Cart Buttons ---------- */
 
-      /* ---------- Cart Buttons ---------- */
+// Continue shopping button (summary panel)
+if (btnContinue) {
+  btnContinue.addEventListener("click", () => {
+    window.location.href = "shop-ecom.html";
+  });
+}
 
-      btnContinue.addEventListener("click", () => {
-        window.location.href = "shop-ecom.html";
-      });
+// "Go to Checkout Details" in cart summary
+if (btnCheckout) {
+  btnCheckout.addEventListener("click", () => {
+    if (!Object.keys(cart || {}).length) return;
+    checkoutSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+}
 
-      btnClear.addEventListener("click", () => {
-        if (!confirm("Clear all items from your cart?")) return;
-        cart = {};
-        saveCart();
-      });
+// Global function so inline onclick works on all devices
+window.gonClearCart = function (e) {
+  if (e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  if (!confirm("Clear all items from your cart?")) return;
+  cart = {};
+  saveCart();
+};
 
-      btnCheckout.addEventListener("click", () => {
-        if (!Object.keys(cart || {}).length) return;
-        checkoutSection.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
 
       /* ---------- Initial Render ---------- */
 

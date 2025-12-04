@@ -66,3 +66,85 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }, 100);
 });
+
+// Cart popup init that can be called after header is loaded
+function initGONCartPopup() {
+  const cartBtn     = document.getElementById("headerCartBtn");
+  const cartPopup   = document.getElementById("cartPopup");
+  const cartOverlay = document.getElementById("cartOverlay");
+  const cartClose   = document.getElementById("cartCloseBtn");
+
+  // If header not injected yet, return false so we can try again
+  if (!cartBtn || !cartPopup) {
+    return false;
+  }
+
+  function openCartPopup() {
+    cartPopup.classList.remove("hidden");
+    if (cartOverlay) cartOverlay.classList.remove("hidden");
+  }
+
+  function closeCartPopup() {
+    cartPopup.classList.add("hidden");
+    if (cartOverlay) cartOverlay.classList.add("hidden");
+  }
+
+  // Toggle on header cart click
+  cartBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (cartPopup.classList.contains("hidden")) {
+      openCartPopup();
+    } else {
+      closeCartPopup();
+    }
+  });
+
+  // Clicking inside the popup should NOT close it
+  cartPopup.addEventListener("click", function (e) {
+    e.stopPropagation();
+  });
+
+  // X button
+  if (cartClose) {
+    cartClose.addEventListener("click", function (e) {
+      e.preventDefault();
+      closeCartPopup();
+    });
+  }
+
+  // Overlay click closes
+  if (cartOverlay) {
+    cartOverlay.addEventListener("click", function () {
+      closeCartPopup();
+    });
+  }
+
+  // Click outside closes (optional, good UX on desktop)
+  document.addEventListener("click", function (e) {
+    if (!cartPopup.classList.contains("hidden")) {
+      if (!e.target.closest("#headerCartBtn") && !e.target.closest("#cartPopup")) {
+        closeCartPopup();
+      }
+    }
+  });
+
+  console.log("GON cart popup initialized");
+  return true;
+}
+
+// Try to initialize after DOM + header injection
+document.addEventListener("DOMContentLoaded", function () {
+  // Keep trying until header is actually in the DOM
+  const maxTries = 20;
+  let tries = 0;
+
+  const intervalId = setInterval(function () {
+    tries++;
+    const ok = initGONCartPopup();
+    if (ok || tries >= maxTries) {
+      clearInterval(intervalId);
+    }
+  }, 200);
+});

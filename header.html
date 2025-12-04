@@ -93,78 +93,108 @@
     </ul>
 
     <!-- Right: Buy Online + Cart + Mobile -->
-    <div class="flex items-center gap-4">
-      <a href="/shop-ecom.html"
-         class="hidden md:inline-block bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold">
-        Buy Online
-      </a>
+<div class="flex items-center gap-4">
+  <a href="/shop-ecom.html"
+     class="hidden md:inline-block bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold">
+    Buy Online
+  </a>
 
-      <!-- Cart with badge + dropdown -->
-      <div class="relative text-2xl group">
-        <button type="button" aria-label="Cart" class="relative">
-          <span class="sr-only">View cart</span>
-          <span aria-hidden="true">🛒</span>
+  <!-- Cart with badge + popup (click, not hover) -->
+  <div class="relative text-2xl">
+    <button
+      type="button"
+      aria-label="Cart"
+      id="headerCartBtn"
+      class="relative"
+    >
+      <span class="sr-only">View cart</span>
+      <span aria-hidden="true">🛒</span>
 
-          <span id="cartCount"
-            class="absolute -top-2 -right-3 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-            0
-          </span>
-          <span id="cartCountLabel" class="sr-only">0 items in cart</span>
-        </button>
-
-        <!-- Mini cart dropdown -->
-        <div
-          class="hidden group-hover:block absolute right-0 mt-3 w-80 bg-white text-gray-800 rounded-2xl shadow-xl p-4 text-sm z-[99999999]">
-          <h3 class="text-sm font-semibold mb-2">Your Cart</h3>
-
-          <div id="cart-items-mini" class="max-h-60 overflow-auto space-y-2 text-xs">
-            <p class="text-gray-500">Your cart is empty.</p>
-          </div>
-
-          <div class="mt-3 flex items-center justify-between text-xs">
-            <span class="font-semibold">Total</span>
-            <span id="cart-total-mini" class="font-bold">₹0</span>
-          </div>
-
-          <div class="mt-3 flex gap-2">
-            <a href="/checkout.html"
-               class="flex-1 text-center bg-emerald-600 text-white rounded-lg py-2 text-xs font-semibold hover:bg-emerald-700">
-              Continue Checkout
-            </a>
-            <button id="clear-cart-mini"
-                    class="px-3 py-2 text-xs border rounded-lg flex-shrink-0 hover:bg-gray-50">
-              Clear Cart
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <button id="mobile-menu-button" class="text-2xl md:hidden focus:outline-none" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open mobile menu">
-        ☰
-      </button>
-    </div>
-  </nav>
-
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden bg-emerald-800 md:hidden" role="navigation" aria-label="Mobile navigation">
-    <ul class="flex flex-col gap-4 px-6 py-4">
-      <li><a href="/index.html" class="block py-1.5 hover:text-emerald-300 transition">Home</a></li>
-      <li><a href="/about.html" class="block py-1.5 hover:text-emerald-300 transition">About Us</a></li>
-      <li><a href="/shop.html" class="block py-1.5 hover:text-emerald-300 transition">Collections</a></li>
-      <li><a href="/shop-ecom.html" class="block py-1.5 hover:text-emerald-300 transition">Buy Online</a></li>
-
-      <!-- Mobile Learn section -->
-      <li class="pt-2 mt-1 text-xs font-semibold uppercase tracking-wide text-emerald-200">Learn</li>
-      <li><a href="/guides/gemstone-basics.html" class="block py-1.5 hover:text-emerald-300 transition">Gemstone Basics</a></li>
-      <li><a href="/guides/how-to-choose.html" class="block py-1.5 hover:text-emerald-300 transition">How to Choose a Stone</a></li>
-      <li><a href="/guides/chakras-stones.html" class="block py-1.5 hover:text-emerald-300 transition">Chakras &amp; Stones</a></li>
-      <li><a href="/guides/rudraksha-guide.html" class="block py-1.5 hover:text-emerald-300 transition">Rudraksha Guide</a></li>
-      <li><a href="/guides/how-to-wear-care.html" class="block py-1.5 hover:text-emerald-300 transition">How to Wear &amp; Care</a></li>
-
-      <li class="pt-2 border-t border-emerald-700 mt-2"></li>
-
-      <li><a href="/contact.html" class="block py-1.5 hover:text-emerald-300 transition">Contact</a></li>
-      <li><a href="/astrology.consultation.html" class="block py-1.5 hover:text-emerald-300 transition">Astrology &amp; Consultation</a></li>
-    </ul>
+      <span id="cartCount"
+        class="absolute -top-2 -right-3 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+        0
+      </span>
+      <span id="cartCountLabel" class="sr-only">0 items in cart</span>
+    </button>
   </div>
+
+  <button id="mobile-menu-button"
+          class="text-2xl md:hidden focus:outline-none"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+          aria-label="Open mobile menu">
+    ☰
+  </button>
+</div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu"
+     class="hidden bg-emerald-800 md:hidden"
+     role="navigation"
+     aria-label="Mobile navigation">
+  <ul class="flex flex-col gap-4 px-6 py-4">
+    <li><a href="/index.html" class="block py-1.5 hover:text-emerald-300 transition">Home</a></li>
+    <li><a href="/about.html" class="block py-1.5 hover:text-emerald-300 transition">About Us</a></li>
+    <li><a href="/shop.html" class="block py-1.5 hover:text-emerald-300 transition">Collections</a></li>
+    <li><a href="/shop-ecom.html" class="block py-1.5 hover:text-emerald-300 transition">Buy Online</a></li>
+
+    <!-- Mobile Learn section -->
+    <li class="pt-2 mt-1 text-xs font-semibold uppercase tracking-wide text-emerald-200">Learn</li>
+    <li><a href="/guides/gemstone-basics.html" class="block py-1.5 hover:text-emerald-300 transition">Gemstone Basics</a></li>
+    <li><a href="/guides/how-to-choose.html" class="block py-1.5 hover:text-emerald-300 transition">How to Choose a Stone</a></li>
+    <li><a href="/guides/chakras-stones.html" class="block py-1.5 hover:text-emerald-300 transition">Chakras &amp; Stones</a></li>
+    <li><a href="/guides/rudraksha-guide.html" class="block py-1.5 hover:text-emerald-300 transition">Rudraksha Guide</a></li>
+    <li><a href="/guides/how-to-wear-care.html" class="block py-1.5 hover:text-emerald-300 transition">How to Wear &amp; Care</a></li>
+
+    <li class="pt-2 border-t border-emerald-700 mt-2"></li>
+
+    <li><a href="/contact.html" class="block py-1.5 hover:text-emerald-300 transition">Contact</a></li>
+    <li><a href="/astrology.consultation.html" class="block py-1.5 hover:text-emerald-300 transition">Astrology &amp; Consultation</a></li>
+  </ul>
+</div>
+
+<!-- Cart overlay + popup (center mobile, panel desktop) -->
+<div id="cartOverlay"
+     class="fixed inset-0 bg-black/40 z-40 hidden"></div>
+
+<div id="cartPopup"
+     class="fixed z-50 hidden
+            inset-x-4 top-1/2 -translate-y-1/2
+            max-w-md mx-auto
+            bg-white text-gray-800 rounded-2xl shadow-2xl p-4 text-sm
+
+            lg:top-16 lg:right-6 lg:left-auto lg:translate-y-0
+            lg:w-96">
+  <div class="flex items-center justify-between mb-2">
+    <h3 class="text-sm font-semibold">Your Cart</h3>
+    <button
+      type="button"
+      id="cartCloseBtn"
+      class="text-xs text-gray-400 hover:text-gray-600">
+      ✕
+    </button>
+  </div>
+
+  <div id="cart-items-mini"
+       class="max-h-60 overflow-auto space-y-2 text-xs">
+    <p class="text-gray-500">Your cart is empty.</p>
+  </div>
+
+  <div class="mt-3 flex items-center justify-between text-xs">
+    <span class="font-semibold">Total</span>
+    <span id="cart-total-mini" class="font-bold">₹0</span>
+  </div>
+
+  <div class="mt-3 flex gap-2">
+    <a href="/checkout.html"
+       class="flex-1 text-center bg-emerald-600 text-white rounded-lg py-2 text-xs font-semibold hover:bg-emerald-700">
+      Continue Checkout
+    </a>
+    <button id="clear-cart-mini"
+            class="px-3 py-2 text-xs border rounded-lg flex-shrink-0 hover:bg-gray-50">
+      Clear Cart
+    </button>
+  </div>
+</div>
 </header>
