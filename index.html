@@ -93,14 +93,14 @@
     img { display:block; background:transparent; }
     footer { background-color:#065f46; width:100%; }
 
-    /* HERO/BACKGROUND SLIDER STYLES (UNCHANGED) */
+    /* HERO/BACKGROUND SLIDER STYLES (UNCHANGED except small parallax-ready tweaks) */
 #hero-bg-layer {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
   filter: blur(3px) brightness(0.82) saturate(0.95);
-  transition: opacity .7s ease, transform .7s ease;
-  will-change: opacity, background-image;
+  transition: opacity .7s ease, transform .25s ease;
+  will-change: opacity, background-image, transform;
   opacity: 1;               /* keep visible once initialized */
   z-index: 0;
 }
@@ -113,8 +113,8 @@
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity .7s ease;
-  will-change: opacity;
+  transition: opacity .7s ease, transform .5s ease;
+  will-change: opacity, transform;
 }
 
 /* active slide visible */
@@ -394,18 +394,24 @@
     <!-- RIGHT COLUMN: IMAGE SLIDER (covers full column) -->
 <div class="relative w-full h-[320px] md:h-[520px] overflow-hidden rounded-2xl md:order-2 order-1">
   <div class="absolute inset-0 slider-wrapper">
-      <img src="/images/slider/hero-bg.jpg"
-      alt="Assorted amethyst and crystals"
+      <!-- Foreground / visible slides (use hero-style images) -->
+      <img src="/images/slider/ruby.jpg"
+      alt="Ruby hero image"
       class="slider-img active"
       loading="lazy" />
 
-      <img src="/images/slider/emerald.jpg"
-          alt="Green aventurine and raw stones"
+      <img src="/images/slider/blue-sapphire.jpg"
+          alt="Blue Sapphire hero image"
           class="slider-img"
           loading="lazy" />
 
-      <img src="/images/slider/blue-sapphire.jpg"
-          alt="Polished gemstone collection"
+      <img src="/images/slider/yellow-sapphire.jpg"
+          alt="Yellow Sapphire (variant) hero image"
+          class="slider-img"
+          loading="lazy" />
+
+      <img src="/images/slider/emerald.jpg"
+          alt="Emerald hero image"
           class="slider-img"
           loading="lazy" />
   </div>
@@ -1239,7 +1245,7 @@
           tags.push(labelMap[answers.purpose] || answers.purpose);
         }
 
-        if (answers.chakra && (p.chakras || []).includes(answers.chakra)) {
+        if (answers.chakra && (p.chakras || []).includes(answers.chakras)) {
           const chakraLabelMap = {
             root: 'Root Chakra',
             sacral: 'Sacral Chakra',
@@ -1497,6 +1503,8 @@
   </script>
 
 <script>
+/* ===== HERO SLIDER with subtle PARALLAX — ready to paste.
+   Only affects the hero / slider logic; rest of the page left untouched. */
 document.addEventListener('DOMContentLoaded', function () {
   const slides = Array.from(document.querySelectorAll('.slider-img'));
   const heroBg = document.getElementById('hero-bg-layer');
@@ -1528,7 +1536,7 @@ document.addEventListener('DOMContentLoaded', function () {
   heroBg.style.backgroundImage = `url("${getImgUrl(slides[idx])}")`;
   heroBg.style.opacity = '1';
 
-  const intervalMs = 3000; // 3 seconds
+  const intervalMs = 5000; // 5 seconds for richer visuals
   let timer = null;
 
   function showSlide(nextIdx) {
@@ -1538,14 +1546,15 @@ document.addEventListener('DOMContentLoaded', function () {
     slides[nextIdx].classList.add('active');
 
     // update hero-bg with smooth fade:
-    // quickly drop opacity, change image, then fade up
     heroBg.style.opacity = '0';
     // slight delay to let fade-out start (keeps it smooth)
     setTimeout(() => {
       heroBg.style.backgroundImage = `url("${getImgUrl(slides[nextIdx])}")`;
       heroBg.style.opacity = '1';
-    }, 80);
+    }, 110);
 
+    // reset any transforms on previous slide
+    slides[idx].style.transform = '';
     idx = nextIdx;
   }
 
@@ -1577,8 +1586,68 @@ document.addEventListener('DOMContentLoaded', function () {
     if (e.key === 'ArrowRight') { stopAuto(); showSlide((idx + 1) % slides.length); startAuto(); }
     if (e.key === 'ArrowLeft')  { stopAuto(); showSlide((idx - 1 + slides.length) % slides.length); startAuto(); }
   });
-});
 
+  /* ---------- PARALLAX EFFECTS ---------- */
+  // Strengths (tweak if you want stronger/weaker)
+  const bgMax = 18;   // px movement for background layer
+  const fgMax = 28;   // px movement for foreground (active image)
+
+  // Apply parallax based on pointer position within wrapper
+  function applyParallax(clientX, clientY) {
+    const rect = wrapper.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = (clientX - cx) / (rect.width / 2); // -1 .. 1
+    const dy = (clientY - cy) / (rect.height / 2);
+
+    const clampedX = Math.max(-1, Math.min(1, dx));
+    const clampedY = Math.max(-1, Math.min(1, dy));
+
+    const bgTx = clampedX * (bgMax / 2); // background smaller move
+    const bgTy = clampedY * (bgMax / 2);
+
+    // Slight scale for depth
+    heroBg.style.transform = `translate3d(${bgTx}px, ${bgTy}px, 0) scale(1.02)`;
+
+    // Foreground active slide moves a bit more
+    slides.forEach((s) => {
+      if (s.classList.contains('active')) {
+        const fgTx = clampedX * fgMax;
+        const fgTy = clampedY * (fgMax / 2);
+        s.style.transform = `translate3d(${fgTx}px, ${fgTy}px, 0) scale(1.01)`;
+      } else {
+        s.style.transform = '';
+      }
+    });
+  }
+
+  // Throttle pointermove for performance
+  let lastPointer = 0;
+  wrapper.addEventListener('pointermove', (e) => {
+    const now = performance.now();
+    if (now - lastPointer < 12) return; // ~80-90fps cap
+    lastPointer = now;
+    applyParallax(e.clientX, e.clientY);
+  });
+
+  wrapper.addEventListener('pointerleave', () => {
+    // reset transforms smoothly
+    heroBg.style.transform = '';
+    slides.forEach(s => s.style.transform = '');
+  });
+
+  // Minor parallax on scroll (subtle)
+  let lastScroll = window.scrollY;
+  window.addEventListener('scroll', () => {
+    const now = window.scrollY;
+    const delta = now - lastScroll;
+    lastScroll = now;
+    const scrollMove = Math.max(-10, Math.min(10, -delta)); // small translate
+    heroBg.style.transform = `translate3d(0, ${scrollMove}px, 0)`;
+    setTimeout(() => { heroBg.style.transform = ''; }, 140);
+  });
+
+});
 </script>
 <!-- ===== Optional JS: equalize heights (keeps columns aligned on image/load/resize) ===== -->
 <script>
