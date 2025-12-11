@@ -16,168 +16,217 @@
   "
 >
   <!-- Move fonts to <head> for best perf; kept here for convenience -->
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 
   <!-- Scoped header CSS -->
   <style>
-/* Brand / logo text — improved for legibility, weight, and responsiveness */
-#site-header {
-  --brand-gold: #E8DCC2;
-  --brand-dark: #1a1a1a;
-  --brand-contrast: #0f1720;
-  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", Arial, sans-serif;
-  overflow: visible;
-}
+    /* Base header styling */
+    #site-header {
+      --brand-gold: #E8DCC2;
+      --brand-dark: #1a1a1a;
+      --brand-contrast: #0f1720;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", Arial, sans-serif;
+      overflow: visible;
+      /* default measured height var */
+      --measured-header-h: 68px;
+    }
 
-/* Preferred font-family order:
-   1. Cormorant Garamond (or Playfair Display / Cinzel) — elegant serif for premium look
-   2. Fallback to Georgia/serif for consistent serif rendering if webfont fails
-*/
-#site-header .brand-text {
-  font-family: "Cormorant Garamond", "Playfair Display", "Cinzel", Georgia, "Times New Roman", serif;
-  font-size: 2.5rem;                 /* ~40px - visually strong (your requested 2.5xl feel) */
-  line-height: 1;                    /* keep compact with logo */
-  font-weight: 600;                  /* semibold for better presence */
-  letter-spacing: 0.6px;             /* slight tracking for clarity */
-  display: inline-block;
-  transform: none;                   /* avoid glyph distortion */
-  color: var(--brand-dark);
-  text-rendering: optimizeLegibility; /* better kerning and ligatures for serif fonts */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  margin: 0;
-  padding: 0 0.2rem;
-  /* subtle depth without blur: use a thin stroke or subtle outline instead of heavy shadow */
-  text-shadow: 0 1px 0 rgba(255,255,255,0.02), 0 1px 2px rgba(0,0,0,0.08);
-  transition: transform .12s ease;    /* tiny hover effect if needed */
-}
+    /* Brand text */
+    #site-header .brand-text {
+      font-family: "Cormorant Garamond", "Playfair Display", "Cinzel", Georgia, "Times New Roman", serif;
+      font-size: 2.1rem;
+      line-height: 1;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      display: inline-block;
+      transform: none;
+      color: var(--brand-dark);
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      margin: 0;
+      padding: 0 0.2rem;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.02), 0 1px 2px rgba(0,0,0,0.08);
+      transition: transform .12s ease;
+    }
 
-/* Responsive: scale down on narrow screens so it doesn't break header layout */
-@media (max-width: 900px) {
-  #site-header .brand-text { font-size: 2.1rem; }
-}
-@media (max-width: 520px) {
-  #site-header .brand-text {
-    font-size: 1.6rem;   /* mobile friendly */
-    letter-spacing: 0.4px;
-  }
-}
+    /* Nav & links */
+    #site-header nav ul {
+      gap: 1.15rem;
+    }
+    #site-header nav ul li a {
+      color: rgba(15,23,32,0.88);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.95rem;
+      transition: color .18s ease, opacity .18s ease;
+      position: relative;
+      text-decoration: none;
+      line-height: 1.05;
+    }
+    #site-header nav ul li a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      height: 2px;
+      width: 0%;
+      background: linear-gradient(90deg, rgba(15,23,32,0.12), rgba(0,0,0,0.06));
+      transition: width .22s ease;
+      border-radius: 2px;
+    }
+    #site-header nav ul li a:hover::after,
+    #site-header nav ul li a:focus::after { width: 100%; }
 
-/* Small logo variant (if you use a compact header) */
-#site-header .brand-text--small {
-  font-size: 1.2rem;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-}
+    /* Learn dropdown wrapper */
+    #site-header .learn-dropdown-wrapper {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: calc(100% + 8px);
+      z-index: 11000;
+      min-width: 220px;
+    }
+    #site-header .learn-dropdown-menu { z-index: 11010; }
 
-  /* -------- nav items (scoped) -------- */
-  #site-header nav ul {
-    gap: 1.15rem;
-  }
+    /* Buy button / cart */
+    #site-header .buy-btn {
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      background: #1a1a1a !important;
+      color: #ffffff !important;
+      border: 1px solid #000;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+      transition: all .18s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    #site-header .buy-btn:hover { background: #333333 !important; }
 
-  #site-header nav ul li a {
-    color: rgba(15,23,32,0.88);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: 0.95rem;
-    transition: color .18s ease, opacity .18s ease;
-    position: relative;
-    text-decoration: none;
-  }
+    #site-header .cart-btn { font-size: 18px; }
+    #site-header #cartCount { transition: opacity .18s ease, transform .18s ease; }
+    #site-header #cartCount.hidden { opacity: 0; transform: scale(.6); pointer-events:none; }
 
-  #site-header nav ul li a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    height: 2px;
-    width: 0%;
-    background: linear-gradient(90deg, rgba(15,23,32,0.12), rgba(0,0,0,0.06));
-    transition: width .22s ease;
-    border-radius: 2px;
-  }
-  #site-header nav ul li a:hover::after,
-  #site-header nav ul li a:focus::after { width: 100%; }
+    /* continue-checkout style inside popup */
+    #site-header #cartPopup .continue-checkout {
+      background: #1a1a1a !important;
+      color: #ffffff !important;
+      border-radius: 8px;
+      padding: 8px 12px;
+      display:inline-block;
+      text-align:center;
+      border: 1px solid #000;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      transition: all .18s ease;
+    }
+    #site-header #cartPopup .continue-checkout:hover { background: #333333 !important; }
 
-  #site-header nav ul li a.active { color: var(--soft-black); opacity: 1; }
+    /* small screens fallback */
+    @media (max-width:768px) {
+      #site-header nav ul { display:none; }
+      #site-header .brand-text { font-size:1rem; }
+    }
 
-  /* -------- Learn dropdown wrapper (fixed positioning & z-index) --------
-     - Positioning is relative to the LI (which is .relative)
-     - We center the dropdown horizontally with translateX(-50%)
-  */
-  #site-header .learn-dropdown-wrapper{
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: calc(100% + 8px);
-    z-index: 11000;
-    min-width: 220px; /* fallback; you can change width if needed */
-  }
+    @font-face {
+      font-family: 'GreatVibes';
+      src: url('/fonts/GreatVibes-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
 
-  /* Ensure the dropdown menu itself looks as before but scoped */
-  #site-header .learn-dropdown-menu {
-    z-index: 11010;
-  }
+    /* ========== Responsive header fixes (REPLACEMENT) ========== */
 
-  /* -------- Buy button / cart fixes -------- */
-  #site-header .buy-btn {
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 0.85rem;
+    /* Force horizontal layout row: logo | nav | actions */
+    #site-header {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: center;
+      gap: 12px;
+      padding: 10px 18px;
+      box-sizing: border-box;
+      position: sticky;
+      top: 0;
+      z-index: 9999999;
+    }
 
-    background: #1a1a1a !important;     /* elegant black */
-    color: #ffffff !important;
-    border: 1px solid #000;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+    /* Ensure nav container uses full width for alignment */
+    #site-header > nav.container,
+    #site-header nav.container {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      gap: 12px;
+      box-sizing: border-box;
+      padding: 0;
+    }
 
-    transition: all .18s ease;
-}
+    /* Logo area (left) */
+    #site-header > nav.container > a:first-child {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 0 0 auto;
+      margin-right: 10px;
+    }
 
-#site-header .buy-btn:hover {
-    background: #333333 !important;     /* premium dark gray hover */
-}
+    /* Nav center / wrap */
+    #site-header nav .md\\:flex,
+    #site-header nav ul,
+    #site-header nav .main-nav {
+      display: flex !important;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
 
+    /* Actions right */
+    #site-header nav > .flex.items-center.flex-1,
+    #site-header .flex-1 {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+      flex: 1 1 auto;
+    }
 
-  /* Cart icon smaller inside header */
-  #site-header .cart-btn { font-size: 18px; }
+    /* Brand size adjustments */
+    #site-header .brand-text { font-size: 2.1rem; line-height:1; }
 
-  /* cart badge: hide effect handled in JS (class toggle) */
-  #site-header #cartCount { transition: opacity .18s ease, transform .18s ease; }
-  #site-header #cartCount.hidden { opacity: 0; transform: scale(.6); pointer-events:none; }
+    /* Laptop breakpoint */
+    @media (max-width: 1400px) {
+      #site-header .brand-text { font-size: 1.6rem !important; }
+      #site-header { padding: 8px 12px !important; }
+      #site-header .logo img { height: 44px !important; }
+      #site-header nav ul li a { font-size: 13px !important; padding: 6px 8px !important; }
+    }
 
-  /* Force continue checkout text white inside cart popup if theme overrides it */
-#site-header #cartPopup .continue-checkout {
-    background: #1a1a1a !important;    /* elegant black */
-    color: #ffffff !important;
-    border-radius: 8px;
-    padding: 8px 12px;
-    display:inline-block;
-    text-align:center;
-    border: 1px solid #000;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-    transition: all .18s ease;
-}
+    /* Smaller laptops */
+    @media (max-width: 1200px) {
+      #site-header .brand-text { font-size: 1.3rem !important; }
+      #site-header .logo img { height: 40px !important; }
+      #site-header nav ul { gap: 8px !important; }
+      #site-header .buy-btn { padding: 6px 8px !important; font-size: 13px !important; }
+      /* disable fixed bg for performance/layout */
+      #site-header[style] { background-attachment: scroll !important; }
+    }
 
-#site-header #cartPopup .continue-checkout:hover {
-    background: #333333 !important;    /* premium dark gray hover */
-}
+    /* Very small */
+    @media (max-width: 768px) {
+      #site-header nav ul { display: none !important; }
+      #site-header .brand-text { font-size: 1rem !important; }
+    }
 
+    /* Make sure main content offset uses measured header height */
+    main { padding-top: calc(var(--measured-header-h, 68px) + 8px); }
 
-  /* Scoped mobile fallback */
-  @media (max-width:768px){
-    #site-header nav ul { display:none; }
-    #site-header .brand-text { font-size:1rem; }
-  }
-
-  @font-face {
-  font-family: 'GreatVibes';
-  src: url('/fonts/GreatVibes-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
+    /* safety */
+    #site-header nav ul li a { line-height: 1.05 !important; }
   </style>
 
   <!-- JS: hide cart badge when zero (scoped selector) -->
@@ -300,4 +349,23 @@
       <button id="clear-cart-mini" class="px-3 py-2 text-xs border rounded-lg flex-shrink-0 hover:bg-gray-50">Clear Cart</button>
     </div>
   </div>
+
+  <!-- Header measurement & resize helper -->
+  <script>
+    (function() {
+      function measureHeader() {
+        const header = document.getElementById('site-header');
+        if (!header) return;
+        // ensure horizontal layout for consistent measurement
+        header.style.display = 'flex';
+        header.style.flexDirection = 'row';
+        const h = Math.ceil(header.getBoundingClientRect().height);
+        document.documentElement.style.setProperty('--measured-header-h', h + 'px');
+      }
+      window.addEventListener('load', measureHeader);
+      window.addEventListener('resize', measureHeader);
+      setTimeout(measureHeader, 200);
+      setTimeout(measureHeader, 800);
+    })();
+  </script>
 </header>

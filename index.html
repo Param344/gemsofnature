@@ -49,7 +49,6 @@
 
   <link rel="stylesheet" href="/css/gon-responsive.css">
 
-
   <!-- Global Styles -->
   <style>
     :root {
@@ -93,6 +92,249 @@
 
     img { display:block; background:transparent; }
     footer { background-color:#065f46; width:100%; }
+
+    /* HERO/BACKGROUND SLIDER STYLES (UNCHANGED) */
+#hero-bg-layer {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  filter: blur(3px) brightness(0.82) saturate(0.95);
+  transition: opacity .7s ease, transform .7s ease;
+  will-change: opacity, background-image;
+  opacity: 1;               /* keep visible once initialized */
+  z-index: 0;
+}
+
+/* ensure slider images are stacked and fade correctly */
+.slider-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .7s ease;
+  will-change: opacity;
+}
+
+/* active slide visible */
+.slider-img.active { opacity: 1; }
+
+/* HERO TEXT — always readable */
+.hero-text h1,
+.hero-text p {
+  color: #f3f4f6;
+  transition: color .4s ease, text-shadow .4s ease;
+}
+
+/* HERO BUTTONS */
+.hero-btn-primary {
+  background: #0f9d67;
+  color: white;
+  transition: background .3s ease, color .3s ease, border .3s ease;
+}
+
+.hero-btn-secondary {
+  border: 1px solid rgba(0,0,0,0.4);
+  color: #0f1720;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(4px);
+  transition: all .3s ease;
+}
+
+/* --------------------------------------------
+   MAKE RECOMMENDATION CARDS SMALL & COMPACT
+   -------------------------------------------- */
+
+/* ULTRA-COMPACT MODE --------------------------- */
+
+/* Reduce card padding further */
+#rec-results .p-4.border.rounded-xl.shadow {
+  padding: 8px !important;
+  border-radius: 10px !important;
+}
+
+/* Smaller thumbnail */
+#rec-results img {
+  width: 55px !important;
+  height: 55px !important;
+  margin-bottom: 4px !important;
+}
+
+/* Title smaller */
+#rec-results h4 {
+  font-size: 0.75rem !important;
+}
+
+/* Price text */
+#rec-results p.text-sm {
+  font-size: 0.7rem !important;
+}
+
+/* Description tiny */
+#rec-results p.text-xs {
+  font-size: 0.6rem !important;
+  line-height: 1.05 !important;
+}
+
+/* Tags tiny */
+#rec-results .flex.flex-wrap span {
+  font-size: 0.5rem !important;
+  padding: 1px 4px !important;
+}
+
+/* Buttons smaller */
+#rec-results button,
+#rec-results a {
+  font-size: 0.65rem !important;
+  padding: 4px !important;
+}
+
+/* Match recommendation card style to Collections cards */
+#rec-results .rec-card,
+#rec-results .p-4.border.rounded-xl.shadow {
+    border-radius: 16px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06) !important;
+    border: 1px solid #e9f3ef !important;
+}
+
+/* Make stones grid tighter & match right side spacing */
+#rec-results .grid {
+    gap: 10px !important;
+}
+
+/* Ensure alignment with right-side cards */
+#rec-and-collections .grid-cols-1.md\:grid-cols-2 > div:first-child {
+    padding-top: 10px;
+}
+
+/* collections visuals (we'll normalize below) */
+#collections-container .collection-card {
+  transform: scale(1.1);
+  transform-origin: top left;
+}
+
+#collections-container h3 {
+  font-size: 1.1rem !important;
+}
+
+#collections-container p {
+  font-size: 0.9rem !important;
+}
+
+/* More height for image blocks */
+#collections-container .img-box {
+  height: 150px !important;
+}
+
+/* ---------- ALIGNMENT & EQUAL HEIGHTS FIX (ADDED) ---------- */
+
+/* Target the inner grid wrapper that holds the two columns */
+#rec-and-collections .max-w-7xl > .grid,
+#rec-and-collections .grid.grid-cols-1.md\:grid-cols-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* equal column widths */
+  gap: 32px;
+  align-items: start;               /* keep both columns aligned to top */
+}
+
+/* Make both blocks behave as flexible columns and stretch to equal height */
+.equal-block,
+#collections {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  min-height: 0;                    /* prevents children from forcing overflow */
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* Use a consistent visual container style for parity */
+.equal-block.bg-white,
+#collections.equal-block,
+#collections {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid rgba(6,95,70,0.04);
+  box-shadow: 0 8px 28px rgba(15,23,42,0.03);
+  padding: 22px;
+  margin: 0;
+}
+
+/* Prevent inner elements from adding extra top spacing */
+.equal-block > .flex.items-center,
+#collections > .flex.items-center {
+  margin-top: 0;
+  margin-bottom: 6px;
+}
+
+/* Ensure the left block's content scrolls internally (if too tall),
+   instead of making the container taller than the sibling */
+.equal-block .rec-results,
+.equal-block #rec-results {
+  overflow: auto;
+  max-height: calc( (100vh - 220px) );
+  padding-right: 6px;
+}
+
+/* Ensure collections grid children stretch to the same height (cards) */
+#collections .collection-card,
+#collections .group.block .collection-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Normalize image blocks inside collection cards */
+#collections .w-40.h-40 {
+  width: 120px;
+  height: 120px;
+}
+
+/* Remove transform scaling you had earlier */
+#collections .collection-card,
+#collections .collection-card * {
+  transform: none !important;
+}
+
+/* Make the left column inner spacing compact but consistent */
+#rec-results { margin-top: 12px; padding: 0; }
+
+/* Keep the hero section unaffected — explicitly scope hero rules to existing selectors */
+#home #hero-bg-layer { /* kept intentionally blank to avoid changes */ }
+
+/* Responsive: stack columns on small screens */
+@media (max-width: 980px) {
+  #rec-and-collections .max-w-7xl > .grid,
+  #rec-and-collections .grid.grid-cols-1.md\:grid-cols-2 {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .equal-block, #collections {
+    padding: 16px;
+  }
+  .equal-block .rec-results { max-height: none; overflow: visible; padding-right: 0; }
+}
+
+/* ---------- Small parity tweaks ---------- */
+#rec-results .section-title,
+#collections .section-title {
+  margin-top: 0;
+  margin-bottom: 6px;
+  font-size: 1.05rem;
+}
+
+/* If you use a sticky or floating chat or button that pushes layout down, make sure containers ignore it */
+#rec-and-collections, #rec-results, #collections {
+  position: relative;
+}
+
+/* Accessibility: ensure hidden transforms don't create layout jumps */
+* { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+
+
   </style>
 
   <!-- Structured Data -->
@@ -120,102 +362,152 @@
   <!-- MAIN: page content -->
   <main class="flex-1">
 
-    <!-- Hero Section -->
-    <section id="home" class="relative bg-cover bg-center min-h-[55vh] fade-in"
-      style="background-image: url('images/hero-bg.jpg');">
-      <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60
-                  flex flex-col justify-center items-center text-center text-white px-6">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">Discover the Healing Power of Nature</h1>
-        <p class="text-lg md:text-xl mb-6 max-w-2xl">
-          Pure gemstones and crystals that balance your energy, attract prosperity, and enhance your inner glow.
-        </p>
+   <!-- Hero Section -->
+    <section id="home" class="relative min-h-[60vh] fade-in bg-gradient-to-r from-white/60 to-transparent backdrop-blur-sm">
+   <!-- hero BG layer (updated when slides change) -->
+    <div id="hero-bg-layer" class="absolute inset-0 z-0 bg-cover bg-center transition-opacity duration-700" aria-hidden="true" style="opacity:0;"></div>
 
-        <div class="flex flex-col sm:flex-row gap-3">
-          <a href="shop-ecom.html"
-             class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-full transition-colors duration-300">
-            Shop Now
-          </a>
-          <a href="shop.html"
-             class="border border-white/40 text-white font-semibold px-6 py-3 rounded-full hover:bg-white/5 transition duration-300 hidden sm:inline-block">
-            Explore Collections
-          </a>
-        </div>
+  <div class="relative max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 items-center gap-10 z-10">
+    
+    <!-- LEFT COLUMN: TEXT -->
+    <div class="text-left hero-text text-white !important">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Discover the Healing Power of Nature</h1>
+
+      <p class="text-lg md:text-xl mb-6 max-w-lg text-white !important">
+        Pure gemstones and crystals that balance your energy, attract prosperity, and enhance your inner glow.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a href="shop-ecom.html"
+        class="hero-btn-primary bg-gray-700 hover:bg-gray-800 text-white font-semibold px-6 py-3 rounded-full transition-colors duration-300">
+        Shop Now
+        </a>
+
+        <a href="shop.html"
+         class="hero-btn-secondary border border-black/30 text-black font-semibold px-6 py-3 rounded-full hover:bg-black/5 transition duration-300 hidden sm:inline-block">
+         Explore Collections
+        </a>
+
       </div>
-    </section>
+    </div>
 
-    <!-- 🔮 GEM RECOMMENDATION QUIZ WIDGET -->
-    <section id="recommendation-widget" class="container mx-auto px-4 py-8">
-      <div class="bg-white rounded-2xl shadow-lg p-4 border border-emerald-100">
-        <h2 class="text-2xl font-bold text-emerald-700 mb-3">
-          Find Your Perfect Gemstone 🔍✨
-        </h2>
-        <p class="text-gray-600 mb-3 text-sm">
-          Answer 3 quick questions and get 3 personalized recommendations.
-        </p>
-        <div id="rec-quiz" class="mt-2 grid gap-2"></div>
-        <div id="rec-results" class="mt-2"></div>
-      </div>
-    </section>
+    <!-- RIGHT COLUMN: IMAGE SLIDER (covers full column) -->
+<div class="relative w-full h-[320px] md:h-[520px] overflow-hidden rounded-2xl md:order-2 order-1">
+  <div class="absolute inset-0 slider-wrapper">
+      <img src="/images/slider/hero-bg.jpg"
+      alt="Assorted amethyst and crystals"
+      class="slider-img active"
+      loading="lazy" />
 
-    <!-- Collections Section -->
-    <section id="collections" class="py-20 bg-gray-50 text-center fade-in">
-      <div class="max-w-7xl mx-auto px-6">
-        <h2 class="text-3xl font-bold mb-10 text-gray-800">Our Collections</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          <!-- Card 1 -->
-          <div class="bg-white p-6 rounded-2xl card-base group overflow-hidden">
-            <div class="relative mb-4">
-              <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto bg-white/0">
-                <img src="images/products/amethyst.jpg" alt="Amethyst - Healing Stones"
-                     loading="lazy" class="w-full h-full object-cover block">
-              </div>
-              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
-            </div>
-            <h3 class="text-xl font-semibold mb-2 text-emerald-700">Healing Stones</h3>
-            <p class="text-sm text-gray-600">Crystals like Amethyst & Rose Quartz to cleanse your energy.</p>
-          </div>
+      <img src="/images/slider/emerald.jpg"
+          alt="Green aventurine and raw stones"
+          class="slider-img"
+          loading="lazy" />
 
-          <!-- Card 2 -->
-          <div class="bg-white p-6 rounded-2xl card-base group overflow-hidden">
-            <div class="relative mb-4">
-              <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto bg-white/0">
-                <img src="images/products/emerald.jpg" alt="Zodiac Gems"
-                     loading="lazy" class="w-full h-full object-cover block">
-              </div>
-              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
-            </div>
-            <h3 class="text-xl font-semibold mb-2 text-emerald-700">Zodiac Gems</h3>
-            <p class="text-sm text-gray-600">Find your birthstone and attract cosmic harmony aligned to your sign.</p>
-          </div>
+      <img src="/images/slider/blue-sapphire.jpg"
+          alt="Polished gemstone collection"
+          class="slider-img"
+          loading="lazy" />
+  </div>
+</div>
+</section>
 
-          <!-- Card 3 -->
-          <div class="bg-white p-6 rounded-2xl card-base group overflow-hidden">
-            <div class="relative mb-4">
-              <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto bg-white/0">
-                <img src="images/products/bracelets.jpg" alt="Bracelets"
-                     loading="lazy" class="w-full h-full object-cover block">
-              </div>
-              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
-            </div>
-            <h3 class="text-xl font-semibold mb-2 text-emerald-700">Bracelets</h3>
-            <p class="text-sm text-gray-600">Handcrafted gemstone bracelets for energy balance & style.</p>
-          </div>
+<!-- Combined: Recommendation (left) + Collections (right) -->
+<section id="rec-and-collections" class="py-12">
+  <div class="max-w-7xl mx-auto px-4">
 
-          <!-- Card 4 -->
-          <div class="bg-white p-6 rounded-2xl card-base group overflow-hidden">
-            <div class="relative mb-4">
-              <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto bg-white/0">
-                <img src="images/products/raw-stone.jpg" alt="Raw Stones"
-                     loading="lazy" class="w-full h-full object-cover block">
-              </div>
-              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
-            </div>
-            <h3 class="text-xl font-semibold mb-2 text-emerald-700">Raw Stones</h3>
-            <p class="text-sm text-gray-600">Natural, unpolished stones charged with divine vibrations.</p>
+    <!-- FIXED GRID WRAPPER -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+
+      <!-- LEFT BLOCK -->
+      <div class="equal-block bg-white rounded-2xl shadow-lg p-6 border border-emerald-100">
+
+        <div class="flex items-center justify-between mb-3">
+          <div>
+            <h2 class="text-2xl font-bold text-gray-700">Find Your Perfect Gemstone 🔍✨</h2>
+            <p class="text-gray-600 text-sm">Answer 3 quick questions and get 3 personalized recommendations.</p>
           </div>
         </div>
+
+        <!-- QUIZ AREA -->
+        <div id="rec-quiz" class="mt-3 grid gap-2"></div>
+
+        <!-- RESULTS (scrolling inside left block) -->
+        <div id="rec-results" class="mt-4"></div>
+
       </div>
-    </section>
+
+
+
+      <!-- RIGHT BLOCK -->
+      <div id="collections" class="equal-block bg-gray-50 rounded-2xl p-6">
+
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-3xl font-bold text-gray-800">Our Collections</h3>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+          <!-- Healing Stones -->
+          <a href="shop-ecom.html?category=Healing" class="group block">
+            <div class="collection-card bg-white p-6 rounded-2xl card-base overflow-hidden hover:shadow-lg h-full">
+              <div class="relative mb-4">
+                <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto">
+                  <img src="images/products/amethyst.jpg" alt="Healing Stones" class="w-full h-full object-cover">
+                </div>
+              </div>
+              <h4 class="text-xl font-semibold mb-2 text-emerald-700">Healing Stones</h4>
+              <p class="text-sm text-gray-600">Crystals like Amethyst & Rose Quartz to cleanse your energy.</p>
+            </div>
+          </a>
+
+
+          <!-- Zodiac Gems -->
+          <a href="shop-ecom.html?category=precious" class="group block">
+            <div class="collection-card bg-white p-6 rounded-2xl card-base overflow-hidden hover:shadow-lg h-full">
+              <div class="relative mb-4">
+                <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto">
+                  <img src="images/products/emerald.jpg" alt="Zodiac Gems" class="w-full h-full object-cover">
+                </div>
+              </div>
+              <h4 class="text-xl font-semibold mb-2 text-emerald-700">Zodiac Gems</h4>
+              <p class="text-sm text-gray-600">Find your birthstone and attract cosmic harmony aligned to your sign.</p>
+            </div>
+          </a>
+
+          <!-- Bracelets -->
+          <a href="shop-ecom.html?category=healing accessories" class="group block">
+            <div class="collection-card bg-white p-6 rounded-2xl card-base overflow-hidden hover:shadow-lg h-full">
+              <div class="relative mb-4">
+                <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto">
+                  <img src="images/products/bracelets.jpg" alt="Bracelets" class="w-full h-full object-cover">
+                </div>
+              </div>
+              <h4 class="text-xl font-semibold mb-2 text-emerald-700">Bracelets</h4>
+              <p class="text-sm text-gray-600">Handcrafted gemstone bracelets for energy balance & style.</p>
+            </div>
+          </a>
+
+          <!-- Raw Stones -->
+          <a href="shop-ecom.html?category=raw stones" class="group block">
+            <div class="collection-card bg-white p-6 rounded-2xl card-base overflow-hidden hover:shadow-lg h-full">
+              <div class="relative mb-4">
+                <div class="w-40 h-40 rounded-xl overflow-hidden mx-auto">
+                  <img src="images/products/raw-stone.jpg" alt="Raw Stones" class="w-full h-full object-cover">
+                </div>
+              </div>
+              <h4 class="text-xl font-semibold mb-2 text-emerald-700">Raw Stones</h4>
+              <p class="text-sm text-gray-600">Natural, unpolished stones charged with divine vibrations.</p>
+            </div>
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
 
     <!-- Rudraksha Products Section -->
     <section id="featured" class="py-20 px-6 bg-gradient-to-b from-white to-emerald-50 text-center fade-in">
@@ -834,7 +1126,7 @@
           </div>
         </div>
         <div class="mt-4 flex gap-3">
-          <button id="rec-run" class="bg-emerald-600 text-white px-4 py-2 rounded font-semibold">
+          <button id="rec-run" class="bg-gray-700 text-white px-4 py-2 rounded font-semibold">
             Find My Gem & Rudraksha
           </button>
           <button id="rec-reset" class="border px-4 py-2 rounded">Reset</button>
@@ -971,7 +1263,7 @@
         resultsEl.innerHTML = "";
 
         const gemstones = scoreGemstones(answers);
-        const topGemstones = gemstones.filter(x => x.score > 0).slice(0, 6);
+        const topGemstones = gemstones.filter(x => x.score > 0).slice(0, 2);
 
         const summaryParts = [];
         if (answers.purpose) summaryParts.push(`intention: <strong>${answers.purpose.replace(/^\w/, c => c.toUpperCase())}</strong>`);
@@ -995,7 +1287,7 @@
           const gemSection = document.createElement('div');
           gemSection.innerHTML = `<h3 class="text-lg font-semibold text-emerald-700 mb-2">Recommended Gemstones</h3>`;
           const grid = document.createElement('div');
-          grid.className = "grid gap-4 md:grid-cols-3";
+          grid.className = "grid gap-4 sm:grid-cols-2";
 
           topGemstones.forEach(item => {
             const p = item.product;
@@ -1028,11 +1320,6 @@
                   data-id="${p.id}">
                   Add to Cart
                 </button>
-                <a
-                  href="shop-ecom.html?product=${encodeURIComponent(p.id)}"
-                  class="border border-emerald-600 text-emerald-700 px-3 py-2 rounded text-sm font-medium text-center">
-                  View in Shop
-                </a>
               </div>
             `;
             grid.appendChild(card);
@@ -1088,11 +1375,6 @@
                     data-id="${p.id}">
                     Add to Cart
                   </button>
-                  <a
-                    href="shop-ecom.html?product=${encodeURIComponent(p.id)}"
-                    class="border border-emerald-600 text-emerald-700 px-3 py-2 rounded text-sm font-medium text-center">
-                    View in Shop
-                  </a>
                 </div>
               `;
               gridR.appendChild(card);
@@ -1213,6 +1495,127 @@
       });
     })();
   </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const slides = Array.from(document.querySelectorAll('.slider-img'));
+  const heroBg = document.getElementById('hero-bg-layer');
+  const section = document.getElementById('home');
+  if (!slides.length || !heroBg || !section) return;
+
+  // Ensure the content is above the bg layer
+  section.querySelector(':scope > .relative, :scope > .container')?.classList?.add('z-10');
+
+  // Preload images to avoid background flash/delay (uses Image() objects)
+  slides.forEach(img => {
+    const s = img.getAttribute('src') || img.dataset.src;
+    if (!s) return;
+    const pre = new Image();
+    pre.src = s;
+  });
+
+  // Use currentSrc when available (handles <img srcset>), fallback to src
+  function getImgUrl(img) {
+    return img.currentSrc || img.src || img.getAttribute('src') || img.dataset.src;
+  }
+
+  // initialize first slide visible
+  slides.forEach((s, i) => s.classList.remove('active'));
+  let idx = 0;
+  slides[idx].classList.add('active');
+
+  // initialize hero background with the first slide immediately
+  heroBg.style.backgroundImage = `url("${getImgUrl(slides[idx])}")`;
+  heroBg.style.opacity = '1';
+
+  const intervalMs = 3000; // 3 seconds
+  let timer = null;
+
+  function showSlide(nextIdx) {
+    if (nextIdx === idx) return;
+    // swap right-side slides
+    slides[idx].classList.remove('active');
+    slides[nextIdx].classList.add('active');
+
+    // update hero-bg with smooth fade:
+    // quickly drop opacity, change image, then fade up
+    heroBg.style.opacity = '0';
+    // slight delay to let fade-out start (keeps it smooth)
+    setTimeout(() => {
+      heroBg.style.backgroundImage = `url("${getImgUrl(slides[nextIdx])}")`;
+      heroBg.style.opacity = '1';
+    }, 80);
+
+    idx = nextIdx;
+  }
+
+  function startAuto() {
+    if (timer) return;
+    timer = setInterval(() => {
+      showSlide((idx + 1) % slides.length);
+    }, intervalMs);
+  }
+  function stopAuto() {
+    if (!timer) return;
+    clearInterval(timer);
+    timer = null;
+  }
+
+  // start auto-rotation
+  startAuto();
+
+  // pause on hover/focus over slider area (accessibility)
+  const wrapper = document.querySelector('.slider-wrapper') || section;
+  wrapper.addEventListener('mouseenter', stopAuto);
+  wrapper.addEventListener('mouseleave', startAuto);
+  wrapper.addEventListener('focusin', stopAuto);
+  wrapper.addEventListener('focusout', startAuto);
+
+  // keyboard controls (left/right) when wrapper focused
+  wrapper.tabIndex = wrapper.tabIndex || 0;
+  wrapper.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') { stopAuto(); showSlide((idx + 1) % slides.length); startAuto(); }
+    if (e.key === 'ArrowLeft')  { stopAuto(); showSlide((idx - 1 + slides.length) % slides.length); startAuto(); }
+  });
+});
+
+</script>
+<!-- ===== Optional JS: equalize heights (keeps columns aligned on image/load/resize) ===== -->
+<script>
+(function () {
+  const gridSelector = document.querySelector('#rec-and-collections .max-w-7xl > .grid') ||
+                       document.querySelector('#rec-and-collections .grid.grid-cols-1.md\\:grid-cols-2') ||
+                       document.querySelector('#rec-and-collections > .max-w-7xl > .grid');
+  if (!gridSelector) return;
+
+  function equalizeHeights() {
+    const left = gridSelector.children[0];
+    const right = gridSelector.children[1];
+    if (!left || !right) return;
+    left.style.minHeight = '';
+    right.style.minHeight = '';
+
+    const leftH = left.getBoundingClientRect().height;
+    const rightH = right.getBoundingClientRect().height;
+    const maxH = Math.max(leftH, rightH);
+
+    if (Math.abs(leftH - rightH) > 6) {
+      left.style.minHeight = maxH + 'px';
+      right.style.minHeight = maxH + 'px';
+    }
+  }
+
+  window.addEventListener('load', () => {
+    equalizeHeights();
+    setTimeout(equalizeHeights, 300);
+    setTimeout(equalizeHeights, 900);
+  });
+
+  window.addEventListener('resize', equalizeHeights);
+  setTimeout(equalizeHeights, 1200);
+})();
+</script>
+
 
   <!-- Global config & utils -->
   <script src="js/gn-config.js"></script>
