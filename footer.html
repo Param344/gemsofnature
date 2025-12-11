@@ -1,26 +1,140 @@
 <!-- footer.html -->
-<footer id="site-footer" class="bg-emerald-900 text-white pt-6 pb-4">
+<footer id="site-footer"
+  class="text-[#0f1720] pt-6 pb-4"
+  style="
+    background: linear-gradient(
+      90deg,
+      #F3E3CB 0%,
+      #D7EDEB 30%,
+      #B5E2F1 65%,
+      #89C4E8 100%
+    );
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  "
+>
+<style>
+/* Footer base typography */
+#site-footer {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  color: rgba(15,23,32,0.85);
+}
+
+/* Headings - slightly heavier & more premium */
+#site-footer h3,
+#site-footer .footer-heading {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 650; /* subtle increase */
+  color: #0f1720;
+  letter-spacing: 0.45px;
+  margin-bottom: 1rem; /* extra breathing room */
+}
+
+/* Add gentle horizontal spacing between columns */
+#site-footer .footer-columns {
+  gap: 3rem; /* was tight — now elegant */
+}
+
+@media (max-width: 768px) {
+  #site-footer .footer-columns {
+    gap: 1.5rem; /* balanced on mobile */
+  }
+}
+
+/* Footer links */
+#site-footer a {
+  color: rgba(15,23,32,0.78);
+  text-decoration: none;
+  transition: color .18s ease, transform .18s ease;
+}
+#site-footer a:hover {
+  color: #0f1720;
+  transform: translateX(2px);
+}
+
+/* Footer small text */
+#site-footer p,
+#site-footer li,
+#site-footer .muted-footer {
+  color: rgba(15,23,32,0.78) !important;
+  line-height: 1.45;
+}
+
+/*---------- Trusted Standards Refinement ----------*/
+
+/* Raise Trusted Standards block slightly */
+#site-footer .trusted-standards-block {
+  margin-top: -4px; /* subtle lift for alignment */
+}
+
+/* Trusted label */
+#site-footer .trusted-standards-label {
+  font-size: 0.85rem;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #0f1720;
+  opacity: 0.95;
+}
+
+/* Certification logos */
+#site-footer .cert-logos img {
+  height: 28px; /* slightly larger */
+  width: auto;
+  filter: grayscale(1) brightness(0.83);
+  transition: filter .2s ease, opacity .2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.09);
+  border-radius: 4px;
+}
+
+#site-footer .cert-logos img:hover {
+  filter: grayscale(0) brightness(1);
+}
+
+/* Divider line refined */
+#site-footer .footer-divider,
+#site-footer .border-emerald-800 {
+  border-color: rgba(15,23,32,0.20) !important;
+}
+
+/* Bottom section spacing */
+#site-footer .footer-bottom {
+  margin-top: 2rem;
+  padding-top: 1.2rem;
+}
+
+/* Copyright contrast slightly increased */
+#site-footer .copyright {
+  color: rgba(15,23,32,0.82);
+  letter-spacing: 0.25px;
+  font-size: 0.78rem;
+}
+</style>
+
   <div class="max-w-7xl mx-auto px-6">
 
-    <!-- Top row: Help (left) + Social & Certs (right) -->
-    <div class="flex flex-col md:flex-row items-start justify-between gap-8">
+    <!-- Top row -->
+      <div class="flex flex-col md:flex-row items-start justify-between gap-12 footer-columns">
 
       <!-- Help & Policies -->
       <div class="text-center md:text-left">
-        <h3 class="text-sm font-semibold text-white mb-3">Help &amp; Policies</h3>
-        <ul class="space-y-2 text-sm text-emerald-50">
-          <li><a href="/guides/faq.html" class="hover:text-emerald-300">FAQ</a></li>
-          <li><a href="/guides/shipping-policy.html" class="hover:text-emerald-300">Shipping Policy</a></li>
-          <li><a href="/guides/returns-refunds.html" class="hover:text-emerald-300">Returns &amp; Refunds</a></li>
-          <li><a href="/guides/privacy-policy.html" class="hover:text-emerald-300">Privacy Policy</a></li>
-          <li><a href="/guides/terms-conditions.html" class="hover:text-emerald-300">Terms &amp; Conditions</a></li>
+        <h3 class="mb-3">Help &amp; Policies</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/guides/faq.html">FAQ</a></li>
+          <li><a href="/guides/shipping-policy.html">Shipping Policy</a></li>
+          <li><a href="/guides/returns-refunds.html">Returns &amp; Refunds</a></li>
+          <li><a href="/guides/privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="/guides/terms-conditions.html">Terms &amp; Conditions</a></li>
         </ul>
       </div>
 
       <!-- Social + Certifications -->
       <div class="w-full md:w-auto text-center md:text-right">
+
         <!-- Social -->
-        <span class="text-sm font-semibold text-white mb-2 block">Connect with us</span>
+        <span class="font-semibold mb-2 block">Connect with us</span>
         <div class="flex items-center justify-center md:justify-end gap-4 mb-3">
           <a href="https://www.facebook.com/profile.php?id=61581929357076"
              target="_blank" rel="noopener" class="hover:opacity-90 transition">
@@ -37,8 +151,8 @@
         </div>
 
         <!-- Trusted standards -->
-        <div class="flex flex-col items-center md:items-end gap-2">
-          <span class="text-xs font-semibold text-emerald-50 uppercase tracking-wide">
+        <div class="trusted-standards-block flex flex-col items-center md:items-end gap-2">
+          <span class="trusted-text uppercase tracking-wide font-semibold">
             Trusted standards
           </span>
 
@@ -48,7 +162,7 @@
             <img src="/images/gjepc.png" alt="GJEPC" class="h-6 w-auto grayscale hover:grayscale-0 transition">
           </div>
 
-          <p class="text-[11px] text-emerald-100 max-w-xs md:text-right leading-snug">
+          <p class="text-[11px] max-w-xs md:text-right leading-snug">
             Certified stones available from leading gem laboratories such as
             <strong>GIA</strong> and <strong>IGI</strong> through our trusted partners.
           </p>
@@ -56,12 +170,12 @@
       </div>
     </div>
 
-    <!-- Bottom row: tagline + copyright -->
-    <div class="mt-5 border-t border-emerald-800 pt-3 text-center space-y-1">
-      <p class="text-xs md:text-[13px] text-emerald-100">
+    <!-- Bottom row -->
+    <div class="mt-5 border-t footer-divider pt-3 text-center space-y-1">
+      <p class="text-xs md:text-[13px]">
         100% natural stones • Secure payments • Fast shipping • 7-day returns
       </p>
-      <p class="text-[11px] text-emerald-100">
+      <p class="text-[11px]">
         &copy; 2025 <strong>Gems of Nature</strong>. All rights reserved.
       </p>
     </div>

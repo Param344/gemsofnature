@@ -1,200 +1,303 @@
 <!-- header.html -->
-<header id="site-header" role="banner" class="bg-emerald-900 text-white shadow-md relative">
+<header
+  id="site-header"
+  class="backdrop-blur-xl bg-white/10 border-b border-white/30 shadow-lg sticky top-0 z-[9999999]"
+  style="
+    background: linear-gradient(
+      90deg,
+      #F3E3CB 0%,
+      #D7EDEB 30%,
+      #B5E2F1 65%,
+      #89C4E8 100%
+    );
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  "
+>
+  <!-- Move fonts to <head> for best perf; kept here for convenience -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Scoped header CSS -->
   <style>
-    /* Make sure header and Learn dropdown are always on top */
-    #site-header {
-      position: relative;
-      z-index: 9999999;
-    }
-    #site-header .learn-dropdown-wrapper {
-      position: absolute;
-      z-index: 9999999;
-    }
-    #site-header .learn-dropdown-menu {
-      z-index: 9999999;
-    }
+/* Brand / logo text — improved for legibility, weight, and responsiveness */
+#site-header {
+  --brand-gold: #E8DCC2;
+  --brand-dark: #1a1a1a;
+  --brand-contrast: #0f1720;
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", Arial, sans-serif;
+  overflow: visible;
+}
+
+/* Preferred font-family order:
+   1. Cormorant Garamond (or Playfair Display / Cinzel) — elegant serif for premium look
+   2. Fallback to Georgia/serif for consistent serif rendering if webfont fails
+*/
+#site-header .brand-text {
+  font-family: "Cormorant Garamond", "Playfair Display", "Cinzel", Georgia, "Times New Roman", serif;
+  font-size: 2.5rem;                 /* ~40px - visually strong (your requested 2.5xl feel) */
+  line-height: 1;                    /* keep compact with logo */
+  font-weight: 600;                  /* semibold for better presence */
+  letter-spacing: 0.6px;             /* slight tracking for clarity */
+  display: inline-block;
+  transform: none;                   /* avoid glyph distortion */
+  color: var(--brand-dark);
+  text-rendering: optimizeLegibility; /* better kerning and ligatures for serif fonts */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0 0.2rem;
+  /* subtle depth without blur: use a thin stroke or subtle outline instead of heavy shadow */
+  text-shadow: 0 1px 0 rgba(255,255,255,0.02), 0 1px 2px rgba(0,0,0,0.08);
+  transition: transform .12s ease;    /* tiny hover effect if needed */
+}
+
+/* Responsive: scale down on narrow screens so it doesn't break header layout */
+@media (max-width: 900px) {
+  #site-header .brand-text { font-size: 2.1rem; }
+}
+@media (max-width: 520px) {
+  #site-header .brand-text {
+    font-size: 1.6rem;   /* mobile friendly */
+    letter-spacing: 0.4px;
+  }
+}
+
+/* Small logo variant (if you use a compact header) */
+#site-header .brand-text--small {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+  /* -------- nav items (scoped) -------- */
+  #site-header nav ul {
+    gap: 1.15rem;
+  }
+
+  #site-header nav ul li a {
+    color: rgba(15,23,32,0.88);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.95rem;
+    transition: color .18s ease, opacity .18s ease;
+    position: relative;
+    text-decoration: none;
+  }
+
+  #site-header nav ul li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    height: 2px;
+    width: 0%;
+    background: linear-gradient(90deg, rgba(15,23,32,0.12), rgba(0,0,0,0.06));
+    transition: width .22s ease;
+    border-radius: 2px;
+  }
+  #site-header nav ul li a:hover::after,
+  #site-header nav ul li a:focus::after { width: 100%; }
+
+  #site-header nav ul li a.active { color: var(--soft-black); opacity: 1; }
+
+  /* -------- Learn dropdown wrapper (fixed positioning & z-index) --------
+     - Positioning is relative to the LI (which is .relative)
+     - We center the dropdown horizontally with translateX(-50%)
+  */
+  #site-header .learn-dropdown-wrapper{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(100% + 8px);
+    z-index: 11000;
+    min-width: 220px; /* fallback; you can change width if needed */
+  }
+
+  /* Ensure the dropdown menu itself looks as before but scoped */
+  #site-header .learn-dropdown-menu {
+    z-index: 11010;
+  }
+
+  /* -------- Buy button / cart fixes -------- */
+  #site-header .buy-btn {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85rem;
+
+    background: #1a1a1a !important;     /* elegant black */
+    color: #ffffff !important;
+    border: 1px solid #000;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+
+    transition: all .18s ease;
+}
+
+#site-header .buy-btn:hover {
+    background: #333333 !important;     /* premium dark gray hover */
+}
+
+
+  /* Cart icon smaller inside header */
+  #site-header .cart-btn { font-size: 18px; }
+
+  /* cart badge: hide effect handled in JS (class toggle) */
+  #site-header #cartCount { transition: opacity .18s ease, transform .18s ease; }
+  #site-header #cartCount.hidden { opacity: 0; transform: scale(.6); pointer-events:none; }
+
+  /* Force continue checkout text white inside cart popup if theme overrides it */
+#site-header #cartPopup .continue-checkout {
+    background: #1a1a1a !important;    /* elegant black */
+    color: #ffffff !important;
+    border-radius: 8px;
+    padding: 8px 12px;
+    display:inline-block;
+    text-align:center;
+    border: 1px solid #000;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    transition: all .18s ease;
+}
+
+#site-header #cartPopup .continue-checkout:hover {
+    background: #333333 !important;    /* premium dark gray hover */
+}
+
+
+  /* Scoped mobile fallback */
+  @media (max-width:768px){
+    #site-header nav ul { display:none; }
+    #site-header .brand-text { font-size:1rem; }
+  }
+
+  @font-face {
+  font-family: 'GreatVibes';
+  src: url('/fonts/GreatVibes-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
   </style>
 
-  <a class="sr-only focus:not-sr-only absolute left-2 top-2 z-50 bg-white text-emerald-800 px-3 py-2 rounded" href="#main">
-    Skip to content
-  </a>
+  <!-- JS: hide cart badge when zero (scoped selector) -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      const cartCountEl = document.querySelector('#site-header #cartCount');
+      if(!cartCountEl) return;
+      const value = parseInt((cartCountEl.textContent || cartCountEl.innerText || '0').trim(), 10);
+      if(value === 0){
+        cartCountEl.classList.add('hidden');
+      } else {
+        cartCountEl.classList.remove('hidden');
+      }
+      // if cart updates dynamically, call toggle logic after update:
+      // function setCartCount(n){ cartCountEl.textContent = n; cartCountEl.classList.toggle('hidden', n===0); }
+    });
+  </script>
 
-  <nav class="container mx-auto flex justify-between items-center py-4 px-6" role="navigation" aria-label="Main navigation">
+  <!-- accessibility skip link -->
+  <a class="sr-only focus:not-sr-only absolute left-2 top-2 z-50 bg-white text-emerald-800 px-3 py-2 rounded" href="#main">Skip to content</a>
+
+  <!-- NAV -->
+  <nav class="container mx-auto flex items-center py-2.5 px-6 lg:px-10" role="navigation" aria-label="Main navigation">
     <!-- Logo -->
-    <a href="/index.html" class="flex items-center">
-      <img src="/images/logo.png" alt="Gems of Nature Logo" class="h-12 w-auto" loading="lazy">
-      <span class="ml-3 text-2xl font-bold">Gems of Nature</span>
+    <a href="/index.html" class="flex items-center gap-2 mr-10">
+      <div class="h-9 w-9 flex items-center justify-center">
+        <img src="/images/logo.png" alt="Gems of Nature Logo" class="h-8 w-auto" loading="lazy">
+      </div>
+      <!-- Changed to brand-text (readable color) -->
+      <span class="hidden sm:inline text-2xl font-bold tracking-wide brand-text">Gems of Nature</span>
     </a>
 
-    <!-- Desktop Links -->
-    <ul class="hidden md:flex gap-6 text-lg" role="menubar" aria-label="Primary">
-      <li role="none">
-        <a role="menuitem" href="/index.html" class="hover:text-emerald-300 transition">Home</a>
-      </li>
-      <li role="none">
-        <a role="menuitem" href="/about.html" class="hover:text-emerald-300 transition">About Us</a>
-      </li>
-      <li role="none">
-        <a role="menuitem" href="/shop.html" class="hover:text-emerald-300 transition">Collections</a>
-      </li>
+    <!-- Right side -->
+    <div class="flex items-center justify-end gap-6 flex-1">
+      <ul class="hidden md:flex items-center gap-5 text-[12px] tracking-[0.12em] uppercase" role="menubar" aria-label="Primary">
+        <li role="none"><a role="menuitem" href="/index.html" class="hover:text-emerald-300 transition">Home</a></li>
+        <li role="none"><a role="menuitem" href="/about.html" class="hover:text-emerald-300 transition">About Us</a></li>
+        <li role="none"><a role="menuitem" href="/shop.html" class="hover:text-emerald-300 transition">Collections</a></li>
 
-      <!-- LEARN DROPDOWN -->
-      <li class="relative group" role="none">
-        <button
-          class="hover:text-emerald-300 transition cursor-pointer inline-flex items-center gap-1"
-          aria-haspopup="true"
-          aria-expanded="false"
-          aria-controls="learn-menu">
-          Learn ▾
-        </button>
+        <!-- Learn dropdown (LI is relative so wrapper absolute will anchor to it) -->
+        <li class="relative group" role="none">
+          <button class="hover:text-emerald-300 transition cursor-pointer inline-flex items-center gap-1" aria-haspopup="true" aria-expanded="false" aria-controls="learn-menu">Learn ▾</button>
 
-        <div class="learn-dropdown-wrapper left-0 top-full pt-2">
-          <ul id="learn-menu"
-              class="learn-dropdown-menu hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-lg py-2 w-56"
-              role="menu"
-              aria-label="Learn submenu">
-            <li role="none">
-              <a role="menuitem" href="/guides/gemstone-basics.html" class="block px-4 py-2 hover:bg-emerald-50">
-                Gemstone Basics
-              </a>
-            </li>
-            <li role="none">
-              <a role="menuitem" href="/guides/how-to-choose.html" class="block px-4 py-2 hover:bg-emerald-50">
-                How to Choose a Stone
-              </a>
-            </li>
-            <li role="none">
-              <a role="menuitem" href="/guides/chakras-stones.html" class="block px-4 py-2 hover:bg-emerald-50">
-                Chakras &amp; Stones
-              </a>
-            </li>
-            <li role="none">
-              <a role="menuitem" href="/guides/rudraksha-guide.html" class="block px-4 py-2 hover:bg-emerald-50">
-                Rudraksha Guide
-              </a>
-            </li>
-            <li role="none">
-              <a role="menuitem" href="/guides/how-to-wear-care.html" class="block px-4 py-2 hover:bg-emerald-50">
-                How to Wear &amp; Care
-              </a>
-            </li>
-          </ul>
+          <div class="learn-dropdown-wrapper">
+            <ul id="learn-menu" class="learn-dropdown-menu hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-lg py-2 w-56" role="menu" aria-label="Learn submenu">
+              <li role="none"><a role="menuitem" href="/guides/gemstone-basics.html" class="block px-4 py-2 hover:bg-emerald-50">Gemstone Basics</a></li>
+              <li role="none"><a role="menuitem" href="/guides/how-to-choose.html" class="block px-4 py-2 hover:bg-emerald-50">How to Choose a Stone</a></li>
+              <li role="none"><a role="menuitem" href="/guides/chakras-stones.html" class="block px-4 py-2 hover:bg-emerald-50">Chakras &amp; Stones</a></li>
+              <li role="none"><a role="menuitem" href="/guides/rudraksha-guide.html" class="block px-4 py-2 hover:bg-emerald-50">Rudraksha Guide</a></li>
+              <li role="none"><a role="menuitem" href="/guides/how-to-wear-care.html" class="block px-4 py-2 hover:bg-emerald-50">How to Wear &amp; Care</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <li role="none"><a role="menuitem" href="/contact.html" class="hover:text-emerald-300 transition">Contact</a></li>
+        <li role="none"><a role="menuitem" href="/astrology.consultation.html" class="hover:text-emerald-300 transition">Astrology &amp; Consultation</a></li>
+      </ul>
+
+      <!-- Actions (Buy, Cart, Mobile) -->
+      <div class="flex items-center gap-3">
+        <a href="/shop-ecom.html" class="hidden md:inline-block buy-btn">Buy Online</a>
+
+        <div class="relative text-lg">
+          <button type="button" aria-label="Cart" id="headerCartBtn" class="relative cart-btn">
+            <span class="sr-only">View cart</span>
+            <span aria-hidden="true">🛒</span>
+
+            <span id="cartCount" class="absolute -top-2 -right-3 bg-red-600 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center">0</span>
+            <span id="cartCountLabel" class="sr-only">0 items in cart</span>
+          </button>
         </div>
-      </li>
 
-      <li role="none">
-        <a role="menuitem" href="/contact.html" class="hover:text-emerald-300 transition">Contact</a>
-      </li>
-      <li role="none">
-        <a role="menuitem" href="/astrology.consultation.html" class="hover:text-emerald-300 transition">
-          Astrology &amp; Consultation
-        </a>
-      </li>
+        <button id="mobile-menu-button" class="text-2xl md:hidden focus:outline-none" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open mobile menu">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu (unchanged) -->
+  <div id="mobile-menu" class="hidden bg-emerald-800 md:hidden border-t border-emerald-700" role="navigation" aria-label="Mobile navigation">
+    <ul class="flex flex-col gap-3 px-6 py-4 text-sm">
+      <li><a href="/index.html" class="block py-1.5 hover:text-emerald-300 transition">Home</a></li>
+      <li><a href="/about.html" class="block py-1.5 hover:text-emerald-300 transition">About Us</a></li>
+      <li><a href="/shop.html" class="block py-1.5 hover:text-emerald-300 transition">Collections</a></li>
+      <li><a href="/shop-ecom.html" class="block py-1.5 hover:text-emerald-300 transition">Buy Online</a></li>
+
+      <li class="pt-2 mt-1 text-[11px] font-bold uppercase tracking-[0.2em] text-emerald-200">Learn</li>
+      <li><a href="/guides/gemstone-basics.html" class="block py-1.5 hover:text-emerald-300 transition">Gemstone Basics</a></li>
+      <li><a href="/guides/how-to-choose.html" class="block py-1.5 hover:text-emerald-300 transition">How to Choose a Stone</a></li>
+      <li><a href="/guides/chakras-stones.html" class="block py-1.5 hover:text-emerald-300 transition">Chakras &amp; Stones</a></li>
+      <li><a href="/guides/rudraksha-guide.html" class="block py-1.5 hover:text-emerald-300 transition">Rudraksha Guide</a></li>
+      <li><a href="/guides/how-to-wear-care.html" class="block py-1.5 hover:text-emerald-300 transition">How to Wear &amp; Care</a></li>
+
+      <li class="pt-2 border-t border-emerald-700 mt-2"></li>
+      <li><a href="/contact.html" class="block py-1.5 hover:text-emerald-300 transition">Contact</a></li>
+      <li><a href="/astrology.consultation.html" class="block py-1.5 hover:text-emerald-300 transition">Astrology &amp; Consultation</a></li>
     </ul>
-
-    <!-- Right: Buy Online + Cart + Mobile -->
-<div class="flex items-center gap-4">
-  <a href="/shop-ecom.html"
-     class="hidden md:inline-block bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold">
-    Buy Online
-  </a>
-
-  <!-- Cart with badge + popup (click, not hover) -->
-  <div class="relative text-2xl">
-    <button
-      type="button"
-      aria-label="Cart"
-      id="headerCartBtn"
-      class="relative"
-    >
-      <span class="sr-only">View cart</span>
-      <span aria-hidden="true">🛒</span>
-
-      <span id="cartCount"
-        class="absolute -top-2 -right-3 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-        0
-      </span>
-      <span id="cartCountLabel" class="sr-only">0 items in cart</span>
-    </button>
   </div>
 
-  <button id="mobile-menu-button"
-          class="text-2xl md:hidden focus:outline-none"
-          aria-controls="mobile-menu"
-          aria-expanded="false"
-          aria-label="Open mobile menu">
-    ☰
-  </button>
-</div>
-</nav>
+  <!-- Cart overlay + popup -->
+  <div id="cartOverlay" class="fixed inset-0 bg-black/40 z-40 hidden"></div>
 
-<!-- Mobile Menu -->
-<div id="mobile-menu"
-     class="hidden bg-emerald-800 md:hidden"
-     role="navigation"
-     aria-label="Mobile navigation">
-  <ul class="flex flex-col gap-4 px-6 py-4">
-    <li><a href="/index.html" class="block py-1.5 hover:text-emerald-300 transition">Home</a></li>
-    <li><a href="/about.html" class="block py-1.5 hover:text-emerald-300 transition">About Us</a></li>
-    <li><a href="/shop.html" class="block py-1.5 hover:text-emerald-300 transition">Collections</a></li>
-    <li><a href="/shop-ecom.html" class="block py-1.5 hover:text-emerald-300 transition">Buy Online</a></li>
+  <div id="cartPopup" class="fixed z-50 hidden inset-x-4 top-1/2 -translate-y-1/2 max-w-md mx-auto bg-white text-gray-800 rounded-2xl shadow-2xl p-4 text-sm lg:top-16 lg:right-6 lg:left-auto lg:translate-y-0 lg:w-96">
+    <div class="flex items-center justify-between mb-2">
+      <h3 class="text-sm font-bold">Your Cart</h3>
+      <button type="button" id="cartCloseBtn" class="text-xs text-gray-400 hover:text-gray-600">✕</button>
+    </div>
 
-    <!-- Mobile Learn section -->
-    <li class="pt-2 mt-1 text-xs font-semibold uppercase tracking-wide text-emerald-200">Learn</li>
-    <li><a href="/guides/gemstone-basics.html" class="block py-1.5 hover:text-emerald-300 transition">Gemstone Basics</a></li>
-    <li><a href="/guides/how-to-choose.html" class="block py-1.5 hover:text-emerald-300 transition">How to Choose a Stone</a></li>
-    <li><a href="/guides/chakras-stones.html" class="block py-1.5 hover:text-emerald-300 transition">Chakras &amp; Stones</a></li>
-    <li><a href="/guides/rudraksha-guide.html" class="block py-1.5 hover:text-emerald-300 transition">Rudraksha Guide</a></li>
-    <li><a href="/guides/how-to-wear-care.html" class="block py-1.5 hover:text-emerald-300 transition">How to Wear &amp; Care</a></li>
+    <div id="cart-items-mini" class="max-h-60 overflow-auto space-y-2 text-xs">
+      <p class="text-gray-500">Your cart is empty.</p>
+    </div>
 
-    <li class="pt-2 border-t border-emerald-700 mt-2"></li>
+    <div class="mt-3 flex items-center justify-between text-xs">
+      <span class="font-bold">Total</span>
+      <span id="cart-total-mini" class="font-bold">₹0</span>
+    </div>
 
-    <li><a href="/contact.html" class="block py-1.5 hover:text-emerald-300 transition">Contact</a></li>
-    <li><a href="/astrology.consultation.html" class="block py-1.5 hover:text-emerald-300 transition">Astrology &amp; Consultation</a></li>
-  </ul>
-</div>
-
-<!-- Cart overlay + popup (center mobile, panel desktop) -->
-<div id="cartOverlay"
-     class="fixed inset-0 bg-black/40 z-40 hidden"></div>
-
-<div id="cartPopup"
-     class="fixed z-50 hidden
-            inset-x-4 top-1/2 -translate-y-1/2
-            max-w-md mx-auto
-            bg-white text-gray-800 rounded-2xl shadow-2xl p-4 text-sm
-
-            lg:top-16 lg:right-6 lg:left-auto lg:translate-y-0
-            lg:w-96">
-  <div class="flex items-center justify-between mb-2">
-    <h3 class="text-sm font-semibold">Your Cart</h3>
-    <button
-      type="button"
-      id="cartCloseBtn"
-      class="text-xs text-gray-400 hover:text-gray-600">
-      ✕
-    </button>
+    <div class="mt-3 flex gap-2">
+      <!-- added continue-checkout class to style reliably -->
+      <a href="/checkout.html" class="continue-checkout" role="button">Continue Checkout</a>
+      <button id="clear-cart-mini" class="px-3 py-2 text-xs border rounded-lg flex-shrink-0 hover:bg-gray-50">Clear Cart</button>
+    </div>
   </div>
-
-  <div id="cart-items-mini"
-       class="max-h-60 overflow-auto space-y-2 text-xs">
-    <p class="text-gray-500">Your cart is empty.</p>
-  </div>
-
-  <div class="mt-3 flex items-center justify-between text-xs">
-    <span class="font-semibold">Total</span>
-    <span id="cart-total-mini" class="font-bold">₹0</span>
-  </div>
-
-  <div class="mt-3 flex gap-2">
-    <a href="/checkout.html"
-       class="flex-1 text-center bg-emerald-600 text-white rounded-lg py-2 text-xs font-semibold hover:bg-emerald-700">
-      Continue Checkout
-    </a>
-    <button id="clear-cart-mini"
-            class="px-3 py-2 text-xs border rounded-lg flex-shrink-0 hover:bg-gray-50">
-      Clear Cart
-    </button>
-  </div>
-</div>
 </header>
