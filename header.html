@@ -20,18 +20,18 @@
 
   <!-- Scoped header CSS -->
   <style>
-    /* Base header styling */
+    /* -------------------------
+       Header base & typography
+       ------------------------- */
     #site-header {
       --brand-gold: #E8DCC2;
       --brand-dark: #1a1a1a;
       --brand-contrast: #0f1720;
       font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", Arial, sans-serif;
       overflow: visible;
-      /* default measured height var */
-      --measured-header-h: 68px;
+      --measured-header-h: 68px; /* fallback */
     }
 
-    /* Brand text */
     #site-header .brand-text {
       font-family: "Cormorant Garamond", "Playfair Display", "Cinzel", Georgia, "Times New Roman", serif;
       font-size: 2.1rem;
@@ -39,21 +39,15 @@
       font-weight: 600;
       letter-spacing: 0.6px;
       display: inline-block;
-      transform: none;
       color: var(--brand-dark);
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
       margin: 0;
       padding: 0 0.2rem;
       text-shadow: 0 1px 0 rgba(255,255,255,0.02), 0 1px 2px rgba(0,0,0,0.08);
       transition: transform .12s ease;
     }
 
-    /* Nav & links */
-    #site-header nav ul {
-      gap: 1.15rem;
-    }
+    /* Nav / links */
+    #site-header nav ul { gap: 1.15rem; }
     #site-header nav ul li a {
       color: rgba(15,23,32,0.88);
       font-weight: 600;
@@ -138,9 +132,7 @@
       font-style: normal;
     }
 
-    /* ========== Responsive header fixes (REPLACEMENT) ========== */
-
-    /* Force horizontal layout row: logo | nav | actions */
+    /* ========== Responsive layout (horizontal row) ========== */
     #site-header {
       display: flex !important;
       flex-direction: row !important;
@@ -154,7 +146,7 @@
       z-index: 9999999;
     }
 
-    /* Ensure nav container uses full width for alignment */
+    /* nav container uses full width for alignment */
     #site-header > nav.container,
     #site-header nav.container {
       display: flex;
@@ -222,8 +214,15 @@
       #site-header .brand-text { font-size: 1rem !important; }
     }
 
-    /* Make sure main content offset uses measured header height */
-    main { padding-top: calc(var(--measured-header-h, 68px) + 8px); }
+    /* ========== MAIN SPACING: only apply padding when header is fixed ========== */
+
+    /* default: main flush under header (no gap) */
+    main { padding-top: 0 !important; }
+
+    /* when header is fixed/out-of-flow we add spacing based on measured height */
+    .header-is-fixed main {
+      padding-top: calc(var(--measured-header-h, 68px) + 8px) !important;
+    }
 
     /* safety */
     #site-header nav ul li a { line-height: 1.05 !important; }
@@ -240,8 +239,6 @@
       } else {
         cartCountEl.classList.remove('hidden');
       }
-      // if cart updates dynamically, call toggle logic after update:
-      // function setCartCount(n){ cartCountEl.textContent = n; cartCountEl.classList.toggle('hidden', n===0); }
     });
   </script>
 
@@ -255,7 +252,6 @@
       <div class="h-9 w-9 flex items-center justify-center">
         <img src="/images/logo.png" alt="Gems of Nature Logo" class="h-8 w-auto" loading="lazy">
       </div>
-      <!-- Changed to brand-text (readable color) -->
       <span class="hidden sm:inline text-2xl font-bold tracking-wide brand-text">Gems of Nature</span>
     </a>
 
@@ -269,7 +265,6 @@
         <!-- Learn dropdown (LI is relative so wrapper absolute will anchor to it) -->
         <li class="relative group" role="none">
           <button class="hover:text-emerald-300 transition cursor-pointer inline-flex items-center gap-1" aria-haspopup="true" aria-expanded="false" aria-controls="learn-menu">Learn ▾</button>
-
           <div class="learn-dropdown-wrapper">
             <ul id="learn-menu" class="learn-dropdown-menu hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-lg py-2 w-56" role="menu" aria-label="Learn submenu">
               <li role="none"><a role="menuitem" href="/guides/gemstone-basics.html" class="block px-4 py-2 hover:bg-emerald-50">Gemstone Basics</a></li>
@@ -344,28 +339,41 @@
     </div>
 
     <div class="mt-3 flex gap-2">
-      <!-- added continue-checkout class to style reliably -->
       <a href="/checkout.html" class="continue-checkout" role="button">Continue Checkout</a>
       <button id="clear-cart-mini" class="px-3 py-2 text-xs border rounded-lg flex-shrink-0 hover:bg-gray-50">Clear Cart</button>
     </div>
   </div>
 
-  <!-- Header measurement & resize helper -->
+  <!-- Header measurement & fixed-detection helper -->
   <script>
-    (function() {
-      function measureHeader() {
-        const header = document.getElementById('site-header');
+    (function () {
+      const root = document.documentElement;
+      const header = document.getElementById('site-header');
+
+      function updateHeader() {
         if (!header) return;
-        // ensure horizontal layout for consistent measurement
+        // ensure header is measured as row
         header.style.display = 'flex';
         header.style.flexDirection = 'row';
+
+        // measure height
         const h = Math.ceil(header.getBoundingClientRect().height);
-        document.documentElement.style.setProperty('--measured-header-h', h + 'px');
+        root.style.setProperty('--measured-header-h', h + 'px');
+
+        // if header computed position is 'fixed' (out-of-flow), add class
+        const pos = getComputedStyle(header).position || '';
+        if (pos.trim() === 'fixed') {
+          root.classList.add('header-is-fixed');
+        } else {
+          root.classList.remove('header-is-fixed');
+        }
       }
-      window.addEventListener('load', measureHeader);
-      window.addEventListener('resize', measureHeader);
-      setTimeout(measureHeader, 200);
-      setTimeout(measureHeader, 800);
+
+      window.addEventListener('load', updateHeader);
+      window.addEventListener('resize', updateHeader);
+      setTimeout(updateHeader, 200);
+      setTimeout(updateHeader, 800);
+      setTimeout(updateHeader, 1400);
     })();
   </script>
 </header>
