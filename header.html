@@ -73,16 +73,51 @@
     #site-header nav ul li a:hover::after,
     #site-header nav ul li a:focus::after { width: 100%; }
 
-    /* Learn dropdown wrapper */
-    #site-header .learn-dropdown-wrapper {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      top: calc(100% + 8px);
-      z-index: 11000;
-      min-width: 220px;
-    }
-    #site-header .learn-dropdown-menu { z-index: 11010; }
+    /* anchor is the LI which already has .relative */
+#site-header .learn-dropdown-wrapper {
+  position: absolute;
+  left: 50%;
+  top: 100%;                   /* sit directly below the trigger */
+  transform: translateX(-50%);
+  margin-top: 4px;             /* small spacing; adjust 0-6px */
+  z-index: 11000;
+  min-width: 220px;
+  pointer-events: none;        /* disabled until shown */
+}
+
+/* invisible bridge to ensure no gap between trigger and menu */
+#site-header .learn-dropdown-wrapper::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 0;
+  right: 0;
+  height: 6px;                 /* connects the trigger -> menu */
+  pointer-events: auto;        /* allows pointer to cross */
+}
+
+/* the inner UL: hidden by default using opacity/visibility for smoothness */
+#site-header .learn-dropdown-wrapper .learn-dropdown-menu {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity .12s ease, transform .12s ease, visibility .12s;
+  pointer-events: none;
+}
+
+/* show when hovering or focusing the parent LI (your .group) */
+#site-header li.group:hover .learn-dropdown-wrapper,
+#site-header li.group:focus-within .learn-dropdown-wrapper {
+  pointer-events: auto; /* enable pointer events for the wrapper */
+}
+
+#site-header li.group:hover .learn-dropdown-menu,
+#site-header li.group:focus-within .learn-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
 
     /* Buy button / cart */
     #site-header .buy-btn {
@@ -243,14 +278,14 @@
   </script>
 
   <!-- accessibility skip link -->
-  <a class="sr-only focus:not-sr-only absolute left-2 top-2 z-50 bg-white text-emerald-800 px-3 py-2 rounded" href="#main">Skip to content</a>
+  <a class="sr-only focus:not-sr-only absolute left-2 top-2 z-50 bg-white text-gray-800 px-3 py-2 rounded" href="#main">Skip to content</a>
 
   <!-- NAV -->
   <nav class="container mx-auto flex items-center py-2.5 px-6 lg:px-10" role="navigation" aria-label="Main navigation">
     <!-- Logo -->
     <a href="/index.html" class="flex items-center gap-2 mr-10">
-      <div class="h-9 w-9 flex items-center justify-center">
-        <img src="/images/logo.png" alt="Gems of Nature Logo" class="h-8 w-auto" loading="lazy">
+      <div class="h-12 w-12 flex items-center justify-center">
+        <img src="/images/logo.png" alt="Gems of Nature Logo" class="h-14 w-14" loading="lazy">
       </div>
       <span class="hidden sm:inline text-2xl font-bold tracking-wide brand-text">Gems of Nature</span>
     </a>
@@ -258,26 +293,26 @@
     <!-- Right side -->
     <div class="flex items-center justify-end gap-6 flex-1">
       <ul class="hidden md:flex items-center gap-5 text-[12px] tracking-[0.12em] uppercase" role="menubar" aria-label="Primary">
-        <li role="none"><a role="menuitem" href="/index.html" class="hover:text-emerald-300 transition">Home</a></li>
-        <li role="none"><a role="menuitem" href="/about.html" class="hover:text-emerald-300 transition">About Us</a></li>
-        <li role="none"><a role="menuitem" href="/shop.html" class="hover:text-emerald-300 transition">Collections</a></li>
+        <li role="none"><a role="menuitem" href="/index.html" class="hover:text-gray-300 transition">Home</a></li>
+        <li role="none"><a role="menuitem" href="/about.html" class="hover:text-gray-300 transition">About Us</a></li>
+        <li role="none"><a role="menuitem" href="/shop.html" class="hover:text-gray-300 transition">Collections</a></li>
 
         <!-- Learn dropdown (LI is relative so wrapper absolute will anchor to it) -->
         <li class="relative group" role="none">
-          <button class="hover:text-emerald-300 transition cursor-pointer inline-flex items-center gap-1" aria-haspopup="true" aria-expanded="false" aria-controls="learn-menu">Learn ▾</button>
+          <button class="hover:text-gray-300 transition cursor-pointer inline-flex items-center gap-1" aria-haspopup="true" aria-expanded="false" aria-controls="learn-menu">Learn ▾</button>
           <div class="learn-dropdown-wrapper">
-            <ul id="learn-menu" class="learn-dropdown-menu hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-lg py-2 w-56" role="menu" aria-label="Learn submenu">
-              <li role="none"><a role="menuitem" href="/guides/gemstone-basics.html" class="block px-4 py-2 hover:bg-emerald-50">Gemstone Basics</a></li>
-              <li role="none"><a role="menuitem" href="/guides/how-to-choose.html" class="block px-4 py-2 hover:bg-emerald-50">How to Choose a Stone</a></li>
-              <li role="none"><a role="menuitem" href="/guides/chakras-stones.html" class="block px-4 py-2 hover:bg-emerald-50">Chakras &amp; Stones</a></li>
-              <li role="none"><a role="menuitem" href="/guides/rudraksha-guide.html" class="block px-4 py-2 hover:bg-emerald-50">Rudraksha Guide</a></li>
-              <li role="none"><a role="menuitem" href="/guides/how-to-wear-care.html" class="block px-4 py-2 hover:bg-emerald-50">How to Wear &amp; Care</a></li>
+            <ul id="learn-menu" class="learn-dropdown-menu bg-white text-gray-800 shadow-xl rounded-lg py-2 w-56" role="menu" aria-label="Learn submenu">
+              <li role="none"><a role="menuitem" href="/guides/gemstone-basics.html" class="block px-4 py-2 hover:bg-gray-50">Gemstone Basics</a></li>
+              <li role="none"><a role="menuitem" href="/guides/how-to-choose.html" class="block px-4 py-2 hover:bg-gray-50">How to Choose a Stone</a></li>
+              <li role="none"><a role="menuitem" href="/guides/chakras-stones.html" class="block px-4 py-2 hover:bg-gray-50">Chakras &amp; Stones</a></li>
+              <li role="none"><a role="menuitem" href="/guides/rudraksha-guide.html" class="block px-4 py-2 hover:bg-gray-50">Rudraksha Guide</a></li>
+              <li role="none"><a role="menuitem" href="/guides/how-to-wear-care.html" class="block px-4 py-2 hover:bg-gray-50">How to Wear &amp; Care</a></li>
             </ul>
           </div>
         </li>
 
-        <li role="none"><a role="menuitem" href="/contact.html" class="hover:text-emerald-300 transition">Contact</a></li>
-        <li role="none"><a role="menuitem" href="/astrology.consultation.html" class="hover:text-emerald-300 transition">Astrology &amp; Consultation</a></li>
+        <li role="none"><a role="menuitem" href="/contact.html" class="hover:text-gray-300 transition">Contact</a></li>
+        <li role="none"><a role="menuitem" href="/astrology.consultation.html" class="hover:text-gray-300 transition">Astrology &amp; Consultation</a></li>
       </ul>
 
       <!-- Actions (Buy, Cart, Mobile) -->
@@ -300,23 +335,23 @@
   </nav>
 
   <!-- Mobile Menu (unchanged) -->
-  <div id="mobile-menu" class="hidden bg-emerald-800 md:hidden border-t border-emerald-700" role="navigation" aria-label="Mobile navigation">
+  <div id="mobile-menu" class="hidden bg-gray-800 md:hidden border-t border-gray-700" role="navigation" aria-label="Mobile navigation">
     <ul class="flex flex-col gap-3 px-6 py-4 text-sm">
-      <li><a href="/index.html" class="block py-1.5 hover:text-emerald-300 transition">Home</a></li>
-      <li><a href="/about.html" class="block py-1.5 hover:text-emerald-300 transition">About Us</a></li>
-      <li><a href="/shop.html" class="block py-1.5 hover:text-emerald-300 transition">Collections</a></li>
-      <li><a href="/shop-ecom.html" class="block py-1.5 hover:text-emerald-300 transition">Buy Online</a></li>
+      <li><a href="/index.html" class="block py-1.5 hover:text-gray-300 transition">Home</a></li>
+      <li><a href="/about.html" class="block py-1.5 hover:text-gray-300 transition">About Us</a></li>
+      <li><a href="/shop.html" class="block py-1.5 hover:text-gray-300 transition">Collections</a></li>
+      <li><a href="/shop-ecom.html" class="block py-1.5 hover:text-gray-300 transition">Buy Online</a></li>
 
-      <li class="pt-2 mt-1 text-[11px] font-bold uppercase tracking-[0.2em] text-emerald-200">Learn</li>
-      <li><a href="/guides/gemstone-basics.html" class="block py-1.5 hover:text-emerald-300 transition">Gemstone Basics</a></li>
-      <li><a href="/guides/how-to-choose.html" class="block py-1.5 hover:text-emerald-300 transition">How to Choose a Stone</a></li>
-      <li><a href="/guides/chakras-stones.html" class="block py-1.5 hover:text-emerald-300 transition">Chakras &amp; Stones</a></li>
-      <li><a href="/guides/rudraksha-guide.html" class="block py-1.5 hover:text-emerald-300 transition">Rudraksha Guide</a></li>
-      <li><a href="/guides/how-to-wear-care.html" class="block py-1.5 hover:text-emerald-300 transition">How to Wear &amp; Care</a></li>
+      <li class="pt-2 mt-1 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-200">Learn</li>
+      <li><a href="/guides/gemstone-basics.html" class="block py-1.5 hover:text-gray-300 transition">Gemstone Basics</a></li>
+      <li><a href="/guides/how-to-choose.html" class="block py-1.5 hover:text-gray-300 transition">How to Choose a Stone</a></li>
+      <li><a href="/guides/chakras-stones.html" class="block py-1.5 hover:text-gray-300 transition">Chakras &amp; Stones</a></li>
+      <li><a href="/guides/rudraksha-guide.html" class="block py-1.5 hover:text-gray-300 transition">Rudraksha Guide</a></li>
+      <li><a href="/guides/how-to-wear-care.html" class="block py-1.5 hover:text-gray-300 transition">How to Wear &amp; Care</a></li>
 
-      <li class="pt-2 border-t border-emerald-700 mt-2"></li>
-      <li><a href="/contact.html" class="block py-1.5 hover:text-emerald-300 transition">Contact</a></li>
-      <li><a href="/astrology.consultation.html" class="block py-1.5 hover:text-emerald-300 transition">Astrology &amp; Consultation</a></li>
+      <li class="pt-2 border-t border-gray-700 mt-2"></li>
+      <li><a href="/contact.html" class="block py-1.5 hover:text-gray-300 transition">Contact</a></li>
+      <li><a href="/astrology.consultation.html" class="block py-1.5 hover:text-gray-300 transition">Astrology &amp; Consultation</a></li>
     </ul>
   </div>
 
