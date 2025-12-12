@@ -78,7 +78,7 @@
 
   <main class="min-h-screen py-10">
     <section class="container mx-auto px-4">
-      <h1 class="text-2xl md:text-3xl font-bold text-emerald-800 mb-6">
+      <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
         Your Cart &amp; Checkout
       </h1>
 
@@ -86,7 +86,7 @@
       <div id="cart-empty" class="hidden bg-white rounded-2xl shadow-md p-8 text-center">
         <p class="text-lg text-gray-600 mb-4">Your cart is empty right now.</p>
         <a href="shop-ecom.html"
-           class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition">
+           class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gray-600 text-white font-semibold hover:bg-gray-700 transition">
           Browse Products
         </a>
       </div>
@@ -124,14 +124,14 @@
                 </div>
                 <div class="border-t border-gray-200 pt-3 mt-3 flex justify-between items-center">
                   <dt class="text-base font-semibold text-gray-900">Total</dt>
-                  <dd id="cart-total-page" class="text-lg font-bold text-emerald-700">₹0</dd>
+                  <dd id="cart-total-page" class="text-lg font-bold text-gray-700">₹0</dd>
                 </div>
               </dl>
 
               <div class="mt-6 space-y-3">
                 <button
                   id="cart-checkout-btn"
-                  class="w-full inline-flex items-center justify-center px-4 py-3 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition disabled:opacity-60 disabled:cursor-not-allowed">
+                  class="w-full inline-flex items-center justify-center px-4 py-3 rounded-xl bg-gray-600 text-white font-semibold hover:bg-gray-700 transition disabled:opacity-60 disabled:cursor-not-allowed">
                   Go to Checkout Details
                 </button>
 
@@ -160,7 +160,7 @@
     <!-- ORDER STATUS BANNER -->
     <section class="container mx-auto px-4 mt-6 hidden" id="order-status-wrapper">
       <div id="order-status"
-           class="rounded-2xl border px-4 py-3 text-sm flex items-start gap-3 bg-emerald-50 border-emerald-200 text-emerald-900">
+           class="rounded-2xl border px-4 py-3 text-sm flex items-start gap-3 bg-gray-50 border-gray-200 text-gray-900">
         <!-- Filled by JS -->
       </div>
     </section>
@@ -178,8 +178,8 @@
             </p>
 
             <div class="flex flex-wrap items-center gap-2 text-xs mt-3 text-slate-500">
-              <span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-emerald-700">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              <span class="inline-flex items-center gap-1 rounded-full bg-gray-50 px-3 py-1 text-gray-700">
+                <span class="w-1.5 h-1.5 rounded-full bg-gray-500"></span>
                 Secure order
               </span>
               <span>→</span>
@@ -200,7 +200,7 @@
                   </label>
                   <input id="co-name" name="name" autocomplete="name" required placeholder="Full name"
                          class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
-                                focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
+                                focus:border-gray-500 focus:ring-2 focus:ring-gray-100 outline-none" />
                 </div>
                 <div>
                   <label for="co-email" class="block text-xs font-medium text-slate-600 mb-1">
@@ -208,7 +208,7 @@
                   </label>
                   <input id="co-email" name="email" type="email" autocomplete="email" required placeholder="Email address"
                          class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
-                                focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
+                                focus:border-gray-500 focus:ring-2 focus:ring-gray-100 outline-none" />
                 </div>
               </div>
 
@@ -219,7 +219,7 @@
                   </label>
                   <input id="co-phone" name="phone" type="tel" autocomplete="tel" required placeholder="Phone number"
                          class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
-                                focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none" />
+                                focus:border-gray-500 focus:ring-2 focus:ring-gray-100 outline-none" />
                 </div>
                 <div>
                   <label for="co-country" class="block text-xs font-medium text-slate-600 mb-1">
@@ -227,7 +227,7 @@
                   </label>
                   <select id="co-country" name="country"
                           class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
-                                 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none">
+                                 focus:border-gray-500 focus:ring-2 focus:ring-gray-100 outline-none">
                     <option value="IN">India (Domestic)</option>
                     <option value="INTL">Outside India (International)</option>
                   </select>
@@ -241,7 +241,7 @@
                 <textarea id="co-address" name="address" required autocomplete="street-address"
                           placeholder="Full address with city &amp; pincode"
                           class="border border-slate-200 rounded-xl px-3.5 py-2.5 w-full text-sm shadow-inner
-                                 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none"
+                                 focus:border-gray-500 focus:ring-2 focus:ring-gray-100 outline-none"
                           rows="3"></textarea>
               </div>
 
@@ -252,7 +252,7 @@
                 </label>
 
                 <div class="grid gap-3 sm:grid-cols-2" id="payment-method-wrapper">
-                  <label class="flex items-start gap-2 rounded-xl border border-emerald-500/80 bg-emerald-50 px-3.5 py-3 text-sm cursor-pointer transition"
+                  <label class="flex items-start gap-2 rounded-xl border border-gray-500/80 bg-gray-50 px-3.5 py-3 text-sm cursor-pointer transition"
                          data-method-label="razorpay">
                     <input type="radio" name="payment_method" value="razorpay" checked class="mt-1" />
                     <span>
@@ -290,8 +290,8 @@
 
               <p class="text-[11px] text-slate-500 mt-3 leading-relaxed">
                 By placing the order, you agree to our
-                <a href="/guides/terms-conditions.html" class="text-emerald-700 underline">Terms &amp; Conditions</a>,
-                <a href="/guides/privacy-policy.html" class="text-emerald-700 underline">Privacy Policy</a>
+                <a href="/guides/terms-conditions.html" class="text-gray-700 underline">Terms &amp; Conditions</a>,
+                <a href="/guides/privacy-policy.html" class="text-gray-700 underline">Privacy Policy</a>
                 and understand that gemstone / Rudraksha results depend on individual karma and astrological factors.
               </p>
             </form>
@@ -310,13 +310,13 @@
               </div>
               <div class="flex justify-between items-center mt-3 pt-3 border-t border-dashed border-slate-200 text-base">
                 <span class="font-semibold text-slate-900">Total</span>
-                <strong id="co-total" class="text-xl font-bold text-emerald-700">—</strong>
+                <strong id="co-total" class="text-xl font-bold text-gray-700">—</strong>
               </div>
             </div>
 
             <div class="summary-footer mt-5 space-y-2">
               <button id="place-order"
-                      class="w-full bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow-md hover:bg-emerald-700 disabled:opacity-60 disabled:cursor-not-allowed">
+                      class="w-full bg-gray-600 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow-md hover:bg-gray-700 disabled:opacity-60 disabled:cursor-not-allowed">
                 Pay Securely &amp; Place Order
               </button>
 
@@ -445,7 +445,7 @@
         orderStatusEl.className =
           "rounded-2xl border px-4 py-3 text-sm flex items-start gap-3 " +
           (type === "success"
-            ? "bg-emerald-50 border-emerald-200 text-emerald-900"
+            ? "bg-gray-50 border-gray-200 text-gray-900"
             : type === "error"
             ? "bg-red-50 border-red-200 text-red-900"
             : "bg-slate-50 border-slate-200 text-slate-900");
@@ -623,9 +623,9 @@
           const method = label.getAttribute("data-method-label");
           if (method === selected) {
             label.classList.remove("border-slate-200", "bg-slate-50");
-            label.classList.add("border-emerald-500/80", "bg-emerald-50");
+            label.classList.add("border-gray-500/80", "bg-gray-50");
           } else {
-            label.classList.remove("border-emerald-500/80", "bg-emerald-50");
+            label.classList.remove("border-gray-500/80", "bg-gray-50");
             label.classList.add("border-slate-200", "bg-slate-50");
           }
         });

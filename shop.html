@@ -72,7 +72,7 @@
       <div class="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-center text-white px-6">
         <h1 class="text-4xl md:text-5xl font-bold mb-4">Shop Our Gemstones</h1>
         <p class="text-lg md:text-xl max-w-2xl">Find your perfect stone for healing, prosperity, and inner harmony</p>
-        <a href="shop-ecom.html" class="mt-6 inline-block bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full shadow transition">Buy Online</a>
+        <a href="shop-ecom.html" class="mt-6 inline-block bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-full shadow transition">Buy Online</a>
       </div>
     </section>
 
@@ -202,8 +202,8 @@
           btn.className =
             "px-4 py-2 rounded-full border text-sm whitespace-nowrap shadow-sm transition " +
             (isActive
-              ? "bg-emerald-600 text-white border-emerald-600"
-              : "bg-white text-gray-700 border-gray-200 hover:bg-emerald-50");
+              ? "bg-gray-600 text-white border-gray-600"
+              : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50");
 
           btn.addEventListener("click", () => {
             activeFilter = tab.key;
@@ -253,7 +253,7 @@
 
           section.innerHTML = `
             <div class="flex items-baseline justify-between mb-4">
-              <h2 class="text-2xl font-bold text-emerald-800">
+              <h2 class="text-2xl font-bold text-gray-800">
                 ${categoryLabels[cat] || cat}
               </h2>
               <p class="text-sm text-gray-500">
@@ -275,7 +275,7 @@
                     class="w-full h-56 object-cover rounded-t-xl"
                   >
                   <div class="p-4 flex flex-col gap-2">
-                    <h3 class="font-semibold text-emerald-800 text-lg leading-snug">
+                    <h3 class="font-semibold text-gray-800 text-lg leading-snug">
                       ${p.name || ""}
                     </h3>
                     <p class="text-sm text-gray-600">
@@ -362,7 +362,7 @@
       const benefitsHtml =
         Array.isArray(p.benefits) && p.benefits.length
           ? `
-        <h3 class="mt-4 font-semibold text-emerald-700 text-sm md:text-base">Key Benefits</h3>
+        <h3 class="mt-4 font-semibold text-gray-700 text-sm md:text-base">Key Benefits</h3>
         <ul class="list-disc pl-5 text-sm text-gray-700 space-y-1 mt-1">
           ${p.benefits.map((b) => `<li>${b}</li>`).join("")}
         </ul>
@@ -377,7 +377,7 @@
         mantraParts.length
           ? `
         <div class="mt-4">
-          <div class="text-sm font-semibold text-emerald-700 mb-1">Recommended Mantra</div>
+          <div class="text-sm font-semibold text-gray-700 mb-1">Recommended Mantra</div>
           ${mantraParts.join("")}
         </div>
       `
@@ -399,7 +399,7 @@
           >
 
           <div>
-            <h2 class="text-2xl md:text-3xl font-bold text-emerald-700">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-700">
               ${p.name || ""}
             </h2>
 
@@ -420,7 +420,7 @@
             <div class="mt-6 flex flex-col sm:flex-row gap-3">
               <a
                 href="shop-ecom.html?id=${p.id}"
-                class="flex-1 inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold"
+                class="flex-1 inline-flex items-center justify-center bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold"
               >
                 Visit Online Store
               </a>

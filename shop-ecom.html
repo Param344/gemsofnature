@@ -120,13 +120,13 @@
       line-height: 1;
     }
     .filter-pill:hover {
-      background: #065f46;
-      border-color: #065f46;
+      background: #181d1c;
+      border-color: #2b3431;
       color: #ffffff;
     }
     .filter-pill.active {
-      background: #065f46;
-      border-color: #065f46;
+      background: #191f1e;
+      border-color: #131a18;
       color: #ffffff;
     }
   </style>
@@ -200,25 +200,25 @@
       <!-- Row 2: pill filters -->
       <div class="flex flex-wrap gap-2 pt-1">
         <button class="filter-pill active" type="button" data-category="all">
-          All categories <span class="arrow">&#9662;</span>
+          All categories <span class="arrow text-gray-300">&#9662;</span>
         </button>
         <button class="filter-pill" type="button" data-filter="price">
-          Price <span class="arrow">&#9662;</span>
+          Price <span class="arrow text-gray-300">&#9662;</span>
         </button>
         <button class="filter-pill" type="button" data-filter="price-per-carat">
-          Price per Carat <span class="arrow">&#9662;</span>
+          Price per Carat <span class="arrow text-gray-300">&#9662;</span>
         </button>
         <button class="filter-pill" type="button" data-filter="weight-carat">
           Weight (Carat) <span class="arrow">&#9662;</span>
         </button>
         <button class="filter-pill" type="button" data-filter="weight-ratti">
-          Weight (Ratti) <span class="arrow">&#9662;</span>
+          Weight (Ratti) <span class="arrow text-gray-300">&#9662;</span>
         </button>
         <button class="filter-pill" type="button" data-filter="certification">
-          Certification <span class="arrow">&#9662;</span>
+          Certification <span class="arrow text-gray-300">&#9662;</span>
         </button>
         <button class="filter-pill" type="button" data-filter="origin">
-          Origin <span class="arrow">&#9662;</span>
+          Origin <span class="arrow text-gray-300">&#9662;</span>
         </button>
       </div>
 
@@ -246,7 +246,7 @@
       <img id="detail-image" src="images/placeholder.jpg" alt="" class="w-40 h-40 object-cover rounded" />
       <div class="flex-1">
         <div class="flex items-start justify-between">
-          <h3 id="detail-title" class="text-xl font-semibold text-emerald-700"></h3>
+          <h3 id="detail-title" class="text-xl font-semibold text-gray-700"></h3>
           <button id="close-detail" class="text-gray-500">✕</button>
         </div>
         <div id="detail-meta" class="text-sm text-gray-600 mt-2"></div>
@@ -255,8 +255,8 @@
         <div id="detail-deity" class="mt-1 text-sm text-gray-700"></div>
         <div id="detail-mantra" class="mt-1 text-sm text-gray-700"></div>
         <div class="mt-4 flex items-center gap-3">
-          <div id="detail-price" class="text-lg font-semibold text-emerald-800"></div>
-          <button id="detail-add" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg">
+          <div id="detail-price" class="text-lg font-semibold text-gray-800"></div>
+          <button id="detail-add" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg">
             Add to Cart
           </button>
         </div>
@@ -336,14 +336,14 @@
         </div>
       </div>
       <div class="p-4">
-        <h4 class="text-md font-semibold text-emerald-700">${p.name}</h4>
+        <h4 class="text-md font-semibold text-gray-700">${p.name}</h4>
         <div class="text-xs text-gray-600">${p.category || ''}</div>
         <div class="mt-3 flex items-center justify-between">
           <div class="font-semibold text-gray-800">${formatCurrency(getProductPrice(p), currentCurrency)}</div>
           <div class="flex items-center gap-2">
             <button class="view-detail bg-white border border-gray-200 text-gray-700 px-3 py-2 rounded-lg" data-id="${p.id}">View</button>
             <button
-              class="add-to-cart bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-2 rounded-lg"
+              class="add-to-cart bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded-lg"
               data-id="${p.id}"
             >
               Add
@@ -415,7 +415,7 @@
     if (pages <= 1) return;
     for(let i=1;i<=pages;i++){
       const btn = document.createElement('button');
-      btn.className = `px-3 py-1 rounded ${i===currentPage ? 'bg-emerald-600 text-white' : 'bg-white border'}`;
+      btn.className = `px-3 py-1 rounded ${i===currentPage ? 'bg-gray-600 text-white' : 'bg-white border'}`;
       btn.textContent = i;
       btn.onclick = () => {
         currentPage = i;
@@ -485,7 +485,7 @@
           const catPill = document.querySelector('.filter-pill[data-category]');
           if (catPill) {
             const label = value === 'all' ? 'All categories' : btn.textContent;
-            catPill.innerHTML = label + ' <span class="arrow">&#9662;</span>';
+            catPill.innerHTML = label + ' <span class="arrow text-gray-300">&#9662;</span>';
           }
 
           currentPage = 1;
@@ -516,7 +516,7 @@
         </div>
         <div class="mt-3 flex justify-end gap-2">
           <button id="${idBase}-clear" class="px-3 py-1 border rounded-lg text-xs">Clear</button>
-          <button id="${idBase}-apply" class="px-3 py-1 bg-emerald-600 text-white rounded-lg text-xs">Apply</button>
+          <button id="${idBase}-apply" class="px-3 py-1 bg-gray-600 text-white rounded-lg text-xs">Apply</button>
         </div>
       `;
     }
@@ -637,7 +637,7 @@
         </div>
         <div class="mt-3 flex justify-end gap-2">
           <button id="filter-cert-clear" class="px-3 py-1 border rounded-lg text-xs">Clear</button>
-          <button id="filter-cert-apply" class="px-3 py-1 bg-emerald-600 text-white rounded-lg text-xs">Apply</button>
+          <button id="filter-cert-apply" class="px-3 py-1 bg-gray-600 text-white rounded-lg text-xs">Apply</button>
         </div>
       `;
 
@@ -678,7 +678,7 @@
         </div>
         <div class="mt-3 flex justify-end gap-2">
           <button id="filter-origin-clear" class="px-3 py-1 border rounded-lg text-xs">Clear</button>
-          <button id="filter-origin-apply" class="px-3 py-1 bg-emerald-600 text-white rounded-lg text-xs">Apply</button>
+          <button id="filter-origin-apply" class="px-3 py-1 bg-gray-600 text-white rounded-lg text-xs">Apply</button>
         </div>
       `;
 
