@@ -335,6 +335,56 @@
 * { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
 
 
+  /* Double-buffered hero backgrounds for smooth crossfade */
+  #hero-bg-a, #hero-bg-b {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    filter: blur(3px) brightness(0.82) saturate(0.95);
+    transition: opacity .75s ease, transform .35s ease;
+    will-change: opacity, transform, background-image;
+    transform: translate3d(0,0,0);
+  }
+  #hero-bg-a { opacity: 1; z-index: 0; }
+  #hero-bg-b { opacity: 0; z-index: 0; pointer-events: none; }
+
+  /* Foreground slides: fade + subtle transform */
+  .slider-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity .8s cubic-bezier(.22,.9,.28,1), transform .6s ease;
+    will-change: opacity, transform;
+    transform: translate3d(0,0,0) scale(1);
+  }
+  .slider-img.active { opacity: 1; }
+
+  /* Reflection: flipped, blurred, masked fade */
+  #hero-reflection {
+    z-index: 5; /* above background but below hero text (z-10) */
+    transform-origin: center top;
+    transform: translate3d(0,0,0) scaleY(-1); /* flip vertically */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center bottom;
+    filter: blur(6px) saturate(0.9) brightness(0.9);
+    opacity: 0.28;
+    /* fade & gentle slide */
+    transition: opacity .7s ease, transform .5s ease, background-image .2s linear;
+    /* mask to fade out the reflection smoothly (works in modern browsers) */
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.05));
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.05));
+    pointer-events: none;
+  }
+
+  /* make reflection less visible on small screens */
+  @media (max-width: 980px) {
+    #hero-reflection { opacity: 0.18; filter: blur(8px) saturate(0.9) brightness(0.9); height: 30%; bottom: -18%; }
+  }
+
   </style>
 
   <!-- Structured Data -->
@@ -362,14 +412,15 @@
   <!-- MAIN: page content -->
   <main class="flex-1">
 
-   <!-- Hero Section -->
-    <section id="home" class="relative min-h-[60vh] fade-in bg-gradient-to-r from-white/60 to-transparent backdrop-blur-sm">
-   <!-- hero BG layer (updated when slides change) -->
-    <div id="hero-bg-layer" class="absolute inset-0 z-0 bg-cover bg-center transition-opacity duration-700" aria-hidden="true" style="opacity:0;"></div>
+   <!-- ====== HERO: double-buffered background + foreground slides + reflection ======
+     Replace the old hero BG div + right-column slider markup + old hero script with this. -->
+      <section id="home" class="relative min-h-[60vh] fade-in bg-gradient-to-r from-white/60 to-transparent backdrop-blur-sm">
+    <!-- DOUBLE-BUFFER BACKGROUNDS (non-blinking crossfade) -->
+      <div id="hero-bg-a" class="absolute inset-0 z-0 bg-cover bg-center" aria-hidden="true" style="opacity:1;"></div>
+      <div id="hero-bg-b" class="absolute inset-0 z-0 bg-cover bg-center" aria-hidden="true" style="opacity:0;pointer-events:none;"></div>
 
-  <div class="relative max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 items-center gap-10 z-10">
-    
-    <!-- LEFT COLUMN: TEXT -->
+      <div class="relative max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 items-center gap-10 z-10">
+    <!-- LEFT COLUMN: TEXT (unchanged) -->
     <div class="text-left hero-text text-white !important">
       <h1 class="text-4xl md:text-5xl font-bold mb-4">Discover the Healing Power of Nature</h1>
 
@@ -379,43 +430,46 @@
 
       <div class="flex flex-col sm:flex-row gap-3">
         <a href="shop-ecom.html"
-        class="hero-btn-primary bg-gray-700 hover:bg-gray-800 text-white font-semibold px-6 py-3 rounded-full transition-colors duration-300">
-        Shop Now
+           class="hero-btn-primary bg-gray-700 hover:bg-gray-800 text-white font-semibold px-6 py-3 rounded-full transition-colors duration-300">
+          Shop Now
         </a>
 
         <a href="shop.html"
-         class="hero-btn-secondary border border-black/30 text-black font-semibold px-6 py-3 rounded-full hover:bg-black/5 transition duration-300 hidden sm:inline-block">
-         Explore Collections
+           class="hero-btn-secondary border border-black/30 text-black font-semibold px-6 py-3 rounded-full hover:bg-black/5 transition duration-300 hidden sm:inline-block">
+          Explore Collections
         </a>
-
       </div>
     </div>
 
-    <!-- RIGHT COLUMN: IMAGE SLIDER (covers full column) -->
-<div class="relative w-full h-[320px] md:h-[520px] overflow-hidden rounded-2xl md:order-2 order-1">
-  <div class="absolute inset-0 slider-wrapper">
-      <!-- Foreground / visible slides (use hero-style images) -->
-      <img src="/images/slider/ruby.jpg"
-      alt="Ruby hero image"
-      class="slider-img active"
-      loading="lazy" />
+    <!-- RIGHT COLUMN: IMAGE SLIDER + reflection (replace previous right-column only) -->
+    <div class="relative w-full h-[320px] md:h-[520px] overflow-hidden rounded-2xl md:order-2 order-1">
+      <!-- Foreground slides (visible) -->
+      <div class="absolute inset-0 slider-wrapper">
+        <img src="/images/slider/ruby.jpg"
+             alt="Ruby hero image"
+             class="slider-img active"
+             loading="lazy" />
 
-      <img src="/images/slider/blue-sapphire.jpg"
-          alt="Blue Sapphire hero image"
-          class="slider-img"
-          loading="lazy" />
+        <img src="/images/slider/blue-sapphire.jpg"
+             alt="Blue Sapphire hero image"
+             class="slider-img"
+             loading="lazy" />
 
-      <img src="/images/slider/yellow-sapphire.jpg"
-          alt="Yellow Sapphire (variant) hero image"
-          class="slider-img"
-          loading="lazy" />
+        <img src="/images/slider/yellow-sapphire.jpg"
+             alt="Yellow Sapphire hero image"
+             class="slider-img"
+             loading="lazy" />
 
-      <img src="/images/slider/emerald.jpg"
-          alt="Emerald hero image"
-          class="slider-img"
-          loading="lazy" />
+        <img src="/images/slider/emerald.jpg"
+             alt="Emerald hero image"
+             class="slider-img"
+             loading="lazy" />
+      </div>
+
+      <!-- REFLECTION LAYER: mirrored background of the active slide -->
+      <div id="hero-reflection" aria-hidden="true" class="absolute left-0 right-0 -bottom-[28%] h-[40%] pointer-events-none"></div>
+    </div>
   </div>
-</div>
 </section>
 
 <!-- Combined: Recommendation (left) + Collections (right) -->
@@ -462,7 +516,7 @@
                   <img src="images/products/amethyst.jpg" alt="Healing Stones" class="w-full h-full object-cover">
                 </div>
               </div>
-              <h4 class="text-xl font-semibold mb-2 text-emerald-700">Healing Stones</h4>
+              <h4 class="text-xl font-semibold mb-2 text-gray-700">Healing Stones</h4>
               <p class="text-sm text-gray-600">Crystals like Amethyst & Rose Quartz to cleanse your energy.</p>
             </div>
           </a>
@@ -476,7 +530,7 @@
                   <img src="images/products/emerald.jpg" alt="Zodiac Gems" class="w-full h-full object-cover">
                 </div>
               </div>
-              <h4 class="text-xl font-semibold mb-2 text-emerald-700">Zodiac Gems</h4>
+              <h4 class="text-xl font-semibold mb-2 text-gray-700">Zodiac Gems</h4>
               <p class="text-sm text-gray-600">Find your birthstone and attract cosmic harmony aligned to your sign.</p>
             </div>
           </a>
@@ -489,7 +543,7 @@
                   <img src="images/products/bracelets.jpg" alt="Bracelets" class="w-full h-full object-cover">
                 </div>
               </div>
-              <h4 class="text-xl font-semibold mb-2 text-emerald-700">Bracelets</h4>
+              <h4 class="text-xl font-semibold mb-2 text-gray-700">Bracelets</h4>
               <p class="text-sm text-gray-600">Handcrafted gemstone bracelets for energy balance & style.</p>
             </div>
           </a>
@@ -502,7 +556,7 @@
                   <img src="images/products/raw-stone.jpg" alt="Raw Stones" class="w-full h-full object-cover">
                 </div>
               </div>
-              <h4 class="text-xl font-semibold mb-2 text-emerald-700">Raw Stones</h4>
+              <h4 class="text-xl font-semibold mb-2 text-gray-700">Raw Stones</h4>
               <p class="text-sm text-gray-600">Natural, unpolished stones charged with divine vibrations.</p>
             </div>
           </a>
@@ -640,18 +694,18 @@
       <div class="max-w-6xl mx-auto px-6">
         <div class="flex flex-col lg:flex-row items-start gap-6">
           <div class="flex-shrink-0">
-            <div class="bg-emerald-50 border border-emerald-100 rounded-lg p-4 text-center">
+            <div class="bg-emerald-50 border border-gray-100 rounded-lg p-4 text-center">
               <svg width="56" height="56" viewBox="0 0 24 24" fill="none" class="mx-auto mb-1">
                 <path d="M12 2l3 6 6 3-6 3-3 6-3-6-6-3 6-3 3-6z" fill="#10B981" opacity="0.12"/>
                 <path d="M12 6l1.6 3.2L17 10l-3 2 1 3-3-2-3 2 1-3-3-2 3.4-.8L12 6z" fill="#059669"/>
               </svg>
-              <div class="text-sm font-semibold text-emerald-700">100% Genuine</div>
+              <div class="text-sm font-semibold text-gray-700">100% Genuine</div>
               <div class="text-xs text-gray-500">Verified by Gemologist</div>
             </div>
           </div>
 
           <div class="flex-1">
-            <h2 class="text-2xl font-bold text-emerald-700">Gemstone Authenticity & Lab Reports</h2>
+            <h2 class="text-2xl font-bold text-gray-700">Gemstone Authenticity & Lab Reports</h2>
             <p class="text-gray-600 mt-2 max-w-3xl">
               We guarantee natural gemstones — no synthetic stones sold as natural.
               High-value items are inspected by a certified gemologist and can be issued an independent lab report on request.
@@ -674,7 +728,7 @@
                 </p>
                 <div class="mt-3">
                   <button id="open-sample-report"
-                          class="bg-emerald-600 text-white px-3 py-2 rounded">
+                          class="bg-gray-600 text-white px-3 py-2 rounded">
                     View sample report
                   </button>
                   <a href="files/sample-lab-report.pdf" target="_blank" class="ml-3 text-sm text-gray-600 underline">
@@ -694,7 +748,7 @@
 
             <div class="mt-6 flex gap-3">
               <button id="request-certificate"
-                      class="bg-emerald-600 text-white px-4 py-2 rounded font-semibold">
+                      class="bg-gray-600 text-white px-4 py-2 rounded font-semibold">
                 Request Certificate
               </button>
               <button onclick="openConsult()"
@@ -747,7 +801,7 @@
 
         <div class="mt-6 text-right">
           <button id="modal-request-cert"
-                  class="bg-emerald-600 text-white px-4 py-2 rounded">
+                  class="bg-gray-600 text-white px-4 py-2 rounded">
             Request Certificate
           </button>
           <button id="modal-close" class="ml-2 border px-3 py-2 rounded">Close</button>
@@ -760,7 +814,7 @@
          class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
       <div class="bg-white rounded-lg max-w-2xl w-full p-6 mx-4">
         <div class="flex items-center justify-between">
-          <h3 class="text-xl font-semibold text-emerald-700">
+          <h3 class="text-xl font-semibold text-gray-700">
             Rudraksha & Astrology Consultation
           </h3>
           <button id="close-consult" class="text-gray-500">✕</button>
@@ -1291,7 +1345,7 @@
         // GEMSTONE block
         if (topGemstones.length) {
           const gemSection = document.createElement('div');
-          gemSection.innerHTML = `<h3 class="text-lg font-semibold text-emerald-700 mb-2">Recommended Gemstones</h3>`;
+          gemSection.innerHTML = `<h3 class="text-lg font-semibold text-gray-700 mb-2">Recommended Gemstones</h3>`;
           const grid = document.createElement('div');
           grid.className = "grid gap-4 sm:grid-cols-2";
 
@@ -1307,14 +1361,14 @@
               <div class="flex flex-col items-center text-center">
                 <img src="${p.image || 'images/placeholder.jpg'}"
                      class="w-24 h-24 object-cover rounded mb-3" alt="${p.name}">
-                <h4 class="text-base font-semibold text-emerald-700">${p.name}</h4>
+                <h4 class="text-base font-semibold text-gray-700">${p.name}</h4>
                 <p class="text-sm text-gray-600 mt-1">Price: ₹${(p.price || 0).toLocaleString('en-IN')}</p>
                 <p class="text-xs text-gray-500 mt-2">${description}</p>
                 ${
                   tags.length
                     ? `<div class="flex flex-wrap justify-center gap-1 mt-3">
                         ${tags.map(t =>
-                          `<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs border border-emerald-100">${t}</span>`
+                          `<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-gray-700 text-xs border border-emerald-100">${t}</span>`
                         ).join('')}
                        </div>`
                     : ''
@@ -1344,7 +1398,7 @@
         if (answers.zodiac) {
           const rudraMatches = getRudrakshaForZodiac(answers.zodiac, answers.budget);
           const rudraSection = document.createElement('div');
-          rudraSection.innerHTML = `<h3 class="text-lg font-semibold text-emerald-700 mb-2">Rudraksha for your Zodiac</h3>`;
+          rudraSection.innerHTML = `<h3 class="text-lg font-semibold text-gray-700 mb-2">Rudraksha for your Zodiac</h3>`;
 
           if (rudraMatches.length) {
             const gridR = document.createElement('div');
@@ -1360,7 +1414,7 @@
                 <div class="flex flex-col items-center text-center">
                   <img src="${p.image || 'images/placeholder.jpg'}"
                        class="w-24 h-24 object-contain rounded mb-3" alt="${p.name}">
-                  <h4 class="text-base font-semibold text-emerald-700">${p.name}</h4>
+                  <h4 class="text-base font-semibold text-gray-700">${p.name}</h4>
                   <p class="text-sm text-gray-600 mt-1">Price: ₹${(p.price || 0).toLocaleString('en-IN')}</p>
                   <p class="text-xs text-gray-500 mt-2">${desc}</p>
                   <div class="flex flex-wrap justify-center gap-1 mt-3">
@@ -1368,7 +1422,7 @@
                       Zodiac: ${answers.zodiac.charAt(0).toUpperCase() + answers.zodiac.slice(1)}
                     </span>
                     ${p.mukhi
-                      ? `<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs border border-emerald-100">
+                      ? `<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-gray-700 text-xs border border-gray-100">
                            ${p.mukhi} Mukhi
                          </span>`
                       : ''
@@ -1390,7 +1444,7 @@
             rudraSection.innerHTML += `
               <div class="p-4 bg-white border rounded text-gray-600 text-sm">
                 We don’t have a specific Rudraksha in the online list yet for this sign,
-                but you can still check our <a href="#featured" class="text-emerald-700 underline">Rudraksha section</a> below
+                but you can still check our <a href="#featured" class="text-gray-700 underline">Rudraksha section</a<|fim_middle|>jsp<|fim_middle|><|fim_middle|>
                 or contact us for a personalised suggestion.
               </div>
             `;
@@ -1502,59 +1556,115 @@
     })();
   </script>
 
+
 <script>
-/* ===== HERO SLIDER with subtle PARALLAX — ready to paste.
-   Only affects the hero / slider logic; rest of the page left untouched. */
 document.addEventListener('DOMContentLoaded', function () {
   const slides = Array.from(document.querySelectorAll('.slider-img'));
-  const heroBg = document.getElementById('hero-bg-layer');
+  const bgA = document.getElementById('hero-bg-a');
+  const bgB = document.getElementById('hero-bg-b');
+  const reflection = document.getElementById('hero-reflection');
   const section = document.getElementById('home');
-  if (!slides.length || !heroBg || !section) return;
+  if (!slides.length || !bgA || !bgB || !reflection || !section) return;
 
-  // Ensure the content is above the bg layer
+  // Keep hero content above backgrounds
   section.querySelector(':scope > .relative, :scope > .container')?.classList?.add('z-10');
 
-  // Preload images to avoid background flash/delay (uses Image() objects)
-  slides.forEach(img => {
-    const s = img.getAttribute('src') || img.dataset.src;
-    if (!s) return;
-    const pre = new Image();
-    pre.src = s;
-  });
-
-  // Use currentSrc when available (handles <img srcset>), fallback to src
+  // Robust URL getter (handles srcset/currentSrc)
   function getImgUrl(img) {
     return img.currentSrc || img.src || img.getAttribute('src') || img.dataset.src;
   }
 
-  // initialize first slide visible
-  slides.forEach((s, i) => s.classList.remove('active'));
+  // Preload + decode helper returns a Promise
+  function preloadImage(url) {
+    return new Promise((resolve, reject) => {
+      if (!url) return reject(new Error('No url'));
+      const img = new Image();
+      img.src = url;
+      if (img.decode) {
+        img.decode().then(() => resolve(url)).catch(() => {
+          img.onload = () => resolve(url);
+          img.onerror = () => reject(new Error('Failed to load ' + url));
+        });
+      } else {
+        img.onload = () => resolve(url);
+        img.onerror = () => reject(new Error('Failed to load ' + url));
+      }
+    });
+  }
+
+  // Initialize slide state
+  slides.forEach(s => s.classList.remove('active'));
   let idx = 0;
   slides[idx].classList.add('active');
 
-  // initialize hero background with the first slide immediately
-  heroBg.style.backgroundImage = `url("${getImgUrl(slides[idx])}")`;
-  heroBg.style.opacity = '1';
+  // set initial backgrounds (preload first)
+  const firstUrl = getImgUrl(slides[idx]);
+  preloadImage(firstUrl).then(url => {
+    bgA.style.backgroundImage = `url("${url}")`;
+    reflection.style.backgroundImage = `url("${url}")`;
+    bgA.style.opacity = '1';
+    reflection.style.opacity = '0.28';
+  }).catch(() => {
+    bgA.style.backgroundImage = `url("${firstUrl}")`;
+    reflection.style.backgroundImage = `url("${firstUrl}")`;
+    bgA.style.opacity = '1';
+    reflection.style.opacity = '0.28';
+  });
 
-  const intervalMs = 5000; // 5 seconds for richer visuals
+  // config
+  const intervalMs = 5000; // change speed here
   let timer = null;
+  let usingA = true; // currently visible bg layer
 
-  function showSlide(nextIdx) {
+  // Show a particular slide (index)
+  async function showSlide(nextIdx) {
     if (nextIdx === idx) return;
-    // swap right-side slides
+
+    // foreground: swap active class for fade
     slides[idx].classList.remove('active');
     slides[nextIdx].classList.add('active');
 
-    // update hero-bg with smooth fade:
-    heroBg.style.opacity = '0';
-    // slight delay to let fade-out start (keeps it smooth)
-    setTimeout(() => {
-      heroBg.style.backgroundImage = `url("${getImgUrl(slides[nextIdx])}")`;
-      heroBg.style.opacity = '1';
-    }, 110);
+    const nextUrl = getImgUrl(slides[nextIdx]);
 
-    // reset any transforms on previous slide
-    slides[idx].style.transform = '';
+    // Preload and decode to avoid blink
+    try {
+      await preloadImage(nextUrl);
+    } catch (err) {
+      console.warn('Preload failed for', nextUrl, err);
+      // continue anyway
+    }
+
+    // Double-buffer background swap
+    const topLayer = usingA ? bgB : bgA;
+    const bottomLayer = usingA ? bgA : bgB;
+
+    // Set new background on the hidden (top) layer
+    topLayer.style.backgroundImage = `url("${nextUrl}")`;
+
+    // Also update reflection background (mirrored)
+    // we set it on the reflection element and give it a slight transform for realism
+    reflection.style.backgroundImage = `url("${nextUrl}")`;
+    reflection.style.transform = 'translate3d(0,2px,0) scaleY(-1) scale(1.01)';
+
+    // Force reflow so transitions run reliably
+    void topLayer.offsetWidth;
+
+    // Crossfade: bring topLayer in, fade bottomLayer out
+    topLayer.style.opacity = '1';
+    bottomLayer.style.opacity = '0';
+
+    // Slight depth transform
+    topLayer.style.transform = 'translate3d(0,0,0) scale(1.02)';
+    bottomLayer.style.transform = '';
+
+    // gently fade reflection in/out for change
+    reflection.style.opacity = '0.38';
+    setTimeout(() => {
+      reflection.style.opacity = '0.28'; // settle down to resting opacity
+      reflection.style.transform = 'translate3d(0,0,0) scaleY(-1) scale(1)';
+    }, 520);
+
+    usingA = !usingA;
     idx = nextIdx;
   }
 
@@ -1570,50 +1680,45 @@ document.addEventListener('DOMContentLoaded', function () {
     timer = null;
   }
 
-  // start auto-rotation
+  // start rotation
   startAuto();
 
-  // pause on hover/focus over slider area (accessibility)
+  // pause on hover/focus
   const wrapper = document.querySelector('.slider-wrapper') || section;
   wrapper.addEventListener('mouseenter', stopAuto);
   wrapper.addEventListener('mouseleave', startAuto);
   wrapper.addEventListener('focusin', stopAuto);
   wrapper.addEventListener('focusout', startAuto);
 
-  // keyboard controls (left/right) when wrapper focused
+  // keyboard nav
   wrapper.tabIndex = wrapper.tabIndex || 0;
   wrapper.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') { stopAuto(); showSlide((idx + 1) % slides.length); startAuto(); }
     if (e.key === 'ArrowLeft')  { stopAuto(); showSlide((idx - 1 + slides.length) % slides.length); startAuto(); }
   });
 
-  /* ---------- PARALLAX EFFECTS ---------- */
-  // Strengths (tweak if you want stronger/weaker)
-  const bgMax = 18;   // px movement for background layer
-  const fgMax = 28;   // px movement for foreground (active image)
-
-  // Apply parallax based on pointer position within wrapper
+  /* ---------- PARALLAX (pointer-driven, subtle) ---------- */
+  const bgMax = 14, fgMax = 22;
   function applyParallax(clientX, clientY) {
     const rect = wrapper.getBoundingClientRect();
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
-    const dx = (clientX - cx) / (rect.width / 2); // -1 .. 1
+    const dx = (clientX - cx) / (rect.width / 2);
     const dy = (clientY - cy) / (rect.height / 2);
+    const x = Math.max(-1, Math.min(1, dx)), y = Math.max(-1, Math.min(1, dy));
+    const bgTx = x * (bgMax / 2), bgTy = y * (bgMax / 2);
+    const fgTx = x * fgMax, fgTy = y * (fgMax / 2);
 
-    const clampedX = Math.max(-1, Math.min(1, dx));
-    const clampedY = Math.max(-1, Math.min(1, dy));
+    // move currently visible bg layer
+    const visibleBg = usingA ? bgA : bgB;
+    visibleBg.style.transform = `translate3d(${bgTx}px, ${bgTy}px, 0) scale(1.02)`;
 
-    const bgTx = clampedX * (bgMax / 2); // background smaller move
-    const bgTy = clampedY * (bgMax / 2);
+    // tiny parallax on reflection (opposite vertical subtle shift for realism)
+    reflection.style.transform = `translate3d(${bgTx/2}px, ${-bgTy/2}px, 0) scaleY(-1) scale(1.01)`;
 
-    // Slight scale for depth
-    heroBg.style.transform = `translate3d(${bgTx}px, ${bgTy}px, 0) scale(1.02)`;
-
-    // Foreground active slide moves a bit more
-    slides.forEach((s) => {
+    // move active foreground slide slightly
+    slides.forEach(s => {
       if (s.classList.contains('active')) {
-        const fgTx = clampedX * fgMax;
-        const fgTy = clampedY * (fgMax / 2);
         s.style.transform = `translate3d(${fgTx}px, ${fgTy}px, 0) scale(1.01)`;
       } else {
         s.style.transform = '';
@@ -1621,68 +1726,21 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Throttle pointermove for performance
   let lastPointer = 0;
   wrapper.addEventListener('pointermove', (e) => {
     const now = performance.now();
-    if (now - lastPointer < 12) return; // ~80-90fps cap
+    if (now - lastPointer < 12) return;
     lastPointer = now;
     applyParallax(e.clientX, e.clientY);
   });
-
   wrapper.addEventListener('pointerleave', () => {
-    // reset transforms smoothly
-    heroBg.style.transform = '';
+    bgA.style.transform = '';
+    bgB.style.transform = '';
+    reflection.style.transform = 'scaleY(-1)'; // reset flip only
     slides.forEach(s => s.style.transform = '');
   });
 
-  // Minor parallax on scroll (subtle)
-  let lastScroll = window.scrollY;
-  window.addEventListener('scroll', () => {
-    const now = window.scrollY;
-    const delta = now - lastScroll;
-    lastScroll = now;
-    const scrollMove = Math.max(-10, Math.min(10, -delta)); // small translate
-    heroBg.style.transform = `translate3d(0, ${scrollMove}px, 0)`;
-    setTimeout(() => { heroBg.style.transform = ''; }, 140);
-  });
-
 });
-</script>
-<!-- ===== Optional JS: equalize heights (keeps columns aligned on image/load/resize) ===== -->
-<script>
-(function () {
-  const gridSelector = document.querySelector('#rec-and-collections .max-w-7xl > .grid') ||
-                       document.querySelector('#rec-and-collections .grid.grid-cols-1.md\\:grid-cols-2') ||
-                       document.querySelector('#rec-and-collections > .max-w-7xl > .grid');
-  if (!gridSelector) return;
-
-  function equalizeHeights() {
-    const left = gridSelector.children[0];
-    const right = gridSelector.children[1];
-    if (!left || !right) return;
-    left.style.minHeight = '';
-    right.style.minHeight = '';
-
-    const leftH = left.getBoundingClientRect().height;
-    const rightH = right.getBoundingClientRect().height;
-    const maxH = Math.max(leftH, rightH);
-
-    if (Math.abs(leftH - rightH) > 6) {
-      left.style.minHeight = maxH + 'px';
-      right.style.minHeight = maxH + 'px';
-    }
-  }
-
-  window.addEventListener('load', () => {
-    equalizeHeights();
-    setTimeout(equalizeHeights, 300);
-    setTimeout(equalizeHeights, 900);
-  });
-
-  window.addEventListener('resize', equalizeHeights);
-  setTimeout(equalizeHeights, 1200);
-})();
 </script>
 
 
