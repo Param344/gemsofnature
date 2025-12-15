@@ -250,9 +250,16 @@
     }
 
     /* ========== MAIN SPACING: only apply padding when header is fixed ========== */
+    /* default: no forced reset */
+     main { padding-top: initial; }
+
+    /* add spacing when header is sticky or fixed */
+     .header-is-fixed main {
+     padding-top: calc(var(--measured-header-h, 68px) + 8px) !important;
+}
+
 
     /* default: main flush under header (no gap) */
-    main { padding-top: 0 !important; }
 
     /* when header is fixed/out-of-flow we add spacing based on measured height */
     .header-is-fixed main {
@@ -301,7 +308,7 @@
         <li class="relative group" role="none">
           <button class="hover:text-gray-300 transition cursor-pointer inline-flex items-center gap-1" aria-haspopup="true" aria-expanded="false" aria-controls="learn-menu">Learn ▾</button>
           <div class="learn-dropdown-wrapper">
-            <ul id="learn-menu" class="learn-dropdown-menu bg-white text-gray-300 shadow-xl rounded-lg py-2 w-56" role="menu" aria-label="Learn submenu">
+            <ul id="learn-menu" class="learn-dropdown-menu bg-white text-gray-800 shadow-xl rounded-lg py-2 w-56" role="menu" aria-label="Learn submenu">
               <li role="none"><a role="menuitem" href="/guides/gemstone-basics.html" class="block px-4 py-2 hover:bg-gray-50">Gemstone Basics</a></li>
               <li role="none"><a role="menuitem" href="/guides/how-to-choose.html" class="block px-4 py-2 hover:bg-gray-50">How to Choose a Stone</a></li>
               <li role="none"><a role="menuitem" href="/guides/chakras-stones.html" class="block px-4 py-2 hover:bg-gray-50">Chakras &amp; Stones</a></li>
@@ -334,26 +341,6 @@
     </div>
   </nav>
 
-  <!-- Mobile Menu (unchanged) -->
-  <div id="mobile-menu" class="hidden bg-gray-800 md:hidden border-t border-gray-700" role="navigation" aria-label="Mobile navigation">
-    <ul class="flex flex-col gap-3 px-6 py-4 text-sm">
-      <li><a href="/index.html" class="block py-1.5 hover:text-gray-300 transition">Home</a></li>
-      <li><a href="/about.html" class="block py-1.5 hover:text-gray-300 transition">About Us</a></li>
-      <li><a href="/shop.html" class="block py-1.5 hover:text-gray-300 transition">Collections</a></li>
-      <li><a href="/shop-ecom.html" class="block py-1.5 hover:text-gray-300 transition">Buy Online</a></li>
-
-      <li class="pt-2 mt-1 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-200">Learn</li>
-      <li><a href="/guides/gemstone-basics.html" class="block py-1.5 hover:text-gray-300 transition">Gemstone Basics</a></li>
-      <li><a href="/guides/how-to-choose.html" class="block py-1.5 hover:text-gray-300 transition">How to Choose a Stone</a></li>
-      <li><a href="/guides/chakras-stones.html" class="block py-1.5 hover:text-gray-300 transition">Chakras &amp; Stones</a></li>
-      <li><a href="/guides/rudraksha-guide.html" class="block py-1.5 hover:text-gray-300 transition">Rudraksha Guide</a></li>
-      <li><a href="/guides/how-to-wear-care.html" class="block py-1.5 hover:text-gray-300 transition">How to Wear &amp; Care</a></li>
-
-      <li class="pt-2 border-t border-gray-700 mt-2"></li>
-      <li><a href="/contact.html" class="block py-1.5 hover:text-gray-300 transition">Contact</a></li>
-      <li><a href="/astrology.consultation.html" class="block py-1.5 hover:text-gray-300 transition">Astrology &amp; Consultation</a></li>
-    </ul>
-  </div>
 
   <!-- Cart overlay + popup -->
   <div id="cartOverlay" class="fixed inset-0 bg-black/40 z-40 hidden"></div>
@@ -397,11 +384,12 @@
 
         // if header computed position is 'fixed' (out-of-flow), add class
         const pos = getComputedStyle(header).position || '';
-        if (pos.trim() === 'fixed') {
-          root.classList.add('header-is-fixed');
-        } else {
-          root.classList.remove('header-is-fixed');
-        }
+        if (pos.trim() === 'fixed' || pos.trim() === 'sticky') {
+  root.classList.add('header-is-fixed');
+} else {
+  root.classList.remove('header-is-fixed');
+}
+
       }
 
       window.addEventListener('load', updateHeader);
@@ -412,3 +400,23 @@
     })();
   </script>
 </header>
+<!-- Mobile Menu (unchanged) -->
+<div id="mobile-menu" class="hidden md:hidden" role="navigation" aria-label="Mobile navigation">
+    <ul class="flex flex-col gap-3 px-6 py-4 text-sm">
+      <li><a href="/index.html" class="block py-1.5 hover:text-gray-300 transition">Home</a></li>
+      <li><a href="/about.html" class="block py-1.5 hover:text-gray-300 transition">About Us</a></li>
+      <li><a href="/shop.html" class="block py-1.5 hover:text-gray-300 transition">Collections</a></li>
+      <li><a href="/shop-ecom.html" class="block py-1.5 hover:text-gray-300 transition">Buy Online</a></li>
+
+      <li class="pt-2 mt-1 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-200">Learn</li>
+      <li><a href="/guides/gemstone-basics.html" class="block py-1.5 hover:text-gray-300 transition">Gemstone Basics</a></li>
+      <li><a href="/guides/how-to-choose.html" class="block py-1.5 hover:text-gray-300 transition">How to Choose a Stone</a></li>
+      <li><a href="/guides/chakras-stones.html" class="block py-1.5 hover:text-gray-300 transition">Chakras &amp; Stones</a></li>
+      <li><a href="/guides/rudraksha-guide.html" class="block py-1.5 hover:text-gray-300 transition">Rudraksha Guide</a></li>
+      <li><a href="/guides/how-to-wear-care.html" class="block py-1.5 hover:text-gray-300 transition">How to Wear &amp; Care</a></li>
+
+      <li class="pt-4 mt-4 border-t border-black/10"></li>
+      <li><a href="/contact.html" class="block py-1.5 hover:text-gray-300 transition">Contact</a></li>
+      <li><a href="/astrology.consultation.html" class="block py-1.5 hover:text-gray-300 transition">Astrology &amp; Consultation</a></li>
+    </ul>
+  </div>

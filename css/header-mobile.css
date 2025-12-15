@@ -70,3 +70,59 @@
   }
 
 }
+/* =========================
+   MOBILE MENU – PAGE OVERLAY
+   ========================= */
+@media (max-width: 768px) {
+
+    /* Mobile menu becomes page-level overlay */
+    #mobile-menu {
+    position: fixed !important;
+    top: var(--measured-header-h, 72px);
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: calc(100vh - var(--measured-header-h, 64px));
+
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    z-index: 9999998; /* just below header */
+    overflow-y: auto;
+
+    border: none !important;
+  }
+
+  /* Menu text styling */
+  #mobile-menu a {
+    color: #0f1720 !important;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  #mobile-menu ul {
+    padding-top: 1.5rem;
+  }
+
+  /* Section heading like LEARN */
+  #mobile-menu .menu-section-title {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+}
+@media (max-width: 768px) {
+  #site-header {
+    min-height: var(--measured-header-h, 68px);
+  }
+}
+/* Hard fallback for async header load (index.html fix) */
+:root {
+  --measured-header-h: 72px;
+}
+
+
