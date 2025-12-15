@@ -1,5 +1,6 @@
 <!-- footer.html -->
-<footer id="site-footer"
+<footer
+  id="site-footer"
   class="text-[#0f1720] pt-6 pb-4"
   style="
     background: linear-gradient(
@@ -15,35 +16,22 @@
   "
 >
 <style>
-/* Footer base typography */
+/* =========================
+   Footer Base
+   ========================= */
 #site-footer {
-  font-family: "Cormorant Garamond", Georgia, serif;
-  color: rgba(15,23,32,0.85);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  color: rgba(15, 17, 19, 0.85);
 }
 
-/* Headings - slightly heavier & more premium */
-#site-footer h3,
-#site-footer .footer-heading {
-  font-family: "Cormorant Garamond", Georgia, serif;
+#site-footer h3 {
   font-size: 1.25rem;
-  font-weight: 650; /* subtle increase */
-  color: #0f1720;
+  font-weight: 650;
   letter-spacing: 0.45px;
-  margin-bottom: 1rem; /* extra breathing room */
+  margin-bottom: 1rem;
+  color: #0f1720;
 }
 
-/* Add gentle horizontal spacing between columns */
-#site-footer .footer-columns {
-  gap: 3rem; /* was tight — now elegant */
-}
-
-@media (max-width: 768px) {
-  #site-footer .footer-columns {
-    gap: 1.5rem; /* balanced on mobile */
-  }
-}
-
-/* Footer links */
 #site-footer a {
   color: rgba(15,23,32,0.78);
   text-decoration: none;
@@ -54,131 +42,125 @@
   transform: translateX(2px);
 }
 
-/* Footer small text */
 #site-footer p,
-#site-footer li,
-#site-footer .muted-footer {
-  color: rgba(15,23,32,0.78) !important;
+#site-footer li {
+  font-size: 0.9rem;
   line-height: 1.45;
+  color: rgba(15,23,32,0.78);
 }
 
-/*---------- Trusted Standards Refinement ----------*/
-
-/* Raise Trusted Standards block slightly */
-#site-footer .trusted-standards-block {
-  margin-top: -4px; /* subtle lift for alignment */
+/* Layout spacing */
+#site-footer .footer-columns {
+  gap: 3rem;
+}
+@media (max-width: 768px) {
+  #site-footer .footer-columns { gap: 1.5rem; }
 }
 
-/* Trusted label */
-#site-footer .trusted-standards-label {
+/* =========================
+   Trust & Assurance (Merged)
+   ========================= */
+#site-footer .trust-block {
+  margin-top: 0.5rem;
+}
+
+#site-footer .trust-title {
   font-size: 0.85rem;
-  letter-spacing: 0.16em;
-  font-weight: 600;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: #0f1720;
-  opacity: 0.95;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  color: #0f1720; /* deep black */
+  text-shadow: 0 1px 0 rgba(255,255,255,0.4); /* subtle shine */
 }
 
-/* Certification logos */
-#site-footer .cert-logos img {
-  height: 28px; /* slightly larger */
-  width: auto;
-  filter: grayscale(1) brightness(0.83);
-  transition: filter .2s ease, opacity .2s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.09);
-  border-radius: 4px;
+#site-footer .trust-points {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: rgba(15,23,32,0.92); /* much darker */
+  font-weight: 500;
 }
 
-#site-footer .cert-logos img:hover {
-  filter: grayscale(0) brightness(1);
+#site-footer .trust-points span {
+  display: block;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.35);
 }
 
-/* Divider line refined */
-#site-footer .footer-divider,
-#site-footer .border-emerald-800 {
-  border-color: rgba(15,23,32,0.20) !important;
+/* Divider & copyright */
+#site-footer .footer-divider {
+  border-color: rgba(15,23,32,0.20);
 }
-
-/* Bottom section spacing */
-#site-footer .footer-bottom {
-  margin-top: 2rem;
-  padding-top: 1.2rem;
-}
-
-/* Copyright contrast slightly increased */
 #site-footer .copyright {
-  color: rgba(15,23,32,0.82);
-  letter-spacing: 0.25px;
   font-size: 0.78rem;
+  letter-spacing: 0.25px;
+  color: rgba(15,23,32,0.82);
 }
 </style>
 
-  <div class="max-w-7xl mx-auto px-6">
+<div class="max-w-7xl mx-auto px-6">
 
-    <!-- Top row -->
-      <div class="flex flex-col md:flex-row items-start justify-between gap-12 footer-columns">
+  <!-- Main Footer Content -->
+  <div class="flex flex-col md:flex-row items-start justify-between footer-columns">
 
-      <!-- Help & Policies -->
-      <div class="text-center md:text-left">
-        <h3 class="mb-3">Help &amp; Policies</h3>
-        <ul class="space-y-2 text-sm">
-          <li><a href="/guides/faq.html">FAQ</a></li>
-          <li><a href="/guides/shipping-policy.html">Shipping Policy</a></li>
-          <li><a href="/guides/returns-refunds.html">Returns &amp; Refunds</a></li>
-          <li><a href="/guides/privacy-policy.html">Privacy Policy</a></li>
-          <li><a href="/guides/terms-conditions.html">Terms &amp; Conditions</a></li>
-        </ul>
-      </div>
-
-      <!-- Social + Certifications -->
-      <div class="w-full md:w-auto text-center md:text-right">
-
-        <!-- Social -->
-        <span class="font-semibold mb-2 block">Connect with us</span>
-        <div class="flex items-center justify-center md:justify-end gap-4 mb-3">
-          <a href="https://www.facebook.com/profile.php?id=61581929357076"
-             target="_blank" rel="noopener" class="hover:opacity-90 transition">
-            <img src="/images/social/facebook.png" alt="Facebook" class="w-6 h-6 rounded-full shadow-md">
-          </a>
-          <a href="https://www.instagram.com/gemsofnatureshop"
-             target="_blank" rel="noopener" class="hover:opacity-90 transition">
-            <img src="/images/social/instagram.png" alt="Instagram" class="w-6 h-6 rounded-md shadow-md">
-          </a>
-          <a href="https://www.linkedin.com/company/gems-of-nature"
-             target="_blank" rel="noopener" class="hover:opacity-90 transition">
-            <img src="/images/social/linkedin.png" alt="LinkedIn" class="w-6 h-6 rounded-md shadow-md">
-          </a>
-        </div>
-
-        <!-- Trusted standards -->
-        <div class="trusted-standards-block flex flex-col items-center md:items-end gap-2">
-          <span class="trusted-text uppercase tracking-wide font-semibold">
-            Trusted standards
-          </span>
-
-          <div class="flex items-center justify-center md:justify-end gap-3">
-            <img src="/images/gia.png" alt="GIA" class="h-6 w-auto grayscale hover:grayscale-0 transition">
-            <img src="/images/igi.png" alt="IGI" class="h-6 w-auto grayscale hover:grayscale-0 transition">
-            <img src="/images/gjepc.png" alt="GJEPC" class="h-6 w-auto grayscale hover:grayscale-0 transition">
-          </div>
-
-          <p class="text-[11px] max-w-xs md:text-right leading-snug">
-            Certified stones available from leading gem laboratories such as
-            <strong>GIA</strong> and <strong>IGI</strong> through our trusted partners.
-          </p>
-        </div>
-      </div>
+    <!-- Help & Policies -->
+    <div class="text-center md:text-left">
+      <h3>Help &amp; Policies</h3>
+      <ul class="space-y-2 text-sm">
+        <li><a href="/guides/faq.html">FAQ</a></li>
+        <li><a href="/guides/shipping-policy.html">Shipping Policy</a></li>
+        <li><a href="/guides/returns-refunds.html">Returns &amp; Refunds</a></li>
+        <li><a href="/guides/privacy-policy.html">Privacy Policy</a></li>
+        <li><a href="/guides/terms-conditions.html">Terms &amp; Conditions</a></li>
+      </ul>
     </div>
 
-    <!-- Bottom row -->
-    <div class="mt-5 border-t footer-divider pt-3 text-center space-y-1">
-      <p class="text-xs md:text-[13px]">
-        100% natural stones • Secure payments • Fast shipping • 7-day returns
-      </p>
-      <p class="text-[11px]">
-        &copy; 2025 <strong>Gems of Nature</strong>. All rights reserved.
-      </p>
-    </div>
+    <!-- Social + Trust -->
+    <div class="w-full md:w-auto text-center md:text-right">
 
+      <!-- Social -->
+      <span class="font-semibold mb-2 block">Connect with us</span>
+      <div class="flex justify-center md:justify-end gap-4 mb-4">
+        <a href="https://www.facebook.com/profile.php?id=61581929357076" target="_blank" rel="noopener">
+          <img src="/images/social/facebook.png" alt="Facebook" class="w-6 h-6 rounded-full shadow-md">
+        </a>
+        <a href="https://www.instagram.com/gemsofnatureshop" target="_blank" rel="noopener">
+          <img src="/images/social/instagram.png" alt="Instagram" class="w-6 h-6 rounded-md shadow-md">
+        </a>
+        <a href="https://www.linkedin.com/company/gems-of-nature" target="_blank" rel="noopener">
+          <img src="/images/social/linkedin.png" alt="LinkedIn" class="w-6 h-6 rounded-md shadow-md">
+        </a>
+      </div>
+
+      <!-- Trust & Assurance -->
+      <div class="trust-block">
+        <div class="trust-title">Trust &amp; Assurance</div>
+
+        <div class="flex justify-center md:justify-end gap-3 mb-2">
+          <img src="/images/gia.png" alt="GIA" class="h-6 grayscale hover:grayscale-0 transition">
+          <img src="/images/igi.png" alt="IGI" class="h-6 grayscale hover:grayscale-0 transition">
+          <img src="/images/gjepc.png" alt="GJEPC" class="h-6 grayscale hover:grayscale-0 transition">
+        </div>
+
+        <div class="trust-points md:text-right">
+          <span>100% Natural &amp; Untreated Stones</span>
+          <span>Lab Certification Available (GIA / IGI)</span>
+          <span>Secure Payments via UPI &amp; Cards</span>
+          <span>Expert Gemstone Guidance Available</span>
+        </div>
+      </div>
+
+    </div>
   </div>
+
+  <!-- Bottom -->
+  <div class="mt-5 border-t footer-divider pt-3 text-center space-y-1">
+    <p class="text-xs">
+      100% natural stones • Secure payments • Careful shipping
+    </p>
+    <p class="copyright">
+      © 2025 <strong>Gems of Nature</strong>. All rights reserved.
+    </p>
+  </div>
+
+</div>
 </footer>
