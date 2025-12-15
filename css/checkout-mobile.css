@@ -1,0 +1,103 @@
+/* ==================================================
+   CHECKOUT – MOBILE ONLY (SAFE OVERRIDES)
+   Scope: body[data-page="checkout"]
+   Max-width: 768px
+   ================================================== */
+
+@media (max-width: 768px) {
+
+  /* ----------------------------------
+     Global spacing
+     ---------------------------------- */
+  body[data-page="checkout"] main {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  body[data-page="checkout"] section.container {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  /* ----------------------------------
+     Cart layout (top section)
+     ---------------------------------- */
+  body[data-page="checkout"] #cart-layout {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  body[data-page="checkout"] #cart-layout aside {
+    order: -1; /* summary comes first on mobile */
+  }
+
+  /* Reduce card padding slightly */
+  body[data-page="checkout"] .bg-white.rounded-2xl {
+    padding: 16px !important;
+  }
+
+  /* ----------------------------------
+     Checkout panel
+     ---------------------------------- */
+  body[data-page="checkout"] .checkout-panel {
+    border-radius: 16px !important;
+  }
+
+  body[data-page="checkout"] .checkout-body {
+    grid-template-columns: 1fr !important;
+  }
+
+  body[data-page="checkout"] .checkout-right {
+    border-left: none !important;
+    margin-top: 12px;
+    padding-top: 16px;
+  }
+
+  /* ----------------------------------
+     Forms – improve tap comfort
+     ---------------------------------- */
+  body[data-page="checkout"] input,
+  body[data-page="checkout"] textarea,
+  body[data-page="checkout"] select {
+    font-size: 14px !important;
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+  }
+
+  /* ----------------------------------
+     Trust & Assurance (mobile clarity)
+     ---------------------------------- */
+  body[data-page="checkout"] .summary-footer ul li {
+    font-size: 12px !important;
+    line-height: 1.45;
+  }
+
+  body[data-page="checkout"] .summary-footer .text-xs {
+    font-size: 11px !important;
+  }
+
+  /* ----------------------------------
+     Sticky payment CTA (MOST IMPORTANT)
+     ---------------------------------- */
+  body[data-page="checkout"] .summary-footer {
+    position: sticky;
+    bottom: 0;
+    background: #ffffff;
+    padding: 14px 0 env(safe-area-inset-bottom);
+    box-shadow: 0 -6px 16px rgba(0, 0, 0, 0.08);
+    z-index: 20;
+  }
+
+  body[data-page="checkout"] #place-order {
+    font-size: 15px !important;
+    padding: 14px !important;
+  }
+
+  /* ----------------------------------
+     Reduce visual noise
+     ---------------------------------- */
+  body[data-page="checkout"] .muted {
+    font-size: 12px;
+  }
+
+}

@@ -1,0 +1,113 @@
+/* ==================================================
+   HOME (INDEX) – MOBILE ONLY OVERRIDES
+   Scope: body[data-page="home"]
+   ================================================== */
+
+@media (max-width: 768px) {
+
+  /* ----------------------------------
+     Global spacing reset
+     ---------------------------------- */
+  body[data-page="home"] section {
+    padding-top: 32px !important;
+    padding-bottom: 32px !important;
+  }
+
+  body[data-page="home"] .container,
+  body[data-page="home"] .max-w-7xl {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  /* ----------------------------------
+     HERO SECTION (VERY IMPORTANT)
+     ---------------------------------- */
+  body[data-page="home"] .hero,
+  body[data-page="home"] .hero-section {
+    min-height: auto !important;
+    padding-top: 48px !important;
+    padding-bottom: 40px !important;
+  }
+
+  body[data-page="home"] .hero h1 {
+    font-size: 1.8rem !important;
+    line-height: 1.25;
+  }
+
+  body[data-page="home"] .hero p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* ----------------------------------
+     SLIDERS / CAROUSELS
+     ---------------------------------- */
+  body[data-page="home"] .slider,
+  body[data-page="home"] .swiper,
+  body[data-page="home"] .carousel {
+    overflow: hidden;
+  }
+
+  body[data-page="home"] .slider img {
+    height: auto !important;
+    max-height: 240px;
+    object-fit: cover;
+  }
+
+  /* ----------------------------------
+     PRODUCT / FEATURE CARDS
+     ---------------------------------- */
+  body[data-page="home"] .grid {
+    gap: 14px !important;
+  }
+
+  body[data-page="home"] .card,
+  body[data-page="home"] .product-card {
+    border-radius: 16px !important;
+  }
+
+  body[data-page="home"] .product-card img {
+    height: 180px;
+    object-fit: cover;
+  }
+
+  body[data-page="home"] .product-card h3 {
+    font-size: 0.95rem;
+    line-height: 1.35;
+  }
+
+  /* ----------------------------------
+     TRUST / ASSURANCE BLOCKS
+     ---------------------------------- */
+  body[data-page="home"] .trust,
+  body[data-page="home"] .trust-bar,
+  body[data-page="home"] .trust-section {
+    text-align: center;
+  }
+
+  body[data-page="home"] .trust ul li {
+    font-size: 0.85rem;
+    line-height: 1.45;
+  }
+
+  /* ----------------------------------
+     BUTTONS (THUMB FRIENDLY)
+     ---------------------------------- */
+  body[data-page="home"] a.button,
+  body[data-page="home"] button {
+    padding: 12px 16px !important;
+    font-size: 0.9rem;
+  }
+
+  /* ----------------------------------
+     FOOTER COMPRESSION (HOME ONLY)
+     ---------------------------------- */
+  body[data-page="home"] footer {
+    padding-top: 32px;
+  }
+
+  body[data-page="home"] footer .footer-columns {
+    gap: 24px;
+  }
+
+}

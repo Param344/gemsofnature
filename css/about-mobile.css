@@ -1,0 +1,105 @@
+/* =========================================
+   ABOUT PAGE — MOBILE ONLY OVERRIDES
+   File: about-mobile.css
+   ========================================= */
+
+@media (max-width: 768px) {
+
+  /* Global spacing fixes */
+  main {
+    padding-top: 0;
+  }
+
+  section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Hero section */
+  section[style*="hero-bg"] {
+    height: auto !important;
+    min-height: 260px;
+  }
+
+  section[style*="hero-bg"] h1 {
+    font-size: 1.8rem !important;
+    line-height: 1.25;
+  }
+
+  section[style*="hero-bg"] p {
+    font-size: 0.95rem;
+  }
+
+  /* Card containers */
+  .card {
+    padding: 1.25rem !important;
+  }
+
+  /* Two-column layouts → single column */
+  .grid.md\:grid-cols-2,
+  .grid.md\:grid-cols-3 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Story & mission headings */
+  h2.text-3xl {
+    font-size: 1.4rem !important;
+    line-height: 1.3;
+  }
+
+  /* Icon feature blocks */
+  .bg-gray-50.rounded-xl.flex {
+    align-items: flex-start;
+  }
+
+  .bg-gray-50.rounded-xl.flex > div:first-child {
+    flex-shrink: 0;
+  }
+
+  /* Stats section */
+  .text-3xl.font-bold {
+    font-size: 1.6rem !important;
+  }
+
+  /* Team section */
+  .team-card {
+    padding: 1.25rem !important;
+  }
+
+  .team-card img {
+    height: 96px;
+    width: 96px;
+  }
+
+  /* Team modal */
+  #team-modal .rounded-2xl {
+    padding: 1.25rem !important;
+  }
+
+  #team-modal h3 {
+    font-size: 1.4rem;
+  }
+
+  /* Values numbering blocks */
+  .min-w-\[56px\] {
+    min-width: 44px !important;
+    height: 44px !important;
+    font-size: 0.85rem;
+  }
+
+  /* CTA section */
+  section:last-of-type h3 {
+    font-size: 1.4rem;
+  }
+
+  section:last-of-type a {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Footer spacing (mobile comfort) */
+  #site-footer {
+    padding-top: 2rem;
+  }
+
+}

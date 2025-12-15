@@ -1,0 +1,132 @@
+/* ==================================================
+   SHOP-ECOM (PRODUCT LISTING) – MOBILE ONLY
+   Scope: body[data-page="shop-ecom"]
+   ================================================== */
+
+@media (max-width: 768px) {
+
+  /* ----------------------------------
+     HERO (reduce visual weight)
+     ---------------------------------- */
+  body[data-page="shop-ecom"] section.relative {
+    height: auto !important;
+    min-height: 180px;
+  }
+
+  body[data-page="shop-ecom"] section.relative h1 {
+    font-size: 1.7rem;
+    line-height: 1.25;
+  }
+
+  body[data-page="shop-ecom"] section.relative p {
+    font-size: 0.9rem;
+  }
+
+  /* ----------------------------------
+     FILTER BLOCK (lighter, tighter)
+     ---------------------------------- */
+  body[data-page="shop-ecom"] main > .bg-white {
+    padding: 14px !important;
+    border-radius: 18px;
+  }
+
+  body[data-page="shop-ecom"] #search-input {
+    font-size: 0.85rem;
+    padding: 10px 14px;
+  }
+
+  body[data-page="shop-ecom"] #sort-select,
+  body[data-page="shop-ecom"] #currency-select {
+    font-size: 0.8rem;
+    padding: 8px 12px;
+  }
+
+  /* Pills */
+  body[data-page="shop-ecom"] .filter-pill {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+  }
+
+  body[data-page="shop-ecom"] .filter-pill span.arrow {
+    font-size: 0.55rem;
+  }
+
+  /* ----------------------------------
+     PRODUCT GRID (more density)
+     ---------------------------------- */
+  body[data-page="shop-ecom"] #products-grid {
+    gap: 14px !important;
+  }
+
+  body[data-page="shop-ecom"] .product-card {
+    border-radius: 16px;
+  }
+
+  body[data-page="shop-ecom"] .product-card img {
+    height: 160px !important;
+    object-fit: cover;
+  }
+
+  body[data-page="shop-ecom"] .product-card h4 {
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+
+  body[data-page="shop-ecom"] .product-card .text-xs {
+    font-size: 0.75rem;
+  }
+
+  body[data-page="shop-ecom"] .product-card button {
+    font-size: 0.75rem;
+    padding: 6px 10px;
+  }
+
+  /* ----------------------------------
+     PRODUCT OVERLAY (disable hover style)
+     ---------------------------------- */
+  body[data-page="shop-ecom"] .product-overlay {
+    display: none;
+  }
+
+  /* ----------------------------------
+     PRODUCT DETAIL PANEL (MOBILE MODE)
+     ---------------------------------- */
+  body[data-page="shop-ecom"] #product-detail {
+    right: 0 !important;
+    left: 0 !important;
+    top: auto !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 92vh;
+    border-radius: 20px 20px 0 0;
+    overflow-y: auto;
+  }
+
+  body[data-page="shop-ecom"] #product-detail img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+  }
+
+  body[data-page="shop-ecom"] #product-detail h3 {
+    font-size: 1.4rem;
+  }
+
+  body[data-page="shop-ecom"] #product-detail p {
+    font-size: 0.9rem;
+  }
+
+  body[data-page="shop-ecom"] #detail-add {
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  /* ----------------------------------
+     PAGINATION
+     ---------------------------------- */
+  body[data-page="shop-ecom"] #pagination button {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+
+}

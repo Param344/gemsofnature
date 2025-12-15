@@ -1,0 +1,103 @@
+/* ==================================================
+   SHOP (COLLECTION) – MOBILE ONLY
+   Scope: body[data-page="shop"]
+   ================================================== */
+
+@media (max-width: 768px) {
+
+  /* ----------------------------------
+     HERO FIX
+     ---------------------------------- */
+  body[data-page="shop"] section.relative {
+    height: auto !important;
+    min-height: 220px;
+  }
+
+  body[data-page="shop"] section.relative h1 {
+    font-size: 1.9rem !important;
+    line-height: 1.25;
+  }
+
+  body[data-page="shop"] section.relative p {
+    font-size: 0.95rem;
+  }
+
+  /* ----------------------------------
+     FILTER BAR (LESS HEAVY)
+     ---------------------------------- */
+  body[data-page="shop"] #categoryTabs {
+    padding-bottom: 4px;
+  }
+
+  body[data-page="shop"] #categoryTabs button {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  body[data-page="shop"] #shopSearch,
+  body[data-page="shop"] #sortSelect,
+  body[data-page="shop"] #clearFilters {
+    font-size: 0.85rem;
+    padding: 10px 12px;
+  }
+
+  /* ----------------------------------
+     SECTION SPACING
+     ---------------------------------- */
+  body[data-page="shop"] section {
+    padding-top: 28px !important;
+    padding-bottom: 28px !important;
+  }
+
+  /* ----------------------------------
+     PRODUCT GRID
+     ---------------------------------- */
+  body[data-page="shop"] .grid {
+    gap: 14px !important;
+  }
+
+  body[data-page="shop"] article {
+    border-radius: 16px !important;
+  }
+
+  body[data-page="shop"] article img {
+    height: 170px !important;
+    object-fit: cover;
+  }
+
+  body[data-page="shop"] article h3 {
+    font-size: 0.95rem;
+    line-height: 1.35;
+  }
+
+  body[data-page="shop"] article p {
+    font-size: 0.82rem;
+  }
+
+  /* ----------------------------------
+     CATEGORY HEADERS
+     ---------------------------------- */
+  body[data-page="shop"] h2 {
+    font-size: 1.3rem;
+  }
+
+  /* ----------------------------------
+     MODAL (MOBILE FRIENDLY)
+     ---------------------------------- */
+  body[data-page="shop"] #modalContent {
+    padding: 16px !important;
+  }
+
+  body[data-page="shop"] #modalContent img {
+    height: 260px;
+  }
+
+  body[data-page="shop"] #modalContent h2 {
+    font-size: 1.5rem;
+  }
+
+  body[data-page="shop"] #modalContent p {
+    font-size: 0.9rem;
+  }
+
+}

@@ -1,0 +1,91 @@
+/* =====================================================
+   FOOTER – MOBILE ONLY
+   Applies ONLY below 768px
+   Desktop footer remains untouched
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+  /* Overall footer spacing */
+  #site-footer {
+    padding-top: 1.5rem;
+    padding-bottom: 1.25rem;
+    background-attachment: scroll !important; /* performance + iOS fix */
+  }
+
+  /* Stack footer columns properly */
+  #site-footer .footer-columns {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Headings */
+  #site-footer h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Help & Policies links */
+  #site-footer ul {
+    padding: 0;
+  }
+
+  #site-footer ul li {
+    text-align: center;
+  }
+
+  #site-footer ul li a {
+    display: inline-block;
+    padding: 2px 0;
+  }
+
+  /* Social section */
+  #site-footer .font-semibold {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  #site-footer .flex.justify-center,
+  #site-footer .flex.justify-end {
+    justify-content: center !important;
+  }
+
+  /* Trust & Assurance block */
+  #site-footer .trust-block {
+    margin-top: 1.2rem;
+  }
+
+  #site-footer .trust-title {
+    text-align: center;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Trust logos */
+  #site-footer .trust-block img {
+    height: 22px;
+  }
+
+  /* Trust points text */
+  #site-footer .trust-points {
+    text-align: center;
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  #site-footer .trust-points span {
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  /* Divider & copyright */
+  #site-footer .footer-divider {
+    margin-top: 1.25rem;
+  }
+
+  #site-footer .copyright {
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+}

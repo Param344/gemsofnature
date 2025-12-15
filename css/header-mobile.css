@@ -1,0 +1,72 @@
+/* ================================
+   HEADER – MOBILE ONLY OVERRIDES
+   ================================ */
+@media (max-width: 768px) {
+
+  /* Header container */
+  #site-header {
+    padding: 10px 14px !important;
+    background-attachment: scroll !important;
+  }
+
+  /* Logo + brand */
+  #site-header .brand-text {
+    font-size: 1.1rem !important;
+    letter-spacing: 0.4px !important;
+  }
+
+  #site-header img {
+    height: 42px !important;
+    width: auto !important;
+  }
+
+  /* Hide desktop nav */
+  #site-header nav ul {
+    display: none !important;
+  }
+
+  /* Mobile actions row */
+  #site-header .flex.items-center.gap-3 {
+    gap: 12px !important;
+  }
+
+  /* Cart button */
+  #site-header .cart-btn {
+    font-size: 20px;
+  }
+
+  #site-header #cartCount {
+    top: -6px;
+    right: -8px;
+    height: 16px;
+    width: 16px;
+    font-size: 10px;
+  }
+
+  /* Buy Online hidden on mobile (menu handles it) */
+  #site-header .buy-btn {
+    display: none !important;
+  }
+
+  /* Hamburger */
+  #mobile-menu-button {
+    font-size: 22px;
+  }
+
+  /* Mobile menu panel */
+  #mobile-menu {
+    background: #111827;
+  }
+
+  #mobile-menu a {
+    color: #f3f4f6;
+  }
+
+  /* Mobile cart popup */
+  #cartPopup {
+    inset-x: 12px !important;
+    width: auto !important;
+    top: 50% !important;
+  }
+
+}

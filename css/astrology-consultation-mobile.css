@@ -1,0 +1,174 @@
+/* ==================================================
+   ASTROLOGY CONSULTATION – MOBILE ONLY
+   File: astrology-consultation-mobile.css
+   Scope: max-width 768px ONLY
+   ================================================== */
+
+@media (max-width: 768px) {
+
+  /* ----------------------------------
+     Global safety
+  ---------------------------------- */
+  body {
+    overflow-x: hidden;
+  }
+
+  main {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  section {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* ----------------------------------
+     HERO SECTION
+  ---------------------------------- */
+  .hero-gradient {
+    padding-top: 24px !important;
+    padding-bottom: 24px !important;
+  }
+
+  .hero-gradient h2 {
+    font-size: 1.7rem !important;
+    line-height: 1.25;
+  }
+
+  .hero-gradient p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .hero-gradient ul {
+    font-size: 0.9rem;
+  }
+
+  .hero-gradient .grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ----------------------------------
+     HERO RIGHT CARD (Quick Booking)
+  ---------------------------------- */
+  .hero-right {
+    margin-top: 16px;
+    padding: 16px !important;
+    border-radius: 16px;
+  }
+
+  .hero-right h3 {
+    font-size: 1rem;
+  }
+
+  /* ----------------------------------
+     FORMS – global
+  ---------------------------------- */
+  input,
+  select,
+  textarea {
+    font-size: 15px !important;
+    padding: 12px 14px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Force single-column forms */
+  .grid-cols-2,
+  .md\\:grid-cols-2,
+  .gn-row-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ----------------------------------
+     Buttons
+  ---------------------------------- */
+  button,
+  .gn-btn,
+  a.btn-pill {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 16px !important;
+    font-size: 14px;
+  }
+
+  .hero-gradient .flex {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* ----------------------------------
+     CONSULTATION EMBED
+  ---------------------------------- */
+  #gn-consultation-embed {
+    padding: 14px !important;
+    border-radius: 16px;
+  }
+
+  #gn-consultation-embed h3 {
+    font-size: 1.1rem;
+  }
+
+  #gn-consultation-embed p.lead {
+    font-size: 0.9rem;
+  }
+
+  .gn-auth-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ----------------------------------
+     SERVICES / PRICING CARDS
+  ---------------------------------- */
+  #pricing h2 {
+    font-size: 1.4rem;
+  }
+
+  #pricing .grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ----------------------------------
+     BUYING GUIDE
+  ---------------------------------- */
+  .buying-guide {
+    padding: 16px !important;
+  }
+
+  .buying-guide h2 {
+    font-size: 1.4rem;
+  }
+
+  .buying-guide h3 {
+    font-size: 1.05rem;
+  }
+
+  .buying-guide p,
+  .buying-guide li {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .buying-guide .logos img {
+    height: 28px;
+  }
+
+  /* ----------------------------------
+     WHATSAPP FLOAT FIX
+  ---------------------------------- */
+  .gn-float-wa,
+  a[href*="wa.me"] {
+    right: 14px !important;
+    bottom: 14px !important;
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+
+  /* ----------------------------------
+     FOOTER SAFETY
+  ---------------------------------- */
+  #site-footer {
+    padding-bottom: 90px;
+  }
+
+}

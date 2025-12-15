@@ -1,0 +1,125 @@
+/* ==================================================
+   CONTACT PAGE – MOBILE ONLY
+   File: contact-mobile.css
+   Purpose: Mobile fixes without touching desktop
+   ================================================== */
+
+@media (max-width: 768px) {
+
+  /* ----------------------------------
+     Global spacing
+  ---------------------------------- */
+  body {
+    overflow-x: hidden;
+  }
+
+  main {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  section {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* ----------------------------------
+     Page heading
+  ---------------------------------- */
+  h1, h2 {
+    line-height: 1.25;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  /* ----------------------------------
+     Contact container / card
+  ---------------------------------- */
+  .contact-container,
+  .contact-wrapper,
+  .contact-card {
+    padding: 16px !important;
+    border-radius: 16px !important;
+  }
+
+  /* ----------------------------------
+     Form layout
+  ---------------------------------- */
+  form {
+    gap: 14px !important;
+  }
+
+  form .grid,
+  form .grid-cols-2,
+  form .md\\:grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ----------------------------------
+     Inputs & textarea
+  ---------------------------------- */
+  input,
+  textarea,
+  select {
+    font-size: 15px !important;
+    padding: 12px 14px !important;
+    border-radius: 12px !important;
+  }
+
+  textarea {
+    min-height: 120px;
+  }
+
+  /* ----------------------------------
+     Submit button
+  ---------------------------------- */
+  button[type="submit"],
+  .contact-submit,
+  .contact-btn {
+    width: 100%;
+    padding: 14px 16px !important;
+    font-size: 15px;
+    border-radius: 14px;
+  }
+
+  /* ----------------------------------
+     Info blocks (address / phone / email)
+  ---------------------------------- */
+  .contact-info,
+  .contact-details {
+    margin-top: 24px;
+  }
+
+  .contact-info p,
+  .contact-details p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* ----------------------------------
+     Map iframe (if any)
+  ---------------------------------- */
+  iframe {
+    max-width: 100%;
+    height: 260px;
+    border-radius: 14px;
+  }
+
+  /* ----------------------------------
+     WhatsApp floating button fix
+  ---------------------------------- */
+  a[href*="wa.me"] {
+    bottom: 16px !important;
+    right: 16px !important;
+  }
+
+  /* ----------------------------------
+     Footer spacing
+  ---------------------------------- */
+  #site-footer {
+    padding-bottom: 90px; /* avoid overlap with WhatsApp */
+  }
+
+}
