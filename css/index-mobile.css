@@ -112,7 +112,8 @@
 
 }
 @media (max-width: 768px) {
-  body[data-page="home"] main {
-    padding-top: var(--measured-header-h, 72px);
+  body[data-page="home"] #home {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
   }
 }
