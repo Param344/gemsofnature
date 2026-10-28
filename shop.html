@@ -41,16 +41,13 @@
   <link rel="icon" type="image/png" href="/images/logo.png">
 
   <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/gon-tailwind.css">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Global Styles -->
-  <link rel="stylesheet" href="/css/styles.css">
-
+  <link rel="stylesheet" href="/css/gon-design-system.css">
   <link rel="stylesheet" href="/css/gon-responsive.css">
-
   <link rel="stylesheet" href="/css/shop-mobile.css">
 
   <!-- Shared layout (header/footer loader) -->
@@ -58,31 +55,50 @@
   <script src="js/script.js" defer></script>
   <script src="js/ai-chat.js" defer></script>
 
+  <!-- Structured Data: CollectionPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Gemstone Collections | Gems of Nature",
+    "description": "Browse premium natural gemstones and healing crystals. 100% natural, ethically sourced, and available for personalized astrological recommendations.",
+    "url": "https://www.gemsofnature.shop/shop.html",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Gems of Nature",
+      "url": "https://www.gemsofnature.shop",
+      "logo": "https://www.gemsofnature.shop/images/logo.png"
+    }
+  }
+  </script>
+
   <!-- Page-specific Styles -->
   <style>
     .font-montserrat { font-family: 'Montserrat', sans-serif; }
   </style>
 </head>
 
-<body class="bg-gray-50 text-gray-800 font-montserrat" data-page="shop">
+<body class="bg-[#FBF9F5] text-[#111618] font-montserrat" data-page="shop">
   <!-- Header -->
   <div id="header"></div>
 
-  <main>
+  <main id="main" tabindex="-1">
     <!-- HERO -->
-    <section class="relative bg-cover bg-center h-[28rem]" style="background-image:url('images/hero-bg.jpg');">
-      <div class="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-center text-white px-6">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">Shop Our Gemstones</h1>
-        <p class="text-lg md:text-xl max-w-2xl">Find your perfect stone for healing, prosperity, and inner harmony</p>
-        <a href="shop-ecom.html" class="mt-6 inline-block bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-full shadow transition">Buy Online</a>
+    <section class="relative bg-cover bg-center h-80 md:h-96" style="background-image:url('images/hero-bg.jpg');">
+      <div class="absolute inset-0 bg-gradient-to-b from-black/65 via-black/55 to-[#062820]/80 flex flex-col justify-center items-center text-center text-white px-6">
+        <h1 class="text-3xl md:text-5xl font-bold font-display tracking-tight text-[#FBF9F5] mb-3">Curated Gemstone Collections</h1>
+        <p class="text-base md:text-lg max-w-2xl text-[#E8E2D5] font-light">Natural Vedic gemstones, certified astrological stones, sacred Rudraksha, and healing crystals hand-selected for planetary harmony.</p>
+        <a href="shop-ecom.html" class="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#C5A869] hover:bg-[#DFCA97] text-[#0A3A2F] font-semibold text-sm shadow-md transition">
+          Explore Storefront Catalogue <span aria-hidden="true">&rarr;</span>
+        </a>
       </div>
     </section>
 
     <!-- FILTERS: tabs + search + sort -->
-    <section class="py-8 container mx-auto px-6">
-      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <section class="py-8 container mx-auto px-4 md:px-6">
+      <div class="bg-white rounded-2xl border border-[#E8E2D5] shadow-sm p-4 md:p-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <!-- Category Pills -->
-        <div class="overflow-auto">
+        <div class="overflow-x-auto pb-1 md:pb-0">
           <div id="categoryTabs" class="inline-flex gap-2"></div>
         </div>
 
@@ -92,17 +108,17 @@
             id="shopSearch"
             type="search"
             placeholder="Search gemstones..."
-            class="px-4 py-2 rounded-lg border w-full sm:w-64"
+            class="px-4 py-2.5 rounded-xl border border-[#E8E2D5] focus:border-[#C5A869] w-full sm:w-64 text-sm bg-white text-[#111618] placeholder-[#8A989A]"
           />
-          <select id="sortSelect" class="px-3 py-2 rounded-lg border w-full sm:w-auto">
-            <option value="">Sort</option>
+          <select id="sortSelect" aria-label="Sort collection" class="px-3.5 py-2.5 rounded-xl border border-[#E8E2D5] focus:border-[#C5A869] w-full sm:w-auto text-sm bg-white text-[#111618]">
+            <option value="">Sort: Featured</option>
             <option value="price-asc">Price: Low to High</option>
             <option value="price-desc">Price: High to Low</option>
             <option value="name">A–Z</option>
           </select>
           <button
             id="clearFilters"
-            class="px-3 py-2 bg-white border rounded-lg hover:bg-gray-50 text-sm w-full sm:w-auto"
+            class="px-4 py-2.5 bg-white border border-[#E8E2D5] rounded-xl hover:border-[#C5A869] hover:bg-[#F4EFE6] text-[#0A3A2F] text-sm font-semibold transition w-full sm:w-auto"
           >
             Clear
           </button>
@@ -111,11 +127,13 @@
     </section>
 
     <!-- PRODUCT SECTIONS (rendered by JS) -->
-    <section id="shop-sections" class="max-w-6xl mx-auto px-6 pb-16"></section>
+    <section id="shop-sections" class="max-w-6xl mx-auto px-4 md:px-6 pb-16"></section>
 
     <!-- NO RESULTS MESSAGE -->
-    <div id="noResults" class="hidden text-center py-12 text-gray-500 text-lg">
-      No products found — try adjusting filters or search again.
+    <div id="noResults" class="hidden text-center py-16 px-4 bg-white rounded-2xl border border-[#E8E2D5] max-w-lg mx-auto shadow-sm my-8">
+      <div class="text-3xl mb-2">🔍</div>
+      <h3 class="text-base font-semibold text-[#0A3A2F]">No products found</h3>
+      <p class="text-xs text-gray-500 mt-1">Try adjusting your search keywords or clearing active category filters.</p>
     </div>
 
     <!-- WhatsApp Floating Button -->
@@ -131,11 +149,14 @@
     <!-- Full-Screen Modal -->
     <div
       id="quickModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-product-title"
       class="fixed inset-0 bg-black/60 hidden items-center justify-center px-4 md:px-6 z-50"
     >
       <div
         id="modalContent"
-        class="bg-white rounded-2xl shadow-xl max-w-5xl w-full max-h-[90vh] overflow-y-auto p-6 md:p-8"
+        class="bg-[#FBF9F5] text-[#111618] rounded-2xl border border-[#C5A869]/30 shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto p-6 md:p-8"
       ></div>
     </div>
   </main>
@@ -202,10 +223,10 @@
 
           btn.textContent = tab.label;
           btn.className =
-            "px-4 py-2 rounded-full border text-sm whitespace-nowrap shadow-sm transition " +
+            "px-4 py-2 rounded-full border text-xs sm:text-sm font-medium whitespace-nowrap shadow-sm transition " +
             (isActive
-              ? "bg-gray-600 text-white border-gray-600"
-              : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50");
+              ? "bg-[#0A3A2F] text-[#FBF9F5] border-[#0A3A2F]"
+              : "bg-white text-[#4B5563] border-[#E8E2D5] hover:border-[#C5A869] hover:text-[#0A3A2F] hover:bg-[#FBF9F5]");
 
           btn.addEventListener("click", () => {
             activeFilter = tab.key;
@@ -244,48 +265,67 @@
         sectionsEl.innerHTML = "";
         let totalRendered = 0;
 
-        categoryOrder.forEach((cat) => {
+        categoryOrder.forEach((cat, catIdx) => {
           if (activeFilter !== "All" && activeFilter !== cat) return;
 
           const inCat = products.filter((p) => p.category === cat);
           if (!inCat.length) return;
 
           const section = document.createElement("section");
-          section.className = "mb-10";
+          section.className = "mb-12";
 
           section.innerHTML = `
-            <div class="flex items-baseline justify-between mb-4">
-              <h2 class="text-2xl font-bold text-gray-800">
+            <div class="flex items-baseline justify-between mb-5 border-b border-[#E8E2D5] pb-3">
+              <h2 class="text-2xl md:text-3xl font-bold font-display text-[#0A3A2F] tracking-tight">
                 ${categoryLabels[cat] || cat}
               </h2>
-              <p class="text-sm text-gray-500">
-                ${inCat.length} item${inCat.length > 1 ? "s" : ""}
-              </p>
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#EAF4F0] text-[#0A3A2F] border border-[#0A3A2F]/10">
+                ${inCat.length} ${inCat.length === 1 ? "item" : "items"}
+              </span>
             </div>
 
             <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               ${inCat
                 .map(
-                  (p) => `
+                  (p, cardIdx) => `
                 <article
-                  class="bg-white rounded-xl shadow hover:shadow-md transition cursor-pointer"
+                  class="bg-white rounded-2xl border border-[#E8E2D5] hover:border-[#C5A869]/70 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden cursor-pointer group"
                   onclick="openModal('${p.id}')"
                 >
-                  <img
-                    src="${p.image}"
-                    alt="${(p.name || "").replace(/"/g, "&quot;")}"
-                    class="w-full h-56 object-cover rounded-t-xl"
-                  >
-                  <div class="p-4 flex flex-col gap-2">
-                    <h3 class="font-semibold text-gray-800 text-lg leading-snug">
-                      ${p.name || ""}
-                    </h3>
-                    <p class="text-sm text-gray-600">
-                      ${p.description || ""}
-                    </p>
-                    <p class="mt-1 text-sm font-semibold text-gray-900">
-                      ₹${(p.price_min || 0).toLocaleString()} – ₹${(p.price_max || 0).toLocaleString()}
-                    </p>
+                  <div class="relative w-full h-56 bg-stone-100 overflow-hidden">
+                    <img
+                      src="${p.image}"
+                      alt="${(p.name || "").replace(/"/g, "&quot;")}"
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="${catIdx === 0 && cardIdx < 3 ? 'eager' : 'lazy'}"
+                      decoding="async"
+                    >
+                    <div class="absolute top-3 left-3">
+                      <span class="px-2.5 py-1 rounded-md bg-[#0A3A2F]/85 backdrop-blur-sm text-[#FBF9F5] text-[10px] font-semibold uppercase tracking-wider">
+                        ${p.category || 'Gemstone'}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="p-5 flex flex-col gap-2 flex-1 justify-between">
+                    <div>
+                      <h3 class="font-display font-semibold text-[#0A3A2F] text-lg leading-snug group-hover:text-[#0D473A] transition">
+                        ${p.name || ""}
+                      </h3>
+                      <p class="text-xs text-[#526063] line-clamp-2 mt-1 leading-relaxed">
+                        ${p.description || ""}
+                      </p>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-[#E8E2D5]/70 flex items-center justify-between">
+                      <div>
+                        <span class="text-sm font-bold text-[#111618]">
+                          ₹${(p.price_min || 0).toLocaleString('en-IN')} – ₹${(p.price_max || 0).toLocaleString('en-IN')}
+                        </span>
+                        <span class="block text-[10px] font-medium text-amber-800">Provisional Estimate</span>
+                      </div>
+                      <span class="text-xs font-semibold text-[#0A3A2F] flex items-center gap-1 group-hover:text-[#C5A869] transition">
+                        View <span aria-hidden="true">&rarr;</span>
+                      </span>
+                    </div>
                   </div>
                 </article>
               `
@@ -326,7 +366,10 @@
       renderSections();
     });
 
+    let lastActiveModalTrigger = null;
+
     function openModal(id) {
+      lastActiveModalTrigger = document.activeElement;
       const base = (window.products || []).find((x) => x.id === id);
       const meta = (window.productMeta && window.productMeta[id]) || {};
 
@@ -343,23 +386,27 @@
 
       const priceText =
         p.price_min && p.price_max
-          ? `₹${p.price_min.toLocaleString()} – ₹${p.price_max.toLocaleString()}`
+          ? `₹${p.price_min.toLocaleString()} – ₹${p.price_max.toLocaleString()} <span class="text-xs font-normal text-amber-700 block mt-0.5">Provisional Catalogue Estimate</span>`
           : "";
 
       // Planet / zodiac / chakra block
       const zodiacText = Array.isArray(p.zodiac) ? p.zodiac.join(", ") : (p.zodiac || "");
       const chakraText = Array.isArray(p.chakra) ? p.chakra.join(", ") : (p.chakra || "");
 
-      const infoHtml =
-        p.planet || zodiacText || chakraText
-          ? `
-        <div class="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs md:text-sm text-gray-700">
-          ${p.planet ? `<div><span class="font-semibold">Planet:</span> ${p.planet}</div>` : ""}
-          ${zodiacText ? `<div><span class="font-semibold">Zodiac:</span> ${zodiacText}</div>` : ""}
-          ${chakraText ? `<div><span class="font-semibold">Chakra:</span> ${chakraText}</div>` : ""}
-        </div>
-      `
-          : "";
+      const spiritualItems = [];
+      if (p.planet) {
+        spiritualItems.push(`<div class="p-2.5 rounded-xl bg-white border border-[#E8E2D5]"><span class="text-stone-500 block text-[10px] font-medium">Ruling Planet</span><span class="font-semibold text-stone-800 text-xs">${p.planet}</span></div>`);
+      }
+      if (zodiacText) {
+        spiritualItems.push(`<div class="p-2.5 rounded-xl bg-white border border-[#E8E2D5]"><span class="text-stone-500 block text-[10px] font-medium">Zodiac Sign</span><span class="font-semibold text-stone-800 text-xs">${zodiacText}</span></div>`);
+      }
+      if (chakraText) {
+        spiritualItems.push(`<div class="p-2.5 rounded-xl bg-white border border-[#E8E2D5]"><span class="text-stone-500 block text-[10px] font-medium">Chakra</span><span class="font-semibold text-stone-800 text-xs">${chakraText}</span></div>`);
+      }
+
+      const infoHtml = spiritualItems.length
+        ? `<div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">${spiritualItems.join("")}</div>`
+        : "";
 
       const benefitsHtml =
         Array.isArray(p.benefits) && p.benefits.length
@@ -385,46 +432,77 @@
       `
           : "";
 
+      // Gemological attributes (if present from physical lot)
+      const gemItems = [];
+      if (p.caratWeight) gemItems.push(`<div><span class="font-medium text-gray-500">Weight:</span> ${p.caratWeight} ct</div>`);
+      if (p.rattiWeight) gemItems.push(`<div><span class="font-medium text-gray-500">Ratti:</span> ${p.rattiWeight} Ratti</div>`);
+      if (p.certLab) gemItems.push(`<div><span class="font-medium text-gray-500">Lab:</span> ${p.certLab}</div>`);
+      if (p.origin) gemItems.push(`<div><span class="font-medium text-gray-500">Origin:</span> ${p.origin}</div>`);
+
+      const gemHtml = gemItems.length
+        ? `<div class="p-3 bg-stone-50 border border-stone-200 rounded-lg text-xs grid grid-cols-2 gap-2 text-stone-800">${gemItems.join("")}</div>`
+        : "";
+
+      const estimateNotice = !p.finalPrice
+        ? `<p class="mt-2 text-xs text-amber-900 bg-amber-50/90 border border-amber-200 p-3 rounded-xl leading-relaxed">
+             <strong>Natural Gemstone Notice:</strong> Each precious stone is a 1-of-1 natural specimen. The price above represents a preliminary catalogue estimate. Certified stone rates, exact carat weight, and lab documentation are confirmed via inquiry before reservation.
+           </p>`
+        : "";
+
       modalBody.innerHTML = `
-        <button
-          onclick="closeModal()"
-          class="text-right text-gray-500 hover:text-gray-800 w-full mb-2 text-sm"
-        >
-          ✕ Close
-        </button>
+        <div class="flex items-center justify-between pb-3 mb-3 border-b border-[#E8E2D5]">
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#EAF4F0] text-[#0A3A2F] border border-[#0A3A2F]/10">${p.category || 'Natural Gemstone'}</span>
+          <button
+            onclick="closeModal()"
+            aria-label="Close modal"
+            class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-stone-200/60 text-gray-500 hover:text-gray-900 text-base transition"
+          >
+            ✕
+          </button>
+        </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <img
-            src="${p.image}"
-            class="w-full h-80 md:h-96 object-cover rounded-lg"
-            alt="${(p.name || "").replace(/"/g, "&quot;")}"
-          >
+          <div class="flex flex-col gap-3">
+            <img
+              src="${p.image}"
+              class="w-full h-72 md:h-80 object-cover rounded-xl border border-[#E8E2D5]"
+              alt="${(p.name || "").replace(/"/g, "&quot;")}"
+            >
+            ${infoHtml}
+            ${gemHtml}
+          </div>
 
           <div>
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-700">
+            <h2 id="modal-product-title" class="font-display text-2xl md:text-3xl font-bold text-[#0A3A2F]">
               ${p.name || ""}
             </h2>
 
-            <p class="mt-2 text-sm md:text-base text-gray-700">
+            <p class="mt-2 text-sm text-[#4B5563] leading-relaxed">
               ${mainDesc}
             </p>
 
             ${
               priceText
-                ? `<p class="mt-3 font-semibold text-lg md:text-xl text-gray-900">${priceText}</p>`
+                ? `<div class="mt-3 p-4 bg-[#F4EFE6] border border-[#E8E2D5] rounded-xl"><p class="font-bold text-lg md:text-xl text-[#111618]">${priceText}</p>${estimateNotice}</div>`
                 : ""
             }
 
-            ${infoHtml}
             ${benefitsHtml}
             ${mantraHtml}
 
             <div class="mt-6 flex flex-col sm:flex-row gap-3">
               <a
                 href="shop-ecom.html?id=${p.id}"
-                class="flex-1 inline-flex items-center justify-center bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold"
+                class="flex-1 inline-flex items-center justify-center bg-[#0A3A2F] hover:bg-[#0D473A] text-[#FBF9F5] px-5 py-3 rounded-xl font-semibold text-sm transition shadow-sm"
               >
-                Visit Online Store
+                Buy in Online Store &rarr;
+              </a>
+              <a
+                href="https://wa.me/917827491801?text=${encodeURIComponent('Hi Gems of Nature, I would like to inquire about ' + p.name + ' (ID: ' + p.id + ')')}"
+                target="_blank" rel="noopener"
+                class="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#15803d] hover:bg-[#166534] text-white rounded-xl font-semibold text-sm transition shadow-sm"
+              >
+                💬 Inquire on WhatsApp
               </a>
             </div>
           </div>
@@ -433,6 +511,9 @@
 
       overlay.classList.remove("hidden");
       overlay.classList.add("flex");
+      overlay.setAttribute("aria-hidden", "false");
+      const closeBtn = modalBody.querySelector("button[aria-label='Close modal']");
+      if (closeBtn) closeBtn.focus();
     }
 
     function closeModal() {
@@ -440,7 +521,45 @@
       if (!overlay) return;
       overlay.classList.add("hidden");
       overlay.classList.remove("flex");
+      overlay.setAttribute("aria-hidden", "true");
+      if (lastActiveModalTrigger && typeof lastActiveModalTrigger.focus === 'function') {
+        lastActiveModalTrigger.focus();
+      }
+    }
+
+    // Modal backdrop click, Escape key & Focus Trap listeners
+    const modalOverlayEl = document.getElementById("quickModal");
+    if (modalOverlayEl) {
+      modalOverlayEl.addEventListener("click", function(e) {
+        if (e.target === modalOverlayEl) closeModal();
+      });
+      modalOverlayEl.addEventListener("keydown", function(e) {
+        if (e.key === "Escape") {
+          closeModal();
+          return;
+        }
+        if (e.key === "Tab") {
+          const focusable = modalOverlayEl.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])');
+          if (focusable.length === 0) return;
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (e.shiftKey) {
+            if (document.activeElement === first || document.activeElement === modalOverlayEl) {
+              last.focus();
+              e.preventDefault();
+            }
+          } else {
+            if (document.activeElement === last) {
+              first.focus();
+              e.preventDefault();
+            }
+          }
+        }
+      });
     }
   </script>
+
+  <!-- Stage 2C.3: Controlled Cart Badge Adapter Integration (Reversible via script removal) -->
+  <script type="module" src="/src/client/cart-badge-adapter.ts"></script>
 </body>
 </html>

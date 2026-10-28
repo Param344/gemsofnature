@@ -42,16 +42,13 @@
   <link rel="icon" type="image/png" href="/images/logo.png">
 
   <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/gon-tailwind.css">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Global Styles -->
-  <link rel="stylesheet" href="/css/styles.css">
-
+  <link rel="stylesheet" href="/css/gon-design-system.css">
   <link rel="stylesheet" href="/css/gon-responsive.css">
-
   <link rel="stylesheet" href="/css/about-mobile.css">
 
   <!-- Page-specific Styles -->
@@ -65,7 +62,8 @@
       height: 100%;
       margin: 0;
       min-height: 100vh;
-      background-color: #ffffff;
+      background-color: #FBF9F5;
+      color: #111618;
       font-family: 'Montserrat', sans-serif;
       display: flex;
       flex-direction: column;
@@ -77,35 +75,34 @@
 
     .fade-in {
       opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s ease forwards;
+      transform: translateY(16px);
+      animation: fadeInUp 0.6s ease forwards;
     }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
     .card {
-      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
-      transition: transform 320ms cubic-bezier(.2,.9,.2,1), box-shadow 320ms cubic-bezier(.2,.9,.2,1);
-      will-change: transform, box-shadow;
-      border-radius: 1rem;
+      background: #ffffff;
+      border: 1px solid #E8E2D5;
+      box-shadow: 0 4px 14px rgba(10, 58, 47, 0.04);
+      transition: transform 280ms ease, box-shadow 280ms ease, border-color 280ms ease;
+      border-radius: 1.25rem;
     }
     .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.11);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(10, 58, 47, 0.08);
+      border-color: rgba(197, 168, 105, 0.7);
     }
 
-    footer {
-      margin-top: 0;
-      padding-top: 22px;
-      flex-shrink: 0;
-      background-color: #065f46;
-      width: 100%;
+    .section-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      color: #0A3A2F;
+      font-weight: 700;
     }
-
-    .section-title { color: #065f46; }
 
     /* Modal styles */
     .modal-overlay {
-      background-color: rgba(15, 23, 42, 0.55);
+      background-color: rgba(6, 40, 32, 0.65);
+      backdrop-filter: blur(4px);
     }
   </style>
 
@@ -121,23 +118,22 @@
   </script>
 </head>
 
-<body class="bg-white text-gray-800 antialiased">
+<body class="bg-[#FBF9F5] text-[#111618] font-montserrat antialiased">
   <!-- Header (injected by layout.js) -->
   <div id="header"></div>
 
-  <main class="flex-1">
+  <main id="main" tabindex="-1" class="flex-1">
     <!-- Hero -->
-    <section class="relative bg-cover bg-center h-64 md:h-96"
+    <section class="relative bg-cover bg-center h-72 md:h-96"
       style="background-image:
-        linear-gradient(135deg, rgba(241, 245, 244, 0.35), rgba(17, 21, 20, 0.55)),
+        linear-gradient(135deg, rgba(6, 40, 32, 0.75), rgba(10, 58, 47, 0.85)),
         url('images/hero-bg.jpg');
-        background-blend-mode: overlay;
         background-size: cover;
         background-position: center;">
-      <div class="absolute inset-0 bg-black/25 flex items-center justify-center">
+      <div class="absolute inset-0 bg-black/20 flex items-center justify-center">
         <div class="text-center text-white px-6">
-          <h1 class="text-3xl md:text-5xl font-bold drop-shadow-lg">About Gems of Nature</h1>
-          <p class="mt-3 text-sm md:text-lg max-w-2xl mx-auto">
+          <h1 class="font-display text-3xl md:text-5xl font-bold tracking-tight text-[#FBF9F5] drop-shadow-md">About Gems of Nature</h1>
+          <p class="mt-3 text-sm md:text-lg max-w-2xl mx-auto text-[#E8E2D5] font-light">
             Ethically sourced gemstones and Rudraksha, curated with intention for healing, jewellery and meaningful gifts.
           </p>
         </div>
@@ -150,14 +146,14 @@
         <div class="bg-white p-8 card">
           <div class="grid md:grid-cols-2 gap-6 items-start">
             <div>
-              <h2 class="text-3xl font-bold section-title text-gray-800 mb-4">How Gems of Nature began</h2>
-              <p class="text-gray-800 leading-relaxed text-sm md:text-base">
-                <span class="font-semibold">Gems of Nature</span> started with a simple promise:
+              <h2 class="text-2xl md:text-3xl font-bold section-title mb-4">How Gems of Nature Began</h2>
+              <p class="text-[#4B5563] leading-relaxed text-sm md:text-base">
+                <span class="font-semibold text-[#111618]">Gems of Nature</span> started with a simple promise:
                 to make genuine, energetically clean gemstones accessible without confusion or hidden tricks.
                 After years of working with stones, astrology and spiritual practice, we saw how many people
                 were sold treated, mislabelled or energetically “dead” pieces.
               </p>
-              <p class="text-gray-700 mt-4 text-sm md:text-base">
+              <p class="text-[#4B5563] mt-4 text-sm md:text-base leading-relaxed">
                 We built Gems of Nature as a small, independent studio that focuses on
                 traceable sourcing, honest guidance and practical results. Every stone is hand-selected,
                 energetically cleansed and documented so you know exactly what you are wearing and why.
@@ -165,21 +161,21 @@
             </div>
 
             <div class="space-y-4">
-              <div class="p-4 bg-gray-50 rounded-xl flex gap-3">
-                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-600 text-white text-xl">🧭</div>
+              <div class="p-4 bg-[#F4EFE6] border border-[#E8E2D5] rounded-xl flex gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[#0A3A2F] text-[#FBF9F5] text-lg flex-shrink-0">🧭</div>
                 <div>
-                  <h4 class="font-semibold text-gray-800">Clarity for the buyer</h4>
-                  <p class="text-sm text-gray-700 mt-1">
+                  <h4 class="font-semibold text-[#0A3A2F]">Clarity for the buyer</h4>
+                  <p class="text-sm text-[#4B5563] mt-1 leading-relaxed">
                     Clear photos, honest descriptions and transparent recommendations so you choose the right stone
                     for your intention and budget.
                   </p>
                 </div>
               </div>
-              <div class="p-4 bg-gray-50 rounded-xl flex gap-3">
-                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-600 text-white text-xl">🤝</div>
+              <div class="p-4 bg-[#F4EFE6] border border-[#E8E2D5] rounded-xl flex gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[#0A3A2F] text-[#FBF9F5] text-lg flex-shrink-0">🤝</div>
                 <div>
-                  <h4 class="font-semibold text-gray-800">Long-term relationship</h4>
-                  <p class="text-sm text-gray-700 mt-1">
+                  <h4 class="font-semibold text-[#0A3A2F]">Long-term relationship</h4>
+                  <p class="text-sm text-[#4B5563] mt-1 leading-relaxed">
                     We aim to be your long-term gemstone partner – from first purchase to upgrades, replacements
                     and family pieces.
                   </p>
@@ -197,34 +193,34 @@
         <div class="bg-white p-8 card">
           <div class="grid md:grid-cols-2 gap-6 items-center">
             <div>
-              <h2 class="text-3xl font-bold section-title text-gray-800 mb-4">Our Mission</h2>
-              <p class="text-gray-800 leading-relaxed text-sm md:text-base">
+              <h2 class="text-2xl md:text-3xl font-bold section-title mb-4">Our Mission</h2>
+              <p class="text-[#4B5563] leading-relaxed text-sm md:text-base">
                 Our mission is to bring transparent, ethical and sustainable gemstones directly to you.
                 We work with small-scale miners, trusted cutters and verified suppliers so every stone has a clear
                 origin and supports fair practices.
               </p>
-              <p class="mt-4 text-gray-700 text-sm md:text-base">
+              <p class="mt-4 text-[#4B5563] text-sm md:text-base leading-relaxed">
                 When you buy from Gems of Nature, you support safer mines, fair wages and traceability across the supply chain,
                 while receiving pieces that are suitable for spiritual work, daily wear and long-term investment.
               </p>
             </div>
 
             <div class="space-y-4">
-              <div class="p-4 bg-gray-50 rounded-xl flex gap-3">
-                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-600 text-white text-xl">🌍</div>
+              <div class="p-4 bg-[#F4EFE6] border border-[#E8E2D5] rounded-xl flex gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[#0A3A2F] text-[#FBF9F5] text-lg flex-shrink-0">🌍</div>
                 <div>
-                  <h4 class="font-semibold text-gray-800">Ethical sourcing</h4>
-                  <p class="text-sm text-gray-700 mt-1">
+                  <h4 class="font-semibold text-[#0A3A2F]">Ethical sourcing</h4>
+                  <p class="text-sm text-[#4B5563] mt-1 leading-relaxed">
                     Traceable, conflict-free stones with regular supplier checks and a preference for small, family-run
                     operations.
                   </p>
                 </div>
               </div>
-              <div class="p-4 bg-gray-50 rounded-xl flex gap-3">
-                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-600 text-white text-xl">📜</div>
+              <div class="p-4 bg-[#F4EFE6] border border-[#E8E2D5] rounded-xl flex gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[#0A3A2F] text-[#FBF9F5] text-lg flex-shrink-0">📜</div>
                 <div>
-                  <h4 class="font-semibold text-gray-800">Certified quality</h4>
-                  <p class="text-sm text-gray-700 mt-1">
+                  <h4 class="font-semibold text-[#0A3A2F]">Certified quality</h4>
+                  <p class="text-sm text-[#4B5563] mt-1 leading-relaxed">
                     Important pieces are verified by independent gem labs; each parcel is checked for treatment, clarity
                     and durability before reaching you.
                   </p>
@@ -237,33 +233,33 @@
     </section>
 
     <!-- What we offer + stats -->
-    <section class="py-10 px-6 bg-gray-50">
+    <section class="py-10 px-6 bg-[#F4EFE6] border-y border-[#E8E2D5]">
       <div class="container mx-auto max-w-6xl fade-in">
         <div class="grid md:grid-cols-3 gap-6">
           <div class="bg-white p-6 card">
             <div class="flex items-center gap-3 mb-3">
-              <div class="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center text-xl">💎</div>
-              <h3 class="text-xl font-semibold text-gray-700">Curated collections</h3>
+              <div class="h-10 w-10 rounded-full bg-[#EAF4F0] flex items-center justify-center text-xl flex-shrink-0">💎</div>
+              <h3 class="text-lg font-semibold text-[#0A3A2F]">Curated collections</h3>
             </div>
-            <p class="text-gray-700 text-sm md:text-base">
+            <p class="text-[#4B5563] text-sm md:text-base leading-relaxed">
               Loose stones, beads, cabochons and specimens hand-selected for energy, beauty and structural quality.
             </p>
           </div>
           <div class="bg-white p-6 card">
             <div class="flex items-center gap-3 mb-3">
-              <div class="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center text-xl">🛠️</div>
-              <h3 class="text-xl font-semibold text-gray-700">Custom & astrology work</h3>
+              <div class="h-10 w-10 rounded-full bg-[#EAF4F0] flex items-center justify-center text-xl flex-shrink-0">🛠️</div>
+              <h3 class="text-lg font-semibold text-[#0A3A2F]">Custom & astrology work</h3>
             </div>
-            <p class="text-gray-700 text-sm md:text-base">
+            <p class="text-[#4B5563] text-sm md:text-base leading-relaxed">
               Jewellery-ready stones for rings and pendants, plus specialised sourcing for astrologers and healers.
             </p>
           </div>
           <div class="bg-white p-6 card">
             <div class="flex items-center gap-3 mb-3">
-              <div class="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center text-xl">📚</div>
-              <h3 class="text-xl font-semibold text-gray-700">Education & guidance</h3>
+              <div class="h-10 w-10 rounded-full bg-[#EAF4F0] flex items-center justify-center text-xl flex-shrink-0">📚</div>
+              <h3 class="text-lg font-semibold text-[#0A3A2F]">Education & guidance</h3>
             </div>
-            <p class="text-gray-700 text-sm md:text-base">
+            <p class="text-[#4B5563] text-sm md:text-base leading-relaxed">
               Simple guides, care instructions and honest suggestions so you don’t feel lost when choosing a stone.
             </p>
           </div>
@@ -271,16 +267,16 @@
 
         <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
           <div class="p-6 card">
-            <div class="text-3xl font-bold text-gray-700">100+</div>
-            <div class="mt-2 text-sm text-gray-600">Gemstone & bead varieties</div>
+            <div class="font-display text-3xl md:text-4xl font-bold text-[#0A3A2F]">100+</div>
+            <div class="mt-2 text-xs sm:text-sm text-[#4B5563] font-medium">Gemstone & bead varieties</div>
           </div>
           <div class="p-6 card">
-            <div class="text-3xl font-bold text-gray-700">5000+</div>
-            <div class="mt-2 text-sm text-gray-600">Orders across India & abroad</div>
+            <div class="font-display text-3xl md:text-4xl font-bold text-[#0A3A2F]">5000+</div>
+            <div class="mt-2 text-xs sm:text-sm text-[#4B5563] font-medium">Orders across India & abroad</div>
           </div>
           <div class="p-6 card">
-            <div class="text-3xl font-bold text-gray-700">100%</div>
-            <div class="mt-2 text-sm text-gray-600">Support until you’re satisfied</div>
+            <div class="font-display text-3xl md:text-4xl font-bold text-[#0A3A2F]">100%</div>
+            <div class="mt-2 text-xs sm:text-sm text-[#4B5563] font-medium">Support until you’re satisfied</div>
           </div>
         </div>
       </div>
@@ -289,57 +285,63 @@
     <!-- Team -->
     <section class="py-12 px-6">
       <div class="container mx-auto max-w-6xl fade-in">
-        <h2 class="text-3xl font-bold section-title mb-6">Meet the Team</h2>
-        <p class="text-sm md:text-base text-gray-700 max-w-3xl mb-6">
+        <h2 class="text-3xl font-bold section-title mb-4">Meet the Team</h2>
+        <p class="text-sm md:text-base text-[#4B5563] max-w-3xl mb-8 leading-relaxed">
           We keep our team intentionally small so we can stay close to every stone and every customer.
-          Click on a photo or name to learn more about the people behind Gems of Nature.
+          Click on a team member to learn more about the people behind Gems of Nature.
         </p>
 
         <div class="grid sm:grid-cols-3 gap-6">
           <!-- Paramjeet -->
           <button type="button"
-                  class="bg-white p-6 text-center card focus:outline-none focus:ring-2 focus:ring-gray-500 team-card w-full"
-                  data-member="param">
-            <img src="images/team-param.jpg" alt="Paramjeet Singh"
-                 class="mx-auto rounded-full h-28 w-28 object-cover mb-4">
-            <h4 class="font-semibold text-base md:text-lg">Paramjeet Singh</h4>
-            <p class="text-sm text-gray-600 mt-1">Founder · Sourcing & Guidance</p>
+                  class="bg-white p-6 text-center card focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A869] team-card w-full cursor-pointer"
+                  data-member="param"
+                  aria-label="View profile of Paramjeet Singh">
+            <div class="mx-auto rounded-full h-24 w-24 flex items-center justify-center bg-[#EAF4F0] text-[#0A3A2F] text-2xl font-display font-bold border border-[#0A3A2F]/20 mb-4 shadow-inner" aria-hidden="true">
+              PS
+            </div>
+            <h4 class="font-display text-lg font-bold text-[#0A3A2F]">Paramjeet Singh</h4>
+            <p class="text-xs sm:text-sm text-[#4B5563] mt-1">Founder · Sourcing & Guidance</p>
           </button>
 
           <!-- Rupinder -->
           <button type="button"
-                  class="bg-white p-6 text-center card focus:outline-none focus:ring-2 focus:ring-gray-500 team-card w-full"
-                  data-member="rupinder">
-            <img src="images/team-2.jpg" alt="Rupinder Kaur"
-                 class="mx-auto rounded-full h-28 w-28 object-cover mb-4">
-            <h4 class="font-semibold text-base md:text-lg">Rupinder Kaur</h4>
-            <p class="text-sm text-gray-600 mt-1">Customer Care & Logistics</p>
+                  class="bg-white p-6 text-center card focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A869] team-card w-full cursor-pointer"
+                  data-member="rupinder"
+                  aria-label="View profile of Rupinder Kaur">
+            <div class="mx-auto rounded-full h-24 w-24 flex items-center justify-center bg-[#EAF4F0] text-[#0A3A2F] text-2xl font-display font-bold border border-[#0A3A2F]/20 mb-4 shadow-inner" aria-hidden="true">
+              RK
+            </div>
+            <h4 class="font-display text-lg font-bold text-[#0A3A2F]">Rupinder Kaur</h4>
+            <p class="text-xs sm:text-sm text-[#4B5563] mt-1">Customer Care & Logistics</p>
           </button>
 
           <!-- Vishal -->
           <button type="button"
-                  class="bg-white p-6 text-center card focus:outline-none focus:ring-2 focus:ring-gray-500 team-card w-full"
-                  data-member="vishal">
-            <img src="images/team-3.jpg" alt="Vishal Sadh"
-                 class="mx-auto rounded-full h-28 w-28 object-cover mb-4">
-            <h4 class="font-semibold text-base md:text-lg">Vishal Sadh</h4>
-            <p class="text-sm text-gray-600 mt-1">Photography & Catalog</p>
+                  class="bg-white p-6 text-center card focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A869] team-card w-full cursor-pointer"
+                  data-member="vishal"
+                  aria-label="View profile of Vishal Sadh">
+            <div class="mx-auto rounded-full h-24 w-24 flex items-center justify-center bg-[#EAF4F0] text-[#0A3A2F] text-2xl font-display font-bold border border-[#0A3A2F]/20 mb-4 shadow-inner" aria-hidden="true">
+              VS
+            </div>
+            <h4 class="font-display text-lg font-bold text-[#0A3A2F]">Vishal Sadh</h4>
+            <p class="text-xs sm:text-sm text-[#4B5563] mt-1">Photography & Catalog</p>
           </button>
         </div>
       </div>
     </section>
 
     <!-- Values -->
-    <section class="py-12 px-6 bg-gray-50">
+    <section class="py-12 px-6 bg-[#F4EFE6] border-t border-[#E8E2D5]">
       <div class="container mx-auto max-w-5xl fade-in">
         <h2 class="text-3xl font-bold section-title mb-6">Our Values</h2>
 
         <div class="space-y-6">
           <div class="flex flex-col sm:flex-row gap-4 items-start">
-            <div class="min-w-[56px] h-12 rounded-full bg-gray-600 text-white flex items-center justify-center font-bold">01</div>
+            <div class="min-w-[48px] h-12 rounded-full bg-[#0A3A2F] text-[#FBF9F5] flex items-center justify-center font-bold text-sm flex-shrink-0 shadow-sm">01</div>
             <div>
-              <h4 class="font-semibold">Transparency</h4>
-              <p class="text-gray-700 text-sm md:text-base">
+              <h4 class="font-semibold text-[#0A3A2F] text-base">Transparency</h4>
+              <p class="text-[#4B5563] text-sm md:text-base mt-1 leading-relaxed">
                 We show real photos, disclose treatments where applicable, and are honest if a stone is not suitable
                 for your budget or intention.
               </p>
@@ -347,10 +349,10 @@
           </div>
 
           <div class="flex flex-col sm:flex-row gap-4 items-start">
-            <div class="min-w-[56px] h-12 rounded-full bg-gray-600 text-white flex items-center justify-center font-bold">02</div>
+            <div class="min-w-[48px] h-12 rounded-full bg-[#0A3A2F] text-[#FBF9F5] flex items-center justify-center font-bold text-sm flex-shrink-0 shadow-sm">02</div>
             <div>
-              <h4 class="font-semibold">Ethics</h4>
-              <p class="text-gray-700 text-sm md:text-base">
+              <h4 class="font-semibold text-[#0A3A2F] text-base">Ethics</h4>
+              <p class="text-[#4B5563] text-sm md:text-base mt-1 leading-relaxed">
                 We prioritise small workshops, safer working conditions and fair payments along our supply chain
                 as much as possible.
               </p>
@@ -358,10 +360,10 @@
           </div>
 
           <div class="flex flex-col sm:flex-row gap-4 items-start">
-            <div class="min-w-[56px] h-12 rounded-full bg-gray-600 text-white flex items-center justify-center font-bold">03</div>
+            <div class="min-w-[48px] h-12 rounded-full bg-[#0A3A2F] text-[#FBF9F5] flex items-center justify-center font-bold text-sm flex-shrink-0 shadow-sm">03</div>
             <div>
-              <h4 class="font-semibold">Quality & energy</h4>
-              <p class="text-gray-700 text-sm md:text-base">
+              <h4 class="font-semibold text-[#0A3A2F] text-base">Quality & energy</h4>
+              <p class="text-[#4B5563] text-sm md:text-base mt-1 leading-relaxed">
                 We check each parcel for durability and energetic feel, cleanse stones before shipping,
                 and guide you on how to maintain their vibration.
               </p>
@@ -374,20 +376,20 @@
     <!-- CTA -->
     <section class="py-12 px-6">
       <div class="container mx-auto max-w-4xl text-center fade-in">
-        <div class="bg-white p-8 card">
-          <h3 class="text-2xl font-bold section-title">Ready to explore our collection?</h3>
-          <p class="text-gray-700 mt-3 text-sm md:text-base">
+        <div class="bg-white p-8 sm:p-10 card">
+          <h3 class="text-2xl md:text-3xl font-bold section-title">Ready to explore our collection?</h3>
+          <p class="text-[#4B5563] mt-3 text-sm md:text-base max-w-xl mx-auto leading-relaxed">
             Browse our hand-selected gemstones and Rudraksha, or contact us if you need personal guidance
             for astrology or healing.
           </p>
-          <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+          <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
             <a href="shop-ecom.html"
-               class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-full font-semibold">
-              Explore Collections
+               class="inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-[#0A3A2F] hover:bg-[#0D473A] text-[#FBF9F5] font-semibold text-sm transition shadow-sm">
+              Explore Storefront Catalogue &rarr;
             </a>
             <a href="contact.html"
-               class="border border-gray-600 text-gray-600 px-6 py-3 rounded-full hover:bg-gray-600 hover:text-white transition">
-              Contact Us
+               class="inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-white hover:bg-[#F4EFE6] text-[#0A3A2F] border border-[#E8E2D5] hover:border-[#C5A869] font-semibold text-sm transition">
+              Contact Guidance Team
             </a>
           </div>
         </div>
@@ -407,26 +409,32 @@
   </a>
 
   <!-- Team Modal -->
-  <div id="team-modal" class="fixed inset-0 z-40 hidden modal-overlay flex items-center justify-center px-4">
-    <div class="absolute inset-0 modal-overlay"></div>
-    <div class="relative bg-white rounded-2xl shadow-2xl max-w-2xl md:max-w-3xl w-full p-6 md:p-10 z-50">
+  <div id="team-modal"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="team-modal-name"
+       aria-hidden="true"
+       class="fixed inset-0 z-40 hidden modal-overlay flex items-center justify-center px-4">
+    <div class="absolute inset-0 modal-overlay" id="team-modal-backdrop"></div>
+    <div class="relative bg-[#FBF9F5] border border-[#C5A869]/30 rounded-2xl shadow-2xl max-w-2xl md:max-w-3xl w-full p-6 md:p-10 z-50">
       <button type="button" id="team-modal-close"
-              class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-xl leading-none">
+              aria-label="Close team member details"
+              class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-stone-200/60 text-gray-500 hover:text-gray-900 absolute top-4 right-4 text-xl leading-none transition">
         &times;
       </button>
       <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
         <div class="flex-shrink-0 flex items-center justify-center">
-          <div class="h-28 w-28 rounded-full bg-gray-100 flex items-center justify-center text-4xl" id="team-modal-avatar">
+          <div class="h-24 w-24 rounded-full bg-[#EAF4F0] border border-[#0A3A2F]/20 flex items-center justify-center text-4xl shadow-inner" id="team-modal-avatar">
             👤
           </div>
         </div>
         <div>
-          <h3 class="text-2xl font-semibold text-gray-800" id="team-modal-name">Name</h3>
-          <p class="text-sm md:text-base text-gray-600 mt-1" id="team-modal-role">Role</p>
-          <p class="text-sm md:text-base text-gray-700 mt-3" id="team-modal-bio">
+          <h3 class="font-display text-2xl font-bold text-[#0A3A2F]" id="team-modal-name">Name</h3>
+          <p class="text-xs sm:text-sm font-medium text-[#C5A869] mt-1" id="team-modal-role">Role</p>
+          <p class="text-sm text-[#4B5563] mt-3 leading-relaxed" id="team-modal-bio">
             Short introduction will appear here.
           </p>
-          <ul class="mt-3 space-y-1 text-sm text-gray-700" id="team-modal-experience">
+          <ul class="mt-4 space-y-1.5 text-xs sm:text-sm text-[#4B5563]" id="team-modal-experience">
             <!-- List items injected via JS -->
           </ul>
         </div>
@@ -488,8 +496,10 @@
       const modalAv    = document.getElementById("team-modal-avatar");
       const modalClose = document.getElementById("team-modal-close");
       const teamCards  = document.querySelectorAll(".team-card");
+      let lastActiveTrigger = null;
 
       function openModal(memberKey) {
+        lastActiveTrigger = document.activeElement;
         const data = TEAM_DETAILS[memberKey];
         if (!data) return;
 
@@ -509,10 +519,16 @@
         });
 
         modal.classList.remove("hidden");
+        modal.setAttribute("aria-hidden", "false");
+        modalClose.focus();
       }
 
       function closeModal() {
         modal.classList.add("hidden");
+        modal.setAttribute("aria-hidden", "true");
+        if (lastActiveTrigger && typeof lastActiveTrigger.focus === "function") {
+          lastActiveTrigger.focus();
+        }
       }
 
       teamCards.forEach(card => {
@@ -525,14 +541,34 @@
       modalClose.addEventListener("click", closeModal);
 
       modal.addEventListener("click", (e) => {
-        if (e.target === modal) {
+        if (e.target === modal || e.target.id === "team-modal-backdrop") {
           closeModal();
         }
       });
 
       document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
-          closeModal();
+        if (!modal.classList.contains("hidden")) {
+          if (e.key === "Escape") {
+            closeModal();
+            return;
+          }
+          if (e.key === "Tab") {
+            const focusable = modal.querySelectorAll('button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])');
+            if (focusable.length === 0) return;
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (e.shiftKey) {
+              if (document.activeElement === first) {
+                last.focus();
+                e.preventDefault();
+              }
+            } else {
+              if (document.activeElement === last) {
+                first.focus();
+                e.preventDefault();
+              }
+            }
+          }
         }
       });
     })();

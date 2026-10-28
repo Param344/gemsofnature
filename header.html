@@ -1,372 +1,369 @@
 <!-- header.html -->
 <header
   id="site-header"
-  class="backdrop-blur-xl bg-white/10 border-b border-white/30 shadow-lg sticky top-0 z-[9999999]"
-  style="
-    background: linear-gradient(
-      90deg,
-      #F3E3CB 0%,
-      #D7EDEB 30%,
-      #B5E2F1 65%,
-      #89C4E8 100%
-    );
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-  "
+  class="sticky top-0 z-40 bg-[#0A3A2F] text-[#FBF9F5] border-b border-[#C5A869]/30 shadow-md transition-colors"
 >
-  <!-- Move fonts to <head> for best perf; kept here for convenience -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Google Fonts & Custom Typeface -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Scoped header CSS -->
   <style>
-    /* -------------------------
-       Header base & typography
-       ------------------------- */
-    #site-header {
-      --brand-gold: #E8DCC2;
-      --brand-dark: #1a1a1a;
-      --brand-contrast: #0f1720;
-      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", Arial, sans-serif;
-      overflow: visible;
-      --measured-header-h: 68px; /* fallback */
-    }
-
-    #site-header .brand-text {
-      font-family: "Cormorant Garamond", "Playfair Display", "Cinzel", Georgia, "Times New Roman", serif;
-      font-size: 2.1rem;
-      line-height: 1;
-      font-weight: 600;
-      letter-spacing: 0.6px;
-      display: inline-block;
-      color: var(--brand-dark);
-      margin: 0;
-      padding: 0 0.2rem;
-      text-shadow: 0 1px 0 rgba(255,255,255,0.02), 0 1px 2px rgba(0,0,0,0.08);
-      transition: transform .12s ease;
-    }
-
-    /* Nav / links */
-    #site-header nav ul { gap: 1.15rem; }
-    #site-header nav ul li a {
-      color: rgba(15,23,32,0.88);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-size: 0.95rem;
-      transition: color .18s ease, opacity .18s ease;
-      position: relative;
-      text-decoration: none;
-      line-height: 1.05;
-    }
-    #site-header nav ul li a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -6px;
-      height: 2px;
-      width: 0%;
-      background: linear-gradient(90deg, rgba(15,23,32,0.12), rgba(0,0,0,0.06));
-      transition: width .22s ease;
-      border-radius: 2px;
-    }
-    #site-header nav ul li a:hover::after,
-    #site-header nav ul li a:focus::after { width: 100%; }
-
-    /* anchor is the LI which already has .relative */
-#site-header .learn-dropdown-wrapper {
-  position: absolute;
-  left: 50%;
-  top: 100%;                   /* sit directly below the trigger */
-  transform: translateX(-50%);
-  margin-top: 4px;             /* small spacing; adjust 0-6px */
-  z-index: 11000;
-  min-width: 220px;
-  pointer-events: none;        /* disabled until shown */
-}
-
-/* invisible bridge to ensure no gap between trigger and menu */
-#site-header .learn-dropdown-wrapper::before {
-  content: "";
-  position: absolute;
-  top: -6px;
-  left: 0;
-  right: 0;
-  height: 6px;                 /* connects the trigger -> menu */
-  pointer-events: auto;        /* allows pointer to cross */
-}
-
-/* the inner UL: hidden by default using opacity/visibility for smoothness */
-#site-header .learn-dropdown-wrapper .learn-dropdown-menu {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-6px);
-  transition: opacity .12s ease, transform .12s ease, visibility .12s;
-  pointer-events: none;
-}
-
-/* show when hovering or focusing the parent LI (your .group) */
-#site-header li.group:hover .learn-dropdown-wrapper,
-#site-header li.group:focus-within .learn-dropdown-wrapper {
-  pointer-events: auto; /* enable pointer events for the wrapper */
-}
-
-#site-header li.group:hover .learn-dropdown-menu,
-#site-header li.group:focus-within .learn-dropdown-menu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-    /* Buy button / cart */
-    #site-header .buy-btn {
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 0.85rem;
-      background: #1a1a1a !important;
-      color: #ffffff !important;
-      border: 1px solid #000;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.18);
-      transition: all .18s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    #site-header .buy-btn:hover { background: #333333 !important; }
-
-    #site-header .cart-btn { font-size: 18px; }
-    #site-header #cartCount { transition: opacity .18s ease, transform .18s ease; }
-    #site-header #cartCount.hidden { opacity: 0; transform: scale(.6); pointer-events:none; }
-
-    /* continue-checkout style inside popup */
-    #site-header #cartPopup .continue-checkout {
-      background: #1a1a1a !important;
-      color: #ffffff !important;
-      border-radius: 8px;
-      padding: 8px 12px;
-      display:inline-block;
-      text-align:center;
-      border: 1px solid #000;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-      transition: all .18s ease;
-    }
-    #site-header #cartPopup .continue-checkout:hover { background: #333333 !important; }
-
-    /* small screens fallback */
-    @media (max-width:768px) {
-      #site-header nav ul { display:none; }
-      #site-header .brand-text { font-size:1rem; }
-    }
-
     @font-face {
       font-family: 'GreatVibes';
       src: url('/fonts/GreatVibes-Regular.ttf') format('truetype');
       font-weight: normal;
       font-style: normal;
+      font-display: swap;
     }
 
-    /* ========== Responsive layout (horizontal row) ========== */
     #site-header {
-      display: flex !important;
-      flex-direction: row !important;
-      align-items: center !important;
-      justify-content: center;
-      gap: 12px;
-      padding: 10px 18px;
-      box-sizing: border-box;
-      position: sticky;
-      top: 0;
-      z-index: 9999999;
+      --brand-emerald: #0A3A2F;
+      --brand-emerald-dark: #062820;
+      --brand-gold: #C5A869;
+      --brand-gold-light: #DFCA97;
+      --brand-ivory: #FBF9F5;
+      font-family: "Montserrat", system-ui, -apple-system, sans-serif;
     }
 
-    /* nav container uses full width for alignment */
-    #site-header > nav.container,
-    #site-header nav.container {
-      display: flex;
-      align-items: center;
+    #site-header .brand-text {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.85rem;
+      line-height: 1.1;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: #FBF9F5;
+      transition: color 0.2s ease;
+    }
+
+    #site-header .brand-text:hover {
+      color: var(--brand-gold-light);
+    }
+
+    /* Desktop Navigation Links */
+    #site-header nav ul.main-nav-list li a {
+      color: rgba(251, 249, 245, 0.9);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 6px 2px;
+      position: relative;
+      text-decoration: none;
+      transition: color 0.18s ease;
+    }
+
+    #site-header nav ul.main-nav-list li a:hover,
+    #site-header nav ul.main-nav-list li a:focus-visible {
+      color: var(--brand-gold-light);
+    }
+
+    #site-header nav ul.main-nav-list li a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      width: 0%;
+      background: var(--brand-gold);
+      transition: width 0.2s ease;
+      border-radius: 2px;
+    }
+
+    #site-header nav ul.main-nav-list li a:hover::after,
+    #site-header nav ul.main-nav-list li a:focus-visible::after {
       width: 100%;
-      gap: 12px;
-      box-sizing: border-box;
-      padding: 0;
     }
 
-    /* Logo area (left) */
-    #site-header > nav.container > a:first-child {
-      display: flex;
+    /* Learn Dropdown Menu */
+    #site-header .learn-dropdown-wrapper {
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      transform: translateX(-50%);
+      margin-top: 6px;
+      z-index: 50;
+      min-width: 220px;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+    }
+
+    #site-header .learn-dropdown-wrapper::before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: 0;
+      right: 0;
+      height: 8px;
+    }
+
+    #site-header li.group:hover .learn-dropdown-wrapper,
+    #site-header li.group:focus-within .learn-dropdown-wrapper {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Buy Online CTA */
+    #site-header .buy-btn {
+      padding: 7px 16px;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: #C5A869 !important;
+      color: #0A3A2F !important;
+      border: 1px solid #DFCA97;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      transition: all 0.2s ease;
+      display: inline-flex;
       align-items: center;
-      gap: 10px;
-      flex: 0 0 auto;
-      margin-right: 10px;
+      gap: 6px;
+      text-decoration: none;
     }
 
-    /* Nav center / wrap */
-    #site-header nav .md\\:flex,
-    #site-header nav ul,
-    #site-header nav .main-nav {
-      display: flex !important;
+    #site-header .buy-btn:hover {
+      background: #DFCA97 !important;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(197, 168, 105, 0.35);
+    }
+
+    /* Cart Button & Badge */
+    #site-header .cart-btn {
+      font-size: 20px;
+      color: #FBF9F5;
+      display: inline-flex;
       align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: flex-start;
+      justify-content: center;
+      transition: color 0.18s ease, transform 0.18s ease;
     }
 
-    /* Actions right */
-    #site-header nav > .flex.items-center.flex-1,
-    #site-header .flex-1 {
-      display: flex;
-      justify-content: flex-end;
+    #site-header .cart-btn:hover {
+      color: var(--brand-gold-light);
+      transform: scale(1.05);
+    }
+
+    #site-header #cartCount {
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+
+    #site-header #cartCount.hidden {
+      opacity: 0;
+      transform: scale(0.6);
+      pointer-events: none;
+    }
+
+    /* Mini-Cart Popup Checkout Button */
+    #cartPopup .continue-checkout {
+      background: #0A3A2F !important;
+      color: #FBF9F5 !important;
+      border: 1px solid #0D473A;
+      border-radius: 10px;
+      padding: 9px 16px;
+      display: inline-flex;
       align-items: center;
-      gap: 10px;
-      flex: 1 1 auto;
+      justify-content: center;
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(10, 58, 47, 0.18);
+      transition: all 0.2s ease;
+      text-decoration: none;
     }
 
-    /* Brand size adjustments */
-    #site-header .brand-text { font-size: 2.1rem; line-height:1; }
-
-    /* Laptop breakpoint */
-    @media (max-width: 1400px) {
-      #site-header .brand-text { font-size: 1.6rem !important; }
-      #site-header { padding: 8px 12px !important; }
-      #site-header .logo img { height: 44px !important; }
-      #site-header nav ul li a { font-size: 13px !important; padding: 6px 8px !important; }
+    #cartPopup .continue-checkout:hover {
+      background: #0D473A !important;
+      color: #FFFFFF !important;
     }
 
-    /* Smaller laptops */
-    @media (max-width: 1200px) {
-      #site-header .brand-text { font-size: 1.3rem !important; }
-      #site-header .logo img { height: 40px !important; }
-      #site-header nav ul { gap: 8px !important; }
-      #site-header .buy-btn { padding: 6px 8px !important; font-size: 13px !important; }
-      /* disable fixed bg for performance/layout */
-      #site-header[style] { background-attachment: scroll !important; }
+    @media (max-width: 1024px) {
+      #site-header .brand-text {
+        font-size: 1.5rem;
+      }
     }
 
-    /* Very small */
     @media (max-width: 768px) {
-      #site-header nav ul { display: none !important; }
-      #site-header .brand-text { font-size: 1rem !important; }
+      #site-header nav ul.main-nav-list {
+        display: none !important;
+      }
+      #site-header .brand-text {
+        font-size: 1.3rem;
+      }
     }
-
-    /* ========== MAIN SPACING: only apply padding when header is fixed ========== */
-    /* default: no forced reset */
-     main { padding-top: initial; }
-
-    /* add spacing when header is sticky or fixed */
-     .header-is-fixed main {
-     padding-top: calc(var(--measured-header-h, 68px) + 8px) !important;
-}
-
-
-    /* default: main flush under header (no gap) */
-
-    /* when header is fixed/out-of-flow we add spacing based on measured height */
-    .header-is-fixed main {
-      padding-top: calc(var(--measured-header-h, 68px) + 8px) !important;
-    }
-
-    /* safety */
-    #site-header nav ul li a { line-height: 1.05 !important; }
   </style>
 
-  <!-- JS: hide cart badge when zero (scoped selector) -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function(){
-      const cartCountEl = document.querySelector('#site-header #cartCount');
-      if(!cartCountEl) return;
-      const value = parseInt((cartCountEl.textContent || cartCountEl.innerText || '0').trim(), 10);
-      if(value === 0){
-        cartCountEl.classList.add('hidden');
-      } else {
-        cartCountEl.classList.remove('hidden');
-      }
-    });
-  </script>
+  <!-- Accessibility Skip Link -->
+  <a
+    class="skip-link sr-only focus:not-sr-only absolute left-3 top-3 z-50 bg-[#C5A869] text-[#0A3A2F] px-4 py-2 rounded-lg font-bold shadow-lg text-sm transition"
+    href="#main"
+  >
+    Skip to main content
+  </a>
 
-  <!-- accessibility skip link -->
-  <a class="sr-only focus:not-sr-only absolute left-2 top-2 z-50 bg-white text-gray-800 px-3 py-2 rounded" href="#main">Skip to content</a>
+  <!-- Top Announcement Bar -->
+  <div class="bg-[#062820] text-[#D5CFC3] text-[11px] py-1 px-4 text-center border-b border-white/5 tracking-wider hidden sm:block">
+    <div class="container mx-auto flex items-center justify-between">
+      <span>✨ 100% Certified Natural Gemstones &amp; Sacred Nepali Rudraksha</span>
+      <span class="hidden md:inline">Free Vedic Guidance • Flat ₹200 Insured Domestic Shipping</span>
+      <span class="text-[#C5A869] font-medium">+91 78274 91801</span>
+    </div>
+  </div>
 
-  <!-- NAV -->
-  <nav class="container mx-auto flex items-center py-2.5 px-6 lg:px-10" role="navigation" aria-label="Main navigation">
-    <!-- Logo -->
-    <a href="/index.html" class="flex items-center gap-2 mr-10">
-      <div class="h-12 w-12 flex items-center justify-center">
-        <img src="/images/logo-v2.png" alt="Gems of Nature Logo" class="h-14 w-14" loading="lazy">
+  <!-- Primary Navigation Row -->
+  <div class="container mx-auto px-4 lg:px-8 py-3 flex items-center justify-between">
+    <!-- Brand / Logo (Left) -->
+    <a href="/index.html" class="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A869] rounded-lg p-1">
+      <div class="h-10 w-10 sm:h-11 sm:w-11 flex-shrink-0 flex items-center justify-center rounded-full bg-[#062820] border border-[#C5A869]/40 p-1">
+        <img
+          src="/images/logo-v2.png"
+          alt="Gems of Nature Logo"
+          class="h-full w-full object-contain transition-transform group-hover:scale-105"
+          loading="lazy"
+        />
       </div>
-      <span class="hidden sm:inline text-2xl font-bold tracking-wide brand-text">Gems of Nature</span>
+      <div class="flex flex-col">
+        <span class="brand-text">Gems of Nature</span>
+        <span class="text-[9px] uppercase tracking-[0.2em] text-[#C5A869] font-semibold -mt-1 hidden sm:block">Vedic &amp; Healing Gemstones</span>
+      </div>
     </a>
 
-    <!-- Right side -->
-    <div class="flex items-center justify-end gap-6 flex-1">
-      <ul class="hidden md:flex items-center gap-5 text-[12px] tracking-[0.12em] uppercase" role="menubar" aria-label="Primary">
-        <li role="none"><a role="menuitem" href="/index.html" class="hover:text-gray-300 transition">Home</a></li>
-        <li role="none"><a role="menuitem" href="/about.html" class="hover:text-gray-300 transition">About Us</a></li>
-        <li role="none"><a role="menuitem" href="/shop.html" class="hover:text-gray-300 transition">Collections</a></li>
+    <!-- Center Navigation Links (Desktop) -->
+    <nav class="hidden md:flex items-center" role="navigation" aria-label="Main navigation">
+      <ul class="main-nav-list flex items-center gap-6 lg:gap-8 list-none m-0 p-0">
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/shop.html">Collections</a></li>
+        <li><a href="/shop-ecom.html">Buy Online</a></li>
 
-        <!-- Learn dropdown (LI is relative so wrapper absolute will anchor to it) -->
-        <li class="relative group" role="none">
-          <button class="hover:text-gray-300 transition cursor-pointer inline-flex items-center gap-1" aria-haspopup="true" aria-expanded="false" aria-controls="learn-menu">Learn ▾</button>
+        <!-- Learn Dropdown -->
+        <li class="relative group">
+          <button
+            type="button"
+            class="text-[12px] uppercase tracking-[0.1em] font-semibold text-[#FBF9F5] hover:text-[#DFCA97] inline-flex items-center gap-1.5 py-1.5 cursor-pointer bg-transparent border-none transition"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="learn-menu"
+          >
+            Learn <span class="text-[10px] text-[#C5A869]" aria-hidden="true">▾</span>
+          </button>
           <div class="learn-dropdown-wrapper">
-            <ul id="learn-menu" class="learn-dropdown-menu bg-white text-gray-800 shadow-xl rounded-lg py-2 w-56" role="menu" aria-label="Learn submenu">
-              <li role="none"><a role="menuitem" href="/guides/gemstone-basics.html" class="block px-4 py-2 hover:bg-gray-50">Gemstone Basics</a></li>
-              <li role="none"><a role="menuitem" href="/guides/how-to-choose.html" class="block px-4 py-2 hover:bg-gray-50">How to Choose a Stone</a></li>
-              <li role="none"><a role="menuitem" href="/guides/chakras-stones.html" class="block px-4 py-2 hover:bg-gray-50">Chakras &amp; Stones</a></li>
-              <li role="none"><a role="menuitem" href="/guides/rudraksha-guide.html" class="block px-4 py-2 hover:bg-gray-50">Rudraksha Guide</a></li>
-              <li role="none"><a role="menuitem" href="/guides/how-to-wear-care.html" class="block px-4 py-2 hover:bg-gray-50">How to Wear &amp; Care</a></li>
+            <ul
+              id="learn-menu"
+              class="bg-[#062820] text-[#FBF9F5] border border-[#C5A869]/30 shadow-2xl rounded-xl py-2 list-none m-0 text-xs"
+              role="menu"
+              aria-label="Educational Guides"
+            >
+              <li role="none"><a role="menuitem" href="/guides/gemstone-basics.html" class="block px-4 py-2 hover:bg-[#0A3A2F] hover:text-[#C5A869] transition">Gemstone Basics</a></li>
+              <li role="none"><a role="menuitem" href="/guides/how-to-choose.html" class="block px-4 py-2 hover:bg-[#0A3A2F] hover:text-[#C5A869] transition">How to Choose a Stone</a></li>
+              <li role="none"><a role="menuitem" href="/guides/chakras-stones.html" class="block px-4 py-2 hover:bg-[#0A3A2F] hover:text-[#C5A869] transition">Chakras &amp; Stones</a></li>
+              <li role="none"><a role="menuitem" href="/guides/rudraksha-guide.html" class="block px-4 py-2 hover:bg-[#0A3A2F] hover:text-[#C5A869] transition">Rudraksha Guide</a></li>
+              <li role="none"><a role="menuitem" href="/guides/how-to-wear-care.html" class="block px-4 py-2 hover:bg-[#0A3A2F] hover:text-[#C5A869] transition">How to Wear &amp; Care</a></li>
             </ul>
           </div>
         </li>
 
-        <li role="none"><a role="menuitem" href="/contact.html" class="hover:text-gray-300 transition">Contact</a></li>
-        <li role="none"><a role="menuitem" href="/astrology.consultation.html" class="hover:text-gray-300 transition">Astrology &amp; Consultation</a></li>
+        <li><a href="/astrology.consultation.html">Consultation</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/contact.html">Contact</a></li>
       </ul>
+    </nav>
 
-      <!-- Actions (Buy, Cart, Mobile) -->
-      <div class="flex items-center gap-3">
-        <a href="/shop-ecom.html" class="hidden md:inline-block buy-btn">Buy Online</a>
+    <!-- Actions (Right) -->
+    <div class="flex items-center gap-3 sm:gap-4">
+      <a href="/shop-ecom.html" class="hidden md:inline-flex buy-btn">
+        Shop Catalogue
+      </a>
 
-        <div class="relative text-lg">
-          <button type="button" aria-label="Cart" id="headerCartBtn" class="relative cart-btn">
-            <span class="sr-only">View cart</span>
-            <span aria-hidden="true">🛒</span>
-
-            <span id="cartCount" class="absolute -top-2 -right-3 bg-red-600 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center">0</span>
-            <span id="cartCountLabel" class="sr-only">0 items in cart</span>
-          </button>
-        </div>
-
-        <button id="mobile-menu-button" class="text-2xl md:hidden focus:outline-none" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open mobile menu">☰</button>
+      <!-- Cart Button -->
+      <div class="relative">
+        <button
+          type="button"
+          aria-label="View Shopping Cart"
+          id="headerCartBtn"
+          class="cart-btn p-2 rounded-full hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A869]"
+        >
+          <span class="sr-only">View shopping cart</span>
+          <span aria-hidden="true">🛒</span>
+          <span
+            id="cartCount"
+            class="absolute -top-1 -right-1 bg-[#C5A869] text-[#0A3A2F] text-[10px] font-bold rounded-full h-4 w-4 min-w-[16px] flex items-center justify-center hidden shadow"
+          >0</span>
+          <span id="cartCountLabel" class="sr-only">0 items in cart</span>
+        </button>
       </div>
-    </div>
-  </nav>
 
-
-  <!-- Cart overlay + popup -->
-  <div id="cartOverlay" class="fixed inset-0 bg-black/40 z-40 hidden"></div>
-
-  <div id="cartPopup" class="fixed z-50 hidden inset-x-4 top-1/2 -translate-y-1/2 max-w-md mx-auto bg-white text-gray-800 rounded-2xl shadow-2xl p-4 text-sm lg:top-16 lg:right-6 lg:left-auto lg:translate-y-0 lg:w-96">
-    <div class="flex items-center justify-between mb-2">
-      <h3 class="text-sm font-bold">Your Cart</h3>
-      <button type="button" id="cartCloseBtn" class="text-xs text-gray-400 hover:text-gray-600">✕</button>
-    </div>
-
-    <div id="cart-items-mini" class="max-h-60 overflow-auto space-y-2 text-xs">
-      <p class="text-gray-500">Your cart is empty.</p>
-    </div>
-
-    <div class="mt-3 flex items-center justify-between text-xs">
-      <span class="font-bold">Total</span>
-      <span id="cart-total-mini" class="font-bold">₹0</span>
-    </div>
-
-    <div class="mt-3 flex gap-2">
-      <a href="/checkout.html" class="continue-checkout" role="button">Continue Checkout</a>
-      <button id="clear-cart-mini" class="px-3 py-2 text-xs border rounded-lg flex-shrink-0 hover:bg-gray-50">Clear Cart</button>
+      <!-- Mobile Hamburger Button -->
+      <button
+        id="mobile-menu-button"
+        type="button"
+        class="md:hidden text-2xl text-[#FBF9F5] hover:text-[#C5A869] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A869] p-1.5 rounded-lg"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        aria-label="Toggle navigation menu"
+      >
+        ☰
+      </button>
     </div>
   </div>
 
-  <!-- Header measurement & fixed-detection helper -->
+  <!-- Cart Overlay Backdrop -->
+  <div id="cartOverlay" class="fixed inset-0 bg-black/60 z-50 hidden transition-opacity" aria-hidden="true"></div>
+
+  <!-- Cart Mini-Popup -->
+  <div
+    id="cartPopup"
+    class="fixed z-50 hidden inset-x-4 top-1/2 -translate-y-1/2 max-w-md mx-auto bg-[#FBF9F5] text-[#111618] rounded-2xl border border-[#C5A869]/30 shadow-2xl p-5 text-sm lg:top-20 lg:right-8 lg:left-auto lg:translate-y-0 lg:w-96"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cart-popup-title"
+  >
+    <div class="flex items-center justify-between pb-3 mb-3 border-b border-[#E8E2D5]">
+      <h3 id="cart-popup-title" class="text-base font-bold text-[#0A3A2F] flex items-center gap-2">
+        <span>🛒</span> Your Cart
+      </h3>
+      <button
+        type="button"
+        id="cartCloseBtn"
+        class="text-gray-400 hover:text-gray-700 p-1 rounded-full text-sm font-bold"
+        aria-label="Close cart popup"
+      >
+        ✕
+      </button>
+    </div>
+
+    <div id="cart-items-mini" class="max-h-60 overflow-y-auto space-y-2 text-xs pr-1">
+      <p class="text-gray-500 py-3 text-center">Your cart is empty.</p>
+    </div>
+
+    <div class="mt-4 pt-3 border-t border-[#E8E2D5] space-y-1.5 text-xs">
+      <div class="flex items-center justify-between text-gray-600">
+        <span>Subtotal</span>
+        <span id="cart-subtotal-mini" class="font-medium text-gray-800">₹0</span>
+      </div>
+      <div class="flex items-center justify-between text-gray-600">
+        <span>Estimated Domestic Shipping</span>
+        <span id="cart-shipping-mini" class="font-medium text-gray-800">₹0</span>
+      </div>
+      <div class="flex items-center justify-between pt-2 border-t border-[#E8E2D5] font-bold text-sm text-[#0A3A2F]">
+        <span>Total</span>
+        <span id="cart-total-mini">₹0</span>
+      </div>
+    </div>
+
+    <div class="mt-4 flex gap-2">
+      <a href="/checkout.html" class="continue-checkout flex-1" role="button">
+        Continue to Checkout
+      </a>
+      <button
+        id="clear-cart-mini"
+        type="button"
+        class="px-3 py-2 text-xs border border-gray-300 rounded-lg flex-shrink-0 hover:bg-gray-100 text-gray-600 font-medium transition"
+      >
+        Clear
+      </button>
+    </div>
+  </div>
+
+  <!-- Header Dynamic Measurement -->
   <script>
     (function () {
       const root = document.documentElement;
@@ -374,49 +371,40 @@
 
       function updateHeader() {
         if (!header) return;
-        // ensure header is measured as row
-        header.style.display = 'flex';
-        header.style.flexDirection = 'row';
-
-        // measure height
         const h = Math.ceil(header.getBoundingClientRect().height);
         root.style.setProperty('--measured-header-h', h + 'px');
-
-        // if header computed position is 'fixed' (out-of-flow), add class
-        const pos = getComputedStyle(header).position || '';
-        if (pos.trim() === 'fixed' || pos.trim() === 'sticky') {
-  root.classList.add('header-is-fixed');
-} else {
-  root.classList.remove('header-is-fixed');
-}
-
       }
 
       window.addEventListener('load', updateHeader);
       window.addEventListener('resize', updateHeader);
-      setTimeout(updateHeader, 200);
-      setTimeout(updateHeader, 800);
-      setTimeout(updateHeader, 1400);
+      setTimeout(updateHeader, 100);
+      setTimeout(updateHeader, 400);
     })();
   </script>
 </header>
-<!-- Mobile Menu (unchanged) -->
-<div id="mobile-menu" class="hidden md:hidden" role="navigation" aria-label="Mobile navigation">
-    <ul class="flex flex-col gap-3 px-6 py-4 text-sm">
-      <li><a href="/index.html" class="block py-1.5 hover:text-gray-300 transition">Home</a></li>
-      <li><a href="/about.html" class="block py-1.5 hover:text-gray-300 transition">About Us</a></li>
-      <li><a href="/shop.html" class="block py-1.5 hover:text-gray-300 transition">Collections</a></li>
-      <li><a href="/shop-ecom.html" class="block py-1.5 hover:text-gray-300 transition">Buy Online</a></li>
 
-      <li class="pt-2 mt-1 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-200">Learn</li>
-      <li><a href="/guides/gemstone-basics.html" class="block py-1.5 hover:text-gray-300 transition">Gemstone Basics</a></li>
-      <li><a href="/guides/how-to-choose.html" class="block py-1.5 hover:text-gray-300 transition">How to Choose a Stone</a></li>
-      <li><a href="/guides/chakras-stones.html" class="block py-1.5 hover:text-gray-300 transition">Chakras &amp; Stones</a></li>
-      <li><a href="/guides/rudraksha-guide.html" class="block py-1.5 hover:text-gray-300 transition">Rudraksha Guide</a></li>
-      <li><a href="/guides/how-to-wear-care.html" class="block py-1.5 hover:text-gray-300 transition">How to Wear &amp; Care</a></li>
+<!-- Mobile Navigation Menu -->
+<div
+  id="mobile-menu"
+  class="hidden md:hidden bg-[#062820] text-[#FBF9F5] border-b border-[#C5A869]/30 shadow-xl transition-all"
+  role="navigation"
+  aria-label="Mobile Navigation"
+>
+  <ul class="flex flex-col gap-1 px-6 py-5 text-sm list-none m-0">
+    <li><a href="/index.html" class="block py-2.5 text-[#FBF9F5] hover:text-[#C5A869] font-medium border-b border-white/5 transition">Home</a></li>
+    <li><a href="/shop.html" class="block py-2.5 text-[#FBF9F5] hover:text-[#C5A869] font-medium border-b border-white/5 transition">Collections</a></li>
+    <li><a href="/shop-ecom.html" class="block py-2.5 text-[#DFCA97] font-semibold border-b border-white/5 transition">Buy Online (Storefront)</a></li>
 
-      <li class="pt-4 mt-4 border-t border-black/10"></li>
-      <li><a href="/contact.html" class="block py-1.5 hover:text-gray-300 transition">Contact</a></li>
-      <li><a href="/astrology.consultation.html" class="block py-1.5 hover:text-gray-300 transition">Astrology &amp; Consultation</a></li>
-    </ul>
-  </div>
+    <li class="pt-3 pb-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#C5A869]">Vedic Guides &amp; Knowledge</li>
+    <li><a href="/guides/gemstone-basics.html" class="block py-2 pl-3 text-xs text-[#D5CFC3] hover:text-white transition">Gemstone Basics</a></li>
+    <li><a href="/guides/how-to-choose.html" class="block py-2 pl-3 text-xs text-[#D5CFC3] hover:text-white transition">How to Choose a Stone</a></li>
+    <li><a href="/guides/chakras-stones.html" class="block py-2 pl-3 text-xs text-[#D5CFC3] hover:text-white transition">Chakras &amp; Stones</a></li>
+    <li><a href="/guides/rudraksha-guide.html" class="block py-2 pl-3 text-xs text-[#D5CFC3] hover:text-white transition">Rudraksha Guide</a></li>
+    <li><a href="/guides/how-to-wear-care.html" class="block py-2 pl-3 text-xs text-[#D5CFC3] hover:text-white transition">How to Wear &amp; Care</a></li>
+
+    <li class="pt-3 border-t border-white/10"></li>
+    <li><a href="/astrology.consultation.html" class="block py-2.5 text-[#FBF9F5] hover:text-[#C5A869] font-medium transition">Astrology Consultation</a></li>
+    <li><a href="/about.html" class="block py-2.5 text-[#FBF9F5] hover:text-[#C5A869] font-medium transition">About Us</a></li>
+    <li><a href="/contact.html" class="block py-2.5 text-[#FBF9F5] hover:text-[#C5A869] font-medium transition">Contact Support</a></li>
+  </ul>
+</div>

@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Owner Portal — Gems of Nature</title>
+  <link rel="stylesheet" href="/css/gon-tailwind.css">
+  <style>
+    .tab-btn.active {
+      border-color: #1B4D3E;
+      color: #1B4D3E;
+      background-color: #f0fdf4;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
+  <!-- Top Navigation Header -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl">💎</span>
+        <div>
+          <h1 class="text-base font-bold tracking-tight text-slate-900">Gems of Nature</h1>
+          <p class="text-[11px] font-medium text-emerald-800 uppercase tracking-wider">Private Owner Management Portal (Stage 3B)</p>
+        </div>
+      </div>
+      <div id="auth-status-container" class="flex items-center gap-3">
+        <span id="session-badge" class="hidden text-xs px-2.5 py-1 rounded-full font-medium bg-emerald-100 text-emerald-800">
+          ● Authenticated
+        </span>
+        <button id="sign-out-btn" class="hidden text-xs text-red-600 hover:text-red-800 font-semibold border border-red-200 px-3 py-1.5 rounded-lg hover:bg-red-50 transition">
+          Sign Out
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Login Modal / Screen -->
+  <div id="login-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 border border-slate-100">
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl">
+          🔐
+        </div>
+        <h2 class="text-xl font-bold text-slate-900">Owner Authentication</h2>
+        <p class="text-xs text-slate-500 mt-1">
+          Enter your server-side owner key to access inquiries, quotes, and physical inventory.
+        </p>
+      </div>
+
+      <form id="login-form" class="space-y-4">
+        <div>
+          <label for="owner-key-input" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+            Owner Secret Key
+          </label>
+          <input
+            type="password"
+            id="owner-key-input"
+            required
+            placeholder="Enter OWNER_ADMIN_SECRET"
+            class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent font-mono"
+            autocomplete="off"
+          />
+          <p class="text-[11px] text-slate-500 mt-1.5">
+            Key is stored in volatile JavaScript memory only and is never persisted to disk, localStorage, or cookies.
+          </p>
+        </div>
+
+        <div id="login-error" class="hidden p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl"></div>
+
+        <button
+          type="submit"
+          id="login-submit-btn"
+          class="w-full py-2.5 px-4 bg-emerald-800 hover:bg-emerald-900 text-white font-medium text-sm rounded-xl transition shadow-sm hover:shadow"
+        >
+          Authenticate Session
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main Dashboard (Revealed upon auth) -->
+  <main id="dashboard-container" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Tab Navigation -->
+    <nav class="flex border-b border-slate-200 space-x-2 sm:space-x-4 mb-6 overflow-x-auto">
+      <button class="tab-btn active px-4 py-2.5 border-b-2 font-semibold text-sm transition" data-tab="inquiries">
+        📋 Inquiries Queue
+      </button>
+      <button class="tab-btn px-4 py-2.5 border-b-2 border-transparent font-medium text-sm text-slate-600 hover:text-slate-900 transition" data-tab="quotes">
+        ✈️ Shipping Quotes
+      </button>
+      <button class="tab-btn px-4 py-2.5 border-b-2 border-transparent font-medium text-sm text-slate-600 hover:text-slate-900 transition" data-tab="inventory">
+        📦 Physical Inventory
+      </button>
+      <button class="tab-btn px-4 py-2.5 border-b-2 border-transparent font-medium text-sm text-slate-600 hover:text-slate-900 transition" data-tab="audit">
+        📜 Audit Log
+      </button>
+    </nav>
+
+    <!-- TAB 1: INQUIRIES QUEUE -->
+    <section id="tab-inquiries" class="tab-content space-y-4">
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row gap-3 sm:items-center justify-between">
+        <div class="flex items-center gap-2 flex-wrap">
+          <label class="text-xs font-semibold text-slate-500 uppercase">Status:</label>
+          <select id="inquiries-status-filter" class="text-xs px-2.5 py-1.5 border border-slate-300 rounded-lg bg-white">
+            <option value="">All Statuses</option>
+            <option value="PENDING_REVIEW">Pending Review</option>
+            <option value="PRICE_QUOTED">Price Quoted</option>
+            <option value="CUSTOMER_CONTACTED">Customer Contacted</option>
+            <option value="CLOSED">Closed</option>
+            <option value="CANCELLED">Cancelled</option>
+          </select>
+        </div>
+        <div class="flex items-center gap-2">
+          <input
+            type="text"
+            id="inquiries-search-input"
+            placeholder="Search name, email, or ID..."
+            class="text-xs px-3 py-1.5 border border-slate-300 rounded-lg w-64 focus:outline-none focus:ring-1 focus:ring-emerald-600"
+          />
+          <button id="inquiries-refresh-btn" class="text-xs bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg font-medium transition">
+            Refresh
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase tracking-wider font-semibold">
+              <tr>
+                <th class="px-4 py-3">Inquiry ID</th>
+                <th class="px-4 py-3">Customer</th>
+                <th class="px-4 py-3">Country</th>
+                <th class="px-4 py-3">Items</th>
+                <th class="px-4 py-3">Status</th>
+                <th class="px-4 py-3">Received</th>
+                <th class="px-4 py-3 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="inquiries-table-body" class="divide-y divide-slate-100 text-slate-700">
+              <tr><td colspan="7" class="px-4 py-6 text-center text-slate-400">Loading inquiries...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: SHIPPING QUOTES -->
+    <section id="tab-quotes" class="tab-content hidden space-y-4">
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row gap-3 sm:items-center justify-between">
+        <div class="flex items-center gap-2 flex-wrap">
+          <label class="text-xs font-semibold text-slate-500 uppercase">Status:</label>
+          <select id="quotes-status-filter" class="text-xs px-2.5 py-1.5 border border-slate-300 rounded-lg bg-white">
+            <option value="">All Statuses</option>
+            <option value="REQUESTED">Requested (Pending)</option>
+            <option value="APPROVED_BY_OWNER">Approved by Owner</option>
+            <option value="ACCEPTED_BY_CUSTOMER">Accepted by Customer</option>
+            <option value="EXPIRED">Expired</option>
+            <option value="REJECTED">Rejected</option>
+          </select>
+        </div>
+        <button id="quotes-refresh-btn" class="text-xs bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg font-medium transition">
+          Refresh
+        </button>
+      </div>
+
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase tracking-wider font-semibold">
+              <tr>
+                <th class="px-4 py-3">Quote ID</th>
+                <th class="px-4 py-3">Customer Email</th>
+                <th class="px-4 py-3">Destination</th>
+                <th class="px-4 py-3">Status</th>
+                <th class="px-4 py-3">Quoted Amount</th>
+                <th class="px-4 py-3">Expiry</th>
+                <th class="px-4 py-3 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="quotes-table-body" class="divide-y divide-slate-100 text-slate-700">
+              <tr><td colspan="7" class="px-4 py-6 text-center text-slate-400">Loading quotes...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: PHYSICAL INVENTORY -->
+    <section id="tab-inventory" class="tab-content hidden space-y-4">
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row gap-3 sm:items-center justify-between">
+        <div class="flex items-center gap-2 flex-wrap">
+          <label class="text-xs font-semibold text-slate-500 uppercase">Filter:</label>
+          <select id="inventory-stock-filter" class="text-xs px-2.5 py-1.5 border border-slate-300 rounded-lg bg-white">
+            <option value="">All Stock</option>
+            <option value="IN_STOCK">In Stock Only</option>
+            <option value="OUT_OF_STOCK">Out of Stock</option>
+          </select>
+          <input
+            type="text"
+            id="inventory-search-input"
+            placeholder="Search SKU or product..."
+            class="text-xs px-3 py-1.5 border border-slate-300 rounded-lg w-56 focus:outline-none focus:ring-1 focus:ring-emerald-600"
+          />
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="inventory-refresh-btn" class="text-xs bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg font-medium transition">
+            Refresh
+          </button>
+          <button id="download-csv-template-btn" class="text-xs bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition shadow-sm">
+            📄 CSV Template
+          </button>
+          <button id="open-batch-import-btn" class="text-xs bg-slate-800 hover:bg-slate-900 text-white px-3.5 py-1.5 rounded-lg font-medium transition shadow-sm">
+            📥 Batch Import CSV
+          </button>
+          <button id="open-register-inventory-btn" class="text-xs bg-emerald-800 hover:bg-emerald-900 text-white px-3.5 py-1.5 rounded-lg font-medium transition shadow-sm">
+            + Register Physical Stone
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase tracking-wider font-semibold">
+              <tr>
+                <th class="px-4 py-3">SKU</th>
+                <th class="px-4 py-3">Product ID</th>
+                <th class="px-4 py-3">Approved Price</th>
+                <th class="px-4 py-3">Stock</th>
+                <th class="px-4 py-3">Carat / Ratti</th>
+                <th class="px-4 py-3">Cert &amp; Origin</th>
+                <th class="px-4 py-3">Approved By</th>
+                <th class="px-4 py-3 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="inventory-table-body" class="divide-y divide-slate-100 text-slate-700">
+              <tr><td colspan="8" class="px-4 py-6 text-center text-slate-400">Loading inventory...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: AUDIT LOG -->
+    <section id="tab-audit" class="tab-content hidden space-y-4">
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <label class="text-xs font-semibold text-slate-500 uppercase">Entity:</label>
+          <select id="audit-entity-filter" class="text-xs px-2.5 py-1.5 border border-slate-300 rounded-lg bg-white">
+            <option value="">All Entities</option>
+            <option value="INQUIRY">Inquiries</option>
+            <option value="QUOTE">Quotes</option>
+            <option value="INVENTORY">Inventory</option>
+            <option value="ORDER">Orders</option>
+          </select>
+        </div>
+        <button id="audit-refresh-btn" class="text-xs bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg font-medium transition">
+          Refresh
+        </button>
+      </div>
+
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase tracking-wider font-semibold">
+              <tr>
+                <th class="px-4 py-3">Timestamp</th>
+                <th class="px-4 py-3">Entity</th>
+                <th class="px-4 py-3">Entity ID</th>
+                <th class="px-4 py-3">Action</th>
+                <th class="px-4 py-3">Actor</th>
+                <th class="px-4 py-3">Details</th>
+              </tr>
+            </thead>
+            <tbody id="audit-table-body" class="divide-y divide-slate-100 text-slate-700">
+              <tr><td colspan="6" class="px-4 py-6 text-center text-slate-400">Loading audit log...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODALS -->
+  <!-- 1. Inquiry Detail Modal -->
+  <div id="inquiry-detail-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full p-6 border border-slate-100 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b pb-3 mb-4">
+        <h3 id="modal-inquiry-title" class="font-bold text-slate-900 text-base">Inquiry Details</h3>
+        <button class="close-modal text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <div class="grid grid-cols-2 gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200">
+          <div><span class="text-slate-500">Customer:</span> <strong id="modal-inquiry-name" class="text-slate-900"></strong></div>
+          <div><span class="text-slate-500">Email:</span> <span id="modal-inquiry-email" class="font-mono text-slate-900"></span></div>
+          <div><span class="text-slate-500">Phone:</span> <span id="modal-inquiry-phone" class="text-slate-900"></span></div>
+          <div><span class="text-slate-500">Destination:</span> <span id="modal-inquiry-country" class="font-semibold text-slate-900"></span></div>
+        </div>
+
+        <div>
+          <label class="font-semibold text-slate-700 uppercase tracking-wider block mb-1.5">Requested Gemstones:</label>
+          <div id="modal-inquiry-items" class="space-y-2 border border-slate-200 rounded-xl p-3 bg-white"></div>
+        </div>
+
+        <div>
+          <label class="font-semibold text-slate-700 uppercase tracking-wider block mb-1.5">Initial Customer Notes:</label>
+          <p id="modal-inquiry-notes" class="p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 italic"></p>
+        </div>
+
+        <!-- Status Transition Box -->
+        <div class="bg-amber-50/70 border border-amber-200 p-3.5 rounded-xl space-y-2">
+          <label class="font-semibold text-amber-950 uppercase tracking-wider block">Update Inquiry Status (Strict Lifecycle):</label>
+          <div class="flex items-center gap-2">
+            <select id="modal-inquiry-status-select" class="text-xs px-3 py-1.5 border border-amber-300 rounded-lg bg-white flex-1">
+              <option value="PRICE_QUOTED">PRICE_QUOTED</option>
+              <option value="CUSTOMER_CONTACTED">CUSTOMER_CONTACTED</option>
+              <option value="CLOSED">CLOSED</option>
+              <option value="CANCELLED">CANCELLED</option>
+            </select>
+            <button id="modal-inquiry-update-status-btn" class="bg-amber-800 hover:bg-amber-900 text-white font-medium px-4 py-1.5 rounded-lg transition">
+              Update Status
+            </button>
+          </div>
+        </div>
+
+        <!-- Internal Notes Timeline -->
+        <div class="space-y-2">
+          <label class="font-semibold text-slate-700 uppercase tracking-wider block">Internal Owner Notes Timeline:</label>
+          <div id="modal-inquiry-notes-timeline" class="space-y-1.5 max-h-40 overflow-y-auto border border-slate-200 rounded-xl p-3 bg-slate-50"></div>
+          <form id="modal-inquiry-add-note-form" class="flex gap-2">
+            <input
+              type="text"
+              id="modal-inquiry-new-note-input"
+              placeholder="Add internal note (e.g., sent photos via WhatsApp)..."
+              class="text-xs px-3 py-2 border border-slate-300 rounded-xl flex-1 focus:outline-none focus:ring-1 focus:ring-emerald-600"
+              required
+            />
+            <button type="submit" class="bg-emerald-800 hover:bg-emerald-900 text-white px-3.5 py-2 rounded-xl font-medium transition">
+              Add Note
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Quote Approval Modal -->
+  <div id="quote-approval-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 border border-slate-100">
+      <div class="flex items-center justify-between border-b pb-3 mb-4">
+        <h3 class="font-bold text-slate-900 text-base">Approve Shipping Quote</h3>
+        <button class="close-modal text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+      </div>
+      <form id="quote-approval-form" class="space-y-3 text-xs">
+        <input type="hidden" id="modal-quote-id" />
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Quoted Shipping Amount (INR ₹):</label>
+          <input
+            type="number"
+            id="modal-quote-amount"
+            required
+            min="1"
+            placeholder="e.g. 3500"
+            class="w-full px-3 py-2 border border-slate-300 rounded-xl font-mono text-sm"
+          />
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Quote Validity Window:</label>
+          <select id="modal-quote-validity" class="w-full px-3 py-2 border border-slate-300 rounded-xl bg-white">
+            <option value="24">24 Hours (1 Day)</option>
+            <option value="48">48 Hours (2 Days)</option>
+            <option value="72" selected>72 Hours (3 Days)</option>
+            <option value="168">168 Hours (7 Days)</option>
+          </select>
+        </div>
+        <button type="submit" class="w-full py-2 bg-emerald-800 hover:bg-emerald-900 text-white font-medium rounded-xl transition mt-2">
+          Confirm Quote Approval
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. Register Inventory Modal -->
+  <div id="inventory-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-xl max-w-lg w-full p-6 border border-slate-100 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b pb-3 mb-4">
+        <h3 id="inventory-modal-title" class="font-bold text-slate-900 text-base">Register Physical Gemstone</h3>
+        <button class="close-modal text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+      </div>
+
+      <form id="inventory-form" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Unique Inventory SKU *:</label>
+          <input
+            type="text"
+            id="inv-sku"
+            required
+            placeholder="e.g. GON-RUBY-LOT-01"
+            class="w-full px-3 py-2 border border-slate-300 rounded-xl uppercase font-mono"
+          />
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Authoritative Catalogue Product ID *:</label>
+          <input
+            type="text"
+            id="inv-product-id"
+            required
+            placeholder="e.g. p1, p2 (cannot be metadata-only p127-p135)"
+            class="w-full px-3 py-2 border border-slate-300 rounded-xl font-mono"
+          />
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Approved Selling Price (INR ₹) *:</label>
+          <input
+            type="number"
+            id="inv-price"
+            required
+            min="1"
+            placeholder="e.g. 45000"
+            class="w-full px-3 py-2 border border-slate-300 rounded-xl font-mono"
+          />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Carat Weight (Optional):</label>
+            <input type="number" step="0.01" id="inv-carat" placeholder="e.g. 5.25" class="w-full px-3 py-2 border border-slate-300 rounded-xl" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Ratti Weight (Optional):</label>
+            <input type="number" step="0.01" id="inv-ratti" placeholder="e.g. 5.75" class="w-full px-3 py-2 border border-slate-300 rounded-xl" />
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Stock Status:</label>
+            <select id="inv-stock" class="w-full px-3 py-2 border border-slate-300 rounded-xl bg-white">
+              <option value="true">In Stock</option>
+              <option value="false">Out of Stock</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Origin / Provenance:</label>
+            <input type="text" id="inv-origin" placeholder="e.g. Burma, Ceylon, Kashmir" class="w-full px-3 py-2 border border-slate-300 rounded-xl" />
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Certificate Lab:</label>
+            <select id="inv-cert-lab" class="w-full px-3 py-2 border border-slate-300 rounded-xl bg-white">
+              <option value="GIA">GIA</option>
+              <option value="IGI">IGI</option>
+              <option value="GJEPC">GJEPC</option>
+              <option value="In-House">In-House Certified</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Certificate Number:</label>
+            <input type="text" id="inv-cert-num" placeholder="e.g. 2198734" class="w-full px-3 py-2 border border-slate-300 rounded-xl font-mono" />
+          </div>
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Notes / Provenance:</label>
+          <textarea id="inv-notes" rows="2" placeholder="e.g. Natural Burma Ruby with vivid pigeon blood red tone..." class="w-full px-3 py-2 border border-slate-300 rounded-xl"></textarea>
+        </div>
+        <button type="submit" class="w-full py-2 bg-emerald-800 hover:bg-emerald-900 text-white font-medium rounded-xl transition mt-2">
+          Save Physical Stone
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. Batch Import Modal -->
+  <div id="batch-import-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-xl max-w-4xl w-full p-6 border border-slate-100 max-h-[92vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b pb-3 mb-4">
+        <div>
+          <h3 class="font-bold text-slate-900 text-base">Batch Import Physical Gemstone Inventory</h3>
+          <p class="text-[11px] text-slate-500">Upload or paste CSV containing unique gemstone lots.</p>
+        </div>
+        <button class="close-modal text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="font-semibold text-slate-700">Paste CSV Text or Choose File:</label>
+            <button id="modal-download-template-btn" type="button" class="text-[11px] text-emerald-800 hover:underline font-semibold">
+              Download Blank Template (.csv)
+            </button>
+          </div>
+          <input type="file" id="batch-file-input" accept=".csv,text/csv" class="mb-2 block w-full text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-800 hover:file:bg-emerald-100" />
+          <textarea
+            id="batch-csv-textarea"
+            rows="5"
+            placeholder="sku,product_id,approved_price_inr,carat_weight,ratti_weight,in_stock,cert_lab,cert_number,origin,notes&#10;GON-RUBY-01,p2,75000,4.15,4.55,true,GIA,GIA-2198734,Burma,&quot;Natural unheated Burma Ruby&quot;"
+            class="w-full font-mono text-[11px] p-2.5 border border-slate-300 rounded-xl"
+          ></textarea>
+        </div>
+
+        <div class="flex gap-2">
+          <button id="batch-validate-btn" type="button" class="py-2 px-4 bg-slate-800 hover:bg-slate-900 text-white font-medium rounded-xl transition">
+            Validate &amp; Preview Rows
+          </button>
+          <button id="batch-clear-btn" type="button" class="py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded-xl transition">
+            Clear
+          </button>
+        </div>
+
+        <!-- Preview & Validation Results -->
+        <div id="batch-preview-container" class="hidden space-y-3 pt-2 border-t">
+          <div id="batch-summary-banner" class="p-3 rounded-xl text-xs font-medium"></div>
+
+          <!-- Errors list if any -->
+          <div id="batch-errors-container" class="hidden p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-900 space-y-1 max-h-40 overflow-y-auto font-mono"></div>
+
+          <!-- Preview Table -->
+          <div class="border border-slate-200 rounded-xl overflow-hidden max-h-60 overflow-y-auto">
+            <table class="w-full text-left text-[11px]">
+              <thead class="bg-slate-50 text-slate-500 uppercase tracking-wider font-semibold sticky top-0">
+                <tr>
+                  <th class="px-3 py-2">Row</th>
+                  <th class="px-3 py-2">SKU</th>
+                  <th class="px-3 py-2">Product</th>
+                  <th class="px-3 py-2">Approved Price</th>
+                  <th class="px-3 py-2">Carat / Ratti</th>
+                  <th class="px-3 py-2">Cert &amp; Origin</th>
+                  <th class="px-3 py-2">Stock</th>
+                  <th class="px-3 py-2">Status</th>
+                </tr>
+              </thead>
+              <tbody id="batch-preview-tbody" class="divide-y divide-slate-100 font-mono"></tbody>
+            </table>
+          </div>
+
+          <div class="flex items-center justify-between pt-2">
+            <span id="batch-action-hint" class="text-slate-500 text-[11px]"></span>
+            <button id="batch-confirm-import-btn" type="button" disabled class="py-2 px-5 bg-emerald-800 hover:bg-emerald-900 disabled:opacity-40 disabled:cursor-not-allowed text-white font-medium rounded-xl transition shadow-sm">
+              Confirm &amp; Import Valid Lots
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Client JavaScript -->
+  <script>
+    (function() {
+      "use strict";
+
+      // Volatile in-memory secret; NEVER stored in localStorage or cookies
+      let sessionOwnerKey = '';
+      let activeInquiryId = null;
+
+      const loginModal = document.getElementById('login-modal');
+      const loginForm = document.getElementById('login-form');
+      const loginError = document.getElementById('login-error');
+      const ownerKeyInput = document.getElementById('owner-key-input');
+      const dashboardContainer = document.getElementById('dashboard-container');
+      const sessionBadge = document.getElementById('session-badge');
+      const signOutBtn = document.getElementById('sign-out-btn');
+
+      // Helper fetch with Authorization header
+      async function apiFetch(endpoint, options = {}) {
+        const headers = options.headers || {};
+        headers['Authorization'] = `Bearer ${sessionOwnerKey}`;
+        headers['Content-Type'] = 'application/json';
+
+        const res = await fetch(endpoint, {
+          ...options,
+          headers
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error?.message || `HTTP ${res.status}`);
+        }
+        return data;
+      }
+
+      // Login handler
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const key = ownerKeyInput.value.trim();
+        if (!key) return;
+
+        loginError.classList.add('hidden');
+        sessionOwnerKey = key;
+
+        try {
+          // Verify key by testing inquiry listing
+          await apiFetch('/api/owner/inquiries?limit=1');
+          // Success
+          loginModal.classList.add('hidden');
+          dashboardContainer.classList.remove('hidden');
+          sessionBadge.classList.remove('hidden');
+          signOutBtn.classList.remove('hidden');
+          loadInquiries();
+        } catch (err) {
+          sessionOwnerKey = '';
+          loginError.textContent = err.message || 'Authentication failed. Check your owner key.';
+          loginError.classList.remove('hidden');
+        }
+      });
+
+      // Sign out
+      signOutBtn.addEventListener('click', () => {
+        sessionOwnerKey = '';
+        dashboardContainer.classList.add('hidden');
+        sessionBadge.classList.add('hidden');
+        signOutBtn.classList.add('hidden');
+        loginModal.classList.remove('hidden');
+        ownerKeyInput.value = '';
+      });
+
+      // Tab Switching
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+
+          btn.classList.add('active');
+          const tabId = btn.dataset.tab;
+          document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+          if (tabId === 'inquiries') loadInquiries();
+          else if (tabId === 'quotes') loadQuotes();
+          else if (tabId === 'inventory') loadInventory();
+          else if (tabId === 'audit') loadAuditLogs();
+        });
+      });
+
+      // Load Inquiries
+      async function loadInquiries() {
+        const status = document.getElementById('inquiries-status-filter').value;
+        const q = document.getElementById('inquiries-search-input').value;
+        const tbody = document.getElementById('inquiries-table-body');
+        tbody.innerHTML = '<tr><td colspan="7" class="px-4 py-6 text-center text-slate-400">Loading inquiries...</td></tr>';
+
+        try {
+          const params = new URLSearchParams();
+          if (status) params.append('status', status);
+          if (q) params.append('q', q);
+
+          const res = await apiFetch(`/api/owner/inquiries?${params.toString()}`);
+          const items = res.data?.items || [];
+
+          if (items.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" class="px-4 py-6 text-center text-slate-400">No inquiries found matching criteria.</td></tr>';
+            return;
+          }
+
+          tbody.innerHTML = items.map(inq => `
+            <tr class="hover:bg-slate-50 transition">
+              <td class="px-4 py-3 font-mono font-semibold text-slate-900">${inq.id}</td>
+              <td class="px-4 py-3"><strong>${inq.customerName}</strong><br><span class="text-slate-400">${inq.customerEmail}</span></td>
+              <td class="px-4 py-3 font-semibold">${inq.destinationCountry}</td>
+              <td class="px-4 py-3">${inq.items.length} stone(s)</td>
+              <td class="px-4 py-3">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold ${
+                  inq.status === 'PENDING_REVIEW' ? 'bg-amber-100 text-amber-800' :
+                  inq.status === 'PRICE_QUOTED' ? 'bg-blue-100 text-blue-800' :
+                  inq.status === 'CUSTOMER_CONTACTED' ? 'bg-purple-100 text-purple-800' :
+                  inq.status === 'CLOSED' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-800'
+                }">${inq.status}</span>
+              </td>
+              <td class="px-4 py-3 text-slate-400">${new Date(inq.createdAt).toLocaleDateString()}</td>
+              <td class="px-4 py-3 text-right">
+                <button class="review-inquiry-btn px-2.5 py-1 text-xs bg-emerald-800 hover:bg-emerald-900 text-white rounded-lg font-medium transition" data-id="${inq.id}">
+                  Review
+                </button>
+              </td>
+            </tr>
+          `).join('');
+
+          document.querySelectorAll('.review-inquiry-btn').forEach(btn => {
+            btn.addEventListener('click', () => openInquiryDetail(btn.dataset.id));
+          });
+        } catch (err) {
+          tbody.innerHTML = `<tr><td colspan="7" class="px-4 py-6 text-center text-red-500">Error: ${err.message}</td></tr>`;
+        }
+      }
+
+      document.getElementById('inquiries-status-filter').addEventListener('change', loadInquiries);
+      document.getElementById('inquiries-refresh-btn').addEventListener('click', loadInquiries);
+      document.getElementById('inquiries-search-input').addEventListener('input', debounce(loadInquiries, 400));
+
+      // Open Inquiry Detail Modal
+      async function openInquiryDetail(id) {
+        activeInquiryId = id;
+        try {
+          const res = await apiFetch(`/api/owner/inquiries/${id}`);
+          const inq = res.data;
+
+          document.getElementById('modal-inquiry-title').textContent = `Inquiry ${inq.id}`;
+          document.getElementById('modal-inquiry-name').textContent = inq.customerName;
+          document.getElementById('modal-inquiry-email').textContent = inq.customerEmail;
+          document.getElementById('modal-inquiry-phone').textContent = inq.customerPhone || 'Not provided';
+          document.getElementById('modal-inquiry-country').textContent = inq.destinationCountry;
+          document.getElementById('modal-inquiry-notes').textContent = inq.notes || 'None';
+
+          const itemsDiv = document.getElementById('modal-inquiry-items');
+          itemsDiv.innerHTML = inq.items.map(it => `
+            <div class="flex items-center justify-between py-1.5 border-b border-slate-100 last:border-b-0">
+              <div>
+                <span class="font-bold text-slate-900 font-mono">${it.productId}</span>
+                <span class="text-slate-500 text-[11px] block">Qty: ${it.quantity}</span>
+              </div>
+              <div class="text-right">
+                <span class="text-amber-800 font-semibold">₹${it.provisionalMinUnit.toLocaleString()} – ₹${it.provisionalMaxUnit.toLocaleString()}</span>
+                <span class="block text-[10px] text-slate-400">Provisional Estimate</span>
+              </div>
+            </div>
+          `).join('');
+
+          renderNotesTimeline(inq.internalNotes || []);
+
+          document.getElementById('inquiry-detail-modal').classList.remove('hidden');
+        } catch (err) {
+          alert(`Failed to load inquiry: ${err.message}`);
+        }
+      }
+
+      function renderNotesTimeline(notes) {
+        const timeline = document.getElementById('modal-inquiry-notes-timeline');
+        if (notes.length === 0) {
+          timeline.innerHTML = '<p class="text-slate-400 text-[11px]">No internal notes yet.</p>';
+          return;
+        }
+        timeline.innerHTML = notes.map(n => `
+          <div class="p-2 bg-white rounded-lg border border-slate-200 text-[11px]">
+            <div class="flex items-center justify-between text-slate-400 text-[10px] mb-1">
+              <strong>${n.author}</strong>
+              <span>${new Date(n.createdAt).toLocaleString()}</span>
+            </div>
+            <p class="text-slate-800">${n.note}</p>
+          </div>
+        `).join('');
+      }
+
+      // Add Note Form
+      document.getElementById('modal-inquiry-add-note-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const input = document.getElementById('modal-inquiry-new-note-input');
+        const note = input.value.trim();
+        if (!note || !activeInquiryId) return;
+
+        try {
+          await apiFetch(`/api/owner/inquiries/${activeInquiryId}/notes`, {
+            method: 'POST',
+            body: JSON.stringify({ note, author: 'Owner' })
+          });
+          input.value = '';
+          openInquiryDetail(activeInquiryId);
+        } catch (err) {
+          alert(`Failed to add note: ${err.message}`);
+        }
+      });
+
+      // Update Inquiry Status
+      document.getElementById('modal-inquiry-update-status-btn').addEventListener('click', async () => {
+        if (!activeInquiryId) return;
+        const target = document.getElementById('modal-inquiry-status-select').value;
+        try {
+          await apiFetch(`/api/owner/inquiries/${activeInquiryId}/status`, {
+            method: 'POST',
+            body: JSON.stringify({ status: target })
+          });
+          alert(`Inquiry status transitioned to ${target}`);
+          openInquiryDetail(activeInquiryId);
+          loadInquiries();
+        } catch (err) {
+          alert(`Transition failed: ${err.message}`);
+        }
+      });
+
+      // Load Shipping Quotes
+      async function loadQuotes() {
+        const status = document.getElementById('quotes-status-filter').value;
+        const tbody = document.getElementById('quotes-table-body');
+        tbody.innerHTML = '<tr><td colspan="7" class="px-4 py-6 text-center text-slate-400">Loading quotes...</td></tr>';
+
+        try {
+          const params = new URLSearchParams();
+          if (status) params.append('status', status);
+
+          const res = await apiFetch(`/api/owner/quotes?${params.toString()}`);
+          const items = res.data?.items || [];
+
+          if (items.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" class="px-4 py-6 text-center text-slate-400">No quotes found.</td></tr>';
+            return;
+          }
+
+          tbody.innerHTML = items.map(q => `
+            <tr class="hover:bg-slate-50 transition">
+              <td class="px-4 py-3 font-mono font-semibold">${q.id}</td>
+              <td class="px-4 py-3 font-mono text-slate-600">${q.customerEmail}</td>
+              <td class="px-4 py-3 font-bold">${q.destinationCountry}</td>
+              <td class="px-4 py-3">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold ${
+                  q.status === 'REQUESTED' ? 'bg-amber-100 text-amber-800' :
+                  q.status === 'APPROVED_BY_OWNER' ? 'bg-blue-100 text-blue-800' :
+                  q.status === 'ACCEPTED_BY_CUSTOMER' ? 'bg-emerald-100 text-emerald-800' :
+                  q.status === 'EXPIRED' ? 'bg-slate-100 text-slate-500' : 'bg-red-100 text-red-800'
+                }">${q.status}</span>
+              </td>
+              <td class="px-4 py-3 font-semibold">${q.quotedAmount ? '₹' + q.quotedAmount.toLocaleString() : '—'}</td>
+              <td class="px-4 py-3 text-slate-400">${q.expiresAt ? new Date(q.expiresAt).toLocaleDateString() : '—'}</td>
+              <td class="px-4 py-3 text-right">
+                ${q.status === 'REQUESTED' ? `
+                  <button class="approve-quote-btn px-2.5 py-1 text-xs bg-emerald-800 hover:bg-emerald-900 text-white rounded-lg font-medium transition" data-id="${q.id}">
+                    Approve
+                  </button>
+                  <button class="reject-quote-btn px-2.5 py-1 text-xs bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition ml-1" data-id="${q.id}">
+                    Reject
+                  </button>
+                ` : '—'}
+              </td>
+            </tr>
+          `).join('');
+
+          document.querySelectorAll('.approve-quote-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+              document.getElementById('modal-quote-id').value = btn.dataset.id;
+              document.getElementById('quote-approval-modal').classList.remove('hidden');
+            });
+          });
+
+          document.querySelectorAll('.reject-quote-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+              const reason = prompt('Please enter reason for rejecting quote:');
+              if (!reason) return;
+              try {
+                await apiFetch(`/api/owner/quotes/${btn.dataset.id}/reject`, {
+                  method: 'POST',
+                  body: JSON.stringify({ reason })
+                });
+                alert('Quote rejected.');
+                loadQuotes();
+              } catch (err) {
+                alert(`Rejection failed: ${err.message}`);
+              }
+            });
+          });
+        } catch (err) {
+          tbody.innerHTML = `<tr><td colspan="7" class="px-4 py-6 text-center text-red-500">Error: ${err.message}</td></tr>`;
+        }
+      }
+
+      document.getElementById('quotes-status-filter').addEventListener('change', loadQuotes);
+      document.getElementById('quotes-refresh-btn').addEventListener('click', loadQuotes);
+
+      // Quote approval form
+      document.getElementById('quote-approval-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const quoteId = document.getElementById('modal-quote-id').value;
+        const amount = parseInt(document.getElementById('modal-quote-amount').value, 10);
+        const validityHours = parseInt(document.getElementById('modal-quote-validity').value, 10);
+
+        try {
+          await apiFetch(`/api/owner/quotes/${quoteId}/approve`, {
+            method: 'POST',
+            body: JSON.stringify({ quotedAmount: amount, validityHours, quotedCurrency: 'INR' })
+          });
+          alert('Quote approved successfully.');
+          document.getElementById('quote-approval-modal').classList.add('hidden');
+          loadQuotes();
+        } catch (err) {
+          alert(`Failed to approve: ${err.message}`);
+        }
+      });
+
+      let cachedInventoryItems = [];
+      let isInventoryEditMode = false;
+      let editInventorySku = '';
+
+      // Load Physical Inventory
+      async function loadInventory() {
+        const stock = document.getElementById('inventory-stock-filter').value;
+        const q = document.getElementById('inventory-search-input').value;
+        const tbody = document.getElementById('inventory-table-body');
+        tbody.innerHTML = '<tr><td colspan="8" class="px-4 py-6 text-center text-slate-400">Loading inventory...</td></tr>';
+
+        try {
+          const params = new URLSearchParams();
+          if (stock) params.append('status', stock);
+          if (q) params.append('q', q);
+
+          const res = await apiFetch(`/api/owner/inventory?${params.toString()}`);
+          const items = res.data?.items || [];
+          cachedInventoryItems = items;
+
+          if (items.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="8" class="px-4 py-6 text-center text-slate-400">No confirmed physical inventory found.</td></tr>';
+            return;
+          }
+
+          tbody.innerHTML = items.map(it => `
+            <tr class="hover:bg-slate-50 transition">
+              <td class="px-4 py-3 font-mono font-bold text-slate-900">${it.sku}</td>
+              <td class="px-4 py-3 font-mono text-slate-600">${it.productId}</td>
+              <td class="px-4 py-3 font-bold text-emerald-900">₹${it.approvedSellingPrice.toLocaleString()}</td>
+              <td class="px-4 py-3">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold ${it.inStock ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">
+                  ${it.inStock ? 'In Stock' : 'Out of Stock'}
+                </span>
+              </td>
+              <td class="px-4 py-3">${it.caratWeight ? it.caratWeight + ' ct' : '—'}${it.rattiWeight ? ' / ' + it.rattiWeight + ' rt' : ''}</td>
+              <td class="px-4 py-3">${it.certNumber ? `${it.certLab || ''} #${it.certNumber}` : '—'}${it.origin ? ' (' + it.origin + ')' : ''}</td>
+              <td class="px-4 py-3 text-slate-500">${it.approvedBy}</td>
+              <td class="px-4 py-3 text-right">
+                <div class="flex items-center justify-end gap-1.5">
+                  <button class="edit-lot-btn px-2 py-1 text-[11px] bg-emerald-50 hover:bg-emerald-100 text-emerald-800 rounded transition font-medium" data-sku="${it.sku}">
+                    Edit Lot
+                  </button>
+                  <button class="edit-stock-btn px-2 py-1 text-[11px] bg-slate-100 hover:bg-slate-200 text-slate-700 rounded transition font-medium" data-sku="${it.sku}" data-stock="${it.inStock}">
+                    Toggle Stock
+                  </button>
+                </div>
+              </td>
+            </tr>
+          `).join('');
+
+          document.querySelectorAll('.edit-stock-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+              const currentStock = btn.dataset.stock === 'true';
+              try {
+                await apiFetch(`/api/owner/inventory/${btn.dataset.sku}`, {
+                  method: 'PUT',
+                  body: JSON.stringify({ inStock: !currentStock, updatedBy: 'Owner' })
+                });
+                loadInventory();
+              } catch (err) {
+                alert(`Stock update failed: ${err.message}`);
+              }
+            });
+          });
+
+          document.querySelectorAll('.edit-lot-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+              const sku = btn.dataset.sku;
+              const item = cachedInventoryItems.find(it => it.sku === sku);
+              if (!item) return;
+
+              isInventoryEditMode = true;
+              editInventorySku = item.sku;
+
+              document.getElementById('inventory-modal-title').textContent = `Edit Physical Gemstone — ${item.sku}`;
+              const skuInput = document.getElementById('inv-sku');
+              const prodInput = document.getElementById('inv-product-id');
+              skuInput.value = item.sku;
+              skuInput.disabled = true;
+              prodInput.value = item.productId;
+              prodInput.disabled = true;
+
+              document.getElementById('inv-price').value = item.approvedSellingPrice;
+              document.getElementById('inv-stock').value = String(item.inStock);
+              document.getElementById('inv-carat').value = item.caratWeight != null ? item.caratWeight : '';
+              document.getElementById('inv-ratti').value = item.rattiWeight != null ? item.rattiWeight : '';
+              document.getElementById('inv-origin').value = item.origin || '';
+              document.getElementById('inv-cert-lab').value = item.certLab || 'GIA';
+              document.getElementById('inv-cert-num').value = item.certNumber || '';
+              document.getElementById('inv-notes').value = item.notes || '';
+
+              document.getElementById('inventory-modal').classList.remove('hidden');
+            });
+          });
+        } catch (err) {
+          tbody.innerHTML = `<tr><td colspan="8" class="px-4 py-6 text-center text-red-500">Error: ${err.message}</td></tr>`;
+        }
+      }
+
+      document.getElementById('inventory-stock-filter').addEventListener('change', loadInventory);
+      document.getElementById('inventory-refresh-btn').addEventListener('click', loadInventory);
+      document.getElementById('inventory-search-input').addEventListener('input', debounce(loadInventory, 400));
+      document.getElementById('open-register-inventory-btn').addEventListener('click', () => {
+        isInventoryEditMode = false;
+        editInventorySku = '';
+        document.getElementById('inventory-modal-title').textContent = 'Register Physical Gemstone';
+        const skuInput = document.getElementById('inv-sku');
+        const prodInput = document.getElementById('inv-product-id');
+        skuInput.disabled = false;
+        prodInput.disabled = false;
+        document.getElementById('inventory-form').reset();
+        document.getElementById('inv-ratti').value = '';
+        document.getElementById('inv-origin').value = '';
+        document.getElementById('inventory-modal').classList.remove('hidden');
+      });
+
+      // Register / Update inventory submit
+      document.getElementById('inventory-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const sku = document.getElementById('inv-sku').value.trim();
+        const productId = document.getElementById('inv-product-id').value.trim();
+        const price = parseInt(document.getElementById('inv-price').value, 10);
+        const inStock = document.getElementById('inv-stock').value === 'true';
+        const caratWeight = document.getElementById('inv-carat').value ? parseFloat(document.getElementById('inv-carat').value) : undefined;
+        const rattiWeight = document.getElementById('inv-ratti').value ? parseFloat(document.getElementById('inv-ratti').value) : undefined;
+        const origin = document.getElementById('inv-origin').value.trim() || undefined;
+        const certLab = document.getElementById('inv-cert-lab').value;
+        const certNumber = document.getElementById('inv-cert-num').value.trim() || undefined;
+        const notes = document.getElementById('inv-notes').value.trim() || undefined;
+
+        try {
+          if (isInventoryEditMode) {
+            await apiFetch(`/api/owner/inventory/${editInventorySku}`, {
+              method: 'PUT',
+              body: JSON.stringify({
+                approvedSellingPrice: price,
+                inStock,
+                caratWeight,
+                rattiWeight,
+                certLab,
+                certNumber,
+                certStatus: certNumber ? 'CERTIFIED' : 'UNCERTIFIED',
+                origin,
+                notes,
+                updatedBy: 'Owner Admin'
+              })
+            });
+            alert(`Physical stone SKU '${editInventorySku}' updated successfully.`);
+          } else {
+            await apiFetch('/api/owner/inventory', {
+              method: 'POST',
+              body: JSON.stringify({
+                sku,
+                productId,
+                approvedSellingPrice: price,
+                inStock,
+                caratWeight,
+                rattiWeight,
+                certLab,
+                certNumber,
+                certStatus: certNumber ? 'CERTIFIED' : 'UNCERTIFIED',
+                origin,
+                notes,
+                approvedBy: 'Owner Admin'
+              })
+            });
+            alert(`Physical stone SKU '${sku}' registered successfully.`);
+          }
+          document.getElementById('inventory-modal').classList.add('hidden');
+          document.getElementById('inventory-form').reset();
+          loadInventory();
+        } catch (err) {
+          alert(`Operation failed: ${err.message}`);
+        }
+      });
+
+      // ==========================================
+      // BATCH CSV IMPORT (STAGE 4B)
+      // ==========================================
+      let pendingBatchValidation = null;
+
+      function downloadCsvTemplate() {
+        const headers = 'sku,product_id,approved_price_inr,carat_weight,ratti_weight,in_stock,cert_lab,cert_number,origin,notes\n';
+        const sample1 = 'GON-RUBY-01,p2,75000,4.15,4.55,true,GIA,GIA-2198734,Burma,"Natural unheated Burma Ruby"\n';
+        const sample2 = 'GON-SAPPHIRE-01,p1,120000,5.50,6.04,true,IGI,IGI-998811,Ceylon,"Natural unheated Yellow Sapphire"\n';
+        const blob = new Blob([headers, sample1, sample2], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'gemsofnature_inventory_template.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+
+      document.getElementById('download-csv-template-btn').addEventListener('click', downloadCsvTemplate);
+      document.getElementById('modal-download-template-btn').addEventListener('click', downloadCsvTemplate);
+
+      document.getElementById('open-batch-import-btn').addEventListener('click', () => {
+        document.getElementById('batch-import-modal').classList.remove('hidden');
+        resetBatchImportUI();
+      });
+
+      function resetBatchImportUI() {
+        document.getElementById('batch-file-input').value = '';
+        document.getElementById('batch-csv-textarea').value = '';
+        document.getElementById('batch-preview-container').classList.add('hidden');
+        document.getElementById('batch-errors-container').classList.add('hidden');
+        document.getElementById('batch-errors-container').innerHTML = '';
+        document.getElementById('batch-preview-tbody').innerHTML = '';
+        document.getElementById('batch-confirm-import-btn').disabled = true;
+        pendingBatchValidation = null;
+      }
+
+      document.getElementById('batch-clear-btn').addEventListener('click', resetBatchImportUI);
+
+      document.getElementById('batch-file-input').addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          document.getElementById('batch-csv-textarea').value = evt.target.result;
+        };
+        reader.readAsText(file);
+      });
+
+      document.getElementById('batch-validate-btn').addEventListener('click', async () => {
+        const csv = document.getElementById('batch-csv-textarea').value.trim();
+        if (!csv) {
+          alert('Please paste or upload CSV content before validating.');
+          return;
+        }
+
+        const previewContainer = document.getElementById('batch-preview-container');
+        const summaryBanner = document.getElementById('batch-summary-banner');
+        const errorsContainer = document.getElementById('batch-errors-container');
+        const tbody = document.getElementById('batch-preview-tbody');
+        const confirmBtn = document.getElementById('batch-confirm-import-btn');
+        const hint = document.getElementById('batch-action-hint');
+
+        try {
+          const res = await apiFetch('/api/owner/inventory/batch-validate', {
+            method: 'POST',
+            body: JSON.stringify({ csv })
+          });
+          const val = res.data;
+          pendingBatchValidation = val;
+
+          previewContainer.classList.remove('hidden');
+
+          if (val.errors && val.errors.length > 0) {
+            summaryBanner.className = 'p-3 rounded-xl text-xs font-medium bg-amber-50 text-amber-900 border border-amber-200';
+            summaryBanner.innerHTML = `<strong>Validation Notice:</strong> ${val.totalRows} row(s) checked — <span class="text-emerald-700 font-bold">${val.validRows.length} valid</span>, <span class="text-red-700 font-bold">${val.errors.length} error(s) found</span>.`;
+
+            errorsContainer.classList.remove('hidden');
+            errorsContainer.innerHTML = val.errors.map(err => `
+              <div>• Row ${err.rowNumber} [${err.field}]: ${err.message} (${err.code})</div>
+            `).join('');
+          } else {
+            summaryBanner.className = 'p-3 rounded-xl text-xs font-medium bg-emerald-50 text-emerald-900 border border-emerald-200';
+            summaryBanner.innerHTML = `<strong>All ${val.totalRows} row(s) valid!</strong> Zero errors detected. Ready for physical inventory registration.`;
+            errorsContainer.classList.add('hidden');
+            errorsContainer.innerHTML = '';
+          }
+
+          tbody.innerHTML = (val.validRows || []).map(r => `
+            <tr class="hover:bg-slate-50">
+              <td class="px-3 py-1.5 text-slate-500">${r.rowNumber}</td>
+              <td class="px-3 py-1.5 font-bold text-slate-900">${r.sku}</td>
+              <td class="px-3 py-1.5 text-slate-700">${r.productId}</td>
+              <td class="px-3 py-1.5 font-bold text-emerald-800">₹${r.approvedSellingPrice.toLocaleString()}</td>
+              <td class="px-3 py-1.5">${r.caratWeight ? r.caratWeight + 'ct' : '—'}${r.rattiWeight ? ' / ' + r.rattiWeight + 'rt' : ''}</td>
+              <td class="px-3 py-1.5">${r.certNumber ? (r.certLab || '') + ' #' + r.certNumber : '—'}${r.origin ? ' (' + r.origin + ')' : ''}</td>
+              <td class="px-3 py-1.5">${r.inStock ? 'In Stock' : 'Out'}</td>
+              <td class="px-3 py-1.5"><span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-100 text-emerald-800">Ready</span></td>
+            </tr>
+          `).join('');
+
+          if (val.validRows && val.validRows.length > 0) {
+            confirmBtn.disabled = false;
+            hint.textContent = `Click below to register ${val.validRows.length} physical gemstone lot(s).`;
+          } else {
+            confirmBtn.disabled = true;
+            hint.textContent = 'Fix all row-level validation errors to proceed with import.';
+          }
+        } catch (err) {
+          alert(`Validation failed: ${err.message}`);
+        }
+      });
+
+      document.getElementById('batch-confirm-import-btn').addEventListener('click', async () => {
+        if (!pendingBatchValidation || !pendingBatchValidation.validRows.length) return;
+        const confirmBtn = document.getElementById('batch-confirm-import-btn');
+        confirmBtn.disabled = true;
+        confirmBtn.textContent = 'Importing...';
+
+        try {
+          const res = await apiFetch('/api/owner/inventory/batch', {
+            method: 'POST',
+            body: JSON.stringify({ rows: pendingBatchValidation.validRows })
+          });
+
+          const data = res.data;
+          alert(`Batch Import Completed:\n• Successfully registered: ${data.importedCount} lot(s)\n• Failed: ${data.failedCount} lot(s)`);
+          document.getElementById('batch-import-modal').classList.add('hidden');
+          resetBatchImportUI();
+          loadInventory();
+        } catch (err) {
+          alert(`Import failed: ${err.message}`);
+          confirmBtn.disabled = false;
+          confirmBtn.textContent = 'Confirm & Import Valid Lots';
+        }
+      });
+          alert(`Operation failed: ${err.message}`);
+        }
+      });
+
+      // Load Audit Logs
+      async function loadAuditLogs() {
+        const entity = document.getElementById('audit-entity-filter').value;
+        const tbody = document.getElementById('audit-table-body');
+        tbody.innerHTML = '<tr><td colspan="6" class="px-4 py-6 text-center text-slate-400">Loading audit log...</td></tr>';
+
+        try {
+          const params = new URLSearchParams();
+          if (entity) params.append('status', entity);
+
+          const res = await apiFetch(`/api/owner/audit-logs?${params.toString()}`);
+          const items = res.data?.items || [];
+
+          if (items.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" class="px-4 py-6 text-center text-slate-400">No audit events recorded.</td></tr>';
+            return;
+          }
+
+          tbody.innerHTML = items.map(l => `
+            <tr class="hover:bg-slate-50 transition">
+              <td class="px-4 py-3 text-slate-400 font-mono">${new Date(l.createdAt).toLocaleString()}</td>
+              <td class="px-4 py-3 font-semibold">${l.entityType}</td>
+              <td class="px-4 py-3 font-mono font-bold">${l.entityId}</td>
+              <td class="px-4 py-3"><span class="px-2 py-0.5 rounded font-mono text-[10px] bg-slate-100">${l.action}</span></td>
+              <td class="px-4 py-3">${l.actor}</td>
+              <td class="px-4 py-3 text-slate-500 font-mono text-[10px] max-w-xs truncate">${l.detailsJson || '—'}</td>
+            </tr>
+          `).join('');
+        } catch (err) {
+          tbody.innerHTML = `<tr><td colspan="6" class="px-4 py-6 text-center text-red-500">Error: ${err.message}</td></tr>`;
+        }
+      }
+
+      document.getElementById('audit-entity-filter').addEventListener('change', loadAuditLogs);
+      document.getElementById('audit-refresh-btn').addEventListener('click', loadAuditLogs);
+
+      // Close modal buttons
+      document.querySelectorAll('.close-modal').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.fixed').forEach(m => {
+            if (m.id !== 'login-modal') m.classList.add('hidden');
+          });
+        });
+      });
+
+      function debounce(fn, delay) {
+        let timer;
+        return function(...args) {
+          clearTimeout(timer);
+          timer = setTimeout(() => fn.apply(this, args), delay);
+        };
+      }
+    })();
+  </script>
+</body>
+</html>

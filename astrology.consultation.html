@@ -43,16 +43,13 @@
   <link rel="icon" type="image/png" href="/images/logo.png">
 
   <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/gon-tailwind.css">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Global Styles -->
-  <link rel="stylesheet" href="/css/styles.css">
-
+  <link rel="stylesheet" href="/css/gon-design-system.css">
   <link rel="stylesheet" href="/css/gon-responsive.css">
-
   <link rel="stylesheet" href="/css/astrology-consultation-mobile.css" media="(max-width: 768px)">
 
   <style>
@@ -60,10 +57,11 @@
     :root {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      --site-accent: #0f6b4f;
-      --accent-2: #07a66a;
-      --muted: #6b7280;
-      --card-border: #e6f7ef;
+      --site-accent: #0A3A2F;
+      --accent-2: #0D473A;
+      --muted: #4B5563;
+      --card-border: #E8E2D5;
+      --brand-gold: #C5A869;
     }
 
     html,
@@ -71,11 +69,11 @@
       height: 100%;
       margin: 0;
       min-height: 100vh;
-      background-color: #ffffff;
+      background-color: #FBF9F5;
       font-family: "Montserrat", sans-serif;
       display: flex;
       flex-direction: column;
-      color: #0f1724;
+      color: #111618;
     }
 
     /* ensure Tailwind body class works everywhere */
@@ -107,10 +105,16 @@
     }
 
     .card-base {
-      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
-      transition: transform 320ms cubic-bezier(0.2, 0.9, 0.2, 1),
-        box-shadow 320ms cubic-bezier(0.2, 0.9, 0.2, 1);
-      will-change: transform, box-shadow;
+      background: #ffffff;
+      border: 1px solid #E8E2D5;
+      border-radius: 1.25rem;
+      box-shadow: 0 4px 14px rgba(10, 58, 47, 0.04);
+      transition: transform 280ms ease, box-shadow 280ms ease, border-color 280ms ease;
+    }
+    .card-base:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(10, 58, 47, 0.08);
+      border-color: rgba(197, 168, 105, 0.7);
     }
     .card-base:hover,
     .group:hover .card-base {
@@ -350,49 +354,49 @@
   </script>
 </head>
 
-<body class="bg-white text-gray-800 antialiased font-montserrat" data-page="astrology-consultation">
+<body class="bg-[#FBF9F5] text-[#111618] antialiased font-montserrat" data-page="astrology-consultation">
   <!-- Shared Header placeholder -->
   <div id="header"></div>
 
   <!-- HERO -->
   <section
-    class="hero-gradient py-10 relative z-0"
+    class="py-12 md:py-16 relative z-0 border-b border-[#C5A869]/20"
     style="
-      background: linear-gradient(180deg, rgba(224, 232, 231, 0.35) 0%, rgba(14, 18, 17, 0.55) 100%),
-                  url('/images/hero.jpg');
+      background: linear-gradient(135deg, rgba(6, 40, 32, 0.88) 0%, rgba(10, 58, 47, 0.92) 100%),
+                  url('/images/hero-bg.jpg');
       background-size: cover;
       background-position: center;
     "
   >
-    <div class="content-inner relative z-10 container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+    <div class="content-inner relative z-10 container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
 
       <!-- Left content -->
-      <div class="glass rounded-2xl shadow-lg bg-gray-900/80 text-white p-6">
-        <h2 class="text-3xl font-extrabold">
+      <div class="rounded-2xl bg-[#062820]/90 border border-[#C5A869]/30 text-[#FBF9F5] p-6 sm:p-8 shadow-xl">
+        <h1 class="font-display text-3xl md:text-4xl font-bold tracking-tight text-[#FBF9F5]">
           Rudraksha + Astrological Gem Consultation
-        </h2>
-        <p class="mt-3 text-white/90">
+        </h1>
+        <p class="mt-3 text-sm md:text-base text-[#E8E2D5] font-light leading-relaxed">
           Free gemstone recommendation (based on DOB) + paid 30-min personalized consultation.
           We match natural gemstones &amp; Rudraksha with your astrology, dosha, and life goals.
         </p>
 
-        <ul class="mt-4 space-y-2 text-sm text-white/90">
-          <li>✅ Free automatic gem recommendation by date of birth</li>
-          <li>✅ Expert Rudraksha matching and mala recommendations</li>
-          <li>✅ 30-minute paid consultation (voice/video) — INR / USD options</li>
-          <li>✅ Certification guidance &amp; stone authenticity tips</li>
+        <ul class="mt-5 space-y-2.5 text-xs sm:text-sm text-[#E8E2D5]">
+          <li class="flex items-center gap-2"><span>✨</span> Free automatic gem recommendation by date of birth</li>
+          <li class="flex items-center gap-2"><span>✨</span> Expert Rudraksha matching and mala recommendations</li>
+          <li class="flex items-center gap-2"><span>✨</span> 30-minute paid consultation (voice/video) — INR / USD options</li>
+          <li class="flex items-center gap-2"><span>✨</span> Certification guidance &amp; stone authenticity tips</li>
         </ul>
 
-        <div class="mt-4 flex flex-wrap gap-3">
+        <div class="mt-6 flex flex-wrap gap-3">
           <a
             href="#consultation"
-            class="inline-block bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md font-semibold"
+            class="inline-flex items-center justify-center bg-[#C5A869] hover:bg-[#DFCA97] text-[#0A3A2F] px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition shadow-sm"
           >
-            Get Free Recommendation
+            Get Free Recommendation &rarr;
           </a>
           <a
             href="#pricing"
-            class="inline-block border border-white/30 text-white px-4 py-2 rounded-md"
+            class="inline-flex items-center justify-center border border-[#FBF9F5]/40 hover:bg-white/10 text-[#FBF9F5] px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition"
           >
             Book 30-min
           </a>
@@ -400,37 +404,37 @@
       </div>
 
       <!-- Right form card -->
-      <div class="hero-right rounded-2xl bg-white p-4 shadow-lg">
-        <h3 class="font-semibold text-gray-900">Quick Booking</h3>
-        <p class="text-sm text-slate-600">
-          Fill your birth details — get a recommendation instantly.
+      <div class="hero-right rounded-2xl bg-white border border-[#E8E2D5] p-6 shadow-sm">
+        <h3 class="font-display text-xl font-bold text-[#0A3A2F]">Quick Birth Details Recommendation</h3>
+        <p class="text-xs text-[#4B5563] mt-1">
+          Fill your birth details — get an astrological stone suggestion instantly.
         </p>
 
-        <form id="quick-form" class="mt-3 space-y-3">
+        <form id="quick-form" class="mt-4 space-y-3">
           <div>
-            <label for="q-name" class="text-xs text-slate-600">Full name</label>
-            <input required id="q-name" name="name" class="w-full mt-1 p-2 border rounded" placeholder="Paramjeet Singh" />
+            <label for="q-name" class="text-xs font-semibold text-[#111618]">Full Name</label>
+            <input required id="q-name" name="name" class="w-full mt-1 p-2.5 border border-[#E8E2D5] focus:border-[#C5A869] focus:ring-1 focus:ring-[#C5A869] rounded-xl text-sm bg-white text-[#111618] transition" placeholder="Your Name" />
           </div>
 
           <div class="grid grid-cols-2 gap-2">
             <div>
-              <label for="q-dob" class="text-xs text-slate-600">Date of Birth</label>
-              <input required id="q-dob" name="dob" type="date" class="w-full mt-1 p-2 border rounded" />
+              <label for="q-dob" class="text-xs font-semibold text-[#111618]">Date of Birth</label>
+              <input required id="q-dob" name="dob" type="date" class="w-full mt-1 p-2.5 border border-[#E8E2D5] focus:border-[#C5A869] focus:ring-1 focus:ring-[#C5A869] rounded-xl text-sm bg-white text-[#111618] transition" />
             </div>
             <div>
-              <label for="q-tob" class="text-xs text-slate-600">Time of Birth (optional)</label>
-              <input id="q-tob" name="tob" type="time" class="w-full mt-1 p-2 border rounded" />
+              <label for="q-tob" class="text-xs font-semibold text-[#111618]">Time of Birth (optional)</label>
+              <input id="q-tob" name="tob" type="time" class="w-full mt-1 p-2.5 border border-[#E8E2D5] focus:border-[#C5A869] focus:ring-1 focus:ring-[#C5A869] rounded-xl text-sm bg-white text-[#111618] transition" />
             </div>
           </div>
 
           <div>
-            <label for="q-pob" class="text-xs text-slate-600">Place of Birth</label>
-            <input id="q-pob" name="pob" class="w-full mt-1 p-2 border rounded" placeholder="Delhi, India" />
+            <label for="q-pob" class="text-xs font-semibold text-[#111618]">Place of Birth</label>
+            <input id="q-pob" name="pob" class="w-full mt-1 p-2.5 border border-[#E8E2D5] focus:border-[#C5A869] focus:ring-1 focus:ring-[#C5A869] rounded-xl text-sm bg-white text-[#111618] transition" placeholder="City, Country" />
           </div>
 
           <div>
-            <label for="q-goal" class="text-xs text-slate-600">Main concern / goal</label>
-            <select id="q-goal" name="goal" class="w-full mt-1 p-2 border rounded">
+            <label for="q-goal" class="text-xs font-semibold text-[#111618]">Main Concern / Goal</label>
+            <select id="q-goal" name="goal" class="w-full mt-1 p-2.5 border border-[#E8E2D5] focus:border-[#C5A869] focus:ring-1 focus:ring-[#C5A869] rounded-xl text-sm bg-white text-[#111618] transition">
               <option value="wealth">Wealth &amp; career</option>
               <option value="health">Health &amp; wellbeing</option>
               <option value="relationship">Relationships</option>
@@ -439,23 +443,23 @@
             </select>
           </div>
 
-          <div class="flex items-center gap-2 pt-2">
-            <button type="submit" class="bg-gray-500 px-3 py-2 rounded text-white font-semibold">
-              Get Recommendation
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 pt-2">
+            <button type="submit" class="bg-[#0A3A2F] hover:bg-[#0D473A] px-4 py-2.5 rounded-xl text-[#FBF9F5] font-semibold text-xs shadow-sm transition">
+              Get Recommendation &rarr;
             </button>
-            <button id="wa-btn-quick" type="button" class="border px-3 py-2 rounded">
-              Chat on WhatsApp
+            <button id="wa-btn-quick" type="button" class="bg-white border border-[#E8E2D5] hover:border-[#C5A869] text-[#0A3A2F] px-4 py-2.5 rounded-xl text-xs font-semibold transition">
+              💬 WhatsApp
             </button>
           </div>
 
           <!-- Result area for quick form JS -->
-          <div id="quick-result" class="mt-3 text-sm text-gray-700 hidden"></div>
+          <div id="quick-result" class="mt-3 text-xs text-[#4B5563] hidden"></div>
         </form>
       </div>
     </div>
   </section>
 
-  <main class="space-y-8 py-6">
+  <main id="main" tabindex="-1" class="space-y-8 py-6">
     <!-- Consultation Embed (anchor target for hero & embed buttons) -->
     <section id="consultation">
       <div id="gn-consultation-embed" class="card-base fade-in">
@@ -689,9 +693,8 @@
             GIA, IGI, GRS, Gubelin, SSEF.
           </p>
           <div class="flex items-center gap-4 mt-3 flex-wrap logos">
-            <img src="images/gia.png" class="h-9" alt="GIA" />
-            <img src="images/igi.png" class="h-9" alt="IGI" />
-            <img src="images/grs.png" class="h-9" alt="GRS" />
+            <img src="images/gia.png" class="h-9" alt="GIA" loading="lazy" decoding="async" />
+            <img src="images/igi.png" class="h-9" alt="IGI" loading="lazy" decoding="async" />
           </div>
         </div>
 
@@ -705,7 +708,7 @@
 
           <div class="flex gap-3 mt-3">
             <div class="text-center border rounded-lg p-2 w-24">
-              <img src="images/metal-gold.png" class="h-8 mx-auto" alt="Gold" />
+              <img src="images/metal-gold.png" class="h-8 mx-auto" alt="Gold" loading="lazy" decoding="async" />
               <p class="text-sm mt-1">Gold</p>
             </div>
             <div class="text-center border rounded-lg p-2 w-24">
@@ -713,6 +716,8 @@
                 src="images/metal-silver.png"
                 class="h-8 mx-auto"
                 alt="Silver"
+                loading="lazy"
+                decoding="async"
               />
               <p class="text-sm mt-1">Silver</p>
             </div>
@@ -721,6 +726,8 @@
                 src="images/metal-panchdhatu.png"
                 class="h-8 mx-auto"
                 alt="Panchdhatu"
+                loading="lazy"
+                decoding="async"
               />
               <p class="text-sm mt-1">Panchdhatu</p>
             </div>
@@ -729,6 +736,8 @@
                 src="images/metal-copper.png"
                 class="h-8 mx-auto"
                 alt="Copper"
+                loading="lazy"
+                decoding="async"
               />
               <p class="text-sm mt-1">Copper</p>
             </div>
@@ -763,11 +772,10 @@
               Get Free DOB Recommendation
             </a>
             <a
-              href="downloads/gemstone-buying-checklist.pdf"
-              download
+              href="/guides/how-to-choose.html"
               class="border border-gray-600 text-gray-700 px-4 py-2 rounded-md font-semibold"
             >
-              Download Checklist (PDF)
+              View Buying Guide
             </a>
           </div>
         </div>

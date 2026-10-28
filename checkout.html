@@ -15,6 +15,7 @@
 
   <!-- Canonical URL -->
   <link rel="canonical" href="https://www.gemsofnature.shop/checkout.html">
+  <meta name="robots" content="noindex, follow">
 
   <!-- Primary SEO Meta Tags -->
   <title>Secure Checkout | Gems of Nature – Natural Gemstones & Rudraksha</title>
@@ -42,23 +43,20 @@
   <link rel="icon" type="image/png" href="/images/logo.png">
 
   <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/gon-tailwind.css">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Global Styles -->
-  <link rel="stylesheet" href="/css/styles.css">
-
+  <link rel="stylesheet" href="/css/gon-design-system.css">
   <link rel="stylesheet" href="/css/gon-responsive.css">
-
   <link rel="stylesheet" href="/css/checkout-mobile.css">
 
   <!-- Shared layout (header/footer) -->
   <script src="js/layout.js" defer></script>
 
-  <!-- Razorpay Checkout (needed for payment popup) -->
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <!-- Razorpay Checkout (needed for payment popup, deferred to avoid render-blocking) -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
 
   <style>
     body {
@@ -78,7 +76,7 @@
   <!-- Header -->
   <div id="header"></div>
 
-  <main class="min-h-screen py-10">
+  <main id="main" tabindex="-1" class="min-h-screen py-10">
     <section class="container mx-auto px-4">
       <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
         Your Cart &amp; Checkout
@@ -131,7 +129,7 @@
               </dl>
               
                 <p class="text-[11px] text-slate-600 mt-2">
-                  Price includes careful handling, expert verification & insured shipping.
+                  Price includes careful handling, expert verification &amp; secure standard delivery.
                 </p>
 
               <div class="mt-3 mb-2 text-[11px] text-slate-600 flex items-start gap-2">
@@ -260,7 +258,26 @@
               </div>
 
               <!-- Payment method -->
-              <div class="mt-1">
+              <div class="mt-1" id="payment-method-container">
+                <div id="provisional-checkout-notice" class="hidden mb-3 p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900">
+                  <div class="font-semibold flex items-center gap-1.5 mb-1 text-amber-950">
+                    <span>💎</span> Stone Selection &amp; Price Confirmation Request
+                  </div>
+                  <p class="leading-relaxed text-amber-800">
+                    The gemstones in your cart are from our preliminary catalogue with provisional estimate ranges.
+                    <strong>No payment will be collected today.</strong> Our gemstone specialists will review available certified physical inventory, send stone photos and lab certificates, and confirm exact pricing with you before any order is placed.
+                  </p>
+                </div>
+
+                <div id="intl-checkout-notice" class="hidden mb-3 p-3.5 rounded-xl bg-blue-50 border border-blue-200 text-xs text-blue-900">
+                  <div class="font-semibold flex items-center gap-1.5 mb-1 text-blue-950">
+                    <span>✈️</span> International Shipping Quote Required
+                  </div>
+                  <p class="leading-relaxed text-blue-800">
+                    For orders delivered outside India, international courier rates and customs handling are calculated individually. <strong>No payment will be collected</strong> until you receive and approve the custom shipping quote.
+                  </p>
+                </div>
+
                 <label class="block mb-2 text-xs font-semibold text-slate-600 uppercase tracking-wide">
                   Payment method
                 </label>
@@ -406,14 +423,35 @@
     (function () {
       "use strict";
 
-      const SHIPPING_FLAT = 300;
+      const SHIPPING_FLAT = 200;
       const RAZORPAY_KEY_ID = "rzp_test_RmIdugVudVvFT0"; // your current test key
 
       /* ---------- Helpers ---------- */
 
+      function sanitizeCart(raw) {
+        const sanitized = {};
+        if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+          return sanitized;
+        }
+        const maxQty = 20;
+        for (const [key, val] of Object.entries(raw)) {
+          // Strictly verify product exists in authoritative catalogue (window.products)
+          const prod = getProductById(key);
+          if (!prod) {
+            continue; // Purge unknown or metadata-only IDs (e.g. p127, p128, p129, p135)
+          }
+          const num = typeof val === "number" ? val : parseInt(String(val), 10);
+          if (Number.isInteger(num) && num > 0) {
+            sanitized[key] = Math.min(num, maxQty);
+          }
+        }
+        return sanitized;
+      }
+
       function loadCart() {
         try {
-          return JSON.parse(localStorage.getItem("gon_cart") || "{}") || {};
+          const parsed = JSON.parse(localStorage.getItem("gon_cart") || "{}");
+          return sanitizeCart(parsed);
         } catch (e) {
           console.error("Failed to parse cart", e);
           return {};
@@ -452,12 +490,17 @@
         return list.find(p => String(p.id) === String(id));
       }
 
-      function getProductPrice(prod) {
-        if (!prod) return 0;
-        if (typeof prod.price_min === "number") return prod.price_min;
-        if (typeof prod.price === "number") return prod.price;
-        const raw = String(prod.price_min || prod.price || "").replace(/[^0-9]/g, "");
-        return parseInt(raw || "0", 10);
+      function isProductPaymentReady(prod) {
+        if (!prod || typeof prod !== "object") return false;
+        return (
+          prod.pricingStatus === "INVENTORY_CONFIRMED" &&
+          typeof prod.finalPrice === "number" &&
+          Number.isFinite(prod.finalPrice) &&
+          prod.finalPrice > 0 &&
+          typeof prod.inventorySku === "string" &&
+          prod.inventorySku.trim().length > 0 &&
+          prod.inStock !== false
+        );
       }
 
       function formatCurrency(v) {
@@ -469,6 +512,7 @@
       }
 
       function saveCart() {
+        cart = sanitizeCart(cart);
         localStorage.setItem("gon_cart", JSON.stringify(cart));
         renderCart();
         updateHeaderCartCount();
@@ -522,20 +566,74 @@
           now.getTime().toString().slice(-5);
       }
 
-      function calculateTotals() {
+      function isCartProvisional() {
         const entries = Object.entries(cart || {});
-        let subtotal = 0;
-        entries.forEach(([pid, qty]) => {
-          const prod  = getProductById(pid);
-          const price = getProductPrice(prod);
-          subtotal += price * qty;
-        });
-        const shipping = entries.length ? SHIPPING_FLAT : 0;
-        const total    = subtotal + shipping;
-        return { subtotal, shipping, total };
+        if (!entries.length) return true; // Fail closed if empty
+
+        let validCount = 0;
+        for (const [pid, qty] of entries) {
+          if (qty <= 0) continue;
+          const prod = getProductById(pid);
+          if (!prod) {
+            // Unknown or unpurchasable product in cart -> fail closed (must never allow payment)
+            return true;
+          }
+          validCount++;
+          if (!isProductPaymentReady(prod)) {
+            return true;
+          }
+        }
+        return validCount === 0;
       }
 
-      function populateCheckoutSummary(subtotal, shipping, total) {
+      function calculateTotals() {
+        const entries = Object.entries(cart || {});
+        let minSubtotal = 0;
+        let maxSubtotal = 0;
+        let hasProvisional = false;
+        let validItemsCount = 0;
+
+        entries.forEach(([pid, qty]) => {
+          if (qty <= 0) return;
+          const prod = getProductById(pid);
+          if (!prod) {
+            hasProvisional = true;
+            return;
+          }
+          validItemsCount += qty;
+          if (isProductPaymentReady(prod)) {
+            minSubtotal += prod.finalPrice * qty;
+            maxSubtotal += prod.finalPrice * qty;
+          } else {
+            hasProvisional = true;
+            const min = typeof prod.price_min === "number" && Number.isFinite(prod.price_min) && prod.price_min > 0 ? prod.price_min : 0;
+            const max = typeof prod.price_max === "number" && Number.isFinite(prod.price_max) && prod.price_max > 0 ? prod.price_max : min;
+            minSubtotal += min * qty;
+            maxSubtotal += max * qty;
+          }
+        });
+
+        const countryEl = document.getElementById("co-country");
+        const isIntl = countryEl ? countryEl.value === "INTL" : false;
+        const shipping = validItemsCount > 0 ? (isIntl ? 0 : SHIPPING_FLAT) : 0;
+        const minTotal = minSubtotal + shipping;
+        const maxTotal = maxSubtotal + shipping;
+
+        return {
+          subtotal: minSubtotal,
+          minSubtotal,
+          maxSubtotal,
+          shipping,
+          total: minTotal,
+          minTotal,
+          maxTotal,
+          hasProvisional,
+          isIntl,
+          validItemsCount
+        };
+      }
+
+      function populateCheckoutSummary(totals) {
         checkoutSummaryEl.innerHTML = "";
         const entries = Object.entries(cart || {});
 
@@ -548,9 +646,18 @@
         }
 
         entries.forEach(([pid, qty]) => {
-          const prod  = getProductById(pid);
-          const price = getProductPrice(prod);
-          const line  = price * qty;
+          const prod   = getProductById(pid);
+          const isProv = !prod || prod.pricingStatus !== "INVENTORY_CONFIRMED" || !prod.finalPrice;
+          const min    = typeof prod?.price_min === "number" ? prod.price_min : 0;
+          const max    = typeof prod?.price_max === "number" ? prod.price_max : min;
+
+          const unitText = isProv && min !== max
+            ? `${formatCurrency(min)} – ${formatCurrency(max)} (est.)`
+            : formatCurrency(prod?.finalPrice || min);
+
+          const lineText = isProv && min !== max
+            ? `${formatCurrency(min * qty)} – ${formatCurrency(max * qty)}`
+            : formatCurrency((prod?.finalPrice || min) * qty);
 
           const row = document.createElement("div");
           row.className = "flex items-center justify-between py-1.5";
@@ -558,27 +665,44 @@
             <div class="flex-1 pr-3">
               <div class="text-xs font-medium text-slate-800 truncate">${prod?.name || pid}</div>
               <div class="text-[11px] text-slate-500">
-                ${formatCurrency(price)} × ${qty}
+                ${unitText} × ${qty}
               </div>
             </div>
             <div class="text-xs font-semibold text-slate-900">
-              ${formatCurrency(line)}
+              ${lineText}
             </div>
           `;
           checkoutSummaryEl.appendChild(row);
         });
 
-        coSubtotalEl.textContent = formatCurrency(subtotal);
-        coShippingEl.textContent = formatCurrency(shipping);
-        coTotalEl.textContent    = formatCurrency(total);
+        if (totals.hasProvisional) {
+          const noteRow = document.createElement("div");
+          noteRow.className = "text-[10px] text-amber-800 bg-amber-50 rounded p-1.5 mt-2 border border-amber-200";
+          noteRow.textContent = "*Provisional catalogue estimate. Exact price confirmed upon stone selection.";
+          checkoutSummaryEl.appendChild(noteRow);
+        }
+
+        coSubtotalEl.textContent = totals.hasProvisional && totals.minSubtotal !== totals.maxSubtotal
+          ? `${formatCurrency(totals.minSubtotal)} – ${formatCurrency(totals.maxSubtotal)}`
+          : formatCurrency(totals.minSubtotal);
+
+        coShippingEl.textContent = totals.isIntl
+          ? "Quote Required"
+          : formatCurrency(totals.shipping);
+
+        coTotalEl.textContent = totals.isIntl
+          ? "Pending Shipping Quote"
+          : (totals.hasProvisional && totals.minTotal !== totals.maxTotal
+              ? `${formatCurrency(totals.minTotal)} – ${formatCurrency(totals.maxTotal)}`
+              : formatCurrency(totals.minTotal));
       }
 
       /* ---------- Cart Rendering ---------- */
 
       function renderCart() {
         cartItemsEl.innerHTML = "";
+        cart = sanitizeCart(cart);
         const entries = Object.entries(cart || {});
-        let subtotal = 0;
 
         if (!entries.length) {
           cartEmptyEl.classList.remove("hidden");
@@ -588,7 +712,18 @@
           subtotalEl.textContent   = formatCurrency(0);
           shippingEl.textContent   = formatCurrency(0);
           totalEl.textContent      = formatCurrency(0);
-          populateCheckoutSummary(0, 0, 0);
+          populateCheckoutSummary({
+            subtotal: 0,
+            minSubtotal: 0,
+            maxSubtotal: 0,
+            shipping: 0,
+            total: 0,
+            minTotal: 0,
+            maxTotal: 0,
+            hasProvisional: false,
+            isIntl: false,
+            validItemsCount: 0
+          });
           placeOrderBtn.disabled = true;
           return;
         }
@@ -598,33 +733,43 @@
         checkoutSection.classList.remove("hidden");
 
         entries.forEach(([pid, qty]) => {
-          const prod  = getProductById(pid);
-          const price = getProductPrice(prod);
-          const line  = price * qty;
-          subtotal   += line;
+          const prod   = getProductById(pid);
+          const isConfirmed = isProductPaymentReady(prod);
+          const isProv = !isConfirmed;
+          const min    = typeof prod?.price_min === "number" && Number.isFinite(prod.price_min) ? prod.price_min : (prod?.finalPrice || 0);
+          const max    = typeof prod?.price_max === "number" && Number.isFinite(prod.price_max) ? prod.price_max : min;
+
+          const unitText = isProv && min !== max
+            ? `${formatCurrency(min)} – ${formatCurrency(max)} (est.)`
+            : formatCurrency(prod?.finalPrice || min);
+
+          const lineText = isProv && min !== max
+            ? `${formatCurrency(min * qty)} – ${formatCurrency(max * qty)}`
+            : formatCurrency((prod?.finalPrice || min) * qty);
 
           const row = document.createElement("div");
-          row.className = "flex items-center gap-4 py-4";
+          row.className = "flex items-center gap-4 py-4 border-b border-gray-100 last:border-b-0";
           row.innerHTML = `
             <div class="h-20 w-20 flex-shrink-0 rounded-xl overflow-hidden bg-gray-100">
-              <img src="${prod?.image || "images/placeholder.jpg"}"
-                   onerror="this.src='images/placeholder.jpg'"
+              <img src="${prod?.image || "/images/hero-bg.jpg"}"
+                   onerror="this.onerror=null; this.src='/images/hero-bg.jpg';"
                    alt="${prod?.name || pid}"
                    class="h-full w-full object-cover" />
             </div>
             <div class="flex-1">
               <div class="text-sm md:text-base font-semibold text-gray-800">
                 ${prod?.name || pid}
+                ${isProv ? '<span class="ml-2 text-[10px] font-normal uppercase tracking-wider bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded">Provisional Estimate</span>' : ''}
               </div>
               <div class="text-xs text-gray-500 mb-2">
-                ${formatCurrency(price)} × 
-                <span data-id="${pid}" class="inline-block min-w-[1.5rem] text-center">${qty}</span>
+                ${unitText} × 
+                <span data-id="${pid}" class="inline-block min-w-[1.5rem] text-center font-medium">${qty}</span>
               </div>
               <div class="flex items-center gap-2">
-                <button type="button" class="qty-inc border rounded px-2 py-1 text-sm" data-id="${pid}" aria-label="Increase quantity">
+                <button type="button" class="qty-inc border rounded px-2 py-1 text-sm hover:bg-gray-100" data-id="${pid}" aria-label="Increase quantity">
                   +
                 </button>
-                <button type="button" class="qty-dec border rounded px-2 py-1 text-sm" data-id="${pid}" aria-label="Decrease quantity">
+                <button type="button" class="qty-dec border rounded px-2 py-1 text-sm hover:bg-gray-100" data-id="${pid}" aria-label="Decrease quantity">
                   -
                 </button>
                 <button type="button" class="ml-3 text-xs text-red-600 hover:underline remove-item" data-id="${pid}">
@@ -632,39 +777,123 @@
                 </button>
               </div>
             </div>
-            <div class="text-sm md:text-base font-semibold text-gray-900">
-              ${formatCurrency(line)}
+            <div class="text-sm md:text-base font-semibold text-gray-900 text-right">
+              ${lineText}
             </div>
           `;
           cartItemsEl.appendChild(row);
         });
 
-        const count    = entries.reduce((sum, [,q]) => sum + Number(q || 0), 0);
-        const shipping = entries.length ? SHIPPING_FLAT : 0;
-        const total    = subtotal + shipping;
+        const totals = calculateTotals();
+        const count  = totals.validItemsCount;
 
         itemsCountEl.textContent = String(count);
-        subtotalEl.textContent   = formatCurrency(subtotal);
-        shippingEl.textContent   = formatCurrency(shipping);
-        totalEl.textContent      = formatCurrency(total);
 
-        const totals = { subtotal, shipping, total };
-        populateCheckoutSummary(totals.subtotal, totals.shipping, totals.total);
+        subtotalEl.textContent = totals.hasProvisional && totals.minSubtotal !== totals.maxSubtotal
+          ? `${formatCurrency(totals.minSubtotal)} – ${formatCurrency(totals.maxSubtotal)}`
+          : formatCurrency(totals.minSubtotal);
+
+        shippingEl.textContent = totals.isIntl
+          ? "Quote Required"
+          : formatCurrency(totals.shipping);
+
+        totalEl.textContent = totals.isIntl
+          ? "Pending Shipping Quote"
+          : (totals.hasProvisional && totals.minTotal !== totals.maxTotal
+              ? `${formatCurrency(totals.minTotal)} – ${formatCurrency(totals.maxTotal)}`
+              : formatCurrency(totals.minTotal));
+
+        populateCheckoutSummary(totals);
         updateHeaderCartCount();
         updatePlaceOrderState();
+      }
+
+      // Quantity adjustments & item removal delegation
+      if (cartItemsEl) {
+        cartItemsEl.addEventListener("click", function (e) {
+          const target = e.target;
+          const incBtn = target.closest(".qty-inc");
+          const decBtn = target.closest(".qty-dec");
+          const remBtn = target.closest(".remove-item");
+
+          if (incBtn) {
+            const id = incBtn.getAttribute("data-id");
+            if (id && cart[id]) {
+              cart[id] = (cart[id] || 0) + 1;
+              saveCart();
+            }
+          } else if (decBtn) {
+            const id = decBtn.getAttribute("data-id");
+            if (id && cart[id]) {
+              if (cart[id] > 1) {
+                cart[id] -= 1;
+              } else {
+                delete cart[id];
+              }
+              saveCart();
+            }
+          } else if (remBtn) {
+            const id = remBtn.getAttribute("data-id");
+            if (id && cart[id]) {
+              delete cart[id];
+              saveCart();
+            }
+          }
+        });
       }
 
       /* ---------- UI / Form Logic ---------- */
 
       function updatePlaceOrderState() {
-        const name    = (document.getElementById("co-name").value || "").trim();
-        const email   = (document.getElementById("co-email").value || "").trim();
-        const phone   = (document.getElementById("co-phone").value || "").trim();
-        const address = (document.getElementById("co-address").value || "").trim();
-        const method  = getSelectedPaymentMethod();
-        const hasItems = Object.keys(cart || {}).length > 0;
+        const nameEl    = document.getElementById("co-name");
+        const emailEl   = document.getElementById("co-email");
+        const phoneEl   = document.getElementById("co-phone");
+        const addressEl = document.getElementById("co-address");
+        const countryEl = document.getElementById("co-country");
 
-        const enabled = !!(name && email && phone && address && method && hasItems);
+        const name    = (nameEl ? nameEl.value : "").trim();
+        const email   = (emailEl ? emailEl.value : "").trim();
+        const phone   = (phoneEl ? phoneEl.value : "").trim();
+        const address = (addressEl ? addressEl.value : "").trim();
+        const country = countryEl ? countryEl.value : "IN";
+        const isIntl  = country === "INTL";
+        const isProv  = isCartProvisional();
+        const method  = getSelectedPaymentMethod();
+        const validEntries = Object.entries(sanitizeCart(cart || {}));
+        const hasValidItems = validEntries.length > 0;
+
+        const paymentWrapper    = document.getElementById("payment-method-wrapper");
+        const provisionalNotice = document.getElementById("provisional-checkout-notice");
+        const intlNotice        = document.getElementById("intl-checkout-notice");
+
+        if (!hasValidItems) {
+          if (provisionalNotice) provisionalNotice.classList.add("hidden");
+          if (intlNotice) intlNotice.classList.add("hidden");
+          if (paymentWrapper) paymentWrapper.classList.add("opacity-40", "pointer-events-none");
+          placeOrderBtn.innerHTML = "Cart is Empty";
+          placeOrderBtn.disabled = true;
+          return;
+        }
+
+        if (isIntl) {
+          if (provisionalNotice) provisionalNotice.classList.toggle("hidden", !isProv);
+          if (intlNotice) intlNotice.classList.remove("hidden");
+          if (paymentWrapper) paymentWrapper.classList.add("opacity-40", "pointer-events-none");
+          placeOrderBtn.innerHTML = "🌐 Prepare International Shipping Quote Request";
+        } else if (isProv) {
+          if (provisionalNotice) provisionalNotice.classList.remove("hidden");
+          if (intlNotice) intlNotice.classList.add("hidden");
+          if (paymentWrapper) paymentWrapper.classList.add("opacity-40", "pointer-events-none");
+          placeOrderBtn.innerHTML = "📋 Prepare Stone Selection &amp; Price Inquiry";
+        } else {
+          if (provisionalNotice) provisionalNotice.classList.add("hidden");
+          if (intlNotice) intlNotice.classList.add("hidden");
+          if (paymentWrapper) paymentWrapper.classList.remove("opacity-40", "pointer-events-none");
+          placeOrderBtn.innerHTML = "🔒 Complete Secure Payment";
+        }
+
+        const requirePaymentMethod = !isProv && !isIntl;
+        const enabled = !!(name && email && phone && address && hasValidItems && (!requirePaymentMethod || method));
         placeOrderBtn.disabled = !enabled;
       }
 
@@ -707,73 +936,172 @@
             }
           });
           highlightSelectedPaymentMethod();
-          updatePlaceOrderState();
+          renderCart();
         });
       }
 
       /* ---------- Payment Integrations ---------- */
 
-      function openRazorpayPayment(orderId, totalAmount) {
+      async function openRazorpayPayment(orderId, totalAmount) {
         if (typeof Razorpay === "undefined") {
           showOrderStatus("error", "Razorpay script not loaded.",
             "Please refresh the page and try again, or contact support if the issue continues.");
           return;
         }
 
-        if (!RAZORPAY_KEY_ID || RAZORPAY_KEY_ID === "RAZORPAY_KEY_ID_HERE") {
-          showOrderStatus("error", "Razorpay key not configured.",
-            "Please add your Razorpay Key ID in checkout.html before going live.");
-          return;
-        }
-
         const name    = (document.getElementById("co-name").value || "").trim();
         const email   = (document.getElementById("co-email").value || "").trim();
         const phone   = (document.getElementById("co-phone").value || "").trim();
+        const address = (document.getElementById("co-address").value || "").trim();
+        const country = (document.getElementById("co-country") ? document.getElementById("co-country").value : "IN") || "IN";
+
+        // Build items array from cart using confirmed inventory SKU
+        const items = Object.entries(cart).map(([productId, quantity]) => {
+          const prod = getProductById(productId);
+          return {
+            productId,
+            quantity,
+            inventorySku: prod && prod.inventorySku ? prod.inventorySku : ""
+          };
+        });
+
+        const idempotencyKey = `idemp_${orderId}_${Date.now()}`;
+
+        let createData = null;
+        try {
+          const res = await fetch("/api/payments/create-order", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              customer: {
+                name,
+                email,
+                phone,
+                addressLine1: address,
+                city: "New Delhi",
+                state: "Delhi",
+                postalCode: "110001",
+                country
+              },
+              items,
+              idempotencyKey
+            })
+          });
+
+          const json = await res.json();
+          if (res.ok && json.success) {
+            createData = json.data;
+          } else {
+            console.warn("Backend order creation warning:", json?.error?.message);
+          }
+        } catch (err) {
+          console.warn("Backend API not reachable:", err);
+        }
+
+        const keyId = createData?.razorpayKeyId || RAZORPAY_KEY_ID;
+        const razorpayOrderId = createData?.razorpayOrderId || "";
+        const serverOrderId = createData?.orderId || orderId;
+        const customerToken = createData?.customerAccessToken || "";
+
+        if (!keyId || keyId === "RAZORPAY_KEY_ID_HERE") {
+          showOrderStatus("error", "Razorpay key not configured.",
+            "Please configure your Razorpay Key ID before initiating payments.");
+          return;
+        }
 
         const options = {
-          key: RAZORPAY_KEY_ID,
-          amount: Math.round((totalAmount || 0) * 100), // in paise
+          key: keyId,
+          amount: createData ? createData.amountSubunits : Math.round((totalAmount || 0) * 100), // in paise
           currency: "INR",
           name: "Gems of Nature",
           description: "Gemstones / Rudraksha Purchase",
-          order_id: "", // ideally comes from your backend Orders API
+          order_id: razorpayOrderId,
           prefill: {
             name,
             email,
             contact: phone
           },
           notes: {
-            gon_order_id: orderId
+            gon_order_id: serverOrderId
           },
-          handler: function (response) {
+          handler: async function (response) {
             const paymentId = response.razorpay_payment_id;
+            const signature = response.razorpay_signature;
+            const rzpOrderId = response.razorpay_order_id || razorpayOrderId;
+
+            // Cryptographic server-side verification if server order was created
+            if (createData && signature && rzpOrderId) {
+              try {
+                const vRes = await fetch("/api/payments/verify", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    ...(customerToken ? { "X-Customer-Token": customerToken } : {})
+                  },
+                  body: JSON.stringify({
+                    orderId: serverOrderId,
+                    razorpayOrderId: rzpOrderId,
+                    razorpayPaymentId: paymentId,
+                    razorpaySignature: signature
+                  })
+                });
+
+                const vJson = await vRes.json();
+                if (!vRes.ok || !vJson.success) {
+                  showOrderStatus(
+                    "error",
+                    "Payment verification failed.",
+                    vJson?.error?.message || "Cryptographic signature check failed. Please contact support."
+                  );
+                  return;
+                }
+
+                // If payment is authorized but pending gateway capture confirmation
+                if (vJson.data && (vJson.data.captureStatus === "authorized" || vJson.data.captureStatus === "pending")) {
+                  showOrderStatus(
+                    "info",
+                    "Payment authorized — capture in progress.",
+                    `Order reference: <strong>${serverOrderId}</strong><br>Razorpay Payment ID: <strong>${paymentId}</strong><br>Your payment authorization is complete. Gateway capture confirmation is processing and we will confirm dispatch via WhatsApp / Email shortly.`
+                  );
+
+                  cart = {};
+                  saveCart();
+                  checkoutForm.reset();
+                  highlightSelectedPaymentMethod();
+                  updatePlaceOrderState();
+                  return;
+                }
+              } catch (vErr) {
+                console.warn("Verification API error:", vErr);
+              }
+            }
 
             const fullName = (document.getElementById("co-name").value || "").trim();
             const emailAddr = (document.getElementById("co-email").value || "").trim();
             const phoneNum  = (document.getElementById("co-phone").value || "").trim();
-            const address   = (document.getElementById("co-address").value || "").trim();
+            const addrVal   = (document.getElementById("co-address").value || "").trim();
 
             const summary = `
-            Order ID: ${orderId}
+            Order ID: ${serverOrderId}
             Payment ID: ${paymentId}
             Name: ${fullName}
             Email: ${emailAddr}
             Phone: ${phoneNum}
-            Address: ${address}
+            Address: ${addrVal}
             Total: ${formatCurrency(totalAmount)}
             Cart: ${JSON.stringify(cart, null, 2)}
             `;
 
             window.open(
               "mailto:paramjeet19@gmail.com"
-              + "?subject=" + encodeURIComponent("New order - " + orderId)
+              + "?subject=" + encodeURIComponent("New order - " + serverOrderId)
               + "&body=" + encodeURIComponent(summary)
             );
 
             showOrderStatus(
               "success",
               "Payment successful! Your order is confirmed.",
-              `Order reference: <strong>${orderId}</strong><br>Razorpay Payment ID: <strong>${paymentId}</strong><br>We’ll contact you shortly on WhatsApp / Email with final confirmation.`
+              `Order reference: <strong>${serverOrderId}</strong><br>Razorpay Payment ID: <strong>${paymentId}</strong><br>We’ll contact you shortly on WhatsApp / Email with final confirmation.`
             );
 
             cart = {};
@@ -808,26 +1136,33 @@
         );
       }
 
-      /* ---------- Place Order ---------- */
+      /* ---------- Place Order / Inquiry ---------- */
 
       if (placeOrderBtn) {
         placeOrderBtn.addEventListener("click", () => {
           if (placeOrderBtn.disabled) return;
+
+          // Re-sanitize cart to guarantee fresh validation
+          cart = sanitizeCart(cart);
+          const entries = Object.entries(cart || {});
+
+          if (!entries.length) {
+            showOrderStatus("error", "Your cart contains no valid purchasable products. Please select items from our shop.");
+            placeOrderBtn.disabled = true;
+            return;
+          }
 
           const name    = (document.getElementById("co-name").value || "").trim();
           const email   = (document.getElementById("co-email").value || "").trim();
           const phone   = (document.getElementById("co-phone").value || "").trim();
           const address = (document.getElementById("co-address").value || "").trim();
           const country = (document.getElementById("co-country").value || "IN");
+          const isIntl  = country === "INTL";
+          const isProv  = isCartProvisional();
           const method  = getSelectedPaymentMethod();
-          const entries = Object.entries(cart || {});
 
-          if (!name || !email || !phone || !address || !method) {
-            showOrderStatus("error", "Please complete all required details before placing the order.");
-            return;
-          }
-          if (!entries.length) {
-            showOrderStatus("error", "Your cart is empty.");
+          if (!name || !email || !phone || !address) {
+            showOrderStatus("error", "Please complete all required contact and delivery details.");
             return;
           }
 
@@ -842,8 +1177,271 @@
           }
 
           const totals = calculateTotals();
-          const orderId = generateOrderId();
+          if (totals.validItemsCount <= 0) {
+            showOrderStatus("error", "Your cart contains no valid items.");
+            return;
+          }
 
+          // 1. International Shipping Quote Flow (Safe: strictly no automated charge)
+          if (isIntl) {
+            placeOrderBtn.disabled = true;
+            placeOrderBtn.innerHTML = "⏳ Submitting Quote Request...";
+
+            const fallbackQuoteId = "GON-INTL-" +
+              new Date().getFullYear().toString().slice(-2) +
+              String(new Date().getMonth() + 1).padStart(2, "0") +
+              String(new Date().getDate()).padStart(2, "0") +
+              "-" +
+              new Date().getTime().toString().slice(-5);
+
+            const itemList = entries.map(([pid, qty]) => {
+              const p = getProductById(pid);
+              const pMin = typeof p?.price_min === "number" ? p.price_min : 0;
+              const pMax = typeof p?.price_max === "number" ? p.price_max : pMin;
+              return isProv
+                ? `- ${p?.name || pid} (ID: ${pid}) × ${qty} [Provisional: ${formatCurrency(pMin)} – ${formatCurrency(pMax)}]`
+                : `- ${p?.name || pid} (ID: ${pid}) × ${qty} @ ${formatCurrency(p?.finalPrice || 0)}`;
+            }).join("\n");
+
+            const summary = `
+International Shipping Quote Request
+================================================
+Customer Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Address: ${address}
+Country: International (${country})
+Subtotal: ${isProv && totals.minSubtotal !== totals.maxSubtotal ? formatCurrency(totals.minSubtotal) + " – " + formatCurrency(totals.maxSubtotal) : formatCurrency(totals.subtotal)}
+
+Selected Products:
+${itemList}
+
+Notice: International delivery courier fees, customs duties, and insurance require manual quotation before payment.
+            `.trim();
+
+            const mailtoUrl = "mailto:paramjeet19@gmail.com"
+              + "?subject=" + encodeURIComponent("International Shipping Quote Request - " + name)
+              + "&body=" + encodeURIComponent(summary);
+
+            const whatsappUrl = "https://wa.me/917827491801?text="
+              + encodeURIComponent("Hi Gems of Nature, I need an international shipping quote:\n\n" + summary);
+
+            // Attempt backend persistence
+            const quotePayload = {
+              customerEmail: email,
+              destinationCountry: "OTHER",
+              destinationAddress: address,
+              idempotencyKey: "idemp_quote_" + Date.now() + "_" + Math.random().toString(36).substring(2, 9)
+            };
+
+            const renderQuoteResponse = (isServerConfirmed, quoteRef) => {
+              placeOrderBtn.disabled = false;
+              updatePlaceOrderState();
+
+              if (isServerConfirmed) {
+                showOrderStatus(
+                  "success",
+                  "International Shipping Quote Request Received!",
+                  `Quote Reference: <strong>${quoteRef}</strong><br>` +
+                  `Destination: <strong>${address}</strong><br>` +
+                  `Thank you, <strong>${name}</strong>. Your international delivery request has been recorded in our system.<br>` +
+                  `Our logistics team will calculate exact door-to-door courier rates, insurance, and customs documentation for your destination and email you a full quote with payment link.<br><br>` +
+                  `Your cart has been preserved. You can also follow up directly on WhatsApp or clear your cart below:<br>` +
+                  `<div class="mt-3 flex flex-wrap items-center gap-2">` +
+                    `<a href="${whatsappUrl}" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-600 text-white text-xs font-semibold hover:bg-green-700">💬 Chat on WhatsApp (Ref: ${quoteRef})</a>` +
+                    `<a href="${mailtoUrl}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-700 text-white text-xs font-semibold hover:bg-slate-800">✉️ View Email Summary</a>` +
+                    `<button type="button" id="intl-clear-cart-btn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-100">🗑️ Clear Cart</button>` +
+                  `</div>`
+                );
+              } else {
+                showOrderStatus(
+                  "info",
+                  "International shipping quote draft prepared — send via WhatsApp or Email.",
+                  `Quote Reference: <strong>${quoteRef}</strong><br>` +
+                  `Destination: <strong>${address}</strong><br>` +
+                  `Your international quote request draft is ready. Please click below to send it via WhatsApp or Email so our logistics team can calculate customs and courier fees for your destination.<br><br>` +
+                  `<div class="mt-3 flex flex-wrap items-center gap-2">` +
+                    `<a href="${whatsappUrl}" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-600 text-white text-xs font-semibold hover:bg-green-700">💬 Send via WhatsApp</a>` +
+                    `<a href="${mailtoUrl}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-700 text-white text-xs font-semibold hover:bg-emerald-800">✉️ Open Email App</a>` +
+                    `<button type="button" id="intl-clear-cart-btn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-100">🗑️ Clear Cart</button>` +
+                  `</div>`
+                );
+              }
+
+              const intlClearBtn = document.getElementById("intl-clear-cart-btn");
+              if (intlClearBtn) {
+                intlClearBtn.addEventListener("click", () => {
+                  if (confirm("Clear all items from your cart now?")) {
+                    cart = {};
+                    saveCart();
+                    checkoutForm.reset();
+                    updatePlaceOrderState();
+                    showOrderStatus("info", "Your cart has been cleared.", "You can browse our catalogue to select new stones anytime.");
+                  }
+                });
+              }
+            };
+
+            fetch('/api/shipping-quotes', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(quotePayload)
+            })
+            .then(res => res.json())
+            .then(resData => {
+              if (resData && resData.success && resData.data && resData.data.id) {
+                renderQuoteResponse(true, resData.data.id);
+              } else {
+                renderQuoteResponse(false, fallbackQuoteId);
+              }
+            })
+            .catch(err => {
+              console.warn("Backend shipping-quotes endpoint unreachable; falling back to draft flow:", err);
+              renderQuoteResponse(false, fallbackQuoteId);
+            });
+
+            return;
+          }
+
+          // 2. Provisional Catalogue Inquiry Flow (Safe: strictly no payment capture)
+          if (isProv) {
+            placeOrderBtn.disabled = true;
+            placeOrderBtn.innerHTML = "⏳ Submitting Inquiry...";
+
+            const fallbackInqId = "GON-INQ-" +
+              new Date().getFullYear().toString().slice(-2) +
+              String(new Date().getMonth() + 1).padStart(2, "0") +
+              String(new Date().getDate()).padStart(2, "0") +
+              "-" +
+              new Date().getTime().toString().slice(-5);
+
+            const itemList = entries.map(([pid, qty]) => {
+              const p = getProductById(pid);
+              const pMin = typeof p?.price_min === "number" ? p.price_min : 0;
+              const pMax = typeof p?.price_max === "number" ? p.price_max : pMin;
+              return `- ${p?.name || pid} (ID: ${pid}) × ${qty} [Provisional: ${formatCurrency(pMin)} – ${formatCurrency(pMax)}]`;
+            }).join("\n");
+
+            const summary = `
+Price & Stone Selection Inquiry
+===========================================
+Customer Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Address: ${address}
+Country: India (Domestic)
+Estimated Total Range: ${formatCurrency(totals.minTotal)} – ${formatCurrency(totals.maxTotal)}
+Shipping: ${formatCurrency(totals.shipping)} (Flat Domestic)
+
+Selected Products:
+${itemList}
+
+Notice: Preliminary catalogue products require physical inventory selection and stone verification before payment.
+            `.trim();
+
+            const mailtoUrl = "mailto:paramjeet19@gmail.com"
+              + "?subject=" + encodeURIComponent("Price & Stone Inquiry - " + name)
+              + "&body=" + encodeURIComponent(summary);
+
+            const whatsappUrl = "https://wa.me/917827491801?text="
+              + encodeURIComponent("Hi Gems of Nature, I would like to inquire about stones:\n\n" + summary);
+
+            // Attempt backend persistence
+            const inquiryPayload = {
+              customer: {
+                name: name,
+                email: email,
+                phone: phone,
+                country: "IN",
+                addressLine1: address
+              },
+              items: entries.map(([pid, qty]) => ({ productId: pid, quantity: qty })),
+              notes: `Provisional inquiry submitted via checkout. Destination: ${address}`,
+              idempotencyKey: "idemp_inq_" + Date.now() + "_" + Math.random().toString(36).substring(2, 9)
+            };
+
+            const renderInquiryResponse = (isServerConfirmed, inqRef, customerToken) => {
+              placeOrderBtn.disabled = false;
+              updatePlaceOrderState();
+
+              if (isServerConfirmed) {
+                if (customerToken) {
+                  try {
+                    localStorage.setItem("gon_inq_token_" + inqRef, customerToken);
+                  } catch (_) {}
+                }
+
+                showOrderStatus(
+                  "success",
+                  "Inquiry Received Successfully!",
+                  `Inquiry Reference: <strong>${inqRef}</strong><br>` +
+                  `Estimated Catalogue Range: <strong>${formatCurrency(totals.minTotal)} – ${formatCurrency(totals.maxTotal)}</strong><br>` +
+                  `Thank you, <strong>${name}</strong>. Your inquiry has been recorded in our system.<br>` +
+                  `Our gemstone specialist will review available certified physical inventory and contact you at <strong>${email}</strong> / <strong>${phone}</strong> with exact stone photographs, measurements, and certified rates.<br><br>` +
+                  `Your cart has been preserved. You can also chat directly with our gemologist on WhatsApp or clear your cart below:<br>` +
+                  `<div class="mt-3 flex flex-wrap items-center gap-2">` +
+                    `<a href="${whatsappUrl}" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-600 text-white text-xs font-semibold hover:bg-green-700">💬 Chat on WhatsApp (Ref: ${inqRef})</a>` +
+                    `<a href="${mailtoUrl}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-700 text-white text-xs font-semibold hover:bg-slate-800">✉️ View Email Summary</a>` +
+                    `<button type="button" id="inq-clear-cart-btn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-100">🗑️ Clear Cart</button>` +
+                  `</div>`
+                );
+              } else {
+                showOrderStatus(
+                  "info",
+                  "Inquiry draft prepared — send via WhatsApp or Email.",
+                  `Inquiry Reference: <strong>${inqRef}</strong><br>` +
+                  `Estimated Catalogue Range: <strong>${formatCurrency(totals.minTotal)} – ${formatCurrency(totals.maxTotal)}</strong><br>` +
+                  `Your inquiry draft is ready. Please click below to send it to our team via WhatsApp or Email so we can assist you with stone selection.<br><br>` +
+                  `<div class="mt-3 flex flex-wrap items-center gap-2">` +
+                    `<a href="${whatsappUrl}" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-600 text-white text-xs font-semibold hover:bg-green-700">💬 Send via WhatsApp</a>` +
+                    `<a href="${mailtoUrl}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-700 text-white text-xs font-semibold hover:bg-emerald-800">✉️ Open Email App</a>` +
+                    `<button type="button" id="inq-clear-cart-btn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-100">🗑️ Clear Cart</button>` +
+                  `</div>`
+                );
+              }
+
+              const inqClearBtn = document.getElementById("inq-clear-cart-btn");
+              if (inqClearBtn) {
+                inqClearBtn.addEventListener("click", () => {
+                  if (confirm("Clear all items from your cart now?")) {
+                    cart = {};
+                    saveCart();
+                    checkoutForm.reset();
+                    updatePlaceOrderState();
+                    showOrderStatus("info", "Your cart has been cleared.", "You can browse our catalogue to select new stones anytime.");
+                  }
+                });
+              }
+            };
+
+            fetch('/api/inquiries', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(inquiryPayload)
+            })
+            .then(res => res.json())
+            .then(resData => {
+              if (resData && resData.success && resData.data && resData.data.id) {
+                renderInquiryResponse(true, resData.data.id, resData.data.customerToken);
+              } else {
+                renderInquiryResponse(false, fallbackInqId, null);
+              }
+            })
+            .catch(err => {
+              console.warn("Backend inquiries endpoint unreachable; falling back to draft flow:", err);
+              renderInquiryResponse(false, fallbackInqId, null);
+            });
+
+            return;
+          }
+
+          // 3. Domestic Confirmed Payment Flow (Safe: strictly requires method and confirmed items)
+          if (!method) {
+            showOrderStatus("error", "Please select a payment method.");
+            return;
+          }
+
+          const orderId = generateOrderId();
           if (method === "razorpay" && country === "IN") {
             openRazorpayPayment(orderId, totals.total);
           } else if (method === "ccavenue") {

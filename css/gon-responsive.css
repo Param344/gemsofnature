@@ -1,0 +1,34 @@
+/* css/gon-responsive.css - Gems of Nature Mobile Responsive Fixes */
+
+/* Rudraksha cards – mobile layout fix */
+@media (max-width: 480px) {
+  /* Force 1 column on small screens */
+  #featured .grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  #featured .grid > div {
+    padding: 14px;
+  }
+
+  #featured .grid h3 {
+    font-size: 0.95rem;
+    line-height: 1.2rem;
+    margin-bottom: 0.35rem;
+  }
+
+  #featured .grid p {
+    font-size: 0.78rem;
+    line-height: 1.1rem;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  #featured img {
+    width: 5.5rem;
+    height: 5.5rem;
+  }
+}

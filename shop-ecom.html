@@ -41,16 +41,13 @@
   <link rel="icon" type="image/png" href="/images/logo.png">
 
   <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/gon-tailwind.css">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Global Styles -->
-  <link rel="stylesheet" href="/css/styles.css">
-
+  <link rel="stylesheet" href="/css/gon-design-system.css">
   <link rel="stylesheet" href="/css/gon-responsive.css">
-
   <link rel="stylesheet" href="/css/shop-ecom-mobile.css">
 
   <!-- Page Styles -->
@@ -67,13 +64,21 @@
     }
 
     .detail-panel {
-      transition: transform .28s ease, opacity .28s ease;
-      transform: translateX(20px);
+      transition: transform .28s cubic-bezier(0.16, 1, 0.3, 1), opacity .28s ease;
+      transform: translateY(24px);
       opacity: 0;
     }
     .detail-panel.open {
-      transform: translateX(0);
+      transform: translateY(0);
       opacity: 1;
+    }
+    @media (min-width: 768px) {
+      .detail-panel {
+        transform: translate(-50%, -46%);
+      }
+      .detail-panel.open {
+        transform: translate(-50%, -50%);
+      }
     }
 
     .product-card { position: relative; overflow: hidden; }
@@ -105,70 +110,95 @@
 
     /* Filter pills */
     .filter-pill {
-      border: 1px solid #d1d5db;
+      border: 1px solid #E8E2D5;
       border-radius: 999px;
-      padding: 0.4rem 0.95rem;
+      padding: 0.45rem 1rem;
       background: #ffffff;
+      color: #4B5563;
       font-size: 0.8rem;
+      font-weight: 500;
       cursor: pointer;
       white-space: nowrap;
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
-      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      gap: 0.35rem;
+      transition: all 0.15s ease;
     }
     .filter-pill span.arrow {
-      font-size: 0.6rem;
+      font-size: 0.65rem;
       line-height: 1;
+      color: #8A989A;
     }
     .filter-pill:hover {
-      background: #181d1c;
-      border-color: #2b3431;
-      color: #ffffff;
+      background: #F4EFE6;
+      border-color: #C5A869;
+      color: #0A3A2F;
     }
     .filter-pill.active {
-      background: #191f1e;
-      border-color: #131a18;
-      color: #ffffff;
+      background: #0A3A2F;
+      border-color: #0A3A2F;
+      color: #FBF9F5;
+      box-shadow: 0 2px 6px rgba(10,58,47,0.15);
+    }
+    .filter-pill.active span.arrow {
+      color: #C5A869;
     }
   </style>
+
+  <!-- Structured Data: CollectionPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Natural Gemstones & Spiritual Tools Catalogue | Gems of Nature",
+    "description": "Shop natural certified gemstones online with secure checkout. Transparent pricing, expert guidance, and free astrological consultation.",
+    "url": "https://www.gemsofnature.shop/shop-ecom.html",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Gems of Nature",
+      "url": "https://www.gemsofnature.shop",
+      "logo": "https://www.gemsofnature.shop/images/logo.png"
+    }
+  }
+  </script>
 
   <!-- Shared layout (header/footer) -->
   <script src="js/layout.js" defer></script>
   <script src="js/ai-chat.js" defer></script>
 </head>
 
-<body class="bg-gray-50 text-gray-800 font-montserrat" data-page="shop-ecom">
+<body class="bg-[#FBF9F5] text-[#111618] font-montserrat" data-page="shop-ecom">
   <!-- Header injected by layout.js -->
   <div id="header"></div>
 
   <!-- HERO -->
-  <section class="relative bg-cover bg-center h-52 md:h-64 fade-in" style="background-image:url('images/hero-bg.jpg')">
-    <div class="absolute inset-0 bg-black/45 flex items-center justify-center">
+  <section class="relative bg-cover bg-center h-60 md:h-72 fade-in" style="background-image:url('images/hero-bg.jpg')">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/65 via-black/55 to-[#062820]/80 flex items-center justify-center">
       <div class="text-center text-white px-6">
-        <h1 class="text-2xl md:text-4xl font-bold">Shop & Buy — Gems of Nature</h1>
-        <p class="mt-2">Authentic gemstones for healing, jewellery & collectors.</p>
+        <h1 class="text-3xl md:text-5xl font-bold font-display tracking-tight text-[#FBF9F5]">Vedic Gemstone &amp; Rudraksha Storefront</h1>
+        <p class="mt-2.5 text-sm md:text-base text-[#E8E2D5] font-light max-w-xl mx-auto">100% natural Jyotish gemstones and lab-certified Nepal Rudraksha with transparent pricing &amp; secure reservation.</p>
       </div>
     </div>
   </section>
 
   <!-- MAIN -->
-  <main class="container mx-auto px-4 py-10 fade-in">
+  <main id="main" tabindex="-1" class="container mx-auto px-4 py-8 md:py-10 fade-in">
     <!-- Filters block -->
-    <div class="bg-white rounded-2xl shadow p-4 mb-6 flex flex-col gap-3">
+    <div class="bg-white rounded-2xl border border-[#E8E2D5] shadow-sm p-4 md:p-5 mb-8 flex flex-col gap-3.5">
       <!-- Row 1: search (left) + sort + currency (right) -->
       <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div class="flex-1">
           <input
             id="search-input"
             type="search"
-            placeholder="Search gemstones, crystals or Rudraksha"
-            class="border rounded-full px-4 py-2 w-full text-sm"
+            aria-label="Search gemstones, crystals or Rudraksha"
+            placeholder="Search by gemstone name, origin, lab or benefits..."
+            class="border border-[#E8E2D5] focus:border-[#C5A869] rounded-xl px-4 py-2.5 w-full text-sm bg-white text-[#111618] placeholder-[#8A989A]"
           />
         </div>
 
         <div class="flex flex-col sm:flex-row sm:items-center gap-3 md:justify-end">
-          <select id="sort-select" class="border rounded-full px-3 py-2 text-sm w-full sm:w-auto">
+          <select id="sort-select" aria-label="Sort gemstone catalogue" class="border border-[#E8E2D5] focus:border-[#C5A869] rounded-xl px-3.5 py-2.5 text-sm w-full sm:w-auto bg-white text-[#111618]">
             <option value="default">Sort: Featured</option>
             <option value="price-asc">Price: Low → High</option>
             <option value="price-desc">Price: High → Low</option>
@@ -176,8 +206,8 @@
           </select>
 
           <div class="flex items-center gap-2 justify-between sm:justify-start">
-            <span class="text-sm text-gray-600">Currency</span>
-            <select id="currency-select" class="border rounded-full px-3 py-2 text-sm">
+            <label for="currency-select" class="text-sm text-[#526063] font-medium">Currency</label>
+            <select id="currency-select" aria-label="Select store currency" class="border border-[#E8E2D5] focus:border-[#C5A869] rounded-xl px-3.5 py-2.5 text-sm bg-white text-[#111618] font-medium">
               <option value="INR">₹ INR</option>
               <option value="USD">$ USD</option>
               <option value="EUR">€ EUR</option>
@@ -188,7 +218,7 @@
       </div>
 
       <!-- Hidden category select (used by JS) -->
-      <select id="category-filter" class="hidden">
+      <select id="category-filter" aria-label="Filter by category" class="hidden">
         <option value="all">All categories</option>
         <option value="Precious">Precious</option>
         <option value="Opal">Opal</option>
@@ -227,7 +257,7 @@
       <!-- Filter dropdown panel -->
       <div
         id="filter-panel"
-        class="mt-3 hidden bg-white border border-gray-200 rounded-2xl shadow-lg p-4 text-sm"
+        class="mt-3 hidden bg-[#FBF9F5] border border-[#C5A869]/30 rounded-2xl shadow-xl p-5 text-sm"
       ></div>
     </div>
 
@@ -238,29 +268,89 @@
     <div id="pagination" class="mt-6 flex items-center justify-center gap-2"></div>
   </main>
 
-  <!-- PRODUCT DETAIL (slide-in) -->
+  <!-- Backdrop Overlay for Product Detail -->
+  <div id="detail-overlay" class="fixed inset-0 bg-black/60 z-40 hidden transition-opacity" aria-hidden="true"></div>
+
+  <!-- PRODUCT DETAIL MODAL -->
   <aside
     id="product-detail"
-    class="fixed right-4 top-12 w-full md:w-1/2 bg-white rounded-2xl shadow-lg p-6 detail-panel z-50 hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="detail-title"
+    class="fixed z-50 inset-x-0 bottom-0 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full md:max-w-4xl max-h-[92vh] overflow-y-auto bg-[#FBF9F5] text-[#111618] border border-[#C5A869]/30 rounded-t-3xl md:rounded-2xl shadow-2xl p-6 md:p-8 detail-panel hidden"
     aria-hidden="true"
   >
-    <div class="flex gap-4">
-      <img id="detail-image" src="images/placeholder.jpg" alt="" class="w-40 h-40 object-cover rounded" />
-      <div class="flex-1">
-        <div class="flex items-start justify-between">
-          <h3 id="detail-title" class="text-xl font-semibold text-gray-700"></h3>
-          <button id="close-detail" class="text-gray-500">✕</button>
+    <div class="flex items-center justify-between pb-3 mb-4 border-b border-[#E8E2D5]">
+      <div class="flex items-center gap-2">
+        <span id="detail-category-badge" class="px-3 py-1 text-xs font-semibold rounded-full bg-[#EAF4F0] text-[#0A3A2F] border border-[#0A3A2F]/10"></span>
+        <span id="detail-stock-badge" class="px-3 py-1 text-xs font-semibold rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200"></span>
+      </div>
+      <button id="close-detail" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-stone-200/60 text-gray-500 hover:text-gray-900 text-base transition" aria-label="Close product details">
+        ✕
+      </button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Left Column: Image & Gemological / Astrological quick facts -->
+      <div class="flex flex-col gap-4">
+        <div class="relative w-full h-64 md:h-80 rounded-xl overflow-hidden bg-stone-100 border border-[#E8E2D5]">
+          <img id="detail-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Natural gemstone preview" class="w-full h-full object-cover" />
         </div>
-        <div id="detail-meta" class="text-sm text-gray-600 mt-2"></div>
-        <div id="detail-desc" class="text-sm text-gray-700 mt-3"></div>
-        <div id="detail-mukhi" class="mt-3 text-sm text-gray-700"></div>
-        <div id="detail-deity" class="mt-1 text-sm text-gray-700"></div>
-        <div id="detail-mantra" class="mt-1 text-sm text-gray-700"></div>
-        <div class="mt-4 flex items-center gap-3">
-          <div id="detail-price" class="text-lg font-semibold text-gray-800"></div>
-          <button id="detail-add" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg">
-            Add to Cart
+        <!-- Gemological & Lot Attributes (Dynamic) -->
+        <div id="detail-gemological" class="hidden p-3.5 bg-white border border-[#E8E2D5] rounded-xl text-xs space-y-2">
+          <div class="font-bold text-stone-900 flex items-center gap-1.5">
+            <span>🔬</span> Confirmed Gemological Attributes
+          </div>
+          <div id="detail-gem-grid" class="grid grid-cols-2 gap-2 text-stone-700"></div>
+        </div>
+        <!-- Astrology / Chakra Pills -->
+        <div id="detail-spiritual-grid" class="hidden grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs"></div>
+      </div>
+
+      <!-- Right Column: Title, Price, Description, Benefits, Mantra, Actions -->
+      <div class="flex flex-col justify-between">
+        <div class="space-y-3">
+          <h2 id="detail-title" class="font-display text-2xl md:text-3xl font-bold text-[#0A3A2F]"></h2>
+          
+          <!-- Price Display Block -->
+          <div class="p-4 bg-[#F4EFE6] rounded-xl border border-[#E8E2D5]">
+            <div id="detail-price" class="text-xl md:text-2xl font-bold text-[#111618]"></div>
+            <div id="detail-price-status" class="mt-1"></div>
+          </div>
+
+          <!-- Description -->
+          <div id="detail-desc" class="text-sm text-[#4B5563] leading-relaxed max-h-40 overflow-y-auto pr-1"></div>
+
+          <!-- Rudraksha Mukhi / Deity (if applicable) -->
+          <div id="detail-rudraksha-info" class="hidden space-y-1 text-sm bg-amber-50/70 p-3 rounded-xl border border-amber-200/80">
+            <div id="detail-mukhi" class="font-semibold text-amber-900 text-xs"></div>
+            <div id="detail-deity" class="text-xs text-amber-800"></div>
+          </div>
+
+          <!-- Key Benefits -->
+          <div id="detail-benefits-wrapper" class="hidden">
+            <h3 class="font-semibold text-gray-800 text-xs uppercase tracking-wider">Key Benefits</h3>
+            <ul id="detail-benefits-list" class="mt-1.5 space-y-1 text-xs text-gray-700 list-disc list-inside"></ul>
+          </div>
+
+          <!-- Sacred Mantra -->
+          <div id="detail-mantra-card" class="hidden p-3 bg-amber-50/80 border border-amber-200 rounded-xl text-xs space-y-1">
+            <div class="font-bold text-amber-900 flex items-center gap-1">
+              <span>🕉️</span> Sacred Mantra
+            </div>
+            <div id="detail-mantra-sanskrit" class="font-semibold text-amber-950 text-sm"></div>
+            <div id="detail-mantra-english" class="text-amber-800 italic text-[11px]"></div>
+          </div>
+        </div>
+
+        <!-- Add to cart & Quick Inquiry -->
+        <div class="pt-4 mt-4 border-t border-[#E8E2D5] flex flex-col sm:flex-row gap-2.5">
+          <button id="detail-add" class="flex-1 bg-[#0A3A2F] hover:bg-[#0D473A] text-[#FBF9F5] font-semibold py-3.5 px-6 rounded-xl shadow transition text-sm flex items-center justify-center gap-2">
+            🛒 Add to Cart
           </button>
+          <a id="detail-whatsapp-link" href="#" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-[#15803d] hover:bg-[#166534] text-white rounded-xl text-xs font-semibold shadow transition">
+            💬 Inquire on WhatsApp
+          </a>
         </div>
       </div>
     </div>
@@ -279,17 +369,14 @@
   // Use products from window
   const products = window.products || [];
 
-  // compute a display price (midpoint) for each product if not present
-  products.forEach(p => {
-    if (!p.price) p.price = Math.round(((p.price_min || 0) + (p.price_max || 0)) / 2);
-  });
+  // Provisional catalogue ranges preserved. Fictitious midpoint mutation removed.
 
   const ITEMS_PER_PAGE = 12;
   let currentPage = 1;
   let currentCurrency = 'INR';
   const currencyRates = { INR:1, USD:1/83, EUR:1/95, GBP:1/110 };
   let cart = JSON.parse(localStorage.getItem('gon_cart') || '{}');
-  const SHIPPING = 50;
+  const SHIPPING = 200;
 
   // extra filter state for pills
   const filterState = {
@@ -305,9 +392,94 @@
     origins: []
   };
 
-  // precompute unique certifications & origins (if present in data)
-  const uniqueCerts = [...new Set(products.map(p => p.certification).filter(Boolean))];
-  const uniqueOrigins = [...new Set(products.map(p => p.origin).filter(Boolean))];
+  // Stage 4B: Gemological attribute extraction and dynamic filter audit
+  function getCaratWeight(p) {
+    if (!p) return null;
+    if (typeof p.caratWeight === 'number' && Number.isFinite(p.caratWeight)) return p.caratWeight;
+    if (typeof p.carat === 'number' && Number.isFinite(p.carat)) return p.carat;
+    if (typeof p.weight_carat === 'number' && Number.isFinite(p.weight_carat)) return p.weight_carat;
+    return null;
+  }
+
+  function getRattiWeight(p) {
+    if (!p) return null;
+    if (typeof p.rattiWeight === 'number' && Number.isFinite(p.rattiWeight)) return p.rattiWeight;
+    if (typeof p.ratti === 'number' && Number.isFinite(p.ratti)) return p.ratti;
+    if (typeof p.weight_ratti === 'number' && Number.isFinite(p.weight_ratti)) return p.weight_ratti;
+    return null;
+  }
+
+  function getPricePerCarat(p) {
+    if (!p) return null;
+    if (typeof p.price_per_carat === 'number' && Number.isFinite(p.price_per_carat)) return p.price_per_carat;
+    if (typeof p.ppc === 'number' && Number.isFinite(p.ppc)) return p.ppc;
+    const cw = getCaratWeight(p);
+    const price = typeof p.finalPrice === 'number' && p.finalPrice > 0 ? p.finalPrice : null;
+    if (price != null && cw != null && cw > 0) {
+      return Math.round(price / cw);
+    }
+    return null;
+  }
+
+  function getCertification(p) {
+    if (!p) return null;
+    const cert = p.certLab || p.certification || (p.certStatus === 'CERTIFIED' || p.certNumber ? 'Certified' : null);
+    return cert ? String(cert).trim() : null;
+  }
+
+  function getOrigin(p) {
+    if (!p || !p.origin) return null;
+    return String(p.origin).trim();
+  }
+
+  // Precompute unique certifications & origins across loaded dataset
+  const uniqueCerts = [...new Set(products.map(p => getCertification(p)).filter(Boolean))];
+  const uniqueOrigins = [...new Set(products.map(p => getOrigin(p)).filter(Boolean))];
+
+  function auditFilterAvailability() {
+    return {
+      hasPrice: true,
+      hasPpc: products.some(p => getPricePerCarat(p) != null),
+      hasCarat: products.some(p => getCaratWeight(p) != null),
+      hasRatti: products.some(p => getRattiWeight(p) != null),
+      hasCert: uniqueCerts.length > 0,
+      hasOrigin: uniqueOrigins.length > 0
+    };
+  }
+
+  function updateFilterPillsDisplay() {
+    const avail = auditFilterAvailability();
+    const filterMap = {
+      'price-per-carat': avail.hasPpc,
+      'weight-carat': avail.hasCarat,
+      'weight-ratti': avail.hasRatti,
+      'certification': avail.hasCert,
+      'origin': avail.hasOrigin
+    };
+
+    Object.entries(filterMap).forEach(([filterName, isAvailable]) => {
+      const pill = document.querySelector(`.filter-pill[data-filter="${filterName}"]`);
+      if (!pill) return;
+      const existingBadge = pill.querySelector('.lot-badge');
+      if (!isAvailable) {
+        pill.setAttribute('title', 'Attribute confirmed upon physical lot selection. Click for details.');
+        if (!existingBadge) {
+          const badge = document.createElement('span');
+          badge.className = 'lot-badge text-[9px] text-amber-800 bg-amber-50 border border-amber-200 px-1 py-0.5 rounded font-normal ml-0.5';
+          badge.textContent = 'Lot';
+          const arrow = pill.querySelector('.arrow');
+          if (arrow) {
+            pill.insertBefore(badge, arrow);
+          } else {
+            pill.appendChild(badge);
+          }
+        }
+      } else {
+        pill.removeAttribute('title');
+        if (existingBadge) existingBadge.remove();
+      }
+    });
+  }
 
   function formatCurrency(value, currency='INR'){
     if (value==null) return '';
@@ -316,9 +488,22 @@
     return symbol + (value * currencyRates[currency]).toFixed(2);
   }
 
+  function formatProductPriceDisplay(prod, currency='INR') {
+    if (!prod) return '';
+    if (typeof prod.finalPrice === 'number' && prod.finalPrice > 0) {
+      return formatCurrency(prod.finalPrice, currency);
+    }
+    const min = prod.price_min || 0;
+    const max = prod.price_max || min;
+    if (min === max) {
+      return formatCurrency(min, currency) + ' <span class="text-[10px] text-gray-500 font-normal">(est.)</span>';
+    }
+    return formatCurrency(min, currency) + ' – ' + formatCurrency(max, currency) + ' <span class="text-[10px] text-gray-500 font-normal">(est.)</span>';
+  }
+
   function getProductPrice(prod) {
     if (!prod) return 0;
-    if (typeof prod.price === 'number') return prod.price;
+    if (typeof prod.finalPrice === 'number') return prod.finalPrice;
     if (typeof prod.price_min === 'number') return prod.price_min;
     if (typeof prod.price_max === 'number') return prod.price_max;
     const raw = String(prod.price || prod.price_min || prod.price_max || '');
@@ -326,30 +511,33 @@
     return isNaN(num) ? 0 : num;
   }
 
-  function renderProductCard(p){
+  function renderProductCard(p, cardIndex = 0){
     const div = document.createElement('div');
-    div.className = 'bg-white rounded-2xl shadow-md product-card';
+    div.className = 'bg-white rounded-2xl border border-[#E8E2D5] hover:border-[#C5A869]/70 shadow-sm hover:shadow-xl transition-all duration-300 product-card flex flex-col justify-between overflow-hidden group';
     div.setAttribute('data-id', p.id);
+    const safeName = (p.name || '').replace(/"/g, '&quot;');
+    const isEager = cardIndex < 4;
     div.innerHTML = `
-      <div class="relative h-48">
-        <img src="${p.image}" onerror="this.src='images/placeholder.jpg'" alt="${p.name}" class="w-full h-full object-cover transition-transform duration-500" />
+      <div class="relative h-52 bg-stone-100 overflow-hidden cursor-pointer" onclick="openProductDetail('${p.id}')">
+        <img src="${p.image}" onerror="this.onerror=null; this.src='/images/hero-bg.jpg';" alt="${safeName}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="${isEager ? 'eager' : 'lazy'}" decoding="async" />
         <div class="product-overlay">
-          <div class="w-full text-sm text-white line-clamp-3">${p.description || ''}</div>
+          <div class="w-full text-xs text-white line-clamp-3 leading-relaxed">${p.description || ''}</div>
         </div>
       </div>
-      <div class="p-4">
-        <h4 class="text-md font-semibold text-gray-700">${p.name}</h4>
-        <div class="text-xs text-gray-600">${p.category || ''}</div>
-        <div class="mt-3 flex items-center justify-between">
-          <div class="font-semibold text-gray-800">${formatCurrency(getProductPrice(p), currentCurrency)}</div>
-          <div class="flex items-center gap-2">
-            <button class="view-detail bg-white border border-gray-200 text-gray-700 px-3 py-2 rounded-lg" data-id="${p.id}">View</button>
-            <button
-              class="add-to-cart bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded-lg"
-              data-id="${p.id}"
-            >
-              Add
-            </button>
+      <div class="p-4 sm:p-5 flex flex-col justify-between flex-1">
+        <div>
+          <span class="inline-block px-2.5 py-0.5 rounded-md bg-[#EAF4F0] text-[#0A3A2F] text-[10px] font-semibold uppercase tracking-wider mb-1.5">${p.category || 'Gemstone'}</span>
+          <h4 class="font-display text-lg font-semibold text-[#0A3A2F] leading-snug cursor-pointer group-hover:text-[#0D473A] transition" onclick="openProductDetail('${p.id}')">${p.name}</h4>
+        </div>
+        <div class="mt-4 pt-3 border-t border-[#E8E2D5]/70 flex items-center justify-between gap-2">
+          <div class="font-bold text-[#111618] text-xs sm:text-sm leading-tight">${formatProductPriceDisplay(p, currentCurrency)}</div>
+          <div class="flex items-center gap-1.5 flex-shrink-0">
+            <button class="view-detail bg-white border border-[#E8E2D5] hover:border-[#C5A869] text-[#0A3A2F] hover:bg-[#FBF9F5] px-2.5 py-1.5 rounded-lg text-xs font-semibold transition"
+                    aria-label="View details for ${safeName}"
+                    data-id="${p.id}">View</button>
+            <button class="add-to-cart bg-[#0A3A2F] hover:bg-[#0D473A] text-[#FBF9F5] px-3 py-1.5 rounded-lg text-xs font-semibold transition shadow-sm"
+                    aria-label="Add ${safeName} to cart"
+                    data-id="${p.id}">Add</button>
           </div>
         </div>
       </div>
@@ -358,7 +546,7 @@
   }
 
   function applyFilters(){
-    const q = (document.getElementById('search-input').value || '').toLowerCase();
+    const q = (document.getElementById('search-input').value || '').toLowerCase().trim();
     const catSelect = document.getElementById('category-filter');
     const cat = catSelect ? catSelect.value : 'all';
     const sort = document.getElementById('sort-select').value;
@@ -368,37 +556,42 @@
       if (cat !== 'all' && p.category !== cat) return false;
 
       // search text
-      if (q && !(p.name.toLowerCase().includes(q) ||
-                 (p.description || '').toLowerCase().includes(q) ||
-                 (p.category || '').toLowerCase().includes(q))) return false;
+      if (q) {
+        const nameMatch = (p.name || '').toLowerCase().includes(q);
+        const descMatch = (p.description || '').toLowerCase().includes(q);
+        const catMatch = (p.category || '').toLowerCase().includes(q);
+        const originMatch = (p.origin || '').toLowerCase().includes(q);
+        const certMatch = (p.certLab || '').toLowerCase().includes(q);
+        if (!nameMatch && !descMatch && !catMatch && !originMatch && !certMatch) return false;
+      }
 
       // numeric filters
       const price = getProductPrice(p);
       if (filterState.priceMin != null && price < filterState.priceMin) return false;
       if (filterState.priceMax != null && price > filterState.priceMax) return false;
 
-      const ppc = p.price_per_carat || p.ppc;
+      const ppc = getPricePerCarat(p);
       if (filterState.ppcMin != null && (ppc == null || ppc < filterState.ppcMin)) return false;
       if (filterState.ppcMax != null && (ppc == null || ppc > filterState.ppcMax)) return false;
 
-      const wt = p.weight_carat || p.carat || p.weight;
+      const wt = getCaratWeight(p);
       if (filterState.wtMin != null && (wt == null || wt < filterState.wtMin)) return false;
       if (filterState.wtMax != null && (wt == null || wt > filterState.wtMax)) return false;
 
-      const rt = p.weight_ratti || p.ratti;
+      const rt = getRattiWeight(p);
       if (filterState.rattiMin != null && (rt == null || rt < filterState.rattiMin)) return false;
       if (filterState.rattiMax != null && (rt == null || rt > filterState.rattiMax)) return false;
 
       // certification
       if (filterState.certs.length) {
-        const certVal = p.certification ? String(p.certification) : '';
-        if (!filterState.certs.includes(certVal)) return false;
+        const certVal = getCertification(p);
+        if (!certVal || !filterState.certs.includes(certVal)) return false;
       }
 
       // origin
       if (filterState.origins.length) {
-        const originVal = p.origin ? String(p.origin) : '';
-        if (!filterState.origins.includes(originVal)) return false;
+        const originVal = getOrigin(p);
+        if (!originVal || !filterState.origins.includes(originVal)) return false;
       }
 
       return true;
@@ -417,8 +610,9 @@
     if (pages <= 1) return;
     for(let i=1;i<=pages;i++){
       const btn = document.createElement('button');
-      btn.className = `px-3 py-1 rounded ${i===currentPage ? 'bg-gray-600 text-white' : 'bg-white border'}`;
+      btn.className = `px-3.5 py-1.5 rounded-xl text-xs font-semibold transition ${i===currentPage ? 'bg-[#0A3A2F] text-[#FBF9F5] shadow-sm' : 'bg-white border border-[#E8E2D5] text-[#4B5563] hover:border-[#C5A869] hover:bg-[#F4EFE6]'}`;
       btn.textContent = i;
+      btn.setAttribute('aria-label', `Go to page ${i}`);
       btn.onclick = () => {
         currentPage = i;
         renderProducts();
@@ -432,9 +626,45 @@
     const grid = document.getElementById('products-grid');
     grid.innerHTML = '';
     const filtered = applyFilters();
+    if (filtered.length === 0) {
+      grid.innerHTML = `
+        <div class="col-span-full py-16 px-4 text-center bg-white rounded-2xl border border-[#E8E2D5] shadow-sm space-y-3">
+          <div class="text-3xl">🔍</div>
+          <h3 class="text-base font-semibold font-display text-[#0A3A2F]">No gemstones found</h3>
+          <p class="text-xs text-gray-500 max-w-md mx-auto">No products matched your current search and filter combination. Try adjusting or clearing your active filters.</p>
+          <button id="reset-all-filters-btn" class="mt-2 inline-flex items-center gap-1.5 px-4 py-2 bg-[#0A3A2F] hover:bg-[#0D473A] text-[#FBF9F5] text-xs font-semibold rounded-xl shadow transition">
+            Reset All Filters
+          </button>
+        </div>
+      `;
+      const resetBtn = document.getElementById('reset-all-filters-btn');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          document.getElementById('search-input').value = '';
+          const catSelect = document.getElementById('category-filter');
+          if (catSelect) catSelect.value = 'all';
+          const catPill = document.querySelector('.filter-pill[data-category]');
+          if (catPill) catPill.innerHTML = 'All categories <span class="arrow text-gray-300">&#9662;</span>';
+          filterState.priceMin = null;
+          filterState.priceMax = null;
+          filterState.ppcMin = null;
+          filterState.ppcMax = null;
+          filterState.wtMin = null;
+          filterState.wtMax = null;
+          filterState.rattiMin = null;
+          filterState.rattiMax = null;
+          filterState.certs = [];
+          filterState.origins = [];
+          currentPage = 1;
+          renderProducts();
+        });
+      }
+      renderPagination(0);
+      return;
+    }
     const start = (currentPage-1)*ITEMS_PER_PAGE;
     const pageItems = filtered.slice(start, start+ITEMS_PER_PAGE);
-    pageItems.forEach(p => grid.appendChild(renderProductCard(p)));
+    pageItems.forEach((p, idx) => grid.appendChild(renderProductCard(p, idx)));
     renderPagination(Math.ceil(filtered.length/ITEMS_PER_PAGE));
   }
 
@@ -468,14 +698,14 @@
     if (type === 'all' || type === 'category') {
       filterPanel.innerHTML = `
         <div class="grid grid-cols-2 gap-2">
-          <button class="cat-option border rounded-lg px-3 py-1 text-left text-sm" data-value="all">All categories</button>
-          <button class="cat-option border rounded-lg px-3 py-1 text-left text-sm" data-value="Precious">Precious</button>
-          <button class="cat-option border rounded-lg px-3 py-1 text-left text-sm" data-value="Opal">Opal</button>
-          <button class="cat-option border rounded-lg px-3 py-1 text-left text-sm" data-value="Astrology">Astrology</button>
-          <button class="cat-option border rounded-lg px-3 py-1 text-left text-sm" data-value="Healing">Healing</button>
-          <button class="cat-option border rounded-lg px-3 py-1 text-left text-sm" data-value="Accessory">Accessories</button>
-          <button class="cat-option border rounded-lg px-3 py-1 text-left text-sm" data-value="Rudraksha">Rudraksha</button>
-          <button class="cat-option border rounded-lg px-3 py-1 text-left text-sm" data-value="Raw">Raw stones</button>
+          <button class="cat-option border border-[#E8E2D5] hover:border-[#C5A869] hover:bg-[#F4EFE6] rounded-xl px-3.5 py-2 text-left text-xs font-medium text-[#111618] transition" data-value="all">All categories</button>
+          <button class="cat-option border border-[#E8E2D5] hover:border-[#C5A869] hover:bg-[#F4EFE6] rounded-xl px-3.5 py-2 text-left text-xs font-medium text-[#111618] transition" data-value="Precious">Precious</button>
+          <button class="cat-option border border-[#E8E2D5] hover:border-[#C5A869] hover:bg-[#F4EFE6] rounded-xl px-3.5 py-2 text-left text-xs font-medium text-[#111618] transition" data-value="Opal">Opal</button>
+          <button class="cat-option border border-[#E8E2D5] hover:border-[#C5A869] hover:bg-[#F4EFE6] rounded-xl px-3.5 py-2 text-left text-xs font-medium text-[#111618] transition" data-value="Astrology">Astrology</button>
+          <button class="cat-option border border-[#E8E2D5] hover:border-[#C5A869] hover:bg-[#F4EFE6] rounded-xl px-3.5 py-2 text-left text-xs font-medium text-[#111618] transition" data-value="Healing">Healing</button>
+          <button class="cat-option border border-[#E8E2D5] hover:border-[#C5A869] hover:bg-[#F4EFE6] rounded-xl px-3.5 py-2 text-left text-xs font-medium text-[#111618] transition" data-value="Accessory">Accessories</button>
+          <button class="cat-option border border-[#E8E2D5] hover:border-[#C5A869] hover:bg-[#F4EFE6] rounded-xl px-3.5 py-2 text-left text-xs font-medium text-[#111618] transition" data-value="Rudraksha">Rudraksha</button>
+          <button class="cat-option border border-[#E8E2D5] hover:border-[#C5A869] hover:bg-[#F4EFE6] rounded-xl px-3.5 py-2 text-left text-xs font-medium text-[#111618] transition" data-value="Raw">Raw stones</button>
         </div>
       `;
 
@@ -504,21 +734,21 @@
       filterPanel.innerHTML = `
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="text-xs text-gray-500">Min</label>
+            <label class="text-xs text-[#526063] font-medium">Min</label>
             <input id="${idBase}-min" type="number"
-                   class="mt-1 w-full border rounded-lg px-2 py-1 text-sm"
+                   class="mt-1 w-full border border-[#E8E2D5] focus:border-[#C5A869] rounded-xl px-3 py-2 text-sm bg-white text-[#111618]"
                    value="${minVal ?? ''}" />
           </div>
           <div>
-            <label class="text-xs text-gray-500">Max</label>
+            <label class="text-xs text-[#526063] font-medium">Max</label>
             <input id="${idBase}-max" type="number"
-                   class="mt-1 w-full border rounded-lg px-2 py-1 text-sm"
+                   class="mt-1 w-full border border-[#E8E2D5] focus:border-[#C5A869] rounded-xl px-3 py-2 text-sm bg-white text-[#111618]"
                    value="${maxVal ?? ''}" />
           </div>
         </div>
-        <div class="mt-3 flex justify-end gap-2">
-          <button id="${idBase}-clear" class="px-3 py-1 border rounded-lg text-xs">Clear</button>
-          <button id="${idBase}-apply" class="px-3 py-1 bg-gray-600 text-white rounded-lg text-xs">Apply</button>
+        <div class="mt-3.5 flex justify-end gap-2">
+          <button id="${idBase}-clear" class="px-3.5 py-1.5 border border-[#E8E2D5] text-[#526063] hover:bg-[#F4EFE6] rounded-xl text-xs font-medium transition">Clear</button>
+          <button id="${idBase}-apply" class="px-4 py-1.5 bg-[#0A3A2F] hover:bg-[#0D473A] text-[#FBF9F5] rounded-xl text-xs font-semibold transition shadow-sm">Apply</button>
         </div>
       `;
     }
@@ -548,7 +778,20 @@
       return;
     }
 
+    const avail = auditFilterAvailability();
+
     if (type === 'price-per-carat') {
+      if (!avail.hasPpc) {
+        filterPanel.innerHTML = `
+          <div class="p-3 text-xs bg-amber-50 text-amber-900 border border-amber-200 rounded-xl space-y-1.5">
+            <div class="font-bold flex items-center gap-1.5"><span>ℹ️</span> Price per Carat Filter Unavailable</div>
+            <p>Catalogue gemstones currently display provisional estimate ranges. Price-per-carat filtering activates dynamically when physical gemstone lots with confirmed weights and prices are loaded.</p>
+            <p class="text-[11px] text-amber-700">Add products to your cart and submit an inquiry to receive exact stone rates.</p>
+          </div>
+        `;
+        return;
+      }
+
       buildNumericPanel('filter-ppc', 'Price per Carat', filterState.ppcMin, filterState.ppcMax);
 
       const minInput = document.getElementById('filter-ppc-min');
@@ -573,6 +816,17 @@
     }
 
     if (type === 'weight-carat') {
+      if (!avail.hasCarat) {
+        filterPanel.innerHTML = `
+          <div class="p-3 text-xs bg-amber-50 text-amber-900 border border-amber-200 rounded-xl space-y-1.5">
+            <div class="font-bold flex items-center gap-1.5"><span>ℹ️</span> Carat Weight Filter Unavailable</div>
+            <p>Natural gemstones are unique 1-of-1 stones. Baseline catalogue items display provisional ranges; exact carat weights are confirmed per individual physical stone.</p>
+            <p class="text-[11px] text-amber-700">Specify your desired carat weight (e.g. 4+ ct) when submitting an inquiry.</p>
+          </div>
+        `;
+        return;
+      }
+
       buildNumericPanel('filter-wt', 'Weight (Carat)', filterState.wtMin, filterState.wtMax);
 
       const minInput = document.getElementById('filter-wt-min');
@@ -597,6 +851,16 @@
     }
 
     if (type === 'weight-ratti') {
+      if (!avail.hasRatti) {
+        filterPanel.innerHTML = `
+          <div class="p-3 text-xs bg-amber-50 text-amber-900 border border-amber-200 rounded-xl space-y-1.5">
+            <div class="font-bold flex items-center gap-1.5"><span>ℹ️</span> Ratti Weight Filter Unavailable</div>
+            <p>Traditional Vedic ratti weights apply to consecrated physical gemstones and rudrakshas. Exact ratti weights are provided upon physical lot selection.</p>
+          </div>
+        `;
+        return;
+      }
+
       buildNumericPanel('filter-ratti', 'Weight (Ratti)', filterState.rattiMin, filterState.rattiMax);
 
       const minInput = document.getElementById('filter-ratti-min');
@@ -621,8 +885,13 @@
     }
 
     if (type === 'certification') {
-      if (!uniqueCerts.length) {
-        filterPanel.innerHTML = '<p class="text-xs text-gray-500">No certification data available.</p>';
+      if (!avail.hasCert || !uniqueCerts.length) {
+        filterPanel.innerHTML = `
+          <div class="p-3 text-xs bg-amber-50 text-amber-900 border border-amber-200 rounded-xl space-y-1.5">
+            <div class="font-bold flex items-center gap-1.5"><span>ℹ️</span> Certification Filter Unavailable</div>
+            <p>All natural precious stones from Gems of Nature are eligible for independent GIA, IGI, or GJEPC laboratory certification upon reservation.</p>
+          </div>
+        `;
         return;
       }
 
@@ -637,9 +906,9 @@
             </label>
           `).join('')}
         </div>
-        <div class="mt-3 flex justify-end gap-2">
-          <button id="filter-cert-clear" class="px-3 py-1 border rounded-lg text-xs">Clear</button>
-          <button id="filter-cert-apply" class="px-3 py-1 bg-gray-600 text-white rounded-lg text-xs">Apply</button>
+        <div class="mt-3.5 flex justify-end gap-2">
+          <button id="filter-cert-clear" class="px-3.5 py-1.5 border border-[#E8E2D5] text-[#526063] hover:bg-[#F4EFE6] rounded-xl text-xs font-medium transition">Clear</button>
+          <button id="filter-cert-apply" class="px-4 py-1.5 bg-[#0A3A2F] hover:bg-[#0D473A] text-[#FBF9F5] rounded-xl text-xs font-semibold transition shadow-sm">Apply</button>
         </div>
       `;
 
@@ -662,8 +931,13 @@
     }
 
     if (type === 'origin') {
-      if (!uniqueOrigins.length) {
-        filterPanel.innerHTML = '<p class="text-xs text-gray-500">No origin data available.</p>';
+      if (!avail.hasOrigin || !uniqueOrigins.length) {
+        filterPanel.innerHTML = `
+          <div class="p-3 text-xs bg-amber-50 text-amber-900 border border-amber-200 rounded-xl space-y-1.5">
+            <div class="font-bold flex items-center gap-1.5"><span>ℹ️</span> Origin Filter Unavailable</div>
+            <p>Geographic origin (e.g. Burma, Ceylon, Kashmir, Zambia) is documented on individual gemstone certificates upon lot intake.</p>
+          </div>
+        `;
         return;
       }
 
@@ -678,9 +952,9 @@
             </label>
           `).join('')}
         </div>
-        <div class="mt-3 flex justify-end gap-2">
-          <button id="filter-origin-clear" class="px-3 py-1 border rounded-lg text-xs">Clear</button>
-          <button id="filter-origin-apply" class="px-3 py-1 bg-gray-600 text-white rounded-lg text-xs">Apply</button>
+        <div class="mt-3.5 flex justify-end gap-2">
+          <button id="filter-origin-clear" class="px-3.5 py-1.5 border border-[#E8E2D5] text-[#526063] hover:bg-[#F4EFE6] rounded-xl text-xs font-medium transition">Clear</button>
+          <button id="filter-origin-apply" class="px-4 py-1.5 bg-[#0A3A2F] hover:bg-[#0D473A] text-[#FBF9F5] rounded-xl text-xs font-semibold transition shadow-sm">Apply</button>
         </div>
       `;
 
@@ -725,46 +999,202 @@
     }
   });
 
-  // detail panel
+  // detail panel & modal state
   const detailPanel = document.getElementById('product-detail');
-  const detailImage = document.getElementById('detail-image');
-  const detailTitle = document.getElementById('detail-title');
-  const detailMeta = document.getElementById('detail-meta');
-  const detailDesc = document.getElementById('detail-desc');
-  const detailMukhi = document.getElementById('detail-mukhi');
-  const detailDeity = document.getElementById('detail-deity');
-  const detailMantra = document.getElementById('detail-mantra');
-  const detailPrice = document.getElementById('detail-price');
+  const detailOverlay = document.getElementById('detail-overlay');
   const detailAdd = document.getElementById('detail-add');
+  let lastActiveDetailTrigger = null;
 
   function openProductDetail(id){
-    const p = products.find(x => String(x.id) === String(id));
-    if(!p) return;
-    detailImage.src = p.image || 'images/placeholder.jpg';
-    detailTitle.textContent = p.name;
-    detailMeta.textContent = p.category || '';
-    detailDesc.textContent = p.description || '';
-    detailMukhi.textContent = p.mukhi ? ('Mukhi: ' + p.mukhi) : '';
-    detailDeity.textContent = p.deity ? ('Deity: ' + p.deity) : '';
-    detailMantra.textContent = p.mantra ? ('Mantra: ' + p.mantra) : '';
-    detailPrice.textContent = formatCurrency(getProductPrice(p), currentCurrency);
-    detailAdd.dataset.id = p.id;
-    detailPanel.classList.remove('hidden');
-    setTimeout(()=> detailPanel.classList.add('open'),10);
-    detailPanel.setAttribute('aria-hidden','false');
+    const base = products.find(x => String(x.id) === String(id));
+    if(!base) return;
+    lastActiveDetailTrigger = document.activeElement;
+
+    const meta = (window.productMeta && window.productMeta[id]) || {};
+    const p = { ...base, ...meta };
+
+    // Image & basic headers
+    const imgEl = document.getElementById('detail-image');
+    if (imgEl) {
+      imgEl.src = p.image || '/images/hero-bg.jpg';
+      imgEl.alt = p.name ? `${p.name} - Gems of Nature` : 'Natural gemstone';
+    }
+
+    const titleEl = document.getElementById('detail-title');
+    if (titleEl) titleEl.textContent = p.name || '';
+
+    const catBadge = document.getElementById('detail-category-badge');
+    if (catBadge) catBadge.textContent = p.category || 'Natural Stone';
+
+    const stockBadge = document.getElementById('detail-stock-badge');
+    if (stockBadge) {
+      const inStock = p.inStock !== false;
+      stockBadge.textContent = inStock ? 'In Stock' : 'Upon Request';
+      stockBadge.className = inStock
+        ? 'px-2.5 py-1 text-xs font-semibold rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200'
+        : 'px-2.5 py-1 text-xs font-semibold rounded-full bg-slate-100 text-slate-700 border border-slate-300';
+    }
+
+    // Price & Provisional Notice
+    const priceEl = document.getElementById('detail-price');
+    const priceStatusEl = document.getElementById('detail-price-status');
+    const isConfirmed = typeof p.finalPrice === 'number' && p.finalPrice > 0;
+
+    if (priceEl) {
+      priceEl.innerHTML = formatProductPriceDisplay(p, currentCurrency);
+    }
+
+    if (priceStatusEl) {
+      if (isConfirmed) {
+        priceStatusEl.innerHTML = `
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+            <span>✅</span> Confirmed Physical Stone Price
+          </div>
+          <p class="text-[11px] text-emerald-900/80 mt-1">Confirmed piece ready for purchase. SKU: <strong>${p.inventorySku || p.sku || 'LOT-CONFIRMED'}</strong></p>
+        `;
+      } else {
+        priceStatusEl.innerHTML = `
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-50 text-amber-800 border border-amber-200">
+            <span>ℹ️</span> Provisional Catalogue Estimate
+          </div>
+          <p class="text-[11px] text-amber-900/80 mt-1 leading-snug">Natural precious stones are unique 1-of-1 specimens. Exact price, carat weight, and certification are confirmed per individual physical stone via inquiry before payment.</p>
+        `;
+      }
+    }
+
+    // Description
+    const descEl = document.getElementById('detail-desc');
+    if (descEl) {
+      descEl.textContent = p.long_description || p.description || '';
+    }
+
+    // Gemological attributes (Carat, Ratti, Lab, Report #, Origin)
+    const gemWrapper = document.getElementById('detail-gemological');
+    const gemGrid = document.getElementById('detail-gem-grid');
+    const cw = getCaratWeight(p);
+    const rw = getRattiWeight(p);
+    const certLab = getCertification(p);
+    const certNum = p.certNumber || p.cert_number || null;
+    const origin = getOrigin(p);
+
+    if (gemWrapper && gemGrid) {
+      const gemItems = [];
+      if (cw) gemItems.push(`<div><span class="text-stone-500">Weight:</span> <span class="font-semibold text-stone-900">${cw} ct</span></div>`);
+      if (rw) gemItems.push(`<div><span class="text-stone-500">Ratti:</span> <span class="font-semibold text-stone-900">${rw} Ratti</span></div>`);
+      if (certLab) gemItems.push(`<div><span class="text-stone-500">Laboratory:</span> <span class="font-semibold text-stone-900">${certLab}</span></div>`);
+      if (certNum) gemItems.push(`<div><span class="text-stone-500">Report #:</span> <span class="font-semibold text-stone-900">${certNum}</span></div>`);
+      if (origin) gemItems.push(`<div><span class="text-stone-500">Origin:</span> <span class="font-semibold text-stone-900">${origin}</span></div>`);
+
+      if (gemItems.length > 0) {
+        gemGrid.innerHTML = gemItems.join('');
+        gemWrapper.classList.remove('hidden');
+      } else {
+        gemWrapper.classList.add('hidden');
+      }
+    }
+
+    // Astrology & Chakra properties
+    const spiritualGrid = document.getElementById('detail-spiritual-grid');
+    if (spiritualGrid) {
+      const spiritualItems = [];
+      if (p.planet) {
+        spiritualItems.push(`<div class="p-2 rounded-lg bg-stone-50 border border-stone-200"><span class="text-stone-500 block text-[10px]">Ruling Planet</span><span class="font-semibold text-stone-800">${p.planet}</span></div>`);
+      }
+      const zodiacText = Array.isArray(p.zodiac) ? p.zodiac.join(', ') : (p.zodiac || '');
+      if (zodiacText) {
+        spiritualItems.push(`<div class="p-2 rounded-lg bg-stone-50 border border-stone-200"><span class="text-stone-500 block text-[10px]">Zodiac Sign</span><span class="font-semibold text-stone-800">${zodiacText}</span></div>`);
+      }
+      const chakraText = Array.isArray(p.chakra) ? p.chakra.join(', ') : (p.chakra || '');
+      if (chakraText) {
+        spiritualItems.push(`<div class="p-2 rounded-lg bg-stone-50 border border-stone-200"><span class="text-stone-500 block text-[10px]">Chakra</span><span class="font-semibold text-stone-800">${chakraText}</span></div>`);
+      }
+      if (spiritualItems.length > 0) {
+        spiritualGrid.innerHTML = spiritualItems.join('');
+        spiritualGrid.classList.remove('hidden');
+      } else {
+        spiritualGrid.classList.add('hidden');
+      }
+    }
+
+    // Rudraksha Mukhi / Deity
+    const rudrakshaInfo = document.getElementById('detail-rudraksha-info');
+    const mukhiEl = document.getElementById('detail-mukhi');
+    const deityEl = document.getElementById('detail-deity');
+    if (rudrakshaInfo && (p.mukhi || p.deity)) {
+      if (mukhiEl) mukhiEl.textContent = p.mukhi ? `Mukhi: ${p.mukhi} Mukhi` : '';
+      if (deityEl) deityEl.textContent = p.deity ? `Ruling Deity: ${p.deity}` : '';
+      rudrakshaInfo.classList.remove('hidden');
+    } else if (rudrakshaInfo) {
+      rudrakshaInfo.classList.add('hidden');
+    }
+
+    // Key Benefits
+    const benefitsWrapper = document.getElementById('detail-benefits-wrapper');
+    const benefitsList = document.getElementById('detail-benefits-list');
+    if (benefitsWrapper && benefitsList && Array.isArray(p.benefits) && p.benefits.length > 0) {
+      benefitsList.innerHTML = p.benefits.map(b => `<li>${b}</li>`).join('');
+      benefitsWrapper.classList.remove('hidden');
+    } else if (benefitsWrapper) {
+      benefitsWrapper.classList.add('hidden');
+    }
+
+    // Sacred Mantra
+    const mantraCard = document.getElementById('detail-mantra-card');
+    const mantraSanskrit = document.getElementById('detail-mantra-sanskrit');
+    const mantraEnglish = document.getElementById('detail-mantra-english');
+    const hasSanskrit = Boolean(p.mantra_sanskrit);
+    const hasEnglish = Boolean(p.mantra_english || p.mantra);
+
+    if (mantraCard && (hasSanskrit || hasEnglish)) {
+      if (mantraSanskrit) mantraSanskrit.textContent = p.mantra_sanskrit || '';
+      if (mantraEnglish) mantraEnglish.textContent = p.mantra_english || (hasSanskrit ? '' : (p.mantra || ''));
+      mantraCard.classList.remove('hidden');
+    } else if (mantraCard) {
+      mantraCard.classList.add('hidden');
+    }
+
+    // Actions
+    if (detailAdd) detailAdd.dataset.id = p.id;
+
+    const waLink = document.getElementById('detail-whatsapp-link');
+    if (waLink) {
+      const waText = encodeURIComponent(`Hi Gems of Nature, I am interested in ${p.name} (ID: ${p.id}). Please share available natural stones and certified rates.`);
+      waLink.href = `https://wa.me/917827491801?text=${waText}`;
+    }
+
+    // Show modal and backdrop
+    if (detailOverlay) detailOverlay.classList.remove('hidden');
+    if (detailPanel) {
+      detailPanel.classList.remove('hidden');
+      setTimeout(() => detailPanel.classList.add('open'), 10);
+      detailPanel.setAttribute('aria-hidden', 'false');
+      const closeBtn = document.getElementById('close-detail');
+      if (closeBtn) closeBtn.focus();
+    }
   }
 
-  document.getElementById('close-detail').addEventListener('click', ()=>{
-    detailPanel.classList.remove('open');
-    setTimeout(()=> detailPanel.classList.add('hidden'),280);
-  });
+  function closeProductDetail() {
+    if (detailPanel) {
+      detailPanel.classList.remove('open');
+      detailPanel.setAttribute('aria-hidden', 'true');
+      setTimeout(() => detailPanel.classList.add('hidden'), 280);
+    }
+    if (detailOverlay) detailOverlay.classList.add('hidden');
+    if (lastActiveDetailTrigger && typeof lastActiveDetailTrigger.focus === 'function') {
+      lastActiveDetailTrigger.focus();
+    }
+  }
+
+  const closeDetailBtn = document.getElementById('close-detail');
+  if (closeDetailBtn) closeDetailBtn.addEventListener('click', closeProductDetail);
+  if (detailOverlay) detailOverlay.addEventListener('click', closeProductDetail);
 
   detailAdd && detailAdd.addEventListener('click', ()=>{
     const id = detailAdd.dataset.id;
     cart[id] = (cart[id]||0)+1;
     saveCart();
-    detailAdd.textContent='Added';
-    setTimeout(()=> detailAdd.textContent='Add to Cart',900);
+    detailAdd.textContent='Added!';
+    setTimeout(()=> detailAdd.textContent='🛒 Add to Cart',900);
   });
 
   // header cart badge & mini cart
@@ -780,6 +1210,12 @@
   }
 
   function renderCart(){
+    // If TypeScript mini-cart adapter is active, delegate to GNMiniCart.render() to prevent duplicate rendering
+    if (window.GNMiniCart && typeof window.GNMiniCart.isActive === 'function' && window.GNMiniCart.isActive()) {
+      window.GNMiniCart.render();
+      return;
+    }
+
     // always grab latest elements (header loads asynchronously)
     const cartMiniItemsEl = document.getElementById('cart-items-mini');
     const cartTotalMiniEl = document.getElementById('cart-total-mini');
@@ -803,13 +1239,34 @@
     }
 
     // there ARE items
+    let minSubtotal = 0;
+    let maxSubtotal = 0;
+    let hasProv = false;
+
     entries.forEach(([pid, qty]) => {
       const prod =
         products.find(p => String(p.id) === String(pid)) ||
-        { name: pid, price: 0, image: 'images/placeholder.jpg' };
+        { name: pid, image: '/images/hero-bg.jpg' };
 
-      const price = getProductPrice(prod);
-      subtotal += price * qty;
+      const isConfirmed = prod.pricingStatus === 'INVENTORY_CONFIRMED' && typeof prod.finalPrice === 'number' && prod.finalPrice > 0;
+      const min = typeof prod.price_min === 'number' ? prod.price_min : (prod.finalPrice || 0);
+      const max = typeof prod.price_max === 'number' ? prod.price_max : min;
+      if (!isConfirmed && min !== max) {
+        hasProv = true;
+      }
+
+      const lineMin = min * qty;
+      const lineMax = max * qty;
+      minSubtotal += lineMin;
+      maxSubtotal += lineMax;
+
+      const unitText = !isConfirmed && min !== max
+        ? `${formatCurrency(min, currentCurrency)} – ${formatCurrency(max, currentCurrency)} (est.)`
+        : formatCurrency(prod.finalPrice || min, currentCurrency);
+
+      const lineText = !isConfirmed && min !== max
+        ? `${formatCurrency(lineMin, currentCurrency)} – ${formatCurrency(lineMax, currentCurrency)}`
+        : formatCurrency(lineMin, currentCurrency);
 
       if (cartMiniItemsEl) {
         const item = document.createElement('div');
@@ -817,10 +1274,10 @@
         item.innerHTML = `
           <div class="flex-1">
             <div class="text-xs font-medium text-gray-800">${prod.name || pid}</div>
-            <div class="text-[11px] text-gray-500">${qty} × ${formatCurrency(price, currentCurrency)}</div>
+            <div class="text-[11px] text-gray-500">${qty} × ${unitText}</div>
           </div>
           <div class="text-xs font-semibold text-gray-800">
-            ${formatCurrency(price * qty, currentCurrency)}
+            ${lineText}
           </div>
         `;
         cartMiniItemsEl.appendChild(item);
@@ -830,9 +1287,12 @@
     const count = entries.reduce((s, [, q]) => s + Number(q || 0), 0);
     updateHeaderCartCount(count);
 
-    const total = subtotal + SHIPPING;
+    const minTotal = minSubtotal + SHIPPING;
+    const maxTotal = maxSubtotal + SHIPPING;
     if (cartTotalMiniEl) {
-      cartTotalMiniEl.textContent = formatCurrency(total, currentCurrency);
+      cartTotalMiniEl.textContent = hasProv && minTotal !== maxTotal
+        ? `${formatCurrency(minTotal, currentCurrency)} – ${formatCurrency(maxTotal, currentCurrency)}`
+        : formatCurrency(minTotal, currentCurrency);
     }
 
     // wire up "Clear Cart" button once header exists
@@ -868,13 +1328,50 @@
     });
   }
 
+  // Handle URL category param (e.g. ?category=Healing, ?category=precious, #rudraksha)
+  const params = new URLSearchParams(window.location.search);
+  const rawCatParam = params.get('category') || (window.location.hash ? window.location.hash.replace('#', '') : null);
+
+  if (rawCatParam) {
+    const cleanCat = decodeURIComponent(rawCatParam).trim().toLowerCase();
+    const catSelect = document.getElementById('category-filter');
+    const catMap = {
+      'precious': 'Precious',
+      'precious stones': 'Precious',
+      'opal': 'Opal',
+      'opal collection': 'Opal',
+      'astrology': 'Astrology',
+      'astrology & planetary stones': 'Astrology',
+      'healing': 'Healing',
+      'healing stones': 'Healing',
+      'accessory': 'Accessory',
+      'accessories': 'Accessory',
+      'healing accessories': 'Accessory',
+      'rudraksha': 'Rudraksha',
+      'rudraksha collection': 'Rudraksha',
+      'raw': 'Raw',
+      'raw stones': 'Raw',
+      'raw crystals': 'Raw',
+      'raw crystals & décor': 'Raw'
+    };
+
+    const matchedCat = catMap[cleanCat];
+    if (matchedCat && catSelect) {
+      catSelect.value = matchedCat;
+      const catPill = document.querySelector('.filter-pill[data-category]');
+      if (catPill) {
+        catPill.innerHTML = matchedCat + ' <span class="arrow text-gray-300">&#9662;</span>';
+      }
+    }
+  }
+
   // initial render
   currentPage = 1;
   renderProducts();
   renderCart();
+  updateFilterPillsDisplay();
 
-  // If coming from shop.html with ?id=pX → open product detail
-  const params = new URLSearchParams(window.location.search);
+  // If coming from shop.html or direct link with ?id=pX → open product detail
   const initialId = params.get('id');
   if (initialId) {
     const exists = products.find(p => String(p.id) === String(initialId));
@@ -883,12 +1380,29 @@
     }
   }
 
-  // close detail on Escape
-  document.addEventListener('keydown', (e)=> {
-    if(e.key === 'Escape'){
-      if(!detailPanel.classList.contains('hidden')){
-        detailPanel.classList.remove('open');
-        setTimeout(()=> detailPanel.classList.add('hidden'),280);
+  // Modal focus trap & Escape dismissal
+  document.addEventListener('keydown', (e) => {
+    if (detailPanel && !detailPanel.classList.contains('hidden')) {
+      if (e.key === 'Escape') {
+        closeProductDetail();
+        return;
+      }
+      if (e.key === 'Tab') {
+        const focusable = detailPanel.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])');
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            last.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === last) {
+            first.focus();
+            e.preventDefault();
+          }
+        }
       }
     }
   });
@@ -906,5 +1420,8 @@
   <script src="js/gn-config.js"></script>
   <script src="js/gn-utils.js"></script>
   <script src="js/script.js"></script>
+
+  <!-- Stage 2C.2: Controlled Cart Badge Adapter Integration (Reversible via script removal) -->
+  <script type="module" src="/src/client/cart-badge-adapter.ts"></script>
 </body>
 </html>

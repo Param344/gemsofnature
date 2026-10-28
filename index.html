@@ -42,13 +42,13 @@
   <link rel="icon" type="image/png" href="/images/logo.png">
 
   <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/gon-tailwind.css">
 
-  <!-- Google Fonts: Montserrat -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Google Fonts: Montserrat & Cormorant Garamond -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
+  <link rel="stylesheet" href="/css/gon-design-system.css">
   <link rel="stylesheet" href="/css/gon-responsive.css">
-
   <link rel="stylesheet" href="/css/index-mobile.css">
 
 
@@ -417,7 +417,7 @@
   <div id="header"></div>
 
   <!-- MAIN: page content -->
-  <main class="flex-1">
+  <main id="main" tabindex="-1" class="flex-1">
 
    <!-- ====== HERO: double-buffered background + foreground slides + reflection ======
      Replace the old hero BG div + right-column slider markup + old hero script with this. -->
@@ -735,12 +735,9 @@
                 </p>
                 <div class="mt-3">
                   <button id="open-sample-report"
-                          class="bg-gray-600 text-white px-3 py-2 rounded">
+                          class="bg-[#0A3A2F] hover:bg-[#0D473A] text-white text-xs font-semibold px-4 py-2 rounded-lg transition shadow-sm">
                     View sample report
                   </button>
-                  <a href="files/sample-lab-report.pdf" target="_blank" class="ml-3 text-sm text-gray-600 underline">
-                  View Sample Report
-                  </a>
                 </div>
               </div>
 
@@ -1366,7 +1363,8 @@
 
             card.innerHTML = `
               <div class="flex flex-col items-center text-center">
-                <img src="${p.image || 'images/placeholder.jpg'}"
+                <img src="${p.image || '/images/hero-bg.jpg'}"
+                     onerror="this.onerror=null; this.src='/images/hero-bg.jpg';"
                      class="w-24 h-24 object-cover rounded mb-3" alt="${p.name}">
                 <h4 class="text-base font-semibold text-gray-700">${p.name}</h4>
                 <p class="text-sm text-gray-600 mt-1">Price: ₹${(p.price || 0).toLocaleString('en-IN')}</p>
@@ -1419,7 +1417,8 @@
 
               card.innerHTML = `
                 <div class="flex flex-col items-center text-center">
-                  <img src="${p.image || 'images/placeholder.jpg'}"
+                  <img src="${p.image || '/images/hero-bg.jpg'}"
+                       onerror="this.onerror=null; this.src='/images/hero-bg.jpg';"
                        class="w-24 h-24 object-contain rounded mb-3" alt="${p.name}">
                   <h4 class="text-base font-semibold text-gray-700">${p.name}</h4>
                   <p class="text-sm text-gray-600 mt-1">Price: ₹${(p.price || 0).toLocaleString('en-IN')}</p>

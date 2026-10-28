@@ -1,230 +1,170 @@
 <!-- footer.html -->
 <footer
   id="site-footer"
-  class="text-[#0f1720] pt-6 pb-4"
-  style="
-    background: linear-gradient(
-      90deg,
-      #F3E3CB 0%,
-      #D7EDEB 30%,
-      #B5E2F1 65%,
-      #89C4E8 100%
-    );
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-  "
+  class="bg-[#062820] text-[#FBF9F5] border-t border-[#C5A869]/30 pt-12 pb-6"
 >
-<style>
-/* =========================
-   Footer Base
-   ========================= */
-#site-footer {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  color: rgba(15, 17, 19, 0.85);
-}
+  <style>
+    #site-footer {
+      font-family: "Montserrat", system-ui, -apple-system, sans-serif;
+      color: rgba(251, 249, 245, 0.88);
+    }
 
-#site-footer h3 {
-  font-size: 1.25rem;
-  font-weight: 650;
-  letter-spacing: 0.45px;
-  margin-bottom: 1rem;
-  color: #0f1720;
-}
+    #site-footer .footer-brand-title {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.85rem;
+      font-weight: 600;
+      color: #FBF9F5;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+    }
 
-#site-footer a {
-  color: rgba(15,23,32,0.78);
-  text-decoration: none;
-  transition: color .18s ease, transform .18s ease;
-}
-#site-footer a:hover {
-  color: #0f1720;
-  transform: translateX(2px);
-}
+    #site-footer h3 {
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #C5A869;
+      margin-bottom: 1.1rem;
+    }
 
-#site-footer p,
-#site-footer li {
-  font-size: 0.9rem;
-  line-height: 1.45;
-  color: rgba(15,23,32,0.78);
-}
+    #site-footer a {
+      color: rgba(251, 249, 245, 0.78);
+      text-decoration: none;
+      transition: color 0.18s ease, transform 0.18s ease;
+      display: inline-block;
+    }
 
-/* Layout spacing */
-#site-footer .footer-columns {
-  gap: 3rem;
-}
-@media (max-width: 768px) {
-  #site-footer .footer-columns { gap: 1.5rem; }
-}
+    #site-footer a:hover,
+    #site-footer a:focus-visible {
+      color: #DFCA97;
+      transform: translateX(2px);
+    }
 
-/* =========================
-   Trust & Assurance (Merged)
-   ========================= */
-#site-footer .trust-block {
-  margin-top: 0.5rem;
-}
+    #site-footer p,
+    #site-footer li {
+      font-size: 0.84rem;
+      line-height: 1.6;
+      color: rgba(251, 249, 245, 0.78);
+    }
 
-#site-footer .trust-title {
-  font-size: 0.85rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  font-weight: 700;
-  margin-bottom: 0.6rem;
-  color: #0f1720; /* deep black */
-  text-shadow: 0 1px 0 rgba(255,255,255,0.4); /* subtle shine */
-}
+    #site-footer .trust-points span {
+      display: block;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: rgba(251, 249, 245, 0.88);
+    }
 
-#site-footer .trust-points {
-  font-size: 0.82rem;
-  line-height: 1.6;
-  color: rgba(15,23,32,0.92); /* much darker */
-  font-weight: 500;
-}
+    #site-footer .footer-divider {
+      border-color: rgba(197, 168, 105, 0.2);
+    }
 
-#site-footer .trust-points span {
-  display: block;
-  text-shadow: 0 1px 0 rgba(255,255,255,0.35);
-}
+    #site-footer .copyright {
+      font-size: 0.76rem;
+      letter-spacing: 0.02em;
+      color: rgba(251, 249, 245, 0.65);
+    }
 
-/* Divider & copyright */
-#site-footer .footer-divider {
-  border-color: rgba(15,23,32,0.20);
-}
-#site-footer .copyright {
-  font-size: 0.78rem;
-  letter-spacing: 0.25px;
-  color: rgba(15,23,32,0.82);
-}
+    @media (max-width: 768px) {
+      #site-footer {
+        padding-top: 2.5rem;
+        padding-bottom: 1.5rem;
+      }
+      #site-footer h3 {
+        margin-bottom: 0.75rem;
+      }
+    }
+  </style>
 
-/* =========================
-   Mobile Footer Refinement
-   ========================= */
-@media (max-width: 768px) {
-
-  /* Overall footer breathing room */
-  #site-footer {
-    padding-top: 1.5rem;
-    padding-bottom: 1.25rem;
-  }
-
-  /* Stack columns cleanly */
-  #site-footer .footer-columns {
-    gap: 2rem;
-    align-items: center;
-  }
-
-  /* Help & Policies */
-  #site-footer h3 {
-    font-size: 1.1rem;
-    margin-bottom: 0.75rem;
-  }
-
-  #site-footer ul li {
-    text-align: center;
-  }
-
-  /* Social section */
-  #site-footer .trust-block {
-    margin-top: 1.2rem;
-  }
-
-  #site-footer .trust-title {
-    text-align: center;
-    margin-bottom: 0.75rem;
-  }
-
-  /* Trust icons centered & balanced */
-  #site-footer .trust-block .flex {
-    justify-content: center;
-  }
-
-  /* Trust points readability */
-  #site-footer .trust-points {
-    text-align: center;
-    font-size: 0.8rem;
-    line-height: 1.5;
-  }
-
-  #site-footer .trust-points span {
-    margin-bottom: 2px;
-  }
-
-  /* Bottom copyright */
-  #site-footer .footer-divider {
-    margin-top: 1.25rem;
-  }
-
-  #site-footer .copyright {
-    font-size: 0.75rem;
-  }
-}
-
-</style>
-
-<div class="max-w-7xl mx-auto px-6">
-
-  <!-- Main Footer Content -->
-  <div class="flex flex-col md:flex-row items-start justify-between footer-columns">
-
-    <!-- Help & Policies -->
-    <div class="text-center md:text-left">
-      <h3>Help &amp; Policies</h3>
-      <ul class="space-y-2 text-sm">
-        <li><a href="/guides/faq.html">FAQ</a></li>
-        <li><a href="/guides/shipping-policy.html">Shipping Policy</a></li>
-        <li><a href="/guides/returns-refunds.html">Returns &amp; Refunds</a></li>
-        <li><a href="/guides/privacy-policy.html">Privacy Policy</a></li>
-        <li><a href="/guides/terms-conditions.html">Terms &amp; Conditions</a></li>
-      </ul>
-    </div>
-
-    <!-- Social + Trust -->
-    <div class="w-full md:w-auto text-center md:text-right">
-
-      <!-- Social -->
-      <span class="font-semibold mb-2 block">Connect with us</span>
-      <div class="flex justify-center md:justify-end gap-4 mb-4">
-        <a href="https://www.facebook.com/profile.php?id=61581929357076" target="_blank" rel="noopener">
-          <img src="/images/social/facebook.png" alt="Facebook" class="w-6 h-6 rounded-full shadow-md">
-        </a>
-        <a href="https://www.instagram.com/gemsofnatureshop" target="_blank" rel="noopener">
-          <img src="/images/social/instagram.png" alt="Instagram" class="w-6 h-6 rounded-md shadow-md">
-        </a>
-        <a href="https://www.linkedin.com/company/gems-of-nature" target="_blank" rel="noopener">
-          <img src="/images/social/linkedin.png" alt="LinkedIn" class="w-6 h-6 rounded-md shadow-md">
-        </a>
-      </div>
-
-      <!-- Trust & Assurance -->
-      <div class="trust-block">
-        <div class="trust-title">Trust &amp; Assurance</div>
-
-        <div class="flex justify-center md:justify-end gap-3 mb-2">
-          <img src="/images/gia.png" alt="GIA" class="h-6 grayscale hover:grayscale-0 transition">
-          <img src="/images/igi.png" alt="IGI" class="h-6 grayscale hover:grayscale-0 transition">
-          <img src="/images/gjepc.png" alt="GJEPC" class="h-6 grayscale hover:grayscale-0 transition">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <!-- Main 4-Column Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 pb-10">
+      <!-- Column 1: Brand & Heritage -->
+      <div class="space-y-4">
+        <div>
+          <span class="footer-brand-title block">Gems of Nature</span>
+          <span class="text-[10px] uppercase tracking-[0.2em] text-[#C5A869] font-semibold block mt-0.5">Vedic &amp; Natural Gemstones</span>
         </div>
-
-        <div class="trust-points md:text-right">
-          <span>100% Natural &amp; Untreated Stones</span>
-          <span>Lab Certification Available (GIA / IGI)</span>
-          <span>Secure Payments via UPI &amp; Cards</span>
-          <span>Expert Gemstone Guidance Available</span>
+        <p class="text-xs leading-relaxed text-[#D5CFC3]">
+          Pure, certified natural gemstones and authentic Nepali Rudraksha. Hand-selected, ethically sourced, and energised with sacred Vedic traditions for astrology, healing, and jewellery.
+        </p>
+        <div class="pt-2 space-y-1.5 text-xs text-[#D5CFC3]">
+          <div><strong class="text-[#FBF9F5]">Phone / WhatsApp:</strong> <a href="https://wa.me/917827491801" target="_blank" rel="noopener" class="text-[#C5A869] font-medium">+91 78274 91801</a></div>
+          <div><strong class="text-[#FBF9F5]">Email:</strong> <a href="mailto:Paramjeet.singh@outlook.in">Paramjeet.singh@outlook.in</a></div>
+          <div class="text-[11px] text-gray-400">Mon–Sat: 10 AM – 7 PM IST</div>
         </div>
       </div>
 
+      <!-- Column 2: Collections & Guides -->
+      <div>
+        <h3>Collections &amp; Guides</h3>
+        <ul class="space-y-2 text-xs list-none m-0 p-0">
+          <li><a href="/shop-ecom.html?category=Precious">Precious Gemstones</a></li>
+          <li><a href="/shop-ecom.html?category=Astrology">Astrological &amp; Planetary Stones</a></li>
+          <li><a href="/shop-ecom.html?category=Healing">Healing &amp; Chakra Stones</a></li>
+          <li><a href="/shop-ecom.html?category=Rudraksha">Nepali Rudraksha Collection</a></li>
+          <li><a href="/guides/gemstone-basics.html">Gemstone Basics Guide</a></li>
+          <li><a href="/guides/how-to-choose.html">How to Choose a Stone</a></li>
+          <li><a href="/guides/rudraksha-guide.html">Rudraksha Mukhi Guide</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Help & Policies -->
+      <div>
+        <h3>Help &amp; Policies</h3>
+        <ul class="space-y-2 text-xs list-none m-0 p-0">
+          <li><a href="/guides/faq.html">Frequently Asked Questions</a></li>
+          <li><a href="/guides/shipping-policy.html">Shipping Policy (Domestic &amp; International)</a></li>
+          <li><a href="/guides/returns-refunds.html">Returns &amp; Refunds Policy</a></li>
+          <li><a href="/guides/privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="/guides/terms-conditions.html">Terms &amp; Conditions</a></li>
+          <li><a href="/contact.html">Customer Support</a></li>
+          <li><a href="/astrology.consultation.html">Book Astrological Consultation</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4: Trust & Verification -->
+      <div class="space-y-4">
+        <div>
+          <h3>Trust &amp; Verification</h3>
+          <div class="flex items-center gap-3 mb-3">
+            <img src="/images/gia.png" alt="GIA Certification" class="h-6 bg-white/90 rounded px-1.5 py-0.5" loading="lazy" decoding="async">
+            <img src="/images/igi.png" alt="IGI Certification" class="h-6 bg-white/90 rounded px-1.5 py-0.5" loading="lazy" decoding="async">
+            <img src="/images/gjepc.png" alt="GJEPC Member" class="h-6 bg-white/90 rounded px-1.5 py-0.5" loading="lazy" decoding="async">
+          </div>
+          <div class="trust-points space-y-1 text-xs">
+            <span>✓ 100% Natural &amp; Untreated Stones</span>
+            <span>✓ Lab Certification Available (GIA / IGI)</span>
+            <span>✓ Flat ₹200 Insured Domestic Shipping</span>
+            <span>✓ Free Expert Gemstone Guidance</span>
+          </div>
+        </div>
+
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-[#C5A869] block mb-2">Connect with Us</span>
+          <div class="flex items-center gap-3">
+            <a href="https://www.facebook.com/profile.php?id=61581929357076" target="_blank" rel="noopener" aria-label="Facebook">
+              <img src="/images/social/facebook.png" alt="Facebook" class="w-6 h-6 rounded-full shadow transition-opacity hover:opacity-80" loading="lazy" decoding="async">
+            </a>
+            <a href="https://www.instagram.com/gemsofnatureshop" target="_blank" rel="noopener" aria-label="Instagram">
+              <img src="/images/social/instagram.png" alt="Instagram" class="w-6 h-6 rounded shadow transition-opacity hover:opacity-80" loading="lazy" decoding="async">
+            </a>
+            <a href="https://www.linkedin.com/company/gems-of-nature" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <img src="/images/social/linkedin.png" alt="LinkedIn" class="w-6 h-6 rounded shadow transition-opacity hover:opacity-80" loading="lazy" decoding="async">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="mt-4 border-t footer-divider pt-4 text-center space-y-1">
+      <p class="text-xs text-[#D5CFC3]">
+        100% Natural Stones • Secure UPI &amp; Card Payments • Insured Pan-India &amp; International Shipping
+      </p>
+      <p class="copyright">
+        © 2026 <strong>Gems of Nature</strong>. All rights reserved.
+      </p>
     </div>
   </div>
-
-  <!-- Bottom -->
-  <div class="mt-5 border-t footer-divider pt-3 text-center space-y-1">
-    <p class="text-xs">
-      100% natural stones • Secure payments • Careful shipping
-    </p>
-    <p class="copyright">
-      © 2025 <strong>Gems of Nature</strong>. All rights reserved.
-    </p>
-  </div>
-
-</div>
 </footer>

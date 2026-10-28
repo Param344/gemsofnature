@@ -1,4 +1,11 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://gemsofnature.shop/sitemap.xml
+# Private Owner & Administrative Management
+Disallow: /owner.html
+Disallow: /api/owner/
+
+# Checkout & Transaction Processing (Prevent indexing personal cart/order steps)
+Disallow: /checkout.html
+
+Sitemap: https://www.gemsofnature.shop/sitemap.xml

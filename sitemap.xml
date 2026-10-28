@@ -8,13 +8,7 @@
     <changefreq>daily</changefreq>
   </url>
 
-  <!-- Main Pages -->
-  <url>
-    <loc>https://www.gemsofnature.shop/about.html</loc>
-    <priority>0.80</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-
+  <!-- Core Storefront & Consultation Pages -->
   <url>
     <loc>https://www.gemsofnature.shop/shop.html</loc>
     <priority>0.90</priority>
@@ -28,24 +22,83 @@
   </url>
 
   <url>
-    <loc>https://www.gemsofnature.shop/contact.html</loc>
-    <priority>0.70</priority>
+    <loc>https://www.gemsofnature.shop/about.html</loc>
+    <priority>0.80</priority>
     <changefreq>monthly</changefreq>
   </url>
 
   <url>
     <loc>https://www.gemsofnature.shop/astrology.consultation.html</loc>
+    <priority>0.80</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.gemsofnature.shop/contact.html</loc>
     <priority>0.70</priority>
     <changefreq>monthly</changefreq>
   </url>
 
-  <!-- Add your product pages if URLs exist -->
-  <!-- Example:
+  <!-- Knowledge Guides -->
   <url>
-    <loc>https://www.gemsofnature.shop/products/amethyst.html</loc>
+    <loc>https://www.gemsofnature.shop/guides/gemstone-basics.html</loc>
+    <priority>0.80</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.gemsofnature.shop/guides/how-to-choose.html</loc>
+    <priority>0.80</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.gemsofnature.shop/guides/rudraksha-guide.html</loc>
+    <priority>0.80</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.gemsofnature.shop/guides/chakras-stones.html</loc>
+    <priority>0.70</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.gemsofnature.shop/guides/how-to-wear-care.html</loc>
+    <priority>0.70</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.gemsofnature.shop/guides/faq.html</loc>
     <priority>0.60</priority>
     <changefreq>monthly</changefreq>
   </url>
-  -->
+
+  <!-- Store Policies -->
+  <url>
+    <loc>https://www.gemsofnature.shop/guides/shipping-policy.html</loc>
+    <priority>0.50</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.gemsofnature.shop/guides/returns-refunds.html</loc>
+    <priority>0.50</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.gemsofnature.shop/guides/privacy-policy.html</loc>
+    <priority>0.50</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.gemsofnature.shop/guides/terms-conditions.html</loc>
+    <priority>0.50</priority>
+    <changefreq>monthly</changefreq>
+  </url>
 
 </urlset>

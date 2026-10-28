@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "noEmit": true,
+
+    /* Strict Type-Checking Rules */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+
+    /* Code Quality & Safety */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+
+    "skipLibCheck": true,
+    "baseUrl": "."
+  },
+  "include": ["src/**/*.ts", "tests/**/*.ts", "vite.config.ts"]
+}

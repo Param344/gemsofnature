@@ -1,0 +1,19 @@
+# wrangler.toml
+# Stage 3A.1: Cloudflare Worker + D1 Configuration
+# NOTE: No real credentials or live payment secrets are stored here.
+# Production secrets must be provisioned via: wrangler secret put <KEY>
+
+name = "gemsofnature-api"
+main = "src/worker.ts"
+compatibility_date = "2024-04-01"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "gon-production-db"
+database_id = "00000000-0000-0000-0000-000000000000" # Placeholder ID: run `wrangler d1 create gon-production-db` to provision
+migrations_dir = "migrations"
+
+[vars]
+ALLOWED_ORIGIN = "https://www.gemsofnature.shop"
+RATE_LIMIT_PER_MINUTE = 60

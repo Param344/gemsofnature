@@ -41,16 +41,13 @@
   <link rel="icon" type="image/png" href="/images/logo.png">
 
   <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/gon-tailwind.css">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Global Styles -->
-  <link rel="stylesheet" href="/css/styles.css" />
-
+  <link rel="stylesheet" href="/css/gon-design-system.css">
   <link rel="stylesheet" href="/css/gon-responsive.css">
-
   <link rel="stylesheet" href="/css/contact-mobile.css" media="(max-width: 768px)">
 
   <!-- JSON-LD -->
@@ -84,7 +81,8 @@
       height: 100%;
       margin: 0;
       min-height: 100vh;
-      background-color: #ffffff;
+      background-color: #FBF9F5;
+      color: #111618;
       font-family: 'Montserrat', sans-serif;
       display: flex;
       flex-direction: column;
@@ -99,27 +97,6 @@
 
     img { background: transparent; display: block; }
 
-    /* Footer base styles */
-    footer {
-      margin-top: 0;
-      padding-top: 22px;
-      flex-shrink: 0;
-      background-color: #065f46;
-      width: 100%;
-      color: #ffffff;
-    }
-    .footer-inner {
-      padding-left: 24px;
-      padding-right: 24px;
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .footer-nowrap { white-space: nowrap; }
-
     .font-montserrat { font-family: 'Montserrat', sans-serif; }
 
     .fade-in {
@@ -131,14 +108,18 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .modal-backdrop { background: rgba(0,0,0,0.5); }
+    .modal-backdrop {
+      background: rgba(6, 40, 32, 0.65);
+      backdrop-filter: blur(4px);
+    }
 
     .card-hover {
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     }
     .card-hover:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(2,6,23,0.12);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(10, 58, 47, 0.08);
+      border-color: rgba(197, 168, 105, 0.7);
     }
 
     /* Centered content wrapper (for better mobile width) */
@@ -150,68 +131,66 @@
   </style>
 </head>
 
-<body class="bg-white text-gray-800 font-montserrat antialiased">
+<body class="bg-[#FBF9F5] text-[#111618] font-montserrat antialiased">
   <!-- Shared header placeholder -->
   <div id="header"></div>
 
   <!-- HERO -->
-  <section class="bg-gray-50 border-b border-gray-100 py-8 sm:py-10 lg:py-12">
+  <section class="bg-gradient-to-b from-[#062820] to-[#0A3A2F] text-[#FBF9F5] py-10 sm:py-14 border-b border-[#C5A869]/20">
     <div class="container mx-auto px-4 sm:px-6 lg:px-12">
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2 text-center md:text-left">
+      <h1 class="font-display text-3xl md:text-5xl font-bold text-[#FBF9F5] tracking-tight mb-2 text-center md:text-left">
         Contact Us
       </h1>
-      <p class="text-gray-700 max-w-3xl text-sm md:text-base mx-auto md:mx-0">
-        Have questions or want to place an order? Use the form or reach us via phone or email.
-        We reply within 1 business day.
+      <p class="text-[#E8E2D5] font-light max-w-3xl text-sm md:text-base mx-auto md:mx-0 leading-relaxed">
+        Have questions about gemstone suitability, order processing, or custom jewellery? Use the form below or reach out directly. Our consultation team replies within 1 business day.
       </p>
     </div>
   </section>
 
   <!-- MAIN -->
-  <main class="py-8 sm:py-10 lg:py-12 px-4 sm:px-6">
+  <main id="main" tabindex="-1" class="py-8 sm:py-10 lg:py-12 px-4 sm:px-6">
     <div class="content-inner grid gap-8 md:grid-cols-2 items-start">
       <!-- LEFT -->
       <div class="space-y-6">
-        <div class="bg-white p-6 rounded-2xl shadow card-hover fade-in">
-          <h3 class="text-xl font-semibold mb-3 text-gray-700">Get in touch</h3>
-          <p class="text-gray-700 mb-4 text-sm md:text-base">
-            Have questions or want to place an order? Use the form or reach us via phone or email.
-            We reply within 1 business day.
+        <div class="bg-white p-6 sm:p-8 rounded-2xl border border-[#E8E2D5] shadow-sm card-hover fade-in">
+          <h3 class="font-display text-xl md:text-2xl font-bold mb-3 text-[#0A3A2F]">Get in Touch</h3>
+          <p class="text-[#4B5563] mb-5 text-sm md:text-base leading-relaxed">
+            Have questions about genuine natural gemstones or Rudraksha? Connect with our Delhi studio or chat with our team directly.
           </p>
 
           <div class="grid gap-4 md:grid-cols-2">
-            <div class="p-4 bg-gray-50 rounded-lg">
-              <h4 class="font-semibold text-gray-700">Address</h4>
-              <address class="not-italic text-sm text-gray-700 mt-1">
+            <div class="p-4 bg-[#F4EFE6] border border-[#E8E2D5] rounded-xl">
+              <h4 class="font-semibold text-[#0A3A2F] text-sm">Studio Address</h4>
+              <address class="not-italic text-xs sm:text-sm text-[#4B5563] mt-1 leading-relaxed">
                 Maharshi Valmiki Marg,<br>Karkarduma Complex,<br>Anand Vihar, Delhi, 110092
               </address>
-              <p class="mt-2 text-sm">
+              <p class="mt-2 text-xs font-semibold">
                 <a href="https://www.google.com/maps/search/?api=1&query=Maharshi+Valmiki+Marg+Karkarduma+Complex+Anand+Vihar+Delhi+110092"
-                   class="underline" target="_blank" rel="noopener">
-                  Open in Google Maps
+                   class="text-[#0A3A2F] hover:text-[#C5A869] underline transition" target="_blank" rel="noopener">
+                  Open in Google Maps &rarr;
                 </a>
               </p>
             </div>
 
-            <div class="p-4 bg-gray-50 rounded-lg">
-              <h4 class="font-semibold text-gray-700">Phone &amp; Email</h4>
-              <p class="text-sm text-gray-700 mt-1">
-                <a href="tel:+917827491801" class="hover:underline">+91 78274 91801</a><br>
-                <a href="mailto:Paramjeet.singh@outlook.in" class="hover:underline">Paramjeet.singh@outlook.in</a>
+            <div class="p-4 bg-[#F4EFE6] border border-[#E8E2D5] rounded-xl">
+              <h4 class="font-semibold text-[#0A3A2F] text-sm">Phone &amp; Email</h4>
+              <p class="text-xs sm:text-sm text-[#4B5563] mt-1 leading-relaxed">
+                <a href="tel:+917827491801" class="hover:text-[#0A3A2F] transition block font-medium">+91 78274 91801</a>
+                <a href="mailto:Paramjeet.singh@outlook.in" class="hover:text-[#0A3A2F] transition block break-all">Paramjeet.singh@outlook.in</a>
               </p>
             </div>
           </div>
 
-          <div class="mt-4">
-            <h4 class="font-semibold text-gray-700">Business Hours</h4>
-            <p class="text-sm text-gray-700 mt-1">
-              Mon–Sat: 10 AM – 7 PM IST<br>Sun: Closed / By appointment
+          <div class="mt-5 p-4 bg-[#F4EFE6] border border-[#E8E2D5] rounded-xl">
+            <h4 class="font-semibold text-[#0A3A2F] text-sm">Consultation Hours</h4>
+            <p class="text-xs sm:text-sm text-[#4B5563] mt-1 leading-relaxed">
+              Mon–Sat: 10:00 AM – 7:00 PM IST<br>Sun: Closed / Prior appointment only
             </p>
           </div>
         </div>
 
         <!-- MAP -->
-        <div id="map-wrap" class="overflow-hidden rounded-2xl shadow-lg"></div>
+        <div id="map-wrap" class="overflow-hidden rounded-2xl border border-[#E8E2D5] shadow-sm"></div>
       </div>
 
       <!-- FORM -->
@@ -219,59 +198,70 @@
         id="contact-form"
         action="https://formspree.io/f/xdkyozjp"
         method="POST"
-        class="grid gap-6 bg-white p-6 sm:p-8 rounded-2xl shadow-lg fade-in"
+        class="grid gap-5 bg-white p-6 sm:p-8 rounded-2xl border border-[#E8E2D5] shadow-sm fade-in"
       >
-        <h3 class="text-xl font-semibold mb-1 text-gray-700">Send us a message</h3>
-        <p class="text-sm text-gray-600">We'll reply within 1 business day.</p>
+        <div>
+          <h3 class="font-display text-xl md:text-2xl font-bold mb-1 text-[#0A3A2F]">Send Us a Message</h3>
+          <p class="text-xs sm:text-sm text-[#4B5563]">We review every inquiry and reply within 1 business day.</p>
+        </div>
 
-        <label class="text-sm text-gray-700">
-          Name
-          <input id="name" name="name" class="w-full mt-1 px-4 py-2 border rounded-lg text-sm" required>
+        <label class="text-xs sm:text-sm font-semibold text-[#111618]">
+          Full Name
+          <input id="name" name="name" class="w-full mt-1.5 px-4 py-2.5 border border-[#E8E2D5] focus:border-[#C5A869] focus:ring-1 focus:ring-[#C5A869] rounded-xl text-sm bg-white text-[#111618] placeholder-[#8A989A] transition" placeholder="Your Name" required>
         </label>
 
-        <label class="text-sm text-gray-700">
-          Email
-          <input id="email" name="_replyto" type="email" class="w-full mt-1 px-4 py-2 border rounded-lg text-sm" required>
+        <label class="text-xs sm:text-sm font-semibold text-[#111618]">
+          Email Address
+          <input id="email" name="_replyto" type="email" class="w-full mt-1.5 px-4 py-2.5 border border-[#E8E2D5] focus:border-[#C5A869] focus:ring-1 focus:ring-[#C5A869] rounded-xl text-sm bg-white text-[#111618] placeholder-[#8A989A] transition" placeholder="name@example.com" required>
         </label>
 
-        <label class="text-sm text-gray-700">
-          Phone
-          <input id="phone" name="phone" type="tel" class="w-full mt-1 px-4 py-2 border rounded-lg text-sm">
+        <label class="text-xs sm:text-sm font-semibold text-[#111618]">
+          Phone / WhatsApp
+          <input id="phone" name="phone" type="tel" class="w-full mt-1.5 px-4 py-2.5 border border-[#E8E2D5] focus:border-[#C5A869] focus:ring-1 focus:ring-[#C5A869] rounded-xl text-sm bg-white text-[#111618] placeholder-[#8A989A] transition" placeholder="+91...">
         </label>
 
-        <label class="text-sm text-gray-700">
-          Message
+        <label class="text-xs sm:text-sm font-semibold text-[#111618]">
+          Inquiry Details
           <textarea
             id="message"
             name="message"
             rows="5"
-            class="w-full mt-1 px-4 py-2 border rounded-lg text-sm"
+            class="w-full mt-1.5 px-4 py-2.5 border border-[#E8E2D5] focus:border-[#C5A869] focus:ring-1 focus:ring-[#C5A869] rounded-xl text-sm bg-white text-[#111618] placeholder-[#8A989A] transition leading-relaxed"
+            placeholder="Tell us about the gemstone, Rudraksha, or astrological consultation you need guidance on..."
             required
           ></textarea>
         </label>
 
-        <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+        <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center pt-1">
           <button
             id="send-btn"
             type="submit"
-            class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-full flex items-center gap-3 text-sm font-semibold"
+            class="bg-[#0A3A2F] hover:bg-[#0D473A] text-[#FBF9F5] px-7 py-3.5 rounded-xl flex items-center justify-center gap-2 text-sm font-semibold transition shadow-sm w-full sm:w-auto"
           >
-            <span id="send-label">Send Message</span>
+            <span id="send-label">Send Message &rarr;</span>
           </button>
-          <div id="form-status" class="text-sm text-gray-600"></div>
+          <div id="form-status" class="text-xs text-[#4B5563]"></div>
         </div>
       </form>
     </div>
   </main>
 
   <!-- SUCCESS MODAL -->
-  <div id="success-modal" class="hidden fixed inset-0 z-50 items-center justify-center modal-backdrop p-4">
-    <div class="bg-white rounded-xl p-6 max-w-md w-full text-center">
-      <h3 class="text-2xl font-semibold text-gray-700">Message sent!</h3>
-      <p class="mt-3 text-gray-700">Thanks — we will reply shortly.</p>
+  <div id="success-modal"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="success-modal-title"
+       aria-hidden="true"
+       class="hidden fixed inset-0 z-50 items-center justify-center modal-backdrop p-4">
+    <div class="bg-[#FBF9F5] border border-[#C5A869]/30 rounded-2xl p-6 sm:p-8 max-w-md w-full text-center shadow-2xl">
+      <div class="w-12 h-12 rounded-full bg-[#EAF4F0] text-[#0A3A2F] flex items-center justify-center mx-auto mb-3 text-2xl">
+        ✅
+      </div>
+      <h3 id="success-modal-title" class="font-display text-2xl font-bold text-[#0A3A2F]">Message Received</h3>
+      <p class="mt-2 text-sm text-[#4B5563] leading-relaxed">Thank you for reaching out. A gemstone specialist will review your inquiry and respond within 1 business day.</p>
       <button
         id="close-success"
-        class="mt-6 bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-semibold"
+        class="mt-6 bg-[#0A3A2F] hover:bg-[#0D473A] text-[#FBF9F5] px-6 py-2.5 rounded-xl text-sm font-semibold transition shadow-sm"
       >
         Close
       </button>
